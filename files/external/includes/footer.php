@@ -1,19 +1,4 @@
-<footer class="page-footer grey darken-4">
-  <div class="footer-copyright">
-    <div class="container">
-    © <?php echo date('Y'); ?> <?php echo SERVER_NAME; ?> | Online: <?php echo Socket::Get('OnlineCount', array('Return' => 0)); ?>
-    <div class="right">
-      <a class="grey-text text-lighten-4" href="https://darkorbit.com/" target="_blank">DarkOrbit</a>
-      |
-      <a class="grey-text text-lighten-4" href="https://discord.gg/" target="_blank">Discord</a>
-      |
-      <a class="grey-text text-lighten-4" href="https://elitepvpers.com/" target="_blank">Elitepvpers</a>
-    </div>
-    </div>
-  </div>
-</footer>
 
-</div>
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/materialize.min.js"></script>
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/main.js"></script>

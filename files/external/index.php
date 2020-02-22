@@ -1,88 +1,82 @@
 <?php require_once(INCLUDES . 'header.php'); ?>
-
-      <div id="main" class="index">
-        <div class="container container-center">
-          <div class="row form">
-            <div class="col l6 s12 offset-l3">
-              <div class="card">
-
-                <ul class="tabs grey darken-3 tabs-fixed-width tab-demo z-depth-1">
-                  <li class="tab"><a href="#login">LOG IN</a></li>
-                  <li class="tab"><a href="#register">REGISTER</a></li>
-                </ul>
-
-                <form id="login" method="post">
-                  <div class="card-content">
-                    <div class="row">
-                      <div class="input-field col s12">
-                        <i class="material-icons prefix">person</i>
-                        <input type="text" name="username" id="l-username" maxlength="20" required>
-                        <label for="l-username">Username</label>
-                      </div>
-                      <div class="input-field col s12">
-                        <i class="material-icons prefix">lock</i>
-                        <input type="password" name="password" id="l-password" maxlength="45" required>
-                        <label for="l-password">Password</label>
-                      </div>
-                      <div class="input-field col s12">
-                        <button class="btn-large grey darken-3 waves-effect waves-light col s12">LOG IN</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-
-                <form id="register" method="post">
-                  <div class="card-content">
-                    <div class="row">
-                      <div class="input-field col s12">
-                        <i class="material-icons prefix">person</i>
-                        <input type="text" name="username" id="r-username" class="validate" maxlength="20" required>
-                        <label for="r-username">Username</label>
-                        <span class="helper-text" data-error="Enter a valid username!">Enter your username.</span>
-                      </div>
-                      <div class="input-field col s12">
-                        <i class="material-icons prefix">lock</i>
-                        <input type="email" name="email" id="r-email" class="validate" maxlength="260" required>
-                        <label for="r-email">Email</label>
-                        <span class="helper-text" data-error="Enter a valid e-mail address!">Enter your e-mail address (you'll need this for verification and recovering account).</span>
-                      </div>
-                      <div class="input-field col s12">
-                        <i class="material-icons prefix">lock</i>
-                        <input type="password" name="password" id="r-password" class="validate" maxlength="45" required>
-                        <label for="r-password">Password</label>
-                        <span class="helper-text" data-error="Enter a valid password!">Enter your password.</span>
-                      </div>
-                      <div class="input-field col s12">
-                        <i class="material-icons prefix">lock</i>
-                        <input type="password" name="password_confirm" id="r-password-confirm" class="validate" maxlength="45" required>
-                        <label for="r-password-confirm">Password Confirm</label>
-                        <span class="helper-text" data-error="Enter a valid password!">Confirm your password.</span>
-                      </div>
-                      <div class="input-field col s12">
-                        <p>
-                          <label>
-                            <input type="checkbox" name="agreement" required>
-                            <span><a class="modal-trigger" href="#modal">Terms & Conditions</a> read and accepted</span>
-                          </label>
-                        </p>
-                      </div>
-                      <div class="input-field col s12">
-                        <button class="btn-large grey darken-3 waves-effect waves-light col s12">REGISTER</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <!--<div class="card-action">
-                  <a id="reset-password" href="#" class="grey-text text-darken-2">FORGOT PASSWORD</a>
-                </div>
-                -->
-              </div>
-           </div>
-          </div>
-        </div>
-        <div id="modal" class="modal modal-fixed-footer">
+<div id="modal" class="modal modal-fixed-footer">
           <div class="modal-content center">
             <h4>Agreement Web Site Terms and Conditions of Use</h4>
+          </div>
+  </div>
+<div class="main_bar">
+  <button type="button" class="login_button" onclick="document.getElementById('id02').style.display='block'"><i class="material-icons left">person_outline</i>Login</button>
+  <img src="<?php echo DOMAIN; ?>img/login-logo.png" alt="ds_logo" class="img_logo">
+</div>
+<div class="row">
+  <div class="col-12 col-s-7">
+    <div class="contenedor_titulos">
+      <p class="title_custom">Are you the next</p>
+      <p class="title_custom">legend?</p>
+      <p class="sub_title_custom">Play now <i class="material-icons rigth">arrow_forward</i></p>
+    </div>
+  </div>
+  <div class="col-12 col-s-5">
+    <div class="contenedor_formulario">
+      <form id="register" method="post">
+        <div class="card-content">
+          <p>Username</p>
+          <input type="text" class="field_personal" placeholder="     Enter your username" name="username" id="r-username" class="validate" maxlength="20" required>
+          <p>Email</p>
+          <input type="email" class="field_personal" placeholder="     Enter your email" name="email" id="r-email" class="validate" maxlength="260" required>
+          <p>Password</p>
+          <input type="password" class="field_personal" placeholder="     Enter your password" name="password" id="r-password" class="validate" maxlength="45" required>
+          <p>Password confirm</p>
+          <input type="password" class="field_personal" placeholder="     Confirm your password" name="password_confirm" id="r-password-confirm" class="validate" maxlength="45" required>
+          <span class="helper-text" data-error="Enter a valid password!">Confirm your password.</span>
+          <div class="input-field">
+            <p>
+              <label>
+                <input type="checkbox" name="agreement" required  >
+                <span><a class="text" onclick="document.getElementById('id01').style.display='block'">Terms & Conditions</a> read and accepted</span>
+              </label>
+            </p>
+          </div>
+          <button class="reg_button">REGISTER</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+<div class="bottom_bar">
+    <p>DeathSpace is an MMO (Massive Multiplayer Online) game of space battles where </p>
+    <p>You will have to fight for the resources of the universe.</p>
+</div>
+<!-- The Modal -->
+<div id="id02" class="w3-modal">
+  <div class="w3-modal-content modal_modification">
+    <div class="w3-container">
+      <span onclick="document.getElementById('id02').style.display='none'"
+      class="w3-button w3-display-topright">&times;</span>
+      <p class="texto_login_modificado">Login</p>
+      <form id="login" method="post" >
+      <div class="card-content modal_padding">
+          <p class="texto_login_modificado">Username</p>
+          <input type="text" class="field_personal" placeholder="     Enter your username"  name="username" id="l-username" maxlength="20" required>
+          <br><br><br>
+          <p class="texto_login_modificado">Password</p>
+          <input type="password" class="field_personal" placeholder="     Enter your password" name="password" id="l-password" maxlength="45" required>
+          <br><br><br>
+          <button class="reg_button">LOG IN</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div id="id01" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <span onclick="document.getElementById('id01').style.display='none'"
+      class="w3-button w3-display-topright">&times;</span>
+      <h4>Agreement Web Site Terms and Conditions of Use</h4>
 
             <div style="padding: 15px;">
               <h4>1. Terms</h4>
@@ -153,10 +147,7 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <a id="agree" href="javascript:void(0)" class="modal-close waves-effect waves-light btn-flat">Agree</a>
-          </div>
-        </div>
-      </div>
-
+    </div>
+  </div>
+</div>
 <?php require_once(INCLUDES . 'footer.php'); ?>

@@ -2,10 +2,14 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Deathspace 10.0</title>
+    <title>DeathSpace: Multiplayer Gamer</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/style.css"/>
+    <!-- CUSTOM CSS by Lortega-->
+    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/custom/custom_index.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <?php if (Functions::IsLoggedIn() && ((isset($page[0]) && $page[0] === 'company_select') || (isset($page[0]) && $page[0] === 'clan' && isset($page[1]) && $page[1] === 'company'))) { ?>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/company-select.css"/>
     <?php } ?>

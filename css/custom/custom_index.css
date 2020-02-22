@@ -1,0 +1,300 @@
+/*
+    Diseño de los textos
+*/
+.contenedor_titulos {
+  color: white;
+  margin-left: 5em;
+}
+.title_custom {
+  font-weight: bold;
+  font-size: 64px;
+  line-height: 78px;
+}
+
+.sub_title_custom {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.main_bar {
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 99px;
+  padding-top: 1.5%;
+}
+
+.login_button {
+  color: white;
+  margin-top: 2%;
+  margin-left: 85%;
+  position: absolute;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  background: rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.login_button:hover {
+  color: black;
+  border: 1px solid #000000;
+  background: white;
+}
+
+.login_button:hover i {
+  color: black !important;
+}
+
+.img_logo {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+/*
+
+Diseño del formulario 
+
+*/
+.contenedor_formulario {
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border: 8px solid rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-right: 20px;
+}
+.field_personal {
+  padding-left: 1em !important;
+  color: black !important;
+  background: #ffffff !important;
+  border-radius: 10px !important;
+}
+input::placeholder {
+  color: gray !important;
+}
+.text {
+  color: white !important;
+  font-weight: bold !important;
+}
+.reg_button {
+  color: white;
+  font-weight: bold;
+  background: #007f00;
+  border-radius: 10px;
+  padding-left: 90px;
+  padding-right: 90px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border: none;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+/* 
+
+Diseño del footer
+
+*/
+.bottom_bar {
+  color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 70px;
+}
+/*
+
+MODIFICACION DEL MODAL 
+
+*/
+
+.modal_modification {
+  width: 80% !important;
+  height: 70% !important;
+  color: white;
+  background-color: black !important;
+}
+
+.modal_padding{
+    padding:5% !important;
+}
+
+.texto_login_modificado{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 39px;
+    display: flex;
+    align-items: center;
+}
+/* 
+
+Row responsive
+
+*/
+.row {
+  margin-top: 8%;
+  text-align: left;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 700px) {
+  /* For tablets: */
+  .col-s-1 {
+    width: 8.33%;
+  }
+  .col-s-2 {
+    width: 16.66%;
+  }
+  .col-s-3 {
+    width: 25%;
+  }
+  .col-s-4 {
+    width: 33.33%;
+  }
+  .col-s-5 {
+    width: 41.66%;
+  }
+  .col-s-6 {
+    width: 50%;
+  }
+  .col-s-7 {
+    width: 58.33%;
+  }
+  .col-s-8 {
+    width: 66.66%;
+  }
+  .col-s-9 {
+    width: 75%;
+  }
+  .col-s-10 {
+    width: 83.33%;
+  }
+  .col-s-11 {
+    width: 91.66%;
+  }
+  .col-s-12 {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* For desktop: */
+  .col-1 {
+    width: 8.33%;
+  }
+  .col-2 {
+    width: 16.66%;
+  }
+  .col-3 {
+    width: 25%;
+  }
+  .col-4 {
+    width: 33.33%;
+  }
+  .col-5 {
+    width: 41.66%;
+  }
+  .col-6 {
+    width: 50%;
+  }
+  .col-7 {
+    width: 58.33%;
+  }
+  .col-8 {
+    width: 66.66%;
+  }
+  .col-9 {
+    width: 75%;
+  }
+  .col-10 {
+    width: 83.33%;
+  }
+  .col-11 {
+    width: 91.66%;
+  }
+  .col-12 {
+    width: 100%;
+  }
+}
+
+/* CUSTOM media SCREEN */
+
+@media only screen and (max-width: 1300px) {
+  .title_custom {
+    font-size: 44px;
+    line-height: 58px;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .login_button {
+    margin-left: 80%;
+  }
+}
+@media only screen and (max-width: 950px) {
+  .contenedor_formulario {
+    margin-right: 10px;
+  }
+  .reg_button {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .title_custom {
+    font-size: 34px;
+    line-height: 48px;
+  }
+  .row {
+    margin-top: 9%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .login_button {
+    margin-left: 78%;
+  }
+  .row {
+    margin-top: 15%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .login_button {
+    margin-left: 68%;
+  }
+  .row {
+    margin-top: 15%;
+  }
+}
