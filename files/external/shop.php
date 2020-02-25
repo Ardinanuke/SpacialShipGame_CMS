@@ -1,22 +1,21 @@
 <?php require_once(INCLUDES . 'header.php'); $shop = Functions::GetShop(); ?>
-
       <div id="main">
         <div class="container">
           <div class="row">
             <?php require_once(INCLUDES . 'data.php'); ?>
 
-              <div class="card white-text grey darken-4 center padding-15">
-                <h5>SHOP</h5>
+              <div class="card white-text grey darken-4 padding-15">
+              <h5 style="font-weight: bold;">Shop</h5>
 
-                <ul class="tabs grey darken-3 tabs-fixed-width tab-demo z-depth-1">
+                <ul class="tabs custom_tabs grey darken-3 tabs-fixed-width tab-demo z-depth-1">
                 <?php foreach ($shop['categories'] as $value) { ?>
-                  <li class="tab"><a href="#<?php echo $value; ?>"><?php echo $value; ?></a></li>
+                  <li class="tab custom_tab"><a href="#<?php echo $value; ?>"><?php echo $value; ?></a></li>
                 <?php } ?>
                 </ul>
 
                 <?php foreach ($shop['categories'] as $value) { ?>
                   <div id="<?php echo $value; ?>">
-                    <div class="row">
+                    <div class="row center">
                       <?php foreach ($shop['items'] as $value2) { if ($value2['category'] == $value && $value2['active']) { ?>
                       <div class="col m3 s2">
                         <div id="item-<?php echo $value2['id']; ?>" class="card grey darken-3">
