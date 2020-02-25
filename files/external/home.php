@@ -107,7 +107,7 @@
           <strong>DeathSpaces is now ONLINE!</strong>
           <br><br>
           <p>After weeks of hard work, we are ready to start this new adventure! Invite your friends. <br> <br> The galaxy gates and events will arrive soon, don't despair!
-            <br><br> <strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">Facebook </a></strong> </p>
+            <br><br> <strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
         </div>
         <div class="mySlides">
           <img src="https://i.imgur.com/3BUpClT.jpg" style="width:100%">
@@ -115,7 +115,7 @@
           <strong>Play right now with 2D / 3D</strong>
           <br><br>
           <p>Get a more realistic experience with the deathspace 3D graphics engine. <br> <br> You can change 2D / 3D from "Settings"
-          <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">Facebook </a></strong> <br><br> </p>
+          <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> <br><br> </p>
         </div>
 
 
