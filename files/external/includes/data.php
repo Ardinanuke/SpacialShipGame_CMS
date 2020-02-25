@@ -12,6 +12,6 @@
     Experience: <span><?php echo number_format($data->experience, 0, ',', '.'); ?></span>
   </div>
   <div class="col-3">
-    Event Coins: <span><?php echo number_format($data->experience, 0, ',', '.'); ?></span>
+    Event Coins: <span>0</span>
   </div>
 </div>
