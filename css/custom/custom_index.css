@@ -209,6 +209,8 @@ Row responsive
   .col-s-12 {
     width: 100%;
   }
+  
+  
 }
 @media only screen and (max-width: 768px) {
   /* For desktop: */
@@ -248,21 +250,32 @@ Row responsive
   .col-12 {
     width: 100%;
   }
+  
 }
 
 /* CUSTOM media SCREEN */
+
+.contenedor_boxes {
+  display: flex;
+}
 
 @media only screen and (max-width: 1300px) {
   .title_custom {
     font-size: 44px;
     line-height: 58px;
   }
+  
 }
 
-@media only screen and (max-width: 1280px) {
+
+@media only screen and (max-width: 1024px) {
   .login_button {
     margin-left: 80%;
   }
+  .contenedor_boxes {
+    display: block !important;
+  }
+  
 }
 @media only screen and (max-width: 950px) {
   .contenedor_formulario {
@@ -278,6 +291,9 @@ Row responsive
   }
   .row_custom {
     margin-top: 9%;
+  }
+  .contenedor_boxes {
+    display: block !important;
   }
 }
 
@@ -350,9 +366,7 @@ HOME CSS
 .polygon2:hover {
   background: rgba(0, 127, 0, 0.7);
 }
-.contenedor_boxes {
-  display: flex !important;
-}
+
 
 .box_hall {
   padding: 0px !important;
@@ -387,14 +401,14 @@ HOME CSS
   z-index: 1;
 }
 
-li a{
+li a {
   padding-left: 2em;
 }
 
-li:hover .menu_dropdown{
+li:hover .menu_dropdown {
   display: block;
 }
 
-.no_float{
+.no_float {
   float: initial !important;
 }

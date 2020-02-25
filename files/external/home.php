@@ -28,8 +28,8 @@
     </div>
   </div>
 
-  <div class="contenedor_boxes col s12">
-    <div class="box_hall col-4">
+  <div class="contenedor_boxes" >
+    <div class="box_hall col-12">
       <div class="white-text grey darken-4">
         <div class="padding-15">
           <h5 style="font-weight: bold;">HALL OF FAME</h5>
@@ -97,7 +97,7 @@
         </div>
       </div>
     </div>
-    <div class="box_news white-text grey darken-4 col-4">
+    <div class="box_news white-text grey darken-4 col-12">
       <h5 style="font-weight: bold;">NEWS</h5>
       <div class="w3-content w3-display-container">
         <div class="mySlides">
@@ -147,7 +147,7 @@
         }
       </script>
     </div>
-    <div class="box_events white-text grey darken-4 col-4">
+    <div class="box_events white-text grey darken-4 col-12">
       <h5 style="font-weight: bold;">UPCOMING EVENTS</h5>
       <div style="text-align:center;">
         <h4><a style="text-decoration:none;"><br />Server time</a></h4> <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=small&timezone=America%2FMexico_City" width="100%" height="90" frameborder="0" seamless></iframe>
