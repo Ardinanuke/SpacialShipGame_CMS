@@ -3,7 +3,6 @@
       <div id="main">
         <div class="container">
           <div class="row">
-            <div class="col s12">
               <div class="card white-text grey darken-4 padding-15">
                 <h5>SETTINGS</h5>
                   <div class="row">
@@ -36,7 +35,6 @@
                     </div>
                   </div>
               </div>
-           </div>
           </div>
         </div>
       </div>

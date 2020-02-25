@@ -1,59 +1,72 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>DeathSpace: Multiplayer Gamer</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/style.css"/>
-    <!-- CUSTOM CSS by Lortega-->
-    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/custom/custom_index.css"/>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-    <?php if (Functions::IsLoggedIn() && ((isset($page[0]) && $page[0] === 'company_select') || (isset($page[0]) && $page[0] === 'clan' && isset($page[1]) && $page[1] === 'company'))) { ?>
-    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/company-select.css"/>
-    <?php } ?>
-    <?php if (Functions::IsLoggedIn() && (isset($page[0]) && $page[0] === 'skill_tree')) { ?>
-    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/skill-tree.css"/>
-    <?php } ?>
-  </head>
-  <body>
-    <div id="app">
+<head>
+  <meta charset="utf-8">
+  <title>DeathSpace: Multiplayer Gamer</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/style.css" />
+  <!-- CUSTOM CSS by Lortega-->
+  <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/custom/custom_index.css" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-      <?php if (Functions::IsLoggedIn()) { ?>
-      <ul id="dropdown1" class="dropdown-content">
-        <li><a href="<?php echo DOMAIN; ?>ships">Ships</a></li>
-        <li><a href="<?php echo DOMAIN; ?>equipment">Equipment</a></li>
-        <li><a href="<?php echo DOMAIN; ?>skill-tree">Skill Tree</a></li>
-      </ul>
-      <ul id="dropdown2" class="dropdown-content">
+  <?php if (Functions::IsLoggedIn() && ((isset($page[0]) && $page[0] === 'company_select') || (isset($page[0]) && $page[0] === 'clan' && isset($page[1]) && $page[1] === 'company'))) { ?>
+    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/company-select.css" />
+  <?php } ?>
+  <?php if (Functions::IsLoggedIn() && (isset($page[0]) && $page[0] === 'skill_tree')) { ?>
+    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/skill-tree.css" />
+  <?php } ?>
+</head>
 
-        <?php if ($player['clanId'] <= 0) { ?>
-        <li><a href="<?php echo DOMAIN; ?>clan/join">Join</a></li>
-        <li><a href="<?php echo DOMAIN; ?>clan/found">Found</a></li>
-
-        <?php } else { ?>
-        <li><a href="<?php echo DOMAIN; ?>clan/informations">Informations</a></li>
-        <li><a href="<?php echo DOMAIN; ?>clan/members">Members</a></li>
-        <li><a href="<?php echo DOMAIN; ?>clan/diplomacy">Diplomacy</a></li>
-        <?php }?>
-
-        <li><a href="<?php echo DOMAIN; ?>clan/company">Company</a></li>
-      </ul>
-      <nav>
-        <div class="nav-wrapper grey darken-4">
-          <div class="container">
-          <a href="<?php echo DOMAIN; ?>" class="brand-logo"><?php echo SERVER_NAME; ?></a>
-          <ul class="right hide-on-med-and-down">
-            <li class="grey darken-3"><a href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a></li>
-            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Hangar<i class="material-icons right">arrow_drop_down</i></a></li>
-            <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Clan<i class="material-icons right">arrow_drop_down</i></a></li>
-            <li><a href="<?php echo DOMAIN; ?>shop">Shop</a></li>
-            <li><a href="<?php echo DOMAIN; ?>donate">Donate</a></li>
-            <li><a href="<?php echo DOMAIN; ?>settings">Settings</a></li>
-            <li><a href="/api/logout">Logout</a></li>
-          </ul>
-          </div>
+<body>
+  <?php if (Functions::IsLoggedIn()) { ?>
+    <style>
+      body {
+        background: url('../img/backgroundEIC.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+      }
+    </style>
+    <div class="container_head">
+      <a href="<?php echo DOMAIN; ?>map-revolution" target="_blank">
+        <div class="polygon2">
+          <p class="texto_poly">START</p>
         </div>
-      </nav>
-      <?php } ?>
+      </a>
+
+      <div class="container custom_container">
+        <h1 class="server_name">DeathSpace</h1>
+        <nav class="grey darken-4">
+          <ul>
+            <li><a href="<?php echo DOMAIN; ?>"><i class="material-icons left">home</i>Home</a></li>
+            <li><a><i class="material-icons left">flight</i>Hangar <i class="material-icons right">keyboard_arrow_down</i></a>
+              <ol class="menu_dropdown grey darken-4">
+                <li class="no_float"><a href="<?php echo DOMAIN; ?>ships">SHIPS</a></li>
+                <li class="no_float"><a href="<?php echo DOMAIN; ?>equipment">EQUIPMENT</a></li>
+                <li class="no_float"><a href="<?php echo DOMAIN; ?>skill_tree">SKILL TREE</a></li>
+              </ol>
+            </li>
+            <li><a><i class="material-icons left">group</i>Clan <i class="material-icons right">keyboard_arrow_down</i></a>
+              <ol class="menu_dropdown grey darken-4">
+                <?php if ($player['clanId'] <= 0) { ?>
+                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/join">JOIN</a></li>
+                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/found">FOUND</a></li>
+                <?php } else { ?>
+                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/informations">INFORMATIONS</a></li>
+                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/members">MEMBERS</a></li>
+                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/diplomacy">DIPLOMACY</a></li>
+                <?php } ?>
+                <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/company">COMPANY</a></li>
+              </ol>
+            </li>
+            <li><a href="<?php echo DOMAIN; ?>shop"><i class="material-icons left">attach_money</i>Shop</a></li>
+            <li><a href="<?php echo DOMAIN; ?>ships"><i class="material-icons left">data_usage</i>Galaxy Gates</a></li>
+            <li><a href="<?php echo DOMAIN; ?>settings"><i class="material-icons left">settings</i>Settings</a></li>
+            <li><a href="/api/logout"><i class="material-icons left">input</i> Exit</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  <?php } ?>

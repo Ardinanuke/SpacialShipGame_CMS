@@ -128,34 +128,34 @@ MODIFICACION DEL MODAL
 */
 
 .modal_modification {
-  width: 80% !important;
+  width: 50% !important;
   height: 70% !important;
   color: white;
   background-color: black !important;
 }
 
-.modal_padding{
-    padding:5% !important;
+.modal_padding {
+  padding: 5% !important;
 }
 
-.texto_login_modificado{
-    font-style: normal;
-    font-weight: bold;
-    font-size: 32px;
-    line-height: 39px;
-    display: flex;
-    align-items: center;
+.texto_login_modificado {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 39px;
+  display: flex;
+  align-items: center;
 }
 /* 
 
 Row responsive
 
 */
-.row {
+.row_custom {
   margin-top: 8%;
   text-align: left;
 }
-.row::after {
+.row_custom::after {
   content: "";
   clear: both;
   display: table;
@@ -276,7 +276,7 @@ Row responsive
     font-size: 34px;
     line-height: 48px;
   }
-  .row {
+  .row_custom {
     margin-top: 9%;
   }
 }
@@ -285,7 +285,7 @@ Row responsive
   .login_button {
     margin-left: 78%;
   }
-  .row {
+  .row_custom {
     margin-top: 15%;
   }
 }
@@ -294,7 +294,107 @@ Row responsive
   .login_button {
     margin-left: 68%;
   }
-  .row {
+  .row_custom {
     margin-top: 15%;
   }
+}
+/*
+
+HOME CSS
+
+
+*/
+
+.polygon2 {
+  width: 375px !important;
+  height: 70px !important;
+  -webkit-clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+  clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+  text-align: center;
+  background: rgba(0, 127, 0, 0.5);
+  border: 5px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  cursor: pointer;
+}
+
+.custom_container {
+  margin-top: 2em;
+}
+
+.custom_container nav ul li:hover {
+  background: #2f2f2f !important;
+  cursor: pointer;
+}
+
+.custom_container nav ul li i {
+  margin-top: 0.2em;
+}
+
+.server_name {
+  color: white !important;
+  font-weight: bold;
+}
+
+.custom_data {
+  color: white;
+  background: #2f2f2f !important;
+  display: flex;
+}
+
+.polygon2:hover {
+  background: rgba(0, 127, 0, 0.7);
+}
+.contenedor_boxes {
+  display: flex !important;
+}
+
+.box_hall {
+  padding: 0px !important;
+}
+
+.event {
+  background: #2f2f2f;
+  padding: 1em;
+  border-radius: 1em;
+  margin-bottom: 1em;
+}
+
+.event_active {
+  margin-top: 1em;
+  border-style: solid;
+  border-color: rgba(0, 127, 0, 0.5);
+}
+
+.dot {
+  height: 10px;
+  margin-right: 1em;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.menu_dropdown {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  z-index: 1;
+}
+
+li a{
+  padding-left: 2em;
+}
+
+li:hover .menu_dropdown{
+  display: block;
+}
+
+.no_float{
+  float: initial !important;
 }

@@ -8,7 +8,7 @@
   <button type="button" class="login_button" onclick="document.getElementById('id02').style.display='block'"><i class="material-icons left">person_outline</i>Login</button>
   <img src="<?php echo DOMAIN; ?>img/login-logo.png" alt="ds_logo" class="img_logo">
 </div>
-<div class="row">
+<div class="row row_custom">
   <div class="col-12 col-s-7">
     <div class="contenedor_titulos">
       <p class="title_custom">Are you the next</p>
@@ -59,10 +59,10 @@
       <div class="card-content modal_padding">
           <p class="texto_login_modificado">Username</p>
           <input type="text" class="field_personal" placeholder="     Enter your username"  name="username" id="l-username" maxlength="20" required>
-          <br><br><br>
+          <br><br>
           <p class="texto_login_modificado">Password</p>
           <input type="password" class="field_personal" placeholder="     Enter your password" name="password" id="l-password" maxlength="45" required>
-          <br><br><br>
+          <br><br>
           <button class="reg_button">LOG IN</button>
         </div>
       </form>
