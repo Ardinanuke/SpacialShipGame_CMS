@@ -1137,6 +1137,7 @@ class Functions {
       }
 
       if (($shop['items'][$itemId]['priceType'] == 'uridium' ? $data->uridium : $data->credits) >= $price) {
+
           $data->{($shop['items'][$itemId]['priceType'] == 'uridium' ? 'uridium' : 'credits')} -= $price;
 
           $status = false;
@@ -1158,6 +1159,41 @@ class Functions {
           } else if ($shop['items'][$itemId]['name'] == 'Logdisk') {
             $items->skillTree->logdisks += $amount;
             $status = true;
+          }else if ($shop['items'][$itemId]['name'] == 'Pusat') {
+            if(!in_array(81, $items->ships)){
+              array_push($items->ships, 81);
+              $status = true;
+            }else{
+              $json['message'] = 'You already have an '.$shop['items'][$itemId]['name'].'.';
+            }
+          }else if ($shop['items'][$itemId]['name'] == 'Vengeance') {
+            if(!in_array(8, $items->ships)){
+              array_push($items->ships, 8);
+              $status = true;
+            }else{
+              $json['message'] = 'You already have an '.$shop['items'][$itemId]['name'].'.';
+            }    
+          }else if ($shop['items'][$itemId]['name'] == 'Leonov') {
+            if(!in_array(3, $items->ships)){
+              array_push($items->ships, 3);
+              $status = true;
+            }else{
+              $json['message'] = 'You already have an '.$shop['items'][$itemId]['name'].'.';
+            }
+          }else if ($shop['items'][$itemId]['name'] == 'BigBoy') {
+            if(!in_array(9, $items->ships)){
+              array_push($items->ships, 9);
+              $status = true;
+            }else{
+              $json['message'] = 'You already have an '.$shop['items'][$itemId]['name'].'.';
+            }
+          }else if ($shop['items'][$itemId]['name'] == 'Nostromo') {
+            if(!in_array(7, $items->ships)){
+              array_push($items->ships, 7);
+              $status = true;
+            }else{
+              $json['message'] = 'You already have an '.$shop['items'][$itemId]['name'].'.';
+            }
           }
 
           if ($status) {
@@ -1407,13 +1443,13 @@ class Functions {
 
   public static function GetShop() {
     return [
-      'categories' => ['drones', 'extras'],
+      'categories' => ['drones', 'ships', 'designs', 'extras' ],
       'items' => [
         [
           'id' => 0,
           'category' => 'drones',
           'name' => 'Apis',
-          'price' => 100000,
+          'price' => 0,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/drone/apis-5_top.png',
@@ -1423,7 +1459,7 @@ class Functions {
           'id' => 1,
           'category' => 'drones',
           'name' => 'Zeus',
-          'price' => 100000,
+          'price' => 0,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/drone/zeus-5_top.png',
@@ -1437,6 +1473,106 @@ class Functions {
           'priceType' => 'uridium',
           'amount' => true,
           'image' => 'do_img/global/items/resource/logfile_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 3,
+          'category' => 'ships',
+          'name' => 'Pusat',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/pusat_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 4,
+          'category' => 'ships',
+          'name' => 'Vengeance',
+          'price' => 30000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/vengeance_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 5,
+          'category' => 'ships',
+          'name' => 'Leonov',
+          'price' => 15000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/leonov_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 6,
+          'category' => 'ships',
+          'name' => 'BigBoy',
+          'price' => 285000,
+          'priceType' => 'credit',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/bigboy_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 7,
+          'category' => 'ships',
+          'name' => 'Nostromo',
+          'price' => 195000,
+          'priceType' => 'credit',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/nostromo_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 13,
+          'category' => 'designs',
+          'name' => 'Vengeance Lightning',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/vengeance/design/lightning_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 8,
+          'category' => 'designs',
+          'name' => 'Goliath Referee',
+          'price' => 50000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/referee_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 9,
+          'category' => 'designs',
+          'name' => 'Artic Spectrum',
+          'price' => 50000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/spectrum/design/spectrum-frost_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 10,
+          'category' => 'designs',
+          'name' => 'Artic Sentinel',
+          'price' => 50000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/sentinel/design/sentinel-frost_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 11,
+          'category' => 'designs',
+          'name' => 'Goliath Kick',
+          'price' => 50000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/kick_100x100.png',
           'active' => true
         ]
       ]
@@ -1759,5 +1895,3 @@ class Functions {
     }
 	}
 }
-
-?>

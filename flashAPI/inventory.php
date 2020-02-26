@@ -713,8 +713,8 @@ function GetDesignsLootIds()
 		'ship_vengeance_design_adept',
 		'ship_vengeance_design_corsair',
 		'ship_vengeance_design_avenger',
-		'ship_vengeance_design_revenge',
-		'ship_vengeance_design_lightning'];
+		'ship_vengeance_design_revenge'];
+		/* 'ship_vengeance_design_lightning' */
 		$ships = array_merge($ships, $currentDesigns);
 	} else if ($currentShip['baseShipId'] == 10) {
 		$currentDesigns = [
@@ -729,11 +729,10 @@ function GetDesignsLootIds()
 		'ship_goliath_design_exalted',
 		'ship_goliath_design_crimson',
 		'ship_goliath_design_ignite',
-		'ship_goliath_design_centaur',
-		'ship_goliath_design_goliath-razer'];
+		'ship_goliath_design_centaur'];
 		$ships = array_merge($ships, $currentDesigns);
 	}
-
+	
 	$designs =json_decode($equipment['items'])->designs;
 
 	if (property_exists($designs, $currentShip['baseShipId']))

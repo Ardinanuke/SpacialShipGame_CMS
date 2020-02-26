@@ -413,10 +413,18 @@ SHOP CSS
 */
 .custom_tab{
   display: block !important;
+  text-align: initial !important;
+  margin: 1em !important;
 }
 .custom_tabs{
   display: block !important;
+  margin: 0 !important;
+  width: 300px !important;
+  height: 700px !important;
+}
 
-  width: 500px !important;
-  height: 500px !important;
+.custom_list{
+  width: 100%;
+  height: 700px !important;
+  overflow: auto;
 }
