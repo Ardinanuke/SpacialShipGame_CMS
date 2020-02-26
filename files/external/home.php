@@ -100,6 +100,14 @@
     <div class="box_news white-text grey darken-4 col-12">
       <h5 style="font-weight: bold;">NEWS</h5>
       <div class="w3-content w3-display-container">
+      <div class="mySlides">
+          <img src="https://i.imgur.com/BScLR9j.jpg" style="width:100%">
+          <br><br>
+          <strong>DeathSpace UPDATE 26/07/2020</strong>
+          <br><br>
+          <p> * Shop working <br> * News ship designs <br> * Hangar > Ships implemented <br> * Aliens implemented <br> * New MAP system
+          <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> <br> </p>
+        </div>
         <div class="mySlides">
           <iframe width="100%" height=250px src="https://www.youtube.com/embed/N-_mhCi-fQY">
           </iframe>
@@ -145,6 +153,11 @@
           }
           x[slideIndex - 1].style.display = "block";
         }
+
+        setInterval(() => {
+          plusDivs(1)
+        }, 8000);
+
       </script>
     </div>
     <div class="box_events white-text grey darken-4 col-12">
