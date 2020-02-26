@@ -41,8 +41,12 @@ try {
 		*/
 
 		CreateDrone(2, 0, 8); //iris
-		if ($apis) { CreateDrone(3, 8, 1); } //Apis
-		if ($zeus) { CreateDrone(4, $apis ? 9 : 8, 1); }//Zeus
+		if ($apis) {
+			CreateDrone(3, 8, 1);
+		} //Apis
+		if ($zeus) {
+			CreateDrone(4, $apis ? 9 : 8, 1);
+		} //Zeus
 
 		CreateItem(7, 0, 40); //lf-3
 		CreateItem(0, 40, 60); //bo-2
@@ -60,17 +64,13 @@ try {
 			5 => 'You cannot change spaceships until the 5 second cool-down has been completed.'
 		];
 
-		if (!empty($_POST))
-		{
-			if($_POST['action'] == 'init')
-			{
-				if(!empty($_POST['params']))
-				{
+		if (!empty($_POST)) {
+			if ($_POST['action'] == 'init') {
+				if (!empty($_POST['params'])) {
 					$decoded = base64_decode($_POST['params']);
 					$json_array = json_decode($decoded, true);
 
-					if($json_array['nr'] == 1)
-					{
+					if ($json_array['nr'] == 1) {
 						$json = '{
 							"isError": 0,
 							"data": {
@@ -98,53 +98,53 @@ try {
 								},
 								"hangars": [
 								{
-									"hangarID": "'.$player['userId'].'",
+									"hangarID": "' . $player['userId'] . '",
 									"name": "",
 									"hangar_is_active": true,
 									"hangar_is_selected": true,
 									"general": {
 									"ship": {
-										"L": '.$currentShip['id'].',
-										"SM": "'.GetCurrentShipLootId().'",
+										"L": ' . $currentShip['id'] . ',
+										"SM": "' . GetCurrentShipLootId() . '",
 										"M": [
-										'.GetDesignsLootIds().'
+										' . GetDesignsLootIds() . '
 										]
 									},
-									"drones": '.json_encode($drones).'
+									"drones": ' . json_encode($drones) . '
 									},
 									"config": {
 									"1": {
 										"ship": {
 										"EQ": {
-											"lasers": '.$equipment['config1_lasers'].',
-											"generators": '.$equipment['config1_generators'].',
+											"lasers": ' . $equipment['config1_lasers'] . ',
+											"generators": ' . $equipment['config1_generators'] . ',
 											"extras": [
 
 											]
 										}
 										},
 										"drones": {
-										'.GetConfigDrones(1).'
+										' . GetConfigDrones(1) . '
 										}
 									},
 									"2": {
 										"ship": {
 										"EQ": {
-											"lasers": '.$equipment['config2_lasers'].',
-											"generators": '.$equipment['config2_generators'].',
+											"lasers": ' . $equipment['config2_lasers'] . ',
+											"generators": ' . $equipment['config2_generators'] . ',
 											"extras": [
 
 											]
 										}
 										},
 										"drones": {
-										'.GetConfigDrones(2).'
+										' . GetConfigDrones(2) . '
 										}
 									}
 									}
 								}
 								],
-								"items": '.json_encode($items).',
+								"items": ' . json_encode($items) . ',
 								"itemInfo": [
 									{
 										"L": 0,
@@ -152,7 +152,7 @@ try {
 										"T": 4,
 										"C": "generator",
 										"levels": [
-											'.GetCurrentItemLevelsInformation().'
+											' . GetCurrentItemLevelsInformation() . '
 										]
 									},
 									{
@@ -161,7 +161,7 @@ try {
 										"T": 3,
 										"C": "generator",
 										"levels": [
-											'.GetCurrentItemLevelsInformation().'
+											' . GetCurrentItemLevelsInformation() . '
 										]
 									},
 									{
@@ -172,7 +172,7 @@ try {
 										"repair": 500,
 										"currency": "uridium",
 										"levels": [
-										'.GetDroneLevelsInformation().'
+										' . GetDroneLevelsInformation() . '
 										]
 									},
 									{
@@ -183,7 +183,7 @@ try {
 										"repair": 500,
 										"currency": "uridium",
 										"levels": [
-										'.GetDroneLevelsInformation().'
+										' . GetDroneLevelsInformation() . '
 										]
 									},
 									{
@@ -194,7 +194,7 @@ try {
 										"repair": 500,
 										"currency": "uridium",
 										"levels": [
-										'.GetDroneLevelsInformation().'
+										' . GetDroneLevelsInformation() . '
 										]
 									},
 									{
@@ -203,7 +203,7 @@ try {
 										"T": 16,
 										"C": "ship",
 										"levels": [
-											'.GetCurrentItemLevelsInformation().'
+											' . GetCurrentItemLevelsInformation() . '
 										]
 									},
 									{
@@ -212,7 +212,7 @@ try {
 										"T": 16,
 										"C": "ship",
 										"levels": [
-											'.GetCurrentItemLevelsInformation().'
+											' . GetCurrentItemLevelsInformation() . '
 										]
 									},
 									{
@@ -221,7 +221,7 @@ try {
 										"T": 0,
 										"C": "laser",
 										"levels": [
-											'.GetCurrentItemLevelsInformation().'
+											' . GetCurrentItemLevelsInformation() . '
 										]
 									},
 									{
@@ -230,19 +230,19 @@ try {
 										"T": 0,
 										"C": "laser",
 										"levels": [
-											'.GetCurrentItemLevelsInformation().'
+											' . GetCurrentItemLevelsInformation() . '
 										]
 									},
-									'.GetShipInformation(9, 49).',
-									'.GetShipInformation(10, 49).',
-									'.GetShipInformation(11, 49).',
-									'.GetShipInformation(12, 69).',
-									'.GetShipInformation(13, 69).',
-									'.GetShipInformation(14, 69).',
-									'.GetShipInformation(15, 70).',
-									'.GetShipInformation(16, 70).',
-									'.GetShipInformation(17, 70).',
-									'.GetAllShipInformations().'
+									' . GetShipInformation(9, 49) . ',
+									' . GetShipInformation(10, 49) . ',
+									' . GetShipInformation(11, 49) . ',
+									' . GetShipInformation(12, 69) . ',
+									' . GetShipInformation(13, 69) . ',
+									' . GetShipInformation(14, 69) . ',
+									' . GetShipInformation(15, 70) . ',
+									' . GetShipInformation(16, 70) . ',
+									' . GetShipInformation(17, 70) . ',
+									' . GetAllShipInformations() . '
 								],
 								"userInfo": {
 								"factionRelated": "mmo"
@@ -297,7 +297,7 @@ try {
 								"ship_spearhead-mmo",
 								"ship_spearhead-eic",
 								"ship_spearhead-vru",
-								'.GetAllShipLootIds().'
+								' . GetAllShipLootIds() . '
 								]
 							}
 							}
@@ -307,20 +307,13 @@ try {
 						echo base64_encode($json);
 					}
 				}
-			}
-			else if($_POST['action'] == 'sell')
-			{
+			} else if ($_POST['action'] == 'sell') {
 				SendError($error[0]);
-			}
-			else if($_POST['action'] == 'sellShip')
-			{
+			} else if ($_POST['action'] == 'sellShip') {
 				SendError($error[1]);
-			}
-			else if($_POST['action'] == 'sellDrone')
-			{
+			} else if ($_POST['action'] == 'sellDrone') {
 				SendError($error[2]);
-			}
-			else if($_POST['action'] == 'changeShipModel') {
+			} else if ($_POST['action'] == 'changeShipModel') {
 				$decoded = base64_decode($_POST['params']);
 				$json_array = json_decode($decoded, true);
 
@@ -342,12 +335,12 @@ try {
 						break;
 				}
 
-				$ship = $mysqli->query('SELECT * FROM server_ships WHERE lootID = "'.$json_array['lootId'].'"')->fetch_assoc();
+				$ship = $mysqli->query('SELECT * FROM server_ships WHERE lootID = "' . $json_array['lootId'] . '"')->fetch_assoc();
 
 				if ($ship['baseShipId'] == $currentShip['baseShipId']) {
 					if ($notOnlineOrOnlineAndInEquipZone) {
 						if (!Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) || (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) && Socket::Get('AvailableToChangeShip', array('UserId' => $player['userId'], 'Return' => false)))) {
-							$mysqli->query('UPDATE player_accounts SET shipId = '.$ship['shipID'].' WHERE userID = '.$player['userId'].'');
+							$mysqli->query('UPDATE player_accounts SET shipId = ' . $ship['shipID'] . ' WHERE userID = ' . $player['userId'] . '');
 
 							echo base64_encode('{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}');
 
@@ -364,14 +357,13 @@ try {
 				} else {
 					SendError($error[4]);
 				}
-			}
-			else if($_POST['action'] == 'clearConfig') {
+			} else if ($_POST['action'] == 'clearConfig') {
 				if ($notOnlineOrOnlineAndInEquipZone) {
 					$decoded = base64_decode($_POST['params']);
 					$json_array = json_decode($decoded, true);
 
 					$drones = '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]';
-					$mysqli->query("UPDATE player_equipment SET config".$json_array['configID']."_lasers = '[]', config".$json_array['configID']."_generators = '[]', config".$json_array['configID']."_drones = '".$drones."' WHERE userId = ".$player['userId']."");
+					$mysqli->query("UPDATE player_equipment SET config" . $json_array['configID'] . "_lasers = '[]', config" . $json_array['configID'] . "_generators = '[]', config" . $json_array['configID'] . "_drones = '" . $drones . "' WHERE userId = " . $player['userId'] . "");
 
 					if (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
 						Socket::Send('UpdateStatus', array('UserId' => $player['userId']));
@@ -381,16 +373,14 @@ try {
 				} else {
 					SendError($error[3]);
 				}
-			}
-			else if ($_POST['action'] == "droneEquip")
-			{
+			} else if ($_POST['action'] == "droneEquip") {
 				if ($notOnlineOrOnlineAndInEquipZone) {
 					$data = '{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}';
 					$decoded = base64_decode($_POST['params']);
 					$json_array = json_decode($decoded, true);
 
-					$toType = 'config'.$json_array['to']['configId'].'_drones';
-					$array = json_decode($mysqli->query('SELECT '.$toType.' FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc()[$toType]);
+					$toType = 'config' . $json_array['to']['configId'] . '_drones';
+					$array = json_decode($mysqli->query('SELECT ' . $toType . ' FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()[$toType]);
 					$max_item = 2;
 
 					if (count($array[0]->items) >= $max_item || count($array[count($array) - 1]->items) >= $max_item) {
@@ -409,8 +399,8 @@ try {
 							}
 						}
 					} else {
-						foreach($json_array['from']['droneItems'] as $key => $item) {
-							foreach($item as $slots) {
+						foreach ($json_array['from']['droneItems'] as $key => $item) {
+							foreach ($item as $slots) {
 								if (in_array($slots, $havocs) || in_array($slots, $herculess)) {
 									$i = 0;
 									if ($i < 1) {
@@ -430,7 +420,7 @@ try {
 
 					$array = array_values($array);
 					$json = json_encode($array, JSON_UNESCAPED_UNICODE);
-					$mysqli->query("UPDATE player_equipment SET ".$toType." = '".$json."' WHERE userId = ".$player['userId']."");
+					$mysqli->query("UPDATE player_equipment SET " . $toType . " = '" . $json . "' WHERE userId = " . $player['userId'] . "");
 
 					echo base64_encode($data);
 
@@ -440,8 +430,7 @@ try {
 				} else {
 					SendError($error[3]);
 				}
-			}
-			else if($_POST['action'] == 'move') {
+			} else if ($_POST['action'] == 'move') {
 				if ($notOnlineOrOnlineAndInEquipZone) {
 					$ret = '';
 					$data = '{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}';
@@ -450,19 +439,17 @@ try {
 					$itemsCount = array_keys($json_array['from']['items']);
 					$last_key = end($itemsCount);
 					if ($json_array['from']['target'] == 'inventory' && $json_array['to']['target'] == 'inventory') {
-						foreach($json_array['from']['items'] as $key => $item)
-						{
-							$ret .= '"'.$item.'"' . ($key != $last_key ? "," : "");
-							$data = '{"isError":0,"data":{"ret":['.$ret.'],"money":{"uridium":"0","credits":"0"}}}';
+						foreach ($json_array['from']['items'] as $key => $item) {
+							$ret .= '"' . $item . '"' . ($key != $last_key ? "," : "");
+							$data = '{"isError":0,"data":{"ret":[' . $ret . '],"money":{"uridium":"0","credits":"0"}}}';
 						}
 					}
 
 					if ($json_array['from']['target'] == 'ship' && $json_array['to']['target'] == 'inventory') {
-						$toType = 'config'.$json_array['to']['configId'].'_'.$json_array['from']['slotset'].'';
-						$array = json_decode($mysqli->query('SELECT '.$toType.' FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc()[$toType]);
+						$toType = 'config' . $json_array['to']['configId'] . '_' . $json_array['from']['slotset'] . '';
+						$array = json_decode($mysqli->query('SELECT ' . $toType . ' FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()[$toType]);
 
-						foreach($json_array['from']['items'] as $key => $item)
-						{
+						foreach ($json_array['from']['items'] as $key => $item) {
 							$index = array_search($item, $array);
 							if (in_array($item, $array)) {
 								unset($array[$index]);
@@ -471,27 +458,27 @@ try {
 
 						$array = array_values($array);
 						$json = json_encode($array, JSON_UNESCAPED_UNICODE);
-						$mysqli->query("UPDATE player_equipment SET ".$toType." = '".$json."' WHERE userId = ".$player['userId']."");
+						$mysqli->query("UPDATE player_equipment SET " . $toType . " = '" . $json . "' WHERE userId = " . $player['userId'] . "");
 						$data = '{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}';
 					}
 
 					if ($json_array['from']['target'] == 'inventory' && $json_array['to']['target'] == 'ship' && substr($json_array['to']['slotset'], 0, -1) != null) {
 
-						$toType = 'config'.$json_array['to']['configId'].'_'.$json_array['to']['slotset'].'';
-						$array = json_decode($mysqli->query('SELECT '.$toType.' FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc()[$toType]);
+						$toType = 'config' . $json_array['to']['configId'] . '_' . $json_array['to']['slotset'] . '';
+						$array = json_decode($mysqli->query('SELECT ' . $toType . ' FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()[$toType]);
 						$i = count($array);
 						$max_item = $currentShip[$json_array['to']['slotset']];
 
-						foreach($json_array['from']['items'] as $key => $item)
-						{
+						foreach ($json_array['from']['items'] as $key => $item) {
 							if ($i == $max_item) {
-								$ret .= '"'.$item.'"' . ($key != $last_key ? "," : "");
-								$data = '{"isError":0,"data":{"ret":['.$ret.'],"money":{"uridium":"0","credits":"0"}}}';
+								$ret .= '"' . $item . '"' . ($key != $last_key ? "," : "");
+								$data = '{"isError":0,"data":{"ret":[' . $ret . '],"money":{"uridium":"0","credits":"0"}}}';
 							}
 
 							if ($i < $max_item) {
 								if (($json_array['to']['slotset'] == 'lasers' && (in_array($item, $lf3s) || in_array($item, $lf4s))) ||
-								$json_array['to']['slotset'] == 'generators' && (in_array($item, $bo2s) || in_array($item, $g3ns))) {
+									$json_array['to']['slotset'] == 'generators' && (in_array($item, $bo2s) || in_array($item, $g3ns))
+								) {
 									array_push($array, $item);
 								}
 
@@ -502,15 +489,14 @@ try {
 
 						$array = array_values($array);
 						$json = json_encode($array);
-						$mysqli->query("UPDATE player_equipment SET ".$toType." = '".$json."' WHERE userId = ".$player['userId']."");
+						$mysqli->query("UPDATE player_equipment SET " . $toType . " = '" . $json . "' WHERE userId = " . $player['userId'] . "");
 					}
 
 					if ($json_array['from']['target'] == 'drone' && $json_array['to']['target'] == 'inventory') {
-						$toType = 'config'.$json_array['to']['configId'].'_drones';
-						$array = json_decode($mysqli->query('SELECT '.$toType.' FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc()[$toType]);
+						$toType = 'config' . $json_array['to']['configId'] . '_drones';
+						$array = json_decode($mysqli->query('SELECT ' . $toType . ' FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()[$toType]);
 
-						foreach($json_array['from']['items'] as $key => $item)
-						{
+						foreach ($json_array['from']['items'] as $key => $item) {
 							if (in_array($item, $havocs) || in_array($item, $herculess)) {
 								$index = array_search($item, $array[$json_array['from']['droneId']]->designs);
 								if (in_array($item, $array[$json_array['from']['droneId']]->designs)) {
@@ -526,32 +512,31 @@ try {
 
 						$array = array_values($array);
 						$json = json_encode($array, JSON_UNESCAPED_UNICODE);
-						$mysqli->query("UPDATE player_equipment SET ".$toType." = '".$json."' WHERE userId = ".$player['userId']."");
+						$mysqli->query("UPDATE player_equipment SET " . $toType . " = '" . $json . "' WHERE userId = " . $player['userId'] . "");
 						$data = '{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}';
 					}
 
-					if ($json_array['from']['target'] == 'inventory' && $json_array['to']['target'] == 'drone' && substr($json_array['to']['slotset'], 0, -1) != null)
-					{
-						$toType = 'config'.$json_array['to']['configId'].'_drones';
+					if ($json_array['from']['target'] == 'inventory' && $json_array['to']['target'] == 'drone' && substr($json_array['to']['slotset'], 0, -1) != null) {
+						$toType = 'config' . $json_array['to']['configId'] . '_drones';
 
-						$array = json_decode($mysqli->query('SELECT '.$toType.' FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc()[$toType]);
+						$array = json_decode($mysqli->query('SELECT ' . $toType . ' FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()[$toType]);
 						$i = count($array[$json_array['to']['droneId']]->items);
 						$max_item = 2;
 
-						foreach($json_array['from']['items'] as $key => $item) {
+						foreach ($json_array['from']['items'] as $key => $item) {
 
 							if (in_array($item, $havocs) || in_array($item, $herculess)) {
 								if (count($array[$json_array['to']['droneId']]->designs) < 1) {
 									array_push($array[$json_array['to']['droneId']]->designs, $item);
 									$data = '{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}';
 								} else {
-									$ret .= '"'.$item.'"' . ($key != $last_key ? "," : "");
-									$data = '{"isError":0,"data":{"ret":['.$ret.'],"money":{"uridium":"0","credits":"0"}}}';
+									$ret .= '"' . $item . '"' . ($key != $last_key ? "," : "");
+									$data = '{"isError":0,"data":{"ret":[' . $ret . '],"money":{"uridium":"0","credits":"0"}}}';
 								}
 							} else {
 								if ($i == $max_item) {
-									$ret .= '"'.$item.'"' . ($key != $last_key ? "," : "");
-									$data = '{"isError":0,"data":{"ret":['.$ret.'],"money":{"uridium":"0","credits":"0"}}}';
+									$ret .= '"' . $item . '"' . ($key != $last_key ? "," : "");
+									$data = '{"isError":0,"data":{"ret":[' . $ret . '],"money":{"uridium":"0","credits":"0"}}}';
 								}
 
 								if ($i < $max_item) {
@@ -564,7 +549,7 @@ try {
 
 						$array = array_values($array);
 						$json = json_encode($array, JSON_UNESCAPED_UNICODE);
-						$mysqli->query("UPDATE player_equipment SET ".$toType." = '".$json."' WHERE userId = ".$player['userId']."");
+						$mysqli->query("UPDATE player_equipment SET " . $toType . " = '" . $json . "' WHERE userId = " . $player['userId'] . "");
 					}
 
 					echo base64_encode($data);
@@ -593,8 +578,9 @@ try {
 
 $mysqli->close();
 
-function SendError($errorMessage) {
-	echo base64_encode('{"isError":1,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}},"error":{"message":"'.$errorMessage.'"}}');
+function SendError($errorMessage)
+{
+	echo base64_encode('{"isError":1,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}},"error":{"message":"' . $errorMessage . '"}}');
 }
 
 function GetCurrentItemLevelsInformation()
@@ -615,7 +601,7 @@ function GetCurrentItemLevelsInformation()
 function GetDroneLevelsInformation($amount = 8)
 {
 	$json = '';
-	for($i = 0; $i <= $amount; $i++){
+	for ($i = 0; $i <= $amount; $i++) {
 		$json .= '{
 							  "slotsets": {
 								"default": {
@@ -653,7 +639,7 @@ function GetDroneLevelsInformation($amount = 8)
 
 function CreateItem($item_id, $fromId, $amount)
 {
-  global $items, $drones, $bo2s, $g3ns, $lf3s, $lf4s, $havocs, $herculess;
+	global $items, $drones, $bo2s, $g3ns, $lf3s, $lf4s, $havocs, $herculess;
 
 	if ($item_id == 6 || $item_id == 8) {
 		$amount = $fromId + $amount;
@@ -661,7 +647,7 @@ function CreateItem($item_id, $fromId, $amount)
 		$amount = count($items) + $amount;
 	}
 
-	for($i = $fromId; $i < $amount; $i++) {
+	for ($i = $fromId; $i < $amount; $i++) {
 
 		$item = array("I" => $i, "LV" => 0, "L" => $item_id, "S" => $i);
 		array_push($items, $item);
@@ -691,12 +677,14 @@ function CreateItem($item_id, $fromId, $amount)
 
 function CreateDrone($item_id, $fromId, $amount)
 {
-  global $drones;
+	global $drones;
 
-  $amount = count($drones) + $amount;
-	for($i = $fromId; $i < $amount; $i++) {
-		$drone = ["I" => $i, "L" => $item_id, "LV" => 5, "HP" => "0%",
-		"EF" => "10%/20%", "SP" => 15625, "DE" => "", "DL" => null, "SL" => null, "repair" => 500, "currency" => "uridium"];
+	$amount = count($drones) + $amount;
+	for ($i = $fromId; $i < $amount; $i++) {
+		$drone = [
+			"I" => $i, "L" => $item_id, "LV" => 5, "HP" => "0%",
+			"EF" => "10%/20%", "SP" => 15625, "DE" => "", "DL" => null, "SL" => null, "repair" => 500, "currency" => "uridium"
+		];
 
 		array_push($drones, $drone);
 	}
@@ -706,39 +694,62 @@ function GetDesignsLootIds()
 {
 	global $mysqli, $equipment, $currentShip;
 
-	$ships = [$mysqli->query('SELECT lootID FROM server_ships WHERE shipID = '.$currentShip['baseShipId'].'')->fetch_assoc()['lootID']];
+	$ships = [$mysqli->query('SELECT lootID FROM server_ships WHERE shipID = ' . $currentShip['baseShipId'] . '')->fetch_assoc()['lootID']];
 
 	if ($currentShip['baseShipId'] == 8) {
 		$currentDesigns = [
-		'ship_vengeance_design_adept',
-		'ship_vengeance_design_corsair',
-		'ship_vengeance_design_avenger',
-		'ship_vengeance_design_revenge'];
-		/* 'ship_vengeance_design_lightning' */
+			'ship_vengeance_design_adept',
+			'ship_vengeance_design_corsair',
+			'ship_vengeance_design_avenger',
+			'ship_vengeance_design_revenge'
+		];
+		
+		/*
+			Check all Vengeance designs
+		*/
+		$player = Functions::GetPlayer();
+		$designs = $mysqli->query("SELECT * FROM player_designs WHERE userId = {$player['userId']} AND baseShipId = 8");
+		$vecDesign = [];
+		while ($row = $designs->fetch_assoc()) { 
+			array_push($vecDesign, $row['name']);
+		}
+		$ships = array_merge($ships, $vecDesign, $currentDesigns);
+
+
 		$ships = array_merge($ships, $currentDesigns);
 	} else if ($currentShip['baseShipId'] == 10) {
 		$currentDesigns = [
-		'ship_goliath_design_solace',
-		'ship_goliath_design_diminisher',
-		'ship_goliath_design_spectrum',
-		'ship_goliath_design_sentinel',
-		'ship_goliath_design_venom',
-		'ship_goliath_design_enforcer',
-		'ship_goliath_design_bastion',
-		'ship_goliath_design_veteran',
-		'ship_goliath_design_exalted',
-		'ship_goliath_design_crimson',
-		'ship_goliath_design_ignite',
-		'ship_goliath_design_centaur'];
-		$ships = array_merge($ships, $currentDesigns);
-	}
-	
-	$designs =json_decode($equipment['items'])->designs;
+			'ship_goliath_design_solace',
+			'ship_goliath_design_diminisher',
+			'ship_goliath_design_spectrum',
+			'ship_goliath_design_sentinel',
+			'ship_goliath_design_venom',
+			'ship_goliath_design_enforcer',
+			'ship_goliath_design_bastion',
+			'ship_goliath_design_veteran',
+			'ship_goliath_design_exalted',
+			'ship_goliath_design_crimson',
+			'ship_goliath_design_ignite',
+			'ship_goliath_design_centaur'
+		];
 
-	if (property_exists($designs, $currentShip['baseShipId']))
-	{
+		/*
+			Check all goliath designs
+		*/
+		$player = Functions::GetPlayer();
+		$designs = $mysqli->query("SELECT * FROM player_designs WHERE userId = {$player['userId']} AND baseShipId = 10");
+		$vecDesign = [];
+		while ($row = $designs->fetch_assoc()) { 
+			array_push($vecDesign, $row['name']);
+		}
+		$ships = array_merge($ships, $vecDesign, $currentDesigns);
+	}
+
+	$designs = json_decode($equipment['items'])->designs;
+
+	if (property_exists($designs, $currentShip['baseShipId'])) {
 		foreach ($designs->{$currentShip['baseShipId']} as $ship) {
-			$lootId = $mysqli->query('SELECT lootID FROM server_ships WHERE shipID = '.$ship.'')->fetch_assoc()['lootID'];
+			$lootId = $mysqli->query('SELECT lootID FROM server_ships WHERE shipID = ' . $ship . '')->fetch_assoc()['lootID'];
 			array_push($ships, $lootId);
 		}
 	}
@@ -751,17 +762,16 @@ function GetConfigDrones($configId)
 	global $mysqli, $apis, $zeus, $player;
 
 	$drones = '';
-	$target = 'config' .$configId. '_drones';
-	$array = json_decode($mysqli->query('SELECT '.$target.' FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc()[$target]);
+	$target = 'config' . $configId . '_drones';
+	$array = json_decode($mysqli->query('SELECT ' . $target . ' FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()[$target]);
 	if (!$apis) array_pop($array);
 	if (!$zeus) array_pop($array);
 
-	foreach($array as $key => $item)
-	{
-			$drones .= '"'.$key.'": {
+	foreach ($array as $key => $item) {
+		$drones .= '"' . $key . '": {
 											"EQ": {
-												"default": '.json_encode($item->items).',
-												"design": '.json_encode($item->designs).'
+												"default": ' . json_encode($item->items) . ',
+												"design": ' . json_encode($item->designs) . '
 											}
 										}' . ($key != count($array) - 1 ? "," : "");
 	}
@@ -773,7 +783,7 @@ function GetCurrentShipLootId()
 {
 	global $mysqli, $player;
 
-	$lootId = $mysqli->query('SELECT lootID FROM server_ships WHERE shipID = '.$player['shipId'].'')->fetch_assoc()['lootID'];
+	$lootId = $mysqli->query('SELECT lootID FROM server_ships WHERE shipID = ' . $player['shipId'] . '')->fetch_assoc()['lootID'];
 
 	if ($lootId == 'ship_aegis' || $lootId == 'ship_citadel' || $lootId == 'ship_spearhead') {
 		$lootId .= '-';
@@ -783,7 +793,8 @@ function GetCurrentShipLootId()
 	return $lootId;
 }
 
-function GetAllShipInformations() {
+function GetAllShipInformations()
+{
 	global $mysqli;
 
 	$ships = '';
@@ -796,23 +807,25 @@ function GetAllShipInformations() {
 	return $ships;
 }
 
-function GetAllShipLootIds() {
+function GetAllShipLootIds()
+{
 	global $mysqli;
 
 	$lootIds = '';
 
 	$array = $mysqli->query('SELECT lootID FROM server_ships')->fetch_all(MYSQLI_ASSOC);
 	foreach ($array as $key => $ship) {
-		$lootIds .= '"'.$ship['lootID'].'"'. ($key != count($array) - 1 ? ',' : '');
+		$lootIds .= '"' . $ship['lootID'] . '"' . ($key != count($array) - 1 ? ',' : '');
 	}
 
 	return $lootIds;
 }
 
-function GetShipInformation($itemId, $shipId) {
+function GetShipInformation($itemId, $shipId)
+{
 	global $mysqli;
 
-	$informations = $mysqli->query('SELECT * FROM server_ships WHERE shipID = '.$shipId.'')->fetch_assoc();
+	$informations = $mysqli->query('SELECT * FROM server_ships WHERE shipID = ' . $shipId . '')->fetch_assoc();
 
 	return json_encode([
 		'L' => $itemId,
@@ -828,7 +841,7 @@ function GetShipInformation($itemId, $shipId) {
 					],
 					'generators' => [
 						'T' => [3, 4],
-						'Q' =>$informations['generators']
+						'Q' => $informations['generators']
 					],
 					'heavy_guns' => [
 						'T' => [1],
@@ -855,4 +868,3 @@ function GetShipInformation($itemId, $shipId) {
 		]
 	]);
 }
-?>

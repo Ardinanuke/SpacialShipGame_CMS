@@ -31,7 +31,8 @@ $shop = Functions::GetShop(); ?>
                           </div>
                           <div class="card-content">
                             <span class="card-title"><?php echo $value2['name']; ?></span>
-                            <p><span class="price"><?php if ($value2['price'] != 0) {echo number_format($value2['price'], 0, '.', '.');}else{ echo'Free'; } ?></span> <?php if ($value2['price'] != 0) {echo ($value2['priceType'] == 'uridium' ? 'U.' : 'C.'); } ?></p>
+                           <?php echo $value2['information']; ?>
+                            <p>Price: <span class="price"><?php if ($value2['price'] != 0) {echo number_format($value2['price'], 0, '.', '.');}else{ echo'Free'; } ?></span> <?php if ($value2['price'] != 0) {echo ($value2['priceType'] == 'uridium' ? 'U.' : ($value2['priceType'] == 'credit' ? 'C.' :'E.C.' )); } ?></p>
                             <?php if ($value2['amount']) { ?>
                               <div class="input-field">
                                 <input type="hidden" name="price" value="<?php echo $value2['price']; ?>">

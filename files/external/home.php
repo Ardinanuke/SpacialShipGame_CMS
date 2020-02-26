@@ -156,15 +156,15 @@
         <div class="event">
           <!-- event_active -->
           <strong> <span class="dot"></span>Spaceball</strong>
-          <p> Witouth information...</p>
-          <strong>Prizes:</strong>
-          <p>Witouth information...</p>
+          <br><br>
+          <strong>COOMING SOON!</strong>
+          <br><br>
         </div>
         <div class="event">
           <strong> <span class="dot"></span>Alien Invasion</strong>
-          <p>Witouth information...</p>
-          <strong>Prizes:</strong>
-          <p>Witouth information...</p>
+          <br><br>
+          <strong>COOMING SOON!</strong>
+          <br><br>
         </div>
       </div>
     </div>
