@@ -1,4 +1,4 @@
-<div class="custom_data ">
+<div class="custom_data">
   <div class="col-3">
     Uridium: <span id="uridium"><?php echo number_format($data->uridium, 0, ',', '.'); ?></span>
   </div>

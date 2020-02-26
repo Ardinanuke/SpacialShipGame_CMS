@@ -1,19 +1,25 @@
 body {
-  background-image:url("../img/earth.jpg");
+  background-image: url("../img/earth.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  background-attachment: fixed;
   margin: 0;
   padding: 0;
   line-height: 1.5;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
 }
 
-*, ::after, ::before {
+*,
+::after,
+::before {
   box-sizing: border-box;
 }
 
@@ -32,29 +38,40 @@ p {
   margin-bottom: 5px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   font-family: inherit;
   font-weight: 500;
   line-height: 1.2;
   color: inherit;
 }
 
-button, input, optgroup, select, textarea {
+button,
+input,
+optgroup,
+select,
+textarea {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
 }
 
-ol, ul {
+ol,
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-a, a:active {
+a,
+a:active {
   text-decoration: none;
   color: #000;
 }
@@ -75,7 +92,8 @@ a, a:active {
   height: 100vh;
 }
 
-#login, #register {
+#login,
+#register {
   padding: 15px;
 }
 
@@ -88,7 +106,7 @@ a, a:active {
   text-transform: uppercase;
 }
 
-table.striped>tbody>tr:nth-child(odd) {
+table.striped > tbody > tr:nth-child(odd) {
   background-color: rgba(121, 121, 121, 0.5) !important;
 }
 
@@ -98,7 +116,8 @@ table.striped>tbody>tr:nth-child(odd) {
   font-weight: 600;
 }
 
-.tabs .tab a:hover, .tabs .tab a.active {
+.tabs .tab a:hover,
+.tabs .tab a.active {
   color: #fff;
 }
 
@@ -137,7 +156,7 @@ table tbody tr td a {
   color: #fff !important;
 }
 
-input[type=text]:not(.browser-default).invalid ~ .helper-text[data-error] {
+input[type="text"]:not(.browser-default).invalid ~ .helper-text[data-error] {
   color: transparent !important;
 }
 
@@ -171,6 +190,26 @@ input[type=text]:not(.browser-default).invalid ~ .helper-text[data-error] {
   color: #fff;
 }
 
-.btn.disabled, .disabled.btn-large, .disabled.btn-small, .btn-floating.disabled, .btn-large.disabled, .btn-small.disabled, .btn-flat.disabled, .btn:disabled, .btn-large:disabled, .btn-small:disabled, .btn-floating:disabled, .btn-large:disabled, .btn-small:disabled, .btn-flat:disabled, .btn[disabled], .btn-large[disabled], .btn-small[disabled], .btn-floating[disabled], .btn-large[disabled], .btn-small[disabled], .btn-flat[disabled] {
+.btn.disabled,
+.disabled.btn-large,
+.disabled.btn-small,
+.btn-floating.disabled,
+.btn-large.disabled,
+.btn-small.disabled,
+.btn-flat.disabled,
+.btn:disabled,
+.btn-large:disabled,
+.btn-small:disabled,
+.btn-floating:disabled,
+.btn-large:disabled,
+.btn-small:disabled,
+.btn-flat:disabled,
+.btn[disabled],
+.btn-large[disabled],
+.btn-small[disabled],
+.btn-floating[disabled],
+.btn-large[disabled],
+.btn-small[disabled],
+.btn-flat[disabled] {
   background-color: #424242 !important;
 }

@@ -36,7 +36,7 @@
         </div>
       </a>
 
-      <div class="container custom_container">
+      <div class="container custom_container" >
         <h1 class="server_name">DeathSpace</h1>
         <nav class="grey darken-4">
           <ul>
