@@ -9,7 +9,7 @@
           <div class="mySlides">
 
 
-            <img src="http://127.0.0.1/do_img/global/items/goliath.gif" alt="" srcset="">
+            <img src="<?php echo DOMAIN; ?>do_img/global/items/goliath.gif" alt="" srcset="">
             <h3><strong>Goliath</strong></h3>
             <br><br>
             <button class="custom_choose i-0">Choose</button>
@@ -24,19 +24,19 @@
               
               switch($ships){
                 case 81:
-                  echo '<img src="http://127.0.0.1/do_img/global/items/pusat.gif" alt="" srcset="">';
+                  echo '<img src="'. DOMAIN .'do_img/global/items/pusat.gif" alt="" srcset="">';
                 break;
                 case 8: 
-                  echo '<img src="http://127.0.0.1/do_img/global/items/vengeance.gif" alt="" srcset="">';
+                  echo '<img src="'. DOMAIN .'do_img/global/items/vengeance.gif" alt="" srcset="">';
                 break;
                 case 3:
-                  echo '<img src="http://127.0.0.1/do_img/global/items/leonov.gif" alt="" srcset="">';
+                  echo '<img src="'. DOMAIN .'do_img/global/items/leonov.gif" alt="" srcset="">';
                 break;
                 case 9:
-                  echo '<img src="http://127.0.0.1/do_img/global/items/bigboy.gif" alt="" srcset="">';
+                  echo '<img src="'. DOMAIN .'do_img/global/items/bigboy.gif" alt="" srcset="">';
                 break;
                 case 7:
-                  echo '<img src="http://127.0.0.1/do_img/global/items/nostromo.gif" alt="" srcset="">';
+                  echo '<img src="'. DOMAIN .'do_img/global/items/nostromo.gif" alt="" srcset="">';
                 break; 
               }
               ?>
