@@ -1,5 +1,6 @@
 body {
   background-image: url("../img/earth.jpg");
+  background-color: black;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-attachment: fixed;

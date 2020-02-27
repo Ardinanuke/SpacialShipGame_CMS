@@ -1200,27 +1200,6 @@ class Functions
           } else {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
           }
-        } else if ($shop['items'][$itemId]['name'] == 'Leonov') {
-          if (!in_array(3, $items->ships)) {
-            array_push($items->ships, 3);
-            $status = true;
-          } else {
-            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
-          }
-        } else if ($shop['items'][$itemId]['name'] == 'BigBoy') {
-          if (!in_array(9, $items->ships)) {
-            array_push($items->ships, 9);
-            $status = true;
-          } else {
-            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
-          }
-        } else if ($shop['items'][$itemId]['name'] == 'Nostromo') {
-          if (!in_array(7, $items->ships)) {
-            array_push($items->ships, 7);
-            $status = true;
-          } else {
-            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
-          }
         } else if ($shop['items'][$itemId]['name'] == 'Vengeance Lightning') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_vengeance_design_lightning' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
@@ -1245,7 +1224,7 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_kick', 10, " . $player['userId'] . ")");
             $status = true;
           }
-        }else if ($shop['items'][$itemId]['name'] == 'Goliath Goal') {
+        } else if ($shop['items'][$itemId]['name'] == 'Goliath Goal') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_goal' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1331,7 +1310,7 @@ class Functions
             if ($status) {
               $mysqli->begin_transaction();
               try {
-                $mysqli->query("UPDATE event_coins SET coins = '".$user_coins['coins']."' WHERE userId = " . $player['userId'] . "");
+                $mysqli->query("UPDATE event_coins SET coins = '" . $user_coins['coins'] . "' WHERE userId = " . $player['userId'] . "");
 
                 $json['message'] = '' . $shop['items'][$itemId]['name'] . ' ' . ($amount != 0 ? '(' . number_format($amount) . ')' : '') . ' purchased';
 
@@ -1635,39 +1614,6 @@ class Functions
         ],
         [
           'id' => 5,
-          'category' => 'ships',
-          'name' => 'Leonov',
-          'information' => 'Speed: 360, Lasers: 6, Generators: 3',
-          'price' => 15000,
-          'priceType' => 'uridium',
-          'amount' => false,
-          'image' => 'do_img/global/items/ship/leonov_100x100.png',
-          'active' => true
-        ],
-        [
-          'id' => 6,
-          'category' => 'ships',
-          'name' => 'BigBoy',
-          'information' => 'Speed: 260, Lasers: 8, Generators: 16',
-          'price' => 285000,
-          'priceType' => 'credit',
-          'amount' => false,
-          'image' => 'do_img/global/items/ship/bigboy_100x100.png',
-          'active' => true
-        ],
-        [
-          'id' => 7,
-          'category' => 'ships',
-          'name' => 'Nostromo',
-          'information' => 'Speed: 340, Lasers: 7, Generators: 10',
-          'price' => 195000,
-          'priceType' => 'credit',
-          'amount' => false,
-          'image' => 'do_img/global/items/ship/nostromo_100x100.png',
-          'active' => true
-        ],
-        [
-          'id' => 8,
           'category' => 'designs',
           'name' => 'Vengeance Lightning',
           'information' => 'Special: Increase Speed 30% and DMG 5%',
@@ -1678,7 +1624,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 9,
+          'id' => 6,
           'category' => 'designs',
           'name' => 'Goliath Referee',
           'information' => 'Hability: Increase DMG 7%',
@@ -1689,7 +1635,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 10,
+          'id' => 7,
           'category' => 'designs',
           'name' => 'Independence',
           'information' => 'Hability: Increase DMG 7% and SHIELD 7%',
@@ -1700,7 +1646,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 11,
+          'id' => 8,
           'category' => 'designs',
           'name' => 'Goliath Turkish',
           'information' => 'Hability: Increase DMG 7% and SHIELD 7%',
@@ -1711,7 +1657,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 12,
+          'id' => 9,
           'category' => 'designs',
           'name' => 'Goliath Kick',
           'information' => 'Hability: Increase DMG 7%',
@@ -1722,7 +1668,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 13,
+          'id' => 10,
           'category' => 'designs',
           'name' => 'Goliath Goal',
           'information' => 'Hability: Increase DMG 7%',
@@ -2064,5 +2010,69 @@ class Functions
     } else {
       return null;
     }
+  }
+
+  public static function ChangeShip($shipId)
+  {
+    $mysqli = Database::GetInstance();
+
+    $json = [
+      'status' => false,
+      'message' => ''
+    ];
+
+    $json['message'] = "esto es simplemente una prueba";
+
+    if (!$mysqli->connect_errno && Functions::IsLoggedIn()) {
+      $player = Functions::GetPlayer();
+      $notOnlineOrOnlineAndInEquipZone = !Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) || (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) && Socket::Get('IsInEquipZone', array('UserId' => $player['userId'], 'Return' => false)));
+      /**
+       * Steps: 
+       * 1. Verify that have the ship.
+       * 2. Put the ship.
+       */
+      $items = json_decode($mysqli->query('SELECT items FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['items']);
+      if ($notOnlineOrOnlineAndInEquipZone) {
+        if (in_array($shipId, $items->ships) || $shipId == 10) {
+          $mysqli->begin_transaction();
+
+          try {
+            $mysqli->query('UPDATE player_accounts SET shipId = "' . $shipId . '" WHERE userId = ' . $player['userId'] . '');
+            /*
+            SETEO DRONES Y EQUIPAMIENTO
+            */
+            $mysqli->query('UPDATE player_equipment SET config1_generators = "[]", config1_lasers = "[]", config2_generators = "[]", config2_lasers = "[]" WHERE userId = ' . $player['userId'] . '');
+
+            /*
+
+            COMUNICO AL EMULADOR DEL CAMBIO DE NAVE
+
+            */
+            if (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
+              Socket::Send('UpdateStatus', array('UserId' => $player['userId']));
+              Socket::Send('ChangeShip', array('UserId' => $player['userId'], 'ShipId' => $shipId));
+            }
+
+            $json['message'] = "Ship successfully changed";
+            $json['status'] = true;
+
+            $mysqli->commit();
+          } catch (Exception $e) {
+            $json['message'] = 'An error occurred. Please try again later.';
+            $mysqli->rollback();
+          }
+
+          $mysqli->close();
+        } else {
+          $json['message'] = "You don't have this ship...";
+        }
+      } else {
+        $json['message'] = "Disconnect or go to a safe area.";
+      }
+    }
+
+
+
+    return json_encode($json);
   }
 }

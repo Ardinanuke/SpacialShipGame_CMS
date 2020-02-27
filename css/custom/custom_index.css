@@ -428,3 +428,21 @@ SHOP CSS
   height: 700px !important;
   overflow: auto;
 }
+
+/*
+
+
+HANGAR CSS
+
+*/
+
+.custom_choose{
+  width: 300px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 2em;
+  background: rgba(0, 127, 0, 0.5);
+  border: 5px solid rgba(255, 255, 255, 0.05);
+  color: white;
+  font-size: 20px;
+}

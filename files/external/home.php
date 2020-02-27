@@ -105,8 +105,8 @@
           <br><br>
           <strong>DeathSpace UPDATE 26/07/2020</strong>
           <br><br>
-          <p> * Shop working <br> * News ship designs <br> * Hangar > Ships implemented <br> * Aliens implemented <br> * New MAP system
-          <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> <br> </p>
+          <p> * Shop working <br> * News ship designs <br> * Hangar > Ships implemented <br> * Aliens implemented <br> * New MAP system <br> * APIS & ZEUS FREE!!
+          <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
         </div>
         <div class="mySlides">
           <iframe width="100%" height=250px src="https://www.youtube.com/embed/N-_mhCi-fQY">
