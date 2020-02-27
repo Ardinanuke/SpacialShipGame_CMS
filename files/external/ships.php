@@ -38,21 +38,9 @@
               <?php 
               
               switch($ships){
-                case 81:
-                  echo '<button class="custom_choose i-1">Choose</button>';
-                break;
                 case 8: 
                   echo '<button class="custom_choose i-2">Choose</button>';
                 break;
-                case 3:
-                  echo '<button class="custom_choose i-3">Choose</button>';
-                break;
-                case 9:
-                  echo '<button class="custom_choose i-4">Choose</button>';
-                break;
-                case 7:
-                  echo '<button class="custom_choose i-5">Choose</button>';
-                break; 
               }
               ?>
               
