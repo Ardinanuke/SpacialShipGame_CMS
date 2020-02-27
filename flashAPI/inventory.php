@@ -53,7 +53,7 @@ try {
 		CreateItem(1, 100, 20); //g3n
 		CreateItem(5, 120, $havocCount); //havoc
 		CreateItem(6, 130, $herculesCount); //hercules
-		CreateItem(8, 140, $lf4Count); //lf-4
+		CreateItem(8, 140, 40); //lf-4
 
 		$error = [
 			0 => "You can't sell your stuff!",
