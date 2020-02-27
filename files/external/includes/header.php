@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>DeathSpace: Multiplayer Game</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/materialize.min.css" media="screen,projection" />

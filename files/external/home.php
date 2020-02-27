@@ -105,7 +105,7 @@
           <br><br>
           <strong>DeathSpace UPDATE 27/07/2020</strong>
           <br><br>
-          <p> * APIS & ZEUS FREE! <br> * Havoc & Hercules implemented <br> * Hammerclaw & Cyborg implemented <br> * Hangar system working <br> * New shop items
+          <p> * APIS & ZEUS FREE! <br> * Havoc & Hercules implemented <br> * Hammerclaw & Cyborg implemented <br> * Hangar system working <br> * LF-4 FREE
           <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
         </div>
         <div class="mySlides">
