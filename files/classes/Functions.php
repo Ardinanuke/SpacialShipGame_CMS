@@ -1186,13 +1186,6 @@ class Functions
         } else if ($shop['items'][$itemId]['name'] == 'Logdisk') {
           $items->skillTree->logdisks += $amount;
           $status = true;
-        } else if ($shop['items'][$itemId]['name'] == 'Pusat') {
-          if (!in_array(81, $items->ships)) {
-            array_push($items->ships, 81);
-            $status = true;
-          } else {
-            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
-          }
         } else if ($shop['items'][$itemId]['name'] == 'Vengeance') {
           if (!in_array(8, $items->ships)) {
             array_push($items->ships, 8);
@@ -1593,17 +1586,6 @@ class Functions
         [
           'id' => 3,
           'category' => 'ships',
-          'name' => 'Pusat',
-          'information' => 'Speed: 370, Lasers: 16, Generators: 12',
-          'price' => 250000,
-          'priceType' => 'uridium',
-          'amount' => false,
-          'image' => 'do_img/global/items/ship/pusat_100x100.png',
-          'active' => true
-        ],
-        [
-          'id' => 4,
-          'category' => 'ships',
           'name' => 'Vengeance',
           'information' => 'Speed: 380, Lasers: 10, Generators: 10',
           'price' => 30000,
@@ -1613,7 +1595,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 5,
+          'id' => 4,
           'category' => 'designs',
           'name' => 'Vengeance Lightning',
           'information' => 'Special: Increase Speed 30% and DMG 5%',
@@ -1624,7 +1606,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 6,
+          'id' => 5,
           'category' => 'designs',
           'name' => 'Goliath Referee',
           'information' => 'Hability: Increase DMG 7%',
@@ -1635,7 +1617,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 7,
+          'id' => 6,
           'category' => 'designs',
           'name' => 'Independence',
           'information' => 'Hability: Increase DMG 7% and SHIELD 7%',
@@ -1646,7 +1628,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 8,
+          'id' => 7,
           'category' => 'designs',
           'name' => 'Goliath Turkish',
           'information' => 'Hability: Increase DMG 7% and SHIELD 7%',
@@ -1657,7 +1639,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 9,
+          'id' => 8,
           'category' => 'designs',
           'name' => 'Goliath Kick',
           'information' => 'Hability: Increase DMG 7%',
@@ -1668,7 +1650,7 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 10,
+          'id' => 9,
           'category' => 'designs',
           'name' => 'Goliath Goal',
           'information' => 'Hability: Increase DMG 7%',

@@ -19,46 +19,18 @@
           $items = json_decode($mysqli->query('SELECT items FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['items']);
           foreach ($items->ships as $ships) { ?>
             <div class="mySlides">
-
                <?php 
-              
               switch($ships){
-                case 81:
-                  echo '<img src="'. DOMAIN .'do_img/global/items/pusat.gif" alt="" srcset="">';
-                break;
                 case 8: 
                   echo '<img src="'. DOMAIN .'do_img/global/items/vengeance.gif" alt="" srcset="">';
                 break;
-                case 3:
-                  echo '<img src="'. DOMAIN .'do_img/global/items/leonov.gif" alt="" srcset="">';
-                break;
-                case 9:
-                  echo '<img src="'. DOMAIN .'do_img/global/items/bigboy.gif" alt="" srcset="">';
-                break;
-                case 7:
-                  echo '<img src="'. DOMAIN .'do_img/global/items/nostromo.gif" alt="" srcset="">';
-                break; 
               }
               ?>
-
               <h3><strong><?php 
-              
               switch($ships){
-                case 81:
-                  echo "Pusat";
-                break;
                 case 8: 
                   echo "Vengeance";
                 break;
-                case 3:
-                  echo "Leonov";
-                break;
-                case 9:
-                  echo "BigBoy";
-                break;
-                case 7:
-                  echo "Nostromo";
-                break; 
               }
               ?></strong></h3>
               <br><br>
