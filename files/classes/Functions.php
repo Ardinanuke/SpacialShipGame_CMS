@@ -1193,6 +1193,20 @@ class Functions
           } else {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
           }
+        }else if ($shop['items'][$itemId]['name'] == 'Cyborg') {
+          if (!in_array(245, $items->ships)) {
+            array_push($items->ships, 245);
+            $status = true;
+          } else {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          }
+        }else if ($shop['items'][$itemId]['name'] == 'Hammerclaw') {
+          if (!in_array(246, $items->ships)) {
+            array_push($items->ships, 246);
+            $status = true;
+          } else {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          }
         } else if ($shop['items'][$itemId]['name'] == 'Vengeance Lightning') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_vengeance_design_lightning' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
@@ -1658,6 +1672,28 @@ class Functions
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/ship/goal_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 10,
+          'category' => 'ships',
+          'name' => 'Cyborg',
+          'information' => 'Speed: 300, Lasers: 16, Generators: 16',
+          'price' => 450000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/cyborg_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 11,
+          'category' => 'ships',
+          'name' => 'Hammerclaw',
+          'information' => 'Speed: 310, Lasers: 12, Generators: 14',
+          'price' => 450000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/hammerclaw_100x100.png',
           'active' => true
         ]
       ]

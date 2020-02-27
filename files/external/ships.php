@@ -24,12 +24,24 @@
                 case 8: 
                   echo '<img src="'. DOMAIN .'do_img/global/items/vengeance.gif" alt="" srcset="">';
                 break;
+                case 245: 
+                  echo '<img src="'. DOMAIN .'do_img/global/items/cyborg.gif" alt="" srcset="">';
+                break;
+                case 246: 
+                  echo '<img src="'. DOMAIN .'do_img/global/items/hammerclaw.gif" alt="" srcset="">';
+                break;
               }
               ?>
               <h3><strong><?php 
               switch($ships){
                 case 8: 
                   echo "Vengeance";
+                break;
+                case 245: 
+                  echo "Cyborg";
+                break;
+                case 246: 
+                  echo "Hammerclaw";
                 break;
               }
               ?></strong></h3>
@@ -39,7 +51,13 @@
               
               switch($ships){
                 case 8: 
+                  echo '<button class="custom_choose i-1">Choose</button>';
+                break;
+                case 245: 
                   echo '<button class="custom_choose i-2">Choose</button>';
+                break;
+                case 246: 
+                  echo '<button class="custom_choose i-3">Choose</button>';
                 break;
               }
               ?>

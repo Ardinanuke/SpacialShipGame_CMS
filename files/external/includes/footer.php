@@ -1020,11 +1020,57 @@ $('.i-0').click(function() {
   });
 
 
-  $('.i-2').click(function() {
+  $('.i-1').click(function() {
   $.ajax({
     type: 'POST',
     url: '<?php echo DOMAIN; ?>api/',
     data: { action: 'change_ship', shipId: 8 },
+    success: function(response) {
+      var json = jQuery.parseJSON(response);
+
+      if (json.status) {
+
+        if ($('#pending-requests').length <= 1) {
+          $('#modal').modal('close');
+          $('#open_applications_button').css({display: 'none'});
+        }
+      }
+
+      if (json.message != '') {
+        M.toast({html: '<span>'+ json.message +'</span>'});
+      }
+    }
+  });
+});
+
+$('.i-2').click(function() {
+  $.ajax({
+    type: 'POST',
+    url: '<?php echo DOMAIN; ?>api/',
+    data: { action: 'change_ship', shipId: 245 },
+    success: function(response) {
+      var json = jQuery.parseJSON(response);
+
+      if (json.status) {
+
+        if ($('#pending-requests').length <= 1) {
+          $('#modal').modal('close');
+          $('#open_applications_button').css({display: 'none'});
+        }
+      }
+
+      if (json.message != '') {
+        M.toast({html: '<span>'+ json.message +'</span>'});
+      }
+    }
+  });
+});
+
+$('.i-3').click(function() {
+  $.ajax({
+    type: 'POST',
+    url: '<?php echo DOMAIN; ?>api/',
+    data: { action: 'change_ship', shipId: 246 },
     success: function(response) {
       var json = jQuery.parseJSON(response);
 
