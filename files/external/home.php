@@ -103,9 +103,9 @@
       <div class="mySlides">
           <img src="https://i.imgur.com/BScLR9j.jpg" style="width:100%">
           <br><br>
-          <strong>DeathSpace UPDATE 26/07/2020</strong>
+          <strong>DeathSpace UPDATE 27/07/2020</strong>
           <br><br>
-          <p> * Shop working <br> * News ship designs <br> * Hangar > Ships implemented <br> * Aliens implemented <br> * New MAP system <br> * APIS & ZEUS FREE!!
+          <p> * APIS & ZEUS FREE! <br> * Havoc & Hercules implemented <br> * Hammerclaw & Cyborg implemented <br> * Hangar system working <br> * New shop items
           <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
         </div>
         <div class="mySlides">

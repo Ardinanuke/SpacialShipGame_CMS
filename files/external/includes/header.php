@@ -63,7 +63,7 @@
               </ol>
             </li>
             <li><a href="<?php echo DOMAIN; ?>shop"><i class="material-icons left">attach_money</i>Shop</a></li>
-            <li><a href="<?php echo DOMAIN; ?>ships"><i class="material-icons left">data_usage</i>Galaxy Gates</a></li>
+            <li><a href="<?php echo DOMAIN; ?>gg"><i class="material-icons left">data_usage</i>Galaxy Gates</a></li>
             <li><a href="<?php echo DOMAIN; ?>settings"><i class="material-icons left">settings</i>Settings</a></li>
             <li><a href="/api/logout"><i class="material-icons left">input</i> Exit</a></li>
           </ul>

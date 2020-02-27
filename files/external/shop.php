@@ -26,7 +26,7 @@ $shop = Functions::GetShop(); ?>
                           <div class="card-image">
                             <img src="<?php echo DOMAIN; ?><?php echo $value2['image']; ?>">
                             <?php if ($value2['amount']) { ?>
-                              <div style="overflow: hidden;font-size: 10px;font-family: Verdana, Arial, sans-serif;position: absolute;margin: auto;left: 0;right: 0;bottom: 5px;"><?php echo number_format($value2['price'], 0, '.', '.'); ?> <?php echo ($value2['priceType'] == 'uridium' ? 'U' : 'C'); ?>.</div>
+                              <div style="background:black; width: 100px; overflow: hidden;font-size: 10px;font-family: Verdana, Arial, sans-serif;position: absolute;margin: auto;left: 0;right: 0;bottom: 5px;"><?php echo number_format($value2['price'], 0, '.', '.'); ?> <?php echo ($value2['priceType'] == 'uridium' ? 'U' : 'C'); ?>.</div>
                             <?php } ?>
                           </div>
                           <div class="card-content">

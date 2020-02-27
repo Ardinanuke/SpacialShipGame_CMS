@@ -1186,6 +1186,12 @@ class Functions
         } else if ($shop['items'][$itemId]['name'] == 'Logdisk') {
           $items->skillTree->logdisks += $amount;
           $status = true;
+        } else if ($shop['items'][$itemId]['name'] == 'Havoc') {
+          $items->havocCount += $amount;
+          $status = true;
+        } else if ($shop['items'][$itemId]['name'] == 'Hercules') {
+          $items->herculesCount += $amount;
+          $status = true;
         } else if ($shop['items'][$itemId]['name'] == 'Vengeance') {
           if (!in_array(8, $items->ships)) {
             array_push($items->ships, 8);
@@ -1694,6 +1700,28 @@ class Functions
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/ship/hammerclaw_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 12,
+          'category' => 'drones',
+          'name' => 'Havoc',
+          'information' => '10% DMG (full set)',
+          'price' => 150000,
+          'priceType' => 'uridium',
+          'amount' => true,
+          'image' => 'do_img/global/items/drone/designs/havoc_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 13,
+          'category' => 'drones',
+          'name' => 'Hercules',
+          'information' => '15% Shield 20% Health (full set)',
+          'price' => 150000,
+          'priceType' => 'uridium',
+          'amount' => true,
+          'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
           'active' => true
         ]
       ]
