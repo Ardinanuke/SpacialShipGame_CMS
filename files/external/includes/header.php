@@ -10,7 +10,8 @@
   <!-- CUSTOM CSS by Lortega-->
   <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/custom/custom_index.css" />
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+  <link href="http://www.mind.ilstu.edu/include/flv_player.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="http://www.mind.ilstu.edu/include/swfobject.js"></script>
   <?php if (Functions::IsLoggedIn() && ((isset($page[0]) && $page[0] === 'company_select') || (isset($page[0]) && $page[0] === 'clan' && isset($page[1]) && $page[1] === 'company'))) { ?>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/company-select.css" />
   <?php } ?>
@@ -36,20 +37,20 @@
         </div>
       </a>
 
-      <div class="container custom_container" >
+      <div class="container custom_container">
         <h1 class="server_name">DeathSpace</h1>
         <nav class="grey darken-4">
           <ul>
             <li><a href="<?php echo DOMAIN; ?>"><i class="material-icons left">home</i>Home</a></li>
             <li><a><i class="material-icons left">flight</i>Hangar <i class="material-icons right">keyboard_arrow_down</i></a>
-              <ol class="menu_dropdown grey darken-4">
+              <ol class="menu_dropdown grey darken-3">
                 <li class="no_float"><a href="<?php echo DOMAIN; ?>ships">SHIPS</a></li>
                 <li class="no_float"><a href="<?php echo DOMAIN; ?>equipment">EQUIPMENT</a></li>
                 <li class="no_float"><a href="<?php echo DOMAIN; ?>skill_tree">SKILL TREE</a></li>
               </ol>
             </li>
             <li><a><i class="material-icons left">group</i>Clan <i class="material-icons right">keyboard_arrow_down</i></a>
-              <ol class="menu_dropdown grey darken-4">
+              <ol class="menu_dropdown grey darken-3">
                 <?php if ($player['clanId'] <= 0) { ?>
                   <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/join">JOIN</a></li>
                   <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/found">FOUND</a></li>

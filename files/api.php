@@ -1,12 +1,12 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 	$request = $_POST['action'];
 
-  if ($request === 'register') {
-    if (isset($_POST['username'], $_POST['password'], $_POST['password_confirm'], $_POST['email'])) {
-    	echo Functions::Register(Functions::s($_POST['username']), Functions::s($_POST['password']), Functions::s($_POST['password_confirm']), Functions::s($_POST['email']));
-    }
-  }	else if ($request === 'login') {
+	if ($request === 'register') {
+		if (isset($_POST['username'], $_POST['password'], $_POST['password_confirm'], $_POST['email'])) {
+			echo Functions::Register(Functions::s($_POST['username']), Functions::s($_POST['password']), Functions::s($_POST['password_confirm']), Functions::s($_POST['email']));
+		}
+	} else if ($request === 'login') {
 		if (isset($_POST['username'], $_POST['password'])) {
 			echo Functions::Login(Functions::s($_POST['username']), Functions::s($_POST['password']));
 		}
@@ -98,24 +98,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 		echo Functions::DeleteClan();
 	} else if ($request === 'leave_clan') {
 		echo Functions::LeaveClan();
+	} else if ($request === 'change_ship') {
+		if (isset($_POST['shipId'])) {
+			echo Functions::changeShip($_POST['shipId']);
+		}
 	} else {
-    require_once(EXTERNALS . 'error.php');
-  }
-
+		require_once(EXTERNALS . 'error.php');
+	}
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($page[1])) {
 	$request = $page[1];
 
 	if ($request === 'verify') {
 		if (isset($page[2], $page[3])) {
-    	echo Functions::VerifyEmail(Functions::s($page[2]), Functions::s($page[3]));
+			echo Functions::VerifyEmail(Functions::s($page[2]), Functions::s($page[3]));
 		}
 	} else if ($request === 'logout') {
 		Functions::Logout();
 	} else {
 		require_once(EXTERNALS . 'error.php');
 	}
-
 } else {
 	require_once(EXTERNALS . 'error.php');
 }
-?>
