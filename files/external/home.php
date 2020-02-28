@@ -100,41 +100,15 @@
     <div class="box_news white-text grey darken-4 col-12">
       <h5 style="font-weight: bold;">NEWS</h5>
       <div class="w3-content w3-display-container">
-        <div class="mySlides">
-          <img src="https://i.imgur.com/BScLR9j.jpg" style="width:100%">
-          <br><br>
-          <strong>DeathSpace UPDATE 28/07/2020</strong>
-          <br><br>
-          <p> * NEW Aegis, Citadel, Sparhead <br> * No more BUGS in EQUIPMENT <br> * ANTI PUSHING System <br> * NPC Implemented <br>
-            <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
-        </div>
-        <div class="mySlides">
-          <img src="https://i.imgur.com/BScLR9j.jpg" style="width:100%">
-          <br><br>
-          <strong>DeathSpace UPDATE 27/07/2020</strong>
-          <br><br>
-          <p> * APIS & ZEUS FREE! <br> * Havoc & Hercules implemented <br> * Hammerclaw & Cyborg implemented <br> * Hangar system working <br> * LF-4 FREE!
-            <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
-        </div>
-        <div class="mySlides">
-          <iframe width="100%" height=250px src="https://www.youtube.com/embed/N-_mhCi-fQY">
-          </iframe>
-          <br><br>
-          <strong>DeathSpaces is now ONLINE!</strong>
-          <br><br>
-          <p>After weeks of hard work, we are ready to start this new adventure! Invite your friends. <br> <br> The galaxy gates and events will arrive soon, don't despair!
-            <br><br> <strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
-        </div>
-        <div class="mySlides">
-          <img src="https://i.imgur.com/3BUpClT.jpg" style="width:100%">
-          <br><br>
-          <strong>Play right now with 2D / 3D</strong>
-          <br><br>
-          <p>Get a more realistic experience with the deathspace 3D graphics engine. <br> <br> You can change 2D / 3D from "Settings"
-            <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> <br><br> </p>
-        </div>
-
-
+        <?php
+        foreach ($mysqli->query('SELECT * FROM news ORDER by id desc') as $value) { ?>
+          <div class="mySlides">
+            <?php
+            echo $value['html_code'];
+            ?>
+          </div>
+        <?php
+        } ?>
         <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
         <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
       </div>
@@ -174,12 +148,20 @@
       </div>
       <div class="container_events">
         <div class="event">
-          <!-- event_active -->
+          <!-- 
+          
+          EXAMPLE EVENT.
+
+          <strong> <span class="dot"></span>Spaceball</strong>
+          <br>    
+          <p>Start at: <strong>28. Feb 2020, 15:50 p.m.</strong> <br> Ending time: <strong>28. Feb 2020, 20:50 p.m.</strong> <br> <br> <strong>Rewards:</strong> Uridium, EXP, Honor <br> <br> <strong>Event Coins: </strong> 0 </p>
+          -->
           <strong> <span class="dot"></span>Spaceball</strong>
           <br><br>
           <strong>COOMING SOON!</strong>
           <br><br>
         </div>
+   
         <div class="event">
           <strong> <span class="dot"></span>Alien Invasion</strong>
           <br><br>

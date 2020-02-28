@@ -2,7 +2,6 @@
 require_once(INCLUDES . 'header.php'); 
 
 $mysqli = Database::GetInstance();
-$player = Functions::GetPlayer();
 
 $drones = '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]';
 

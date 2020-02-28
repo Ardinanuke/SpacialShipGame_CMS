@@ -1199,16 +1199,37 @@ class Functions
           } else {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
           }
-        }else if ($shop['items'][$itemId]['name'] == 'Cyborg') {
+        } else if ($shop['items'][$itemId]['name'] == 'Cyborg') {
           if (!in_array(245, $items->ships)) {
             array_push($items->ships, 245);
             $status = true;
           } else {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
           }
-        }else if ($shop['items'][$itemId]['name'] == 'Hammerclaw') {
+        } else if ($shop['items'][$itemId]['name'] == 'Hammerclaw') {
           if (!in_array(246, $items->ships)) {
             array_push($items->ships, 246);
+            $status = true;
+          } else {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          }
+        } else if ($shop['items'][$itemId]['name'] == 'Aegis') {
+          if (!in_array(49, $items->ships)) {
+            array_push($items->ships, 49);
+            $status = true;
+          } else {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          }
+        } else if ($shop['items'][$itemId]['name'] == 'Spearhead') {
+          if (!in_array(70, $items->ships)) {
+            array_push($items->ships, 70);
+            $status = true;
+          } else {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          }
+        } else if ($shop['items'][$itemId]['name'] == 'Citadel') {
+          if (!in_array(69, $items->ships)) {
+            array_push($items->ships, 69);
             $status = true;
           } else {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1707,7 +1728,7 @@ class Functions
           'category' => 'drones',
           'name' => 'Havoc',
           'information' => '10% DMG (full set)',
-          'price' => 150000,
+          'price' => 250000,
           'priceType' => 'uridium',
           'amount' => true,
           'image' => 'do_img/global/items/drone/designs/havoc_100x100.png',
@@ -1718,14 +1739,14 @@ class Functions
           'category' => 'drones',
           'name' => 'Hercules',
           'information' => '15% Shield 20% Health (full set)',
-          'price' => 150000,
+          'price' => 250000,
           'priceType' => 'uridium',
           'amount' => true,
           'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
           'active' => true
         ],
         [
-          'id' => 13,
+          'id' => 14,
           'category' => 'ships',
           'name' => 'Aegis',
           'information' => 'Speed: 300, Lasers: 10, Generators: 15',
@@ -1736,22 +1757,22 @@ class Functions
           'active' => true
         ],
         [
-          'id' => 13,
+          'id' => 15,
           'category' => 'ships',
           'name' => 'Spearhead',
           'information' => 'Speed: 370, Lasers: 5, Generators: 12',
-          'price' => 250000,
+          'price' => 45000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/spearhead.gif',
           'active' => true
         ],
         [
-          'id' => 13,
+          'id' => 16,
           'category' => 'ships',
           'name' => 'Citadel',
           'information' => 'Speed: 240, Lasers: 7, Generators: 20',
-          'price' => 250000,
+          'price' => 80000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/citadel.gif',
@@ -2123,7 +2144,7 @@ class Functions
             */
             $drones = '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]';
 
-            $mysqli->query("UPDATE player_equipment SET config1_generators = '[]', config1_lasers = '[]', config2_generators = '[]', config2_lasers = '[]', config1_drones ='".$drones."' , config2_drones = '".$drones."' WHERE userId = " . $player['userId'] . "");
+            $mysqli->query("UPDATE player_equipment SET config1_generators = '[]', config1_lasers = '[]', config2_generators = '[]', config2_lasers = '[]', config1_drones ='" . $drones . "' , config2_drones = '" . $drones . "' WHERE userId = " . $player['userId'] . "");
 
             /*
 
