@@ -1080,6 +1080,75 @@ $('.i-3').click(function() {
   });
 });
 
+$('.i-4').click(function() {
+  $.ajax({
+    type: 'POST',
+    url: '<?php echo DOMAIN; ?>api/',
+    data: { action: 'change_ship', shipId: 49 },
+    success: function(response) {
+      var json = jQuery.parseJSON(response);
+
+      if (json.status) {
+
+        if ($('#pending-requests').length <= 1) {
+          $('#modal').modal('close');
+          $('#open_applications_button').css({display: 'none'});
+        }
+      }
+
+      if (json.message != '') {
+        M.toast({html: '<span>'+ json.message +'</span>'});
+      }
+    }
+  });
+});
+
+$('.i-5').click(function() {
+  $.ajax({
+    type: 'POST',
+    url: '<?php echo DOMAIN; ?>api/',
+    data: { action: 'change_ship', shipId: 69 },
+    success: function(response) {
+      var json = jQuery.parseJSON(response);
+
+      if (json.status) {
+
+        if ($('#pending-requests').length <= 1) {
+          $('#modal').modal('close');
+          $('#open_applications_button').css({display: 'none'});
+        }
+      }
+
+      if (json.message != '') {
+        M.toast({html: '<span>'+ json.message +'</span>'});
+      }
+    }
+  });
+});
+
+$('.i-6').click(function() {
+  $.ajax({
+    type: 'POST',
+    url: '<?php echo DOMAIN; ?>api/',
+    data: { action: 'change_ship', shipId: 70 },
+    success: function(response) {
+      var json = jQuery.parseJSON(response);
+
+      if (json.status) {
+
+        if ($('#pending-requests').length <= 1) {
+          $('#modal').modal('close');
+          $('#open_applications_button').css({display: 'none'});
+        }
+      }
+
+      if (json.message != '') {
+        M.toast({html: '<span>'+ json.message +'</span>'});
+      }
+    }
+  });
+});
+
 </script>
 
 <?php } ?>

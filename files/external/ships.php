@@ -30,6 +30,15 @@
                 case 246: 
                   echo '<img src="'. DOMAIN .'do_img/global/items/hammerclaw.gif" alt="" srcset="">';
                 break;
+                case 49: 
+                  echo '<img src="'. DOMAIN .'do_img/global/items/aegis.gif" alt="" srcset="">';
+                break;
+                case 69: 
+                  echo '<br><br><img src="'. DOMAIN .'do_img/global/items/citadel.gif" alt="" srcset="">';
+                break;
+                case 70: 
+                  echo '<br><br><br><img src="'. DOMAIN .'do_img/global/items/spearhead.gif" alt="" srcset="">';
+                break;
               }
               ?>
               <h3><strong><?php 
@@ -42,6 +51,15 @@
                 break;
                 case 246: 
                   echo "Hammerclaw";
+                break;
+                case 49: 
+                  echo "Aegis";
+                break;
+                case 69: 
+                  echo "Citadel";
+                break;
+                case 70: 
+                  echo "Spearhead";
                 break;
               }
               ?></strong></h3>
@@ -58,6 +76,15 @@
                 break;
                 case 246: 
                   echo '<button class="custom_choose i-3">Choose</button>';
+                break;
+                case 49: 
+                  echo '<button class="custom_choose i-4">Choose</button>';
+                break;
+                case 69: 
+                  echo '<button class="custom_choose i-5">Choose</button>';
+                break;
+                case 70: 
+                  echo '<button class="custom_choose i-6">Choose</button>';
                 break;
               }
               ?>

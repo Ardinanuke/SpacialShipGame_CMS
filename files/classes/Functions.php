@@ -1724,49 +1724,37 @@ class Functions
           'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
           'active' => true
         ],
-        /* new items */
         [
           'id' => 13,
           'category' => 'ships',
           'name' => 'Aegis',
-          'information' => '15% Shield 20% Health (full set)',
+          'information' => 'Speed: 300, Lasers: 10, Generators: 15',
           'price' => 250000,
           'priceType' => 'uridium',
           'amount' => false,
-          'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
+          'image' => 'do_img/global/items/aegis.gif',
           'active' => true
         ],
         [
           'id' => 13,
           'category' => 'ships',
           'name' => 'Spearhead',
-          'information' => '15% Shield 20% Health (full set)',
+          'information' => 'Speed: 370, Lasers: 5, Generators: 12',
           'price' => 250000,
           'priceType' => 'uridium',
           'amount' => false,
-          'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
+          'image' => 'do_img/global/items/spearhead.gif',
           'active' => true
         ],
         [
           'id' => 13,
           'category' => 'ships',
           'name' => 'Citadel',
-          'information' => '15% Shield 20% Health (full set)',
+          'information' => 'Speed: 240, Lasers: 7, Generators: 20',
           'price' => 250000,
           'priceType' => 'uridium',
           'amount' => false,
-          'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
-          'active' => true
-        ],
-        [
-          'id' => 13,
-          'category' => 'ships',
-          'name' => 'Tartarus',
-          'information' => '15% Shield 20% Health (full set)',
-          'price' => 250000,
-          'priceType' => 'uridium',
-          'amount' => false,
-          'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
+          'image' => 'do_img/global/items/citadel.gif',
           'active' => true
         ]
       ]

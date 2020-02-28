@@ -105,7 +105,7 @@
           <br><br>
           <strong>DeathSpace UPDATE 28/07/2020</strong>
           <br><br>
-          <p> * NEW Aegis, Citadel, Sparhead <br> * No more BUGS in equipment <br> * NEW LF-4 Magmadrill
+          <p> * NEW Aegis, Citadel, Sparhead <br> * No more BUGS in EQUIPMENT <br> * ANTI PUSHING System <br> * NPC Implemented <br>
             <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
         </div>
         <div class="mySlides">
