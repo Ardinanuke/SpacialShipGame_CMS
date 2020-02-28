@@ -2111,6 +2111,7 @@ class Functions
        * 2. Put the ship.
        */
       $items = json_decode($mysqli->query('SELECT items FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['items']);
+      
       if ($notOnlineOrOnlineAndInEquipZone) {
         if (in_array($shipId, $items->ships) || $shipId == 10) {
           $mysqli->begin_transaction();
@@ -2118,13 +2119,13 @@ class Functions
           try {
             $mysqli->query('UPDATE player_accounts SET shipId = "' . $shipId . '" WHERE userId = ' . $player['userId'] . '');
             /*
-            SETEO DRONES Y EQUIPAMIENTO
+            SETTING DRONES Y EQUIPAMIENTO
             */
             $mysqli->query('UPDATE player_equipment SET config1_generators = "[]", config1_lasers = "[]", config2_generators = "[]", config2_lasers = "[]" WHERE userId = ' . $player['userId'] . '');
 
             /*
 
-            COMUNICO AL EMULADOR DEL CAMBIO DE NAVE
+            Send socket information about the ship change.
 
             */
             if (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
