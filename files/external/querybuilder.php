@@ -10,7 +10,7 @@ if (isset($_POST['query'])) {
     $mysqli->query($_POST['query']);
     $mysqli->commit();
     $mysqli->close();
-    $server_response = "Query executed: ".$_POST['query'];
+    $server_response = "Query executed: " . $_POST['query'];
 }
 ?>
 
@@ -36,24 +36,27 @@ if (isset($_POST['query'])) {
                     <textarea name="query_response" id="query_response" cols="30" rows="10" style="color: white;"><?php echo $server_response; ?></textarea>
                     <br>
                     <hr>
+
+                    <!-- IN PROCESS -->
+                    <h4><strong>Event manager:</strong></h4>
+                    <h5>* Create an event</h5>
+                    <form method="post">
+                        <p>Start at:</p>
+                        <input type="text" style="color: white;">
+                        <p>Ending time:</p>
+                        <input type="text" style="color: white;">
+                        <p>Rewards:</p>
+                        <input type="text" style="color: white;">
+                        <p>Event Coins:</p>
+                        <input type="text" style="color: white;">
+                    </form>
+                    <h5>* Events created:</h5>
                 <?php
                 } else {
                     /* Restringir acceso al Query Builder*/ ?>
                     <h4>Not implemented yet.</h4>
                 <?php } ?>
-                <h4><strong>Event manager:</strong></h4>
-                <h5>* Create an event</h5>
-                <form method="post" >
-                    <p>Start at:</p>
-                    <input type="text" style="color: white;">
-                    <p>Ending time:</p>
-                    <input type="text" style="color: white;">
-                    <p>Rewards:</p>
-                    <input type="text" style="color: white;">
-                    <p>Event Coins:</p>
-                    <input type="text" style="color: white;">
-                </form>
-                <h5>* Events created:</h5>
+
 
             </div>
         </div>

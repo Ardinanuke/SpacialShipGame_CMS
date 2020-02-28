@@ -148,10 +148,18 @@
       </div>
       <div class="container_events">
         <div class="event">
-          <!-- event_active -->
+          <!-- 
+          
+          EXAMPLE EVENT.
+
           <strong> <span class="dot"></span>Spaceball</strong>
           <br>    
           <p>Start at: <strong>28. Feb 2020, 15:50 p.m.</strong> <br> Ending time: <strong>28. Feb 2020, 20:50 p.m.</strong> <br> <br> <strong>Rewards:</strong> Uridium, EXP, Honor <br> <br> <strong>Event Coins: </strong> 0 </p>
+          -->
+          <strong> <span class="dot"></span>Spaceball</strong>
+          <br><br>
+          <strong>COOMING SOON!</strong>
+          <br><br>
         </div>
    
         <div class="event">
