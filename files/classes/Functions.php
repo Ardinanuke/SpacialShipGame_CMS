@@ -2111,7 +2111,7 @@ class Functions
        * 2. Put the ship.
        */
       $items = json_decode($mysqli->query('SELECT items FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['items']);
-      
+
       if ($notOnlineOrOnlineAndInEquipZone) {
         if (in_array($shipId, $items->ships) || $shipId == 10) {
           $mysqli->begin_transaction();
@@ -2121,7 +2121,9 @@ class Functions
             /*
             SETTING DRONES Y EQUIPAMIENTO
             */
-            $mysqli->query('UPDATE player_equipment SET config1_generators = "[]", config1_lasers = "[]", config2_generators = "[]", config2_lasers = "[]" WHERE userId = ' . $player['userId'] . '');
+            $drones = '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]';
+
+            $mysqli->query("UPDATE player_equipment SET config1_generators = '[]', config1_lasers = '[]', config2_generators = '[]', config2_lasers = '[]', config1_drones ='".$drones."' , config2_drones = '".$drones."' WHERE userId = " . $player['userId'] . "");
 
             /*
 
