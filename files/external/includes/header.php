@@ -38,7 +38,7 @@
       </a>
 
       <div class="container custom_container">
-        <h1 class="server_name">DeathSpace</h1>
+        <h1 class="server_name">DeathSpace.net</h1>
         <nav class="grey darken-4">
           <ul>
             <li><a href="<?php echo DOMAIN; ?>"><i class="material-icons left">home</i>Home</a></li>

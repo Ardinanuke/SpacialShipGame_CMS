@@ -983,15 +983,6 @@ $('#end-war').click(function() {
       );
   </script>
 <?php } ?>
-
-/*
-
-
-
-MODIFICATIONS.
-
-
-*/
 <?php if (Functions::IsLoggedIn() && isset($page[0]) && $page[0] === 'ships') { ?>
 <script>
 

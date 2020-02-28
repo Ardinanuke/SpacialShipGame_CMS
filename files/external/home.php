@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <div class="contenedor_boxes" >
+  <div class="contenedor_boxes">
     <div class="box_hall col-12">
       <div class="white-text grey darken-4">
         <div class="padding-15">
@@ -100,13 +100,21 @@
     <div class="box_news white-text grey darken-4 col-12">
       <h5 style="font-weight: bold;">NEWS</h5>
       <div class="w3-content w3-display-container">
-      <div class="mySlides">
+        <div class="mySlides">
+          <img src="https://i.imgur.com/BScLR9j.jpg" style="width:100%">
+          <br><br>
+          <strong>DeathSpace UPDATE 28/07/2020</strong>
+          <br><br>
+          <p> * NEW Aegis, Citadel, Sparhead <br> * No more BUGS in equipment <br> * NEW LF-4 Magmadrill
+            <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
+        </div>
+        <div class="mySlides">
           <img src="https://i.imgur.com/BScLR9j.jpg" style="width:100%">
           <br><br>
           <strong>DeathSpace UPDATE 27/07/2020</strong>
           <br><br>
-          <p> * APIS & ZEUS FREE! <br> * Havoc & Hercules implemented <br> * Hammerclaw & Cyborg implemented <br> * Hangar system working <br> * LF-4 FREE
-          <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
+          <p> * APIS & ZEUS FREE! <br> * Havoc & Hercules implemented <br> * Hammerclaw & Cyborg implemented <br> * Hangar system working <br> * LF-4 FREE!
+            <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> </p>
         </div>
         <div class="mySlides">
           <iframe width="100%" height=250px src="https://www.youtube.com/embed/N-_mhCi-fQY">
@@ -123,7 +131,7 @@
           <strong>Play right now with 2D / 3D</strong>
           <br><br>
           <p>Get a more realistic experience with the deathspace 3D graphics engine. <br> <br> You can change 2D / 3D from "Settings"
-          <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> <br><br> </p>
+            <br><br><strong><a href="https://web.facebook.com/groups/1672675672946614/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">OFFICIAL FACEBOOK GROUP</a></strong> <br><br> </p>
         </div>
 
 
@@ -157,7 +165,6 @@
         setInterval(() => {
           plusDivs(1)
         }, 8000);
-
       </script>
     </div>
     <div class="box_events white-text grey darken-4 col-12">

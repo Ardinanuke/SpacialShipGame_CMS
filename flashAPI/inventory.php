@@ -517,21 +517,72 @@ try {
 					}
 
 					if ($json_array['from']['target'] == 'inventory' && $json_array['to']['target'] == 'drone' && substr($json_array['to']['slotset'], 0, -1) != null) {
+
 						$toType = 'config' . $json_array['to']['configId'] . '_drones';
 
 						$array = json_decode($mysqli->query('SELECT ' . $toType . ' FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()[$toType]);
 						$i = count($array[$json_array['to']['droneId']]->items);
+
+						$i2 = count($array[$json_array['to']['droneId']]->designs);
+
 						$max_item = 2;
 
-						foreach ($json_array['from']['items'] as $key => $item) {
+						$max_drone_designs = 1;
 
+						foreach ($json_array['from']['items'] as $key => $item) {
 							if (in_array($item, $havocs) || in_array($item, $herculess)) {
-								if (count($array[$json_array['to']['droneId']]->designs) < 1) {
-									array_push($array[$json_array['to']['droneId']]->designs, $item);
-									$data = '{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}';
-								} else {
+								if ($i2 == $max_item) {
 									$ret .= '"' . $item . '"' . ($key != $last_key ? "," : "");
 									$data = '{"isError":0,"data":{"ret":[' . $ret . '],"money":{"uridium":"0","credits":"0"}}}';
+								}
+								if ($i2 < $max_drone_designs) {
+
+									switch ($json_array['to']['configId']) {
+										case 1:
+											$config1_drones = json_decode($equipment['config1_drones']);
+
+											$count_sameHavoc = 0;
+
+											foreach ($config1_drones as $drone1) {
+												$havocInformation = $drone1->designs;
+
+												if (in_array($item, $havocInformation)) {
+													$count_sameHavoc++;
+												}
+											}
+
+											if ($count_sameHavoc >= 1) {
+												$ret .= '"' . $item . '"' . ($key != $last_key ? "," : "");
+												$data = '{"isError":0,"data":{"ret":[' . $ret . '],"money":{"uridium":"0","credits":"0"}}}';
+											} else {
+												array_push($array[$json_array['to']['droneId']]->designs, $item);
+												$data = '{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}';
+												$i2++;
+											}
+											break;
+										case 2:
+											$config2_drones = json_decode($equipment['config2_drones']);
+
+											$count_sameHavoc = 0;
+
+											foreach ($config2_drones as $drone1) {
+												$havocInformation = $drone1->designs;
+
+												if (in_array($item, $havocInformation)) {
+													$count_sameHavoc++;
+												}
+											}
+
+											if ($count_sameHavoc >= 1) {
+												$ret .= '"' . $item . '"' . ($key != $last_key ? "," : "");
+												$data = '{"isError":0,"data":{"ret":[' . $ret . '],"money":{"uridium":"0","credits":"0"}}}';
+											} else {
+												array_push($array[$json_array['to']['droneId']]->designs, $item);
+												$data = '{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}';
+												$i2++;
+											}
+											break;
+									}
 								}
 							} else {
 								if ($i == $max_item) {
@@ -703,14 +754,14 @@ function GetDesignsLootIds()
 			'ship_vengeance_design_avenger',
 			'ship_vengeance_design_revenge'
 		];
-		
+
 		/*
 			Check all Vengeance designs
 		*/
 		$player = Functions::GetPlayer();
 		$designs = $mysqli->query("SELECT * FROM player_designs WHERE userId = {$player['userId']} AND baseShipId = 8");
 		$vecDesign = [];
-		while ($row = $designs->fetch_assoc()) { 
+		while ($row = $designs->fetch_assoc()) {
 			array_push($vecDesign, $row['name']);
 		}
 		$ships = array_merge($ships, $vecDesign, $currentDesigns);
@@ -739,7 +790,7 @@ function GetDesignsLootIds()
 		$player = Functions::GetPlayer();
 		$designs = $mysqli->query("SELECT * FROM player_designs WHERE userId = {$player['userId']} AND baseShipId = 10");
 		$vecDesign = [];
-		while ($row = $designs->fetch_assoc()) { 
+		while ($row = $designs->fetch_assoc()) {
 			array_push($vecDesign, $row['name']);
 		}
 		$ships = array_merge($ships, $vecDesign, $currentDesigns);
