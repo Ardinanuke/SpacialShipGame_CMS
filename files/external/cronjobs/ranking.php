@@ -50,14 +50,12 @@ try {
 
       $rankPoints += ($daysSinceRegistration * 6);
       
-      /*
-      $rankPoints += ($mysqli->query('SELECT baseShipId FROM server_ships WHERE shipID = '.$value['shipId'].'')->fetch_assoc()['baseShipId'] * 100);
+      //$rankPoints += ($mysqli->query('SELECT baseShipId FROM server_ships WHERE shipID = '.$value['shipId'].'')->fetch_assoc()['baseShipId'] * 100);
 
       $rankPoints += ($mysqli->query('SELECT id FROM log_player_kills WHERE killer_id = '.$value['userId'].' AND pushing = 0')->num_rows * 4);
       $rankPoints -= ($destructions->fpd * 100);
       $rankPoints -= ($mysqli->query('SELECT id FROM log_player_kills WHERE target_id = '.$value['userId'].' AND pushing = 0')->num_rows * 4);
       $rankPoints -= ($destructions->dbrz * 8);
-      */
 
       if ($rankPoints < 0) {
         $rankPoints = 0;

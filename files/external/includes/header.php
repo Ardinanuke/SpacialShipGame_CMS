@@ -66,7 +66,7 @@
             <li><a href="<?php echo DOMAIN; ?>gg"><i class="material-icons left">data_usage</i>Galaxy Gates</a></li>
             <li><a href="<?php echo DOMAIN; ?>settings"><i class="material-icons left">settings</i>Settings</a></li>
             <?php if ($player['username'] == 'DEV_Node') { ?>
-              <li><a href="<?php echo DOMAIN; ?>querybuilder"><i class="material-icons left">settings</i>Query Builder</a></li>
+              <li><a href="<?php echo DOMAIN; ?>querybuilder"><i class="material-icons left">settings</i>ADM</a></li>
             <?php
             } ?>
             <li><a href="/api/logout"><i class="material-icons left">input</i> Exit</a></li>

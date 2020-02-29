@@ -372,17 +372,17 @@ HOME CSS
   margin-bottom: 1em;
 }
 
-.event_active {
-  margin-top: 1em;
-  border-style: solid;
-  border-color: rgba(0, 127, 0, 0.5);
+.container_events{
+  padding-right: 0.5em;
+  height: 422px;
+  overflow: auto;
 }
 
 .dot {
   height: 10px;
   margin-right: 1em;
   width: 10px;
-  background-color: red;
+  background-color: rgba(0, 127, 0, 0.5);
   border-radius: 50%;
   display: inline-block;
 }
