@@ -156,7 +156,7 @@
         }
 
         if(!$count){
-          echo "<div style='text-align:center;'> <br><br><strong style='text-align:center;'>Upps.. right now we don't have upcoming event 🤦‍♂️🤦‍♂️ <br> <br> <span> But don't worry coming soon we have</span></strong></div>";
+          echo "<div style='text-align:center;'> <br><br><strong style='text-align:center;'>Upps.. right now we don't have upcoming event. <br> <br> <span> With ❤ DeathSpace Team</span></strong></div>";
         }
         ?>
       </div>
