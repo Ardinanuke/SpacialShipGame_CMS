@@ -22,7 +22,7 @@ $shop = Functions::GetShop(); ?>
                   <?php foreach ($shop['items'] as $value2) {
                     if ($value2['category'] == $value && $value2['active']) { ?>
                       <div class="col m6 s2">
-                        <div id="item-<?php echo $value2['id']; ?>" class="card grey darken-3">
+                        <div id="item-<?php echo $value2['id']; ?>" class="card grey darken-3" style="height: 350px !important;">
                           <div class="card-image">
                             <img src="<?php echo DOMAIN; ?><?php echo $value2['image']; ?>" width="100px" height="100px">
                             <?php if ($value2['amount']) { ?>

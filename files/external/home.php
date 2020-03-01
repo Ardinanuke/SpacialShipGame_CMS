@@ -147,27 +147,18 @@
         <h4><a style="text-decoration:none;"><br />Server time</a></h4> <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=small&timezone=America%2FMexico_City" width="100%" height="90" frameborder="0" seamless></iframe>
       </div>
       <div class="container_events">
-        <div class="event">
-          <!-- 
-          
-          EXAMPLE EVENT.
+        
+        <?php
+        $count = 0;
+        foreach ($mysqli->query('SELECT * FROM event ORDER by id asc') as $value) {
+          echo '<div class="event">'.$value['html_code'].'</div>';
+          $count++;
+        }
 
-          <strong> <span class="dot"></span>Spaceball</strong>
-          <br>    
-          <p>Start at: <strong>28. Feb 2020, 15:50 p.m.</strong> <br> Ending time: <strong>28. Feb 2020, 20:50 p.m.</strong> <br> <br> <strong>Rewards:</strong> Uridium, EXP, Honor <br> <br> <strong>Event Coins: </strong> 0 </p>
-          -->
-          <strong> <span class="dot"></span>Spaceball</strong>
-          <br><br>
-          <strong>COOMING SOON!</strong>
-          <br><br>
-        </div>
-   
-        <div class="event">
-          <strong> <span class="dot"></span>Alien Invasion</strong>
-          <br><br>
-          <strong>COOMING SOON!</strong>
-          <br><br>
-        </div>
+        if(!$count){
+          echo "<div style='text-align:center;'> <br><br><strong style='text-align:center;'>Upps.. right now we don't have upcoming event 🤦‍♂️🤦‍♂️ <br> <br> <span> But don't worry coming soon we have</span></strong></div>";
+        }
+        ?>
       </div>
     </div>
   </div>

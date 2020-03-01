@@ -1639,7 +1639,7 @@ class Functions
           'id' => 4,
           'category' => 'designs',
           'name' => 'Vengeance Lightning',
-          'information' => 'Special: Increase Speed 30% and DMG 5%',
+          'information' => 'Speed 30% and DMG 5%',
           'price' => 250000,
           'priceType' => 'uridium',
           'amount' => false,

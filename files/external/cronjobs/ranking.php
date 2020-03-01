@@ -49,7 +49,8 @@ try {
       $daysSinceRegistration = (new DateTime(date('d.m.Y H:i:s')))->diff($registerDate)->days;
 
       $rankPoints += ($daysSinceRegistration * 6);
-      $rankPoints += ($mysqli->query('SELECT baseShipId FROM server_ships WHERE shipID = '.$value['shipId'].'')->fetch_assoc()['baseShipId'] * 100);
+      
+      //$rankPoints += ($mysqli->query('SELECT baseShipId FROM server_ships WHERE shipID = '.$value['shipId'].'')->fetch_assoc()['baseShipId'] * 100);
 
       $rankPoints += ($mysqli->query('SELECT id FROM log_player_kills WHERE killer_id = '.$value['userId'].' AND pushing = 0')->num_rows * 4);
       $rankPoints -= ($destructions->fpd * 100);
