@@ -40,6 +40,41 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
     $ip = json_decode($query_m['info'])->registerIP;
     $mysqli->query("INSERT INTO user_bans (ip_user, userId, banType) VALUES ('" . $ip . "','" . $_POST['ban_user_id'] . "','" . $_POST['ban_ype'] . "')");
     $server_response = "User banned!";
+} else if (isset($_POST['ban_user_id'])) {
+    $mysqli->query("DELETE FROM user_bans WHERE userId=" . $_POST['ban_user_id']);
+    $server_response = "User Un-banned!";
+} else if (isset($_POST['search_accounts_user_id'])) {
+    $server_response = "Search result: ";
+    $query_m = $mysqli->query('SELECT * FROM player_accounts WHERE userId = ' . $_POST['search_accounts_user_id'] . '')->fetch_assoc();
+    $ip = json_decode($query_m['info'])->registerIP;
+
+    foreach ($mysqli->query("SELECT pilotName, data, info, userId FROM player_accounts WHERE info LIKE '%" . $ip . "%' ")->fetch_assoc() as $key => $value) {
+
+        if ($key == 'pilotName') {
+            $server_response = $server_response . '<hr><br> Username: ' . $value . '<br>';
+        }
+        if ($key == 'data') {
+            $server_response = $server_response . 'data: ' . $value.'<br>';
+        }
+        if ($key == 'info') {
+            $server_response = $server_response . 'Information: ' . $value;
+        }
+        if ($key == 'userId') {
+            $server_response = $server_response . '<br> UserID:' . $value . '<br> <hr>';
+        }
+    }
+} else if (isset($_POST['remove_exp_hon_user_id'])) {
+
+    $query_m = $mysqli->query('SELECT * FROM player_accounts WHERE userId = ' . $_POST['remove_exp_hon_user_id'] . '')->fetch_assoc();
+
+    if(json_decode($query_m['data'])->experience != 0 && json_decode($query_m['data'])->honor != 0){
+        $uri = json_decode($query_m['data'])->uridium;
+        $credits = json_decode($query_m['data'])->credits;
+        $exp = json_decode($query_m['data'])->experience / 2;
+        $hon = json_decode($query_m['data'])->honor / 2;
+        $json_set = '{"uridium":'.$uri.',"credits":'.$credits.',"honor":'.$hon.',"experience":'.$exp.',"jackpot":0}';
+        $mysqli->query('UPDATE player_accounts SET data='.json_encode($json_set).'  WHERE userId = ' . $_POST['remove_exp_hon_user_id'] . '');
+    }
 }
 
 ?>
@@ -144,12 +179,39 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                         <input type="text" style="color: white;" name="ban_ype" id="ban_ype" placeholder="1 = Only ban user, 2 = Ban IP (Other servers spammers)">
                         <br>
                         <br>
-                        <p style="font-size:30px"><?php echo $server_response;?></p>
-                        <br>
-                        <br>
                         <button class="btn grey darken-1 col s12">BAN USER</button>
                     </form>
+                    <br><br><br>
+                    <h4><strong>Un-ban user (Only ban type 1):</strong></h4>
+                    <form method="post">
+                        <p>User ID:</p>
+                        <input type="text" style="color: white;" name="unban_user_id" id="unban_user_id" placeholder="Please type the ID">
+                        <br>
+                        <br>
+                        <button class="btn grey darken-1 col s12">UN-BAN USER</button>
+                    </form>
+
+                    <br><br><br>
+                    <h4><strong>Search accounts of the user:</strong></h4>
+                    <form method="post">
+                        <p>User ID:</p>
+                        <input type="text" style="color: white;" name="search_accounts_user_id" id="search_accounts_user_id" placeholder="Please type the ID">
+                        <br>
+                        <br>
+                        <button class="btn grey darken-1 col s12">Search accounts</button>
+                    </form>
+                    <br><br><br>
+                    <h4><strong>Remove 50% of EXP & HONOR:</strong></h4>
+                    <form method="post">
+                        <p>User ID:</p>
+                        <input type="text" style="color: white;" name="remove_exp_hon_user_id" id="remove_exp_hon_user_id" placeholder="Please type the ID">
+                        <br>
+                        <br>
+                        <button class="btn grey darken-1 col s12">REMOVE EXP & HONOR</button>
+                    </form>
                     <br>
+                    <br>
+                    <p style="font-size:30px"><?php echo $server_response; ?></p>
                     <br>
                     <br>
                 </div>
