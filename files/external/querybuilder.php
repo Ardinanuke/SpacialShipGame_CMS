@@ -41,7 +41,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
     $mysqli->query("INSERT INTO user_bans (ip_user, userId, banType) VALUES ('" . $ip . "','" . $_POST['ban_user_id'] . "','" . $_POST['ban_ype'] . "')");
     $server_response = "User banned!";
 } else if (isset($_POST['unban_user_id'])) {
-    $mysqli->query("DELETE FROM user_bans WHERE userId=" . $_POST['unban_user_id']);
+    $mysqli->query("DELETE FROM user_bans WHERE id=" . $_POST['unban_user_id']);
     $server_response = "User Un-banned!";
 } else if (isset($_POST['search_accounts_user_id'])) {
     $server_response = "Search result: ";
