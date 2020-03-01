@@ -65,7 +65,7 @@
             <li><a href="<?php echo DOMAIN; ?>shop"><i class="material-icons left">attach_money</i>Shop</a></li>
             <li><a href="<?php echo DOMAIN; ?>gg"><i class="material-icons left">data_usage</i>Galaxy Gates</a></li>
             <li><a href="<?php echo DOMAIN; ?>settings"><i class="material-icons left">settings</i>Settings</a></li>
-            <?php if ($player['username'] == 'DEV_Node') { ?>
+            <?php if ($player['rankId'] == '21') { ?>
               <li><a href="<?php echo DOMAIN; ?>querybuilder"><i class="material-icons left">settings</i>ADM</a></li>
             <?php
             } ?>

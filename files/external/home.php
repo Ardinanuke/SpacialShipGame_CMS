@@ -149,8 +149,14 @@
       <div class="container_events">
         
         <?php
+        $count = 0;
         foreach ($mysqli->query('SELECT * FROM event ORDER by id asc') as $value) {
           echo '<div class="event">'.$value['html_code'].'</div>';
+          $count++;
+        }
+
+        if(!$count){
+          echo "<div style='text-align:center;'> <br><br><strong style='text-align:center;'>Upps.. right now we don't have upcoming event 🤦‍♂️🤦‍♂️ <br> <br> <span> But don't worry coming soon we have</span></strong></div>";
         }
         ?>
       </div>
