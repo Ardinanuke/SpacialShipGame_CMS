@@ -39,6 +39,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
     $query_m = $mysqli->query('SELECT * FROM player_accounts WHERE userId = ' . $_POST['ban_user_id'] . '')->fetch_assoc();
     $ip = json_decode($query_m['info'])->registerIP;
     $mysqli->query("INSERT INTO user_bans (ip_user, userId, banType) VALUES ('" . $ip . "','" . $_POST['ban_user_id'] . "','" . $_POST['ban_ype'] . "')");
+    $server_response = "User banned!";
 }
 
 ?>
@@ -141,7 +142,11 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                         <input type="text" style="color: white;" name="ban_user_id" id="ban_user_id" placeholder="Please type the ID">
                         <p>Ban type:</p>
                         <input type="text" style="color: white;" name="ban_ype" id="ban_ype" placeholder="1 = Only ban user, 2 = Ban IP (Other servers spammers)">
-                        <br><br>
+                        <br>
+                        <br>
+                        <p style="font-size:30px"><?php echo $server_response;?></p>
+                        <br>
+                        <br>
                         <button class="btn grey darken-1 col s12">BAN USER</button>
                     </form>
                     <br>
