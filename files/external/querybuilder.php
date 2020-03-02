@@ -68,7 +68,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
     $query_m = $mysqli->query('SELECT * FROM player_accounts WHERE userId = ' . $_POST['remove_exp_hon_user_id'] . '')->fetch_assoc();
 
     if (json_decode($query_m['data'])->experience != 0 && json_decode($query_m['data'])->honor != 0) {
-        
+
         $uri = json_decode($query_m['data'])->uridium;
         $credits = json_decode($query_m['data'])->credits;
         $exp = json_decode($query_m['data'])->experience / 2;
@@ -124,7 +124,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                                 <p>Rewards:</p>
                                 <input type="text" style="color: white;" name="rewards" id="rewards" placeholder="Uridium, EXP, Honor">
                                 <p>Event Coins:</p>
-                                <input type="text" style="color: white;" name="coins" id="coins" placeholder="0">
+                                <input type="text" style="color: white;" name="coins" id="coins" placeholder="Only 1 or 0">
                                 <button class="btn grey darken-1 col s12">Create</button>
                             </form>
                             <br><br>
