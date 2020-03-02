@@ -147,18 +147,27 @@
         <h4><a style="text-decoration:none;"><br />Server time</a></h4> <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=small&timezone=America%2FMexico_City" width="100%" height="90" frameborder="0" seamless></iframe>
       </div>
       <div class="container_events">
-        
+
         <?php
         $count = 0;
         foreach ($mysqli->query('SELECT * FROM event ORDER by id asc') as $value) {
-          echo '<div class="event">'.$value['html_code'].'</div>';
+          echo '<div class="event">' . $value['html_code'];
+          if ($value['active'] == 1) {
+            echo '<br> <form action="/event" method="post">
+                    <input type="text" name="code" id="code" value="'.$value['event_code'].'" style="position: absolute; visibility: hidden;">
+                    <button class="btn green darken-1 col s12">Claim Event Coins</button>
+                  </form>';
+          }
+          echo '</div>';
+
           $count++;
         }
 
-        if(!$count){
+        if (!$count) {
           echo "<div style='text-align:center;'> <br><br><strong style='text-align:center;'>Upps.. right now we don't have upcoming event. <br> <br> <span> With ❤ DeathSpace Team</span></strong></div>";
         }
         ?>
+
       </div>
     </div>
   </div>

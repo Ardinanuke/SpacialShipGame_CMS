@@ -25,7 +25,7 @@ if (isset($_POST['event_name']) && isset($_POST['start']) && isset($_POST['end']
     $mysqli->query($query);
     $server_response = "Event created!";
 } else if (isset($_POST['event_code'])) {
-    $query = "DELETE * FROM event WHERE event_code=" . $_POST['event_code'];
+    $query = "DELETE FROM event WHERE event_code= '" . $_POST['event_code']."'";
     $mysqli->query($query);
     $server_response = "Event deleted!";
 } else if (isset($_POST['event_code_a'])) {
@@ -68,6 +68,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
     $query_m = $mysqli->query('SELECT * FROM player_accounts WHERE userId = ' . $_POST['remove_exp_hon_user_id'] . '')->fetch_assoc();
 
     if (json_decode($query_m['data'])->experience != 0 && json_decode($query_m['data'])->honor != 0) {
+        
         $uri = json_decode($query_m['data'])->uridium;
         $credits = json_decode($query_m['data'])->credits;
         $exp = json_decode($query_m['data'])->experience / 2;
