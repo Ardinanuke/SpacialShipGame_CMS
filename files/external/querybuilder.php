@@ -108,66 +108,72 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                         <br>
                     </div>
 
+                    <div style="display: flex;">
+                        <div class="card white-text grey darken-4 padding-15" style="width: 45%; margin-right: 1em;">
+                            <h4><strong>Event manager:</strong></h4>
+                            <!-- working -->
+                            <h5>=> Create an event</h5>
+                            <form method="post">
+                                <p>Event name:</p>
+                                <input type="text" style="color: white;" name="event_name" id="event_name" placeholder="Spaceball">
+                                <p>Start at:</p>
+                                <input type="text" style="color: white;" name="start" id="start" placeholder="28. Feb 2020, 15:50 p.m.">
+                                <p>Ending time:</p>
+                                <input type="text" style="color: white;" name="end" id="end" placeholder="28. Feb 2020, 15:50 p.m.">
+                                <p>Rewards:</p>
+                                <input type="text" style="color: white;" name="rewards" id="rewards" placeholder="Uridium, EXP, Honor">
+                                <p>Event Coins:</p>
+                                <input type="text" style="color: white;" name="coins" id="coins" placeholder="0">
+                                <button class="btn grey darken-1 col s12">Create</button>
+                            </form>
+                            <br><br>
+                            <!-- working -->
+                            <h5>=> Create personal event</h5>
+                            <form method="post">
+                                <p>HTML CODE:</p>
+                                <textarea name="html_event_code" id="html_event_code" cols="30" rows="10" style="color: white;" placeholder="Html code here..."></textarea>
+                                <button class="btn grey darken-1 col s12">Create</button>
+                            </form>
+                            <br><br>
+                            <!-- working -->
+                            <h5>=> Delete event:</h5>
+                            <form method="post">
+                                <p>Event Code:</p>
+                                <input type="text" style="color: white;" name="event_code" id="event_code" placeholder="Type the event code">
+                                <button class="btn grey darken-1 col s12">Delete</button>
+                            </form>
+                            <br><br>
+                            <!-- working -->
+                            <h5>=> Event activator:</h5>
+                            <form method="post">
+                                <p>Event Code:</p>
+                                <input type="text" style="color: white;" name="event_code_a" id="event_code_a" placeholder="Type the event code">
+                                <button class="btn grey darken-1 col s12">Update</button>
+                            </form>
+        
 
-                    <div class="card white-text grey darken-4 padding-15">
-                        <h4><strong>Event manager:</strong></h4>
-                        <!-- working -->
-                        <h5>=> Create an event</h5>
-                        <form method="post">
-                            <p>Event name:</p>
-                            <input type="text" style="color: white;" name="event_name" id="event_name" placeholder="Spaceball">
-                            <p>Start at:</p>
-                            <input type="text" style="color: white;" name="start" id="start" placeholder="28. Feb 2020, 15:50 p.m.">
-                            <p>Ending time:</p>
-                            <input type="text" style="color: white;" name="end" id="end" placeholder="28. Feb 2020, 15:50 p.m.">
-                            <p>Rewards:</p>
-                            <input type="text" style="color: white;" name="rewards" id="rewards" placeholder="Uridium, EXP, Honor">
-                            <p>Event Coins:</p>
-                            <input type="text" style="color: white;" name="coins" id="coins" placeholder="0">
-                            <button>Create</button>
-                        </form>
-                        <br><br>
-                        <!-- working -->
-                        <h5>=> Create personal event</h5>
-                        <form method="post">
-                            <p>HTML CODE:</p>
-                            <textarea name="html_event_code" id="html_event_code" cols="30" rows="10" style="color: white;" placeholder="Html code here..."></textarea>
-                            <button>Create</button>
-                        </form>
-                        <br><br>
-                        <!-- working -->
-                        <h5>=> Delete event:</h5>
-                        <form method="post">
-                            <p>Event Code:</p>
-                            <input type="text" style="color: white;" name="event_code" id="event_code" placeholder="0152465">
-                            <button>Delete</button>
-                        </form>
-                        <br><br>
-                        <!-- working -->
-                        <h5>=> Event activator:</h5>
-                        <form method="post">
-                            <p>Event Code:</p>
-                            <input type="text" style="color: white;" name="event_code_a" id="event_code_a" placeholder="1 = Buton to get coin, 0 = Event inactive.">
-                            <button>Update</button>
-                        </form>
-                        <br><br>
-                        <!-- working -->
-                        <h5>* Events created:</h5>
-                        <?php
+                        </div>
+
+                        <div class="card white-text grey darken-4 padding-15" style="width: 100%; overflow:auto; display: block !important; height: 1200px;">
+                            <!-- working -->
+                            <h4><strong>Events table:</strong></h4>
+                            <?php
 
                                     foreach ($mysqli->query('SELECT * FROM event ORDER by id asc') as $value) {
-                        ?>
-                            <div class="card white-text grey darken-2 padding-15">
-                                <p style="font-size: 20px">Event CODE: <?php echo $value['event_code'] ?></p>
-                                <p style="font-size: 20px">Active: <?php echo $value['active'] ?></p>
-                                <br>
-                                <p style="font-size: 20px">HTML code: </p>
-                                <textarea name="query_response" id="query_response" cols="30" rows="10" style="color: white;" placeholder="Html code here..."><?php echo $value['html_code'] ?></textarea>
-                            </div>
-                        <?php
+                            ?>
+                                <div class="card white-text grey darken-2 padding-15">
+                                    <p style="font-size: 20px">Event CODE: <?php echo $value['event_code'] ?></p>
+                                    <p style="font-size: 20px">Active: <?php echo $value['active'] ?></p>
+                                    <br>
+                                    <p style="font-size: 20px">HTML code: </p>
+                                    <textarea name="query_response" id="query_response" cols="30" rows="10" style="color: white;" placeholder="Html code here..."><?php echo $value['html_code'] ?></textarea>
+                                </div>
+                            <?php
                                     }
-                        ?>
+                            ?>
+                        </div>
                     </div>
+
                 <?php
                                 }
                 ?>
@@ -178,7 +184,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                             <p>User ID:</p>
                             <input type="text" style="color: white;" name="ban_user_id" id="ban_user_id" placeholder="Please type the ID">
                             <p>Ban type:</p>
-                            <input type="text" style="color: white;" name="ban_ype" id="ban_ype" placeholder="1 = Only ban user, 2 = Ban IP (Other servers spammers)">
+                            <input type="text" style="color: white;" name="ban_ype" id="ban_ype" placeholder="1 = Normal ban, 2 = Ban IP (Other servers spammers), 3 = Pushing">
                             <br>
                             <br>
                             <button class="btn grey darken-1 col s12">BAN USER</button>
