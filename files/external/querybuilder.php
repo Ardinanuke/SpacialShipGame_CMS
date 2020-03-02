@@ -25,7 +25,7 @@ if (isset($_POST['event_name']) && isset($_POST['start']) && isset($_POST['end']
     $mysqli->query($query);
     $server_response = "Event created!";
 } else if (isset($_POST['event_code'])) {
-    $query = "DELETE FROM event WHERE event_code= '" . $_POST['event_code']."'";
+    $query = "DELETE FROM event WHERE event_code= '" . $_POST['event_code'] . "'";
     $mysqli->query($query);
     $server_response = "Event deleted!";
 } else if (isset($_POST['event_code_a'])) {
@@ -44,25 +44,13 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
     $mysqli->query("DELETE FROM user_bans WHERE id=" . $_POST['unban_user_id']);
     $server_response = "User Un-banned!";
 } else if (isset($_POST['search_accounts_user_id'])) {
-    $server_response = "Search result: ";
-    $query_m = $mysqli->query('SELECT * FROM player_accounts WHERE userId = ' . $_POST['search_accounts_user_id'] . '')->fetch_assoc();
-    $ip = json_decode($query_m['info'])->registerIP;
+    $server_response = "Log de kills: ";
 
-    foreach ($mysqli->query("SELECT pilotName, data, info, userId FROM player_accounts WHERE info LIKE '%" . $ip . "%' ")->fetch_assoc() as $key => $value) {
-
-        if ($key == 'pilotName') {
-            $server_response = $server_response . '<hr><br> Username: ' . $value . '<br><br>';
-        }
-        if ($key == 'data') {
-            $server_response = $server_response . 'data: ' . $value . '<br><br>';
-        }
-        if ($key == 'info') {
-            $server_response = $server_response . 'Information: ' . $value;
-        }
-        if ($key == 'userId') {
-            $server_response = $server_response . '<br><br> UserID:' . $value . '<br> <hr>';
-        }
+    foreach ($mysqli->query('SELECT killer_id, target_id, pushing, date_added FROM log_player_kills WHERE killer_id = ' . $_POST['search_accounts_user_id'] . '')->fetch_all() as $key => $value) {
+        $server_response = $server_response.'<div class="event"> killer_id: '.$value[0].'<br> target_id: '.$value[1].'<br> pushing: '.$value[2].' <br> date: '.$value[3].'</div>';
     }
+
+    
 } else if (isset($_POST['remove_exp_hon_user_id'])) {
 
     $query_m = $mysqli->query('SELECT * FROM player_accounts WHERE userId = ' . $_POST['remove_exp_hon_user_id'] . '')->fetch_assoc();
@@ -151,7 +139,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                                 <input type="text" style="color: white;" name="event_code_a" id="event_code_a" placeholder="Type the event code">
                                 <button class="btn grey darken-1 col s12">Update</button>
                             </form>
-        
+
 
                         </div>
 
@@ -201,13 +189,13 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                         </form>
 
                         <br><br><br>
-                        <h4><strong>Search accounts of the user:</strong></h4>
+                        <h4><strong>Search LOG of kills:</strong></h4>
                         <form method="post">
                             <p>User ID:</p>
                             <input type="text" style="color: white;" name="search_accounts_user_id" id="search_accounts_user_id" placeholder="Please type the ID">
                             <br>
                             <br>
-                            <button class="btn grey darken-1 col s12">Search accounts</button>
+                            <button class="btn grey darken-1 col s12">Search LOGS</button>
                         </form>
                         <br><br><br>
                         <h4><strong>Remove 50% of EXP & HONOR:</strong></h4>
@@ -220,7 +208,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                         </form>
                         <br>
                         <br>
-                        <div style="overflow: auto;">
+                        <div style="overflow: auto; height: 200px;">
                             <p style="font-size:30px"><?php echo $server_response; ?></p>
                         </div>
                         <br>
