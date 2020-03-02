@@ -124,7 +124,7 @@ class Functions
           ];
 
           $verification = [
-            'verified' => false,
+            'verified' => true,
             'hash' => $sessionId
           ];
 
@@ -139,7 +139,7 @@ class Functions
 
           SMTP::SendMail($email, $username, 'E-mail verification', '<p>Hi ' . $username . ', <br>Click this link to activate your account: <a href="' . DOMAIN . 'api/verify/' . $userId . '/' . $verification['hash'] . '">Activate</a></p><p style="font-size:small;color:#666">—<br>You are receiving this because you registered to the ' . SERVER_NAME . '.<br>If that was not your request, then you can ignore this email.<br>This is an automated message, please do not reply directly to this email.</p>');
 
-          $json['message'] = 'You successfully registered, please verify your e-mail address.';
+          $json['message'] = 'You successfully registered, NOW LOGIN!';
 
           $mysqli->commit();
         } catch (Exception $e) {
@@ -1294,7 +1294,9 @@ class Functions
 
           $mysqli->close();
         }
-      } else if ($shop['items'][$itemId]['priceType'] == 'event') {
+      }  
+      
+      if ($shop['items'][$itemId]['priceType'] == 'event') {
         /*
 
         CHECK IF ARE EVENT COINS.
@@ -1304,12 +1306,13 @@ class Functions
           2. are registred but dont have coins. [x]
           3. have event coins. [x]
         */
+        
 
         $search_user = $mysqli->query("SELECT * FROM event_coins WHERE userId= " . $player['userId'] . ";");
 
         if (mysqli_num_rows($search_user) > 0) {
           $user_coins = $search_user->fetch_assoc();
-
+          
           if ($user_coins['coins'] >= $price) {
 
             /*
@@ -1728,7 +1731,7 @@ class Functions
           'category' => 'drones',
           'name' => 'Havoc',
           'information' => '10% DMG (full set)',
-          'price' => 250000,
+          'price' => 150000,
           'priceType' => 'uridium',
           'amount' => true,
           'image' => 'do_img/global/items/drone/designs/havoc_100x100.png',
@@ -1739,7 +1742,7 @@ class Functions
           'category' => 'drones',
           'name' => 'Hercules',
           'information' => '15% Shield 20% Health (full set)',
-          'price' => 250000,
+          'price' => 150000,
           'priceType' => 'uridium',
           'amount' => true,
           'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
