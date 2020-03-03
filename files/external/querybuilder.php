@@ -139,10 +139,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                                 <input type="text" style="color: white;" name="event_code_a" id="event_code_a" placeholder="Type the event code">
                                 <button class="btn grey darken-1 col s12">Update</button>
                             </form>
-
-
                         </div>
-
                         <div class="card white-text grey darken-4 padding-15" style="width: 100%; overflow:auto; display: block !important; height: 1200px;">
                             <!-- working -->
                             <h4><strong>Events table:</strong></h4>
