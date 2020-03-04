@@ -1,16 +1,16 @@
 <?php
-	try{
-		if (!file_exists('anti_ddos/start.php'))
-			throw new Exception ('anti_ddos/start.php does not exist');
-		else
-			require_once('anti_ddos/start.php'); 
-	} 
-	//CATCH the exception if something goes wrong.
-	catch (Exception $ex) {
-		//echo '<div style="padding:10px;color:white;position:fixed;top:0;left:0;width:100%;background:black;text-align:center;">The <a href="https://github.com/sanix-darker/antiddos-system" target="_blank">"AntiDDOS System"</a> failed to load properly on this Web Site, please de-comment the \'catch Exception\' to see what happening!</div>';
-		//Print out the exception message.
-		//echo $ex->getMessage();
-	}
+try {
+  if (!file_exists('anti_ddos/start.php'))
+    throw new Exception('anti_ddos/start.php does not exist');
+  else
+    require_once('anti_ddos/start.php');
+}
+//CATCH the exception if something goes wrong.
+catch (Exception $ex) {
+  //echo '<div style="padding:10px;color:white;position:fixed;top:0;left:0;width:100%;background:black;text-align:center;">The <a href="https://github.com/sanix-darker/antiddos-system" target="_blank">"AntiDDOS System"</a> failed to load properly on this Web Site, please de-comment the \'catch Exception\' to see what happening!</div>';
+  //Print out the exception message.
+  //echo $ex->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -53,7 +53,7 @@
 
       <div class="container custom_container">
         <h1 class="server_name">DeathSpace.net</h1>
-        <nav class="grey darken-4">
+        <nav class="grey darken-4" style="overflow: auto;">
           <ul>
             <li><a href="<?php echo DOMAIN; ?>"><i class="material-icons left">home</i>Home</a></li>
             <li><a><i class="material-icons left">flight</i>Hangar <i class="material-icons right">keyboard_arrow_down</i></a>
@@ -76,7 +76,12 @@
                 <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/company">COMPANY</a></li>
               </ol>
             </li>
-            <li><a href="<?php echo DOMAIN; ?>shop"><i class="material-icons left">attach_money</i>Shop</a></li>
+            <li><a><i class="material-icons left">attach_money</i>Shop <i class="material-icons right">keyboard_arrow_down</i></a>
+              <ol class="menu_dropdown grey darken-3">
+                <li class="no_float"><a href="<?php echo DOMAIN; ?>shop">SHOP</a></li>
+                <li class="no_float"><a href="<?php echo DOMAIN; ?>auctions">AUCTIONS</a></li>
+              </ol>
+            </li>
             <li><a href="<?php echo DOMAIN; ?>gg"><i class="material-icons left">data_usage</i>Galaxy Gates</a></li>
             <li><a href="<?php echo DOMAIN; ?>settings"><i class="material-icons left">settings</i>Settings</a></li>
             <?php if ($player['rankId'] == '21') { ?>
