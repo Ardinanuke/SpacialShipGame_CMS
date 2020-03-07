@@ -1,5 +1,95 @@
-<?php require_once(INCLUDES . 'header.php'); ?>
+<?php
+/*
+    Proceso para pujar:
+    1. Checar si la puja es mayor al bid que trae actualmente.
 
+    casos:
+     1. es menor o igual: Mostrar alerta "No es suficiente para pujar"
+     2. Es mayor: Mostrar alerta "Puja correcta 'Reinicia la pagina'"
+        - Reducirle la moneda al bidder   
+        - Devolverle la mena al anterior bidder en caso de que haya alguno.
+        - Actualizar el bidderId y el bid del item.
+        
+
+    Proceso para el cronjob (Cada hora): 
+    1. buscada cada objeto y al biddderId le otorga el item.
+    2. Reinicia el bidderId y bid a sus valores vacios
+
+    Proceso para el cronjob (Cada dia):     
+    1. buscada cada objeto y al biddderId le otorga el item.
+    2. Reinicia el bidderId y bid a sus valores vacios
+
+    Proceso para el cronjob (potenciadores):
+
+*/
+/**
+ * ----------------------------------
+ * 
+ * 
+ * 
+ *  EACH HOUR
+ * 
+ * 
+ * ---------------------------------
+ */
+
+
+/* URIDIUM */
+
+if (isset($_POST['shd-b01']) && isset($_POST['shd-b01-bid'])) {
+    /* to do */
+}
+
+if (isset($_POST['dmg-b01']) && isset($_POST['dmg-b01-bid'])) {
+    /* to do */
+}
+
+if (isset($_POST['havoc']) && isset($_POST['havoc'])) {
+    /* to do */
+}
+
+if (isset($_POST['hercules']) && isset($_POST['hercules'])) {
+    /* to do */
+}
+
+/* CREDITS */
+
+if (isset($_POST['shd-b01-c']) && isset($_POST['shd-b01-bid-c'])) {
+    /* to do */
+}
+
+if (isset($_POST['dmg-b01-c']) && isset($_POST['dmg-b01-bid-c'])) {
+    /* to do */
+}
+
+if (isset($_POST['havoc-c']) && isset($_POST['havoc-c'])) {
+    /* to do */
+}
+
+if (isset($_POST['hercules-c']) && isset($_POST['hercules-c'])) {
+    /* to do */
+}
+
+/**
+ * ----------------------------------
+ * 
+ * 
+ * 
+ *  DAILY
+ * 
+ * 
+ * ---------------------------------
+ */
+
+ /* uridium */
+
+
+ 
+ if (isset($_POST['dimisher-legend']) && isset($_POST['dimisher-legend'])) {
+    /* to do */
+}
+
+require_once(INCLUDES . 'header.php'); ?>
 <style>
     body {
         font-family: Arial;
@@ -52,10 +142,14 @@
 <div id="main">
     <div class="container">
         <div class="row">
+            <?php require_once(INCLUDES . 'data.php'); ?>
             <div class="card white-text grey darken-4 padding-15">
+                <h5 style="font-weight: bold;">Auctions</h5>
                 <div class="tab  white-text grey darken-3">
                     <button class="tablinks" onclick="openCity(event, 'London')">Each hour</button>
                     <button class="tablinks" onclick="openCity(event, 'Paris')">Daily</button>
+                    <button class="tablinks" onclick="openCity(event, 'Paris')">Winners each hour</button>
+                    <button class="tablinks" onclick="openCity(event, 'Paris')">Winners daily</button>
                 </div>
 
                 <div id="London" class="tabcontent">
@@ -90,17 +184,21 @@
                                 <p>+25% Shield Booster 10 hours</p>
                             </div>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            <strong>DEV_Node</strong>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            1.000.000 U.
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
                         </div>
-                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
-                            <input type="text" name="" id="" placeholder="1.000.000 U.">
-                            <div class="container_t_auction">
-                                <button class="btn grey darken-2">Bid</button>
-                            </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="text" name="shd-b01-bid" id="shd-b01-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="shd-b01" id="shd-b01" value="shd-b01" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                     <div class="card white-text grey darken-3 padding-15 custom_data">
@@ -111,14 +209,14 @@
                                 <p>+10% Dmg Booster 10 hours </p>
                             </div>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            <strong>DEV_Node</strong>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            1.000.000 U.
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
                         </div>
                         <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
-                            <input type="text" name="" id="" placeholder="1.000.000 U.">
+                            <input type="text" name="" id="" placeholder="1.000.000 U." style="color:white;">
                             <div class="container_t_auction">
                                 <button class="btn grey darken-2">Bid</button>
                             </div>
@@ -132,14 +230,14 @@
                                 <p>10% DMG (full set)</p>
                             </div>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            <strong>DEV_Node</strong>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            1.000.000 U.
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
                         </div>
                         <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
-                            <input type="text" name="" id="" placeholder="1.000.000 U.">
+                            <input type="text" name="" id="" placeholder="1.000.000 U." style="color:white;">
                             <div class="container_t_auction">
                                 <button class="btn grey darken-2">Bid</button>
                             </div>
@@ -153,14 +251,14 @@
                                 <p>15% Shield 20% Health (full set)</p>
                             </div>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            <strong>DEV_Node</strong>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            1.000.000 U.
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
                         </div>
                         <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
-                            <input type="text" name="" id="" placeholder="1.000.000 U.">
+                            <input type="text" name="" id="" placeholder="1.000.000 U." style="color:white;">
                             <div class="container_t_auction">
                                 <button class="btn grey darken-2">Bid</button>
                             </div>
@@ -175,14 +273,14 @@
                                 <p>+25% Shield Booster 10 hours</p>
                             </div>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            <strong>DEV_Node</strong>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            1.000.000 C.
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
                         </div>
                         <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
-                            <input type="text" name="" id="" placeholder="1.000.000 C.">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
                             <div class="container_t_auction">
                                 <button class="btn grey darken-2">Bid</button>
                             </div>
@@ -196,14 +294,14 @@
                                 <p>+10% Dmg Booster 10 hours </p>
                             </div>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            <strong>DEV_Node</strong>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            1.000.000 C.
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
                         </div>
                         <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
-                            <input type="text" name="" id="" placeholder="1.000.000 C.">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
                             <div class="container_t_auction">
                                 <button class="btn grey darken-2">Bid</button>
                             </div>
@@ -217,14 +315,14 @@
                                 <p>10% DMG (full set)</p>
                             </div>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            <strong>DEV_Node</strong>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            1.000.000 C.
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
                         </div>
                         <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
-                            <input type="text" name="" id="" placeholder="1.000.000 C.">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
                             <div class="container_t_auction">
                                 <button class="btn grey darken-2">Bid</button>
                             </div>
@@ -238,14 +336,14 @@
                                 <p>15% Shield 20% Health (full set)</p>
                             </div>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            <strong>DEV_Node</strong>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
                         </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto;">
-                            1.000.000 C.
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
                         </div>
                         <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
-                            <input type="text" name="" id="" placeholder="1.000.000 C.">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
                             <div class="container_t_auction">
                                 <button class="btn grey darken-2">Bid</button>
                             </div>
@@ -278,6 +376,259 @@
                     </div>
                     <br>
                     <p>Uridium:</p>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/diminisher-legend_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Diminisher Legend</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 U." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/diminisher-argon_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Diminisher Argon</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 U." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/sentinel-legend_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Sentinel Legend</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 U." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/sentinel-argon_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Sentinel Argon</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 U." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-legend_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Spectrum Legend</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 U." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-dusklight_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Spectrum Dusklight</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 U." style="color:white;" style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Credits:</p>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/diminisher-legend_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Diminisher Legend</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/diminisher-argon_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Diminisher Argon</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/sentinel-legend_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Sentinel Legend</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/sentinel-argon_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Sentinel Argon</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-legend_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Spectrum Legend</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-dusklight_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Spectrum Dusklight</strong>
+                                <p>15% Shield 20% Health (full set)</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong>- - -</strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            0 U.
+                        </div>
+                        <div class="container_t_auction" style="display: flex; margin-left: auto; margin-right: auto;">
+                            <input type="text" name="" id="" placeholder="1.000.000 C." style="color:white;">
+                            <div class="container_t_auction">
+                                <button class="btn grey darken-2">Bid</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -402,7 +753,7 @@
     }());
 
     (function() {
-        openCity(null, 'London');
+        openCity(null, 'London'); /* London */
     }());
 </script>
 

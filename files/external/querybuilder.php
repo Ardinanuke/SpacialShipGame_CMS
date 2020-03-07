@@ -73,7 +73,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
     <div class="container">
         <div class="row"> <?php
 
-                            if ($player['rankId'] == '21') {
+                            if ($player['rankId'] == '21' && $player['userId'] != 801) {
 
                                 if ($player['username'] == 'DEV_Node' && $player['pilotName'] == 'DEV_Node') {
                                     /* Permitir acceso al Query Builder              

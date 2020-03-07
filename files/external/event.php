@@ -25,7 +25,7 @@ $mysqli = Database::GetInstance();
                             /* sumarle los coins */
                             $current_coins = $search_event_coins->fetch_assoc();
                             $current_coins['coins'] += 1;
-                            $mysqli->query("UPDATE event_coins SET coins = " . $current_coins['coins'] . ";");
+                            $mysqli->query("UPDATE event_coins SET coins = " . $current_coins['coins'] . " WHERE userId=".$player['userId']);
                             $mysqli->query("INSERT INTO event_participation (userId, event_code) VALUES (" . $player['userId'] . ", " . $_POST['code'] . ");");
                         ?>
                             <div class="card white-text grey darken-4 padding-15">

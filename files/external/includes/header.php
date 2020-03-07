@@ -38,7 +38,7 @@ catch (Exception $ex) {
   <?php if (Functions::IsLoggedIn()) { ?>
     <style>
       body {
-        background: url('../img/backgroundEIC.jpg');
+        background: url('../img/backgroundEIC.jpg') !important;
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-attachment: fixed;
@@ -80,6 +80,7 @@ catch (Exception $ex) {
               <ol class="menu_dropdown grey darken-3">
                 <li class="no_float"><a href="<?php echo DOMAIN; ?>shop">SHOP</a></li>
                 <li class="no_float"><a href="<?php echo DOMAIN; ?>auctions">AUCTIONS</a></li>
+                <li class="no_float"><a href="<?php echo DOMAIN; ?>auctions">PREMIUM</a></li>
               </ol>
             </li>
             <li><a href="<?php echo DOMAIN; ?>gg"><i class="material-icons left">data_usage</i>Galaxy Gates</a></li>

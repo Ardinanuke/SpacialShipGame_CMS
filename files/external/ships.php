@@ -18,78 +18,40 @@
           $player = Functions::GetPlayer();
           $items = json_decode($mysqli->query('SELECT items FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['items']);
           foreach ($items->ships as $ships) { ?>
-            <div class="mySlides">
-               <?php 
-              switch($ships){
-                case 8: 
-                  echo '<img src="'. DOMAIN .'do_img/global/items/vengeance.gif" alt="" srcset="">';
-                break;
-                case 245: 
-                  echo '<img src="'. DOMAIN .'do_img/global/items/cyborg.gif" alt="" srcset="">';
-                break;
-                case 246: 
-                  echo '<img src="'. DOMAIN .'do_img/global/items/hammerclaw.gif" alt="" srcset="">';
-                break;
-                case 49: 
-                  echo '<img src="'. DOMAIN .'do_img/global/items/aegis.gif" alt="" srcset="">';
-                break;
-                case 69: 
-                  echo '<br><br><img src="'. DOMAIN .'do_img/global/items/citadel.gif" alt="" srcset="">';
-                break;
-                case 70: 
-                  echo '<br><br><br><img src="'. DOMAIN .'do_img/global/items/spearhead.gif" alt="" srcset="">';
-                break;
+              <?php
+              switch ($ships) {
+                case 8:
+                  echo '<div class="mySlides"><img src="' . DOMAIN . 'do_img/global/items/vengeance.gif" alt="" srcset="">';
+                  echo "<h3><strong>Vengeance</strong></h3><br><br>";
+                  echo '<button class="custom_choose i-1">Choose</button> </div>';
+                  break;
+                case 245:
+                  echo '<div class="mySlides"><img src="' . DOMAIN . 'do_img/global/items/cyborg.gif" alt="" srcset="">';
+                  echo "<h3><strong>Cyborg</strong></h3><br><br>";
+                  echo '<button class="custom_choose i-2">Choose</button> </div>';
+                  break;
+                case 246:
+                  echo '<div class="mySlides"><img src="' . DOMAIN . 'do_img/global/items/hammerclaw.gif" alt="" srcset="">';
+                  echo "<h3><strong>Hammerclaw</strong></h3><br><br>";
+                  echo '<button class="custom_choose i-3">Choose</button> </div>';
+                  break;
+                case 49:
+                  echo '<div class="mySlides"><img src="' . DOMAIN . 'do_img/global/items/aegis.gif" alt="" srcset="">';
+                  echo "<h3><strong>Aegis</strong></h3><br><br>";
+                  echo '<button class="custom_choose i-4">Choose</button> </div>';
+                  break;
+                case 69:
+                  echo '<div class="mySlides"><br><br><img src="' . DOMAIN . 'do_img/global/items/citadel.gif" alt="" srcset="">';
+                  echo "<h3><strong>Citadel</strong></h3><br><br>";
+                  echo '<button class="custom_choose i-5">Choose</button> </div>';
+                  break;
+                case 70:
+                  echo '<div class="mySlides"><br><br><br><img src="' . DOMAIN . 'do_img/global/items/spearhead.gif" alt="" srcset="">';
+                  echo "<h3><strong>Spearhead</strong></h3><br><br>";
+                  echo '<button class="custom_choose i-6">Choose</button> </div>';
+                  break;
               }
               ?>
-              <h3><strong><?php 
-              switch($ships){
-                case 8: 
-                  echo "Vengeance";
-                break;
-                case 245: 
-                  echo "Cyborg";
-                break;
-                case 246: 
-                  echo "Hammerclaw";
-                break;
-                case 49: 
-                  echo "Aegis";
-                break;
-                case 69: 
-                  echo "Citadel";
-                break;
-                case 70: 
-                  echo "Spearhead";
-                break;
-              }
-              ?></strong></h3>
-              <br><br>
-
-              <?php 
-              
-              switch($ships){
-                case 8: 
-                  echo '<button class="custom_choose i-1">Choose</button>';
-                break;
-                case 245: 
-                  echo '<button class="custom_choose i-2">Choose</button>';
-                break;
-                case 246: 
-                  echo '<button class="custom_choose i-3">Choose</button>';
-                break;
-                case 49: 
-                  echo '<button class="custom_choose i-4">Choose</button>';
-                break;
-                case 69: 
-                  echo '<button class="custom_choose i-5">Choose</button>';
-                break;
-                case 70: 
-                  echo '<button class="custom_choose i-6">Choose</button>';
-                break;
-              }
-              ?>
-              
-            </div>
           <?php
           }
           ?>

@@ -6,6 +6,7 @@ $clan = $mysqli->query('SELECT * FROM server_clans WHERE id = '.$clanId.'')->fet
 
 $pendingAlready = $mysqli->query('SELECT id FROM server_clan_applications WHERE clanId = '.$clanId.' AND userId = '.$player['userId'].'')->num_rows >= 1;
 ?>
+
 <div class="card white-text grey darken-4  padding-15">
   <?php if ($clan === NULL) { ?>
     <h5>Clan not found!</h5>
