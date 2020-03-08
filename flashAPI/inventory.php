@@ -775,6 +775,13 @@ function GetDesignsLootIds()
 			'ship_goliath_design_spectrum',
 			'ship_goliath_design_sentinel',
 			'ship_goliath_design_venom',
+			/*
+			'ship_spectrum_design_spectrum-legend',
+			'ship_spectrum_design_spectrum-dusklight',
+			'ship_sentinel_design_sentinel-argon',
+			'ship_sentinel_design_sentinel-legend',
+			'ship_diminisher_design_diminisher-argon',
+			'ship_diminisher_design_diminisher-legend', */
 			'ship_goliath_design_enforcer',
 			'ship_goliath_design_bastion',
 			'ship_goliath_design_veteran',
