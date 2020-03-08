@@ -16,8 +16,8 @@ catch (Exception $ex) {
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="UTF-8">
   <title>DeathSpace: Multiplayer Game</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/materialize.min.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/style.css" />
