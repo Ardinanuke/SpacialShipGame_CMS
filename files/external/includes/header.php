@@ -1,4 +1,5 @@
 <?php
+/*
 try {
   if (!file_exists('anti_ddos/start.php'))
     throw new Exception('anti_ddos/start.php does not exist');
@@ -10,7 +11,7 @@ catch (Exception $ex) {
   //echo '<div style="padding:10px;color:white;position:fixed;top:0;left:0;width:100%;background:black;text-align:center;">The <a href="https://github.com/sanix-darker/antiddos-system" target="_blank">"AntiDDOS System"</a> failed to load properly on this Web Site, please de-comment the \'catch Exception\' to see what happening!</div>';
   //Print out the exception message.
   //echo $ex->getMessage();
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -80,7 +81,7 @@ catch (Exception $ex) {
               <ol class="menu_dropdown grey darken-3">
                 <li class="no_float"><a href="<?php echo DOMAIN; ?>shop">SHOP</a></li>
                 <li class="no_float"><a href="<?php echo DOMAIN; ?>auctions">AUCTIONS</a></li>
-                <li class="no_float"><a href="<?php echo DOMAIN; ?>auctions">PREMIUM</a></li>
+                <li class="no_float"><a href="<?php echo DOMAIN; ?>premium">PREMIUM</a></li>
               </ol>
             </li>
             <li><a href="<?php echo DOMAIN; ?>gg"><i class="material-icons left">data_usage</i>Galaxy Gates</a></li>

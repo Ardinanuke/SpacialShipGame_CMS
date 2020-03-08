@@ -1394,6 +1394,41 @@ require_once(INCLUDES . 'header.php'); ?>
                             </form>
                         </div>
                     </div>
+
+                    <!-- DONE -->
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-dusklight_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>P.E.T. 15</strong>
+                                <p>Advanced robotic</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="spectrum-dusklight" ')->fetch_assoc();
+                                    if ($spectrumDusklight['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_spectrumDusklight = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $spectrumDusklight['bidderId'])->fetch_assoc();
+                                        echo $user_spectrumDusklight['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($spectrumDusklight['bid'], 0, ',', '.'); ?> U.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="spectrum-dusklight-bid" id="spectrum-dusklight-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="spectrum-dusklight" id="spectrum-dusklight" value="spectrum-dusklight" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <p>Credits:</p>
                     <!-- DONE -->
                     <div class="card white-text grey darken-3 padding-15 custom_data">

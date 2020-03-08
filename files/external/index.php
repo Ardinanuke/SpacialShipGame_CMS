@@ -22,14 +22,14 @@
         <div class="card-content">
           <p>Username</p>
           <input type="text" class="field_personal" placeholder="     Enter your username" name="username" id="r-username" class="validate" maxlength="20" required>
-          <span class="helper-text" data-error="Enter a valid username!">Enter your username.</span>
+          <span class="helper-text" data-error="Enter a valid username!"></span>
           <p>Email</p>
           <input type="email" class="field_personal" placeholder="     Enter your email" name="email" id="r-email" class="validate" maxlength="260" required>
           <p>Password</p>
           <input type="password" class="field_personal" placeholder="     Enter your password" name="password" id="r-password" class="validate" maxlength="45" required>
           <p>Password confirm</p>
           <input type="password" class="field_personal" placeholder="     Confirm your password" name="password_confirm" id="r-password-confirm" class="validate" maxlength="45" required>
-          <span class="helper-text" data-error="Enter a valid password!">Confirm your password.</span>
+          <span class="helper-text" data-error="Enter a valid password!"></span>
           <div class="input-field">
             <p>
               <label>
