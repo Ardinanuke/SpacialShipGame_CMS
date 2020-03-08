@@ -13,6 +13,8 @@ foreach ($mysqli->query('SELECT * FROM auction_house WHERE category="day"') as $
                 }
                 /* Set Values */
                 $mysqli->query("UPDATE auction_house SET bidderId = 0, bid = 0 WHERE name ='" . $value['name'] . "'");
+                /* insert in winners */
+                $mysqli->query("INSERT INTO auction_house_winners (itemName, userId, bid) VALUES ('" . $value['name'] . "'," . $value['bidderId'] . "," . $value['bid'] . ")");
             }
             break;
         case 'diminisher-argon':
@@ -25,6 +27,8 @@ foreach ($mysqli->query('SELECT * FROM auction_house WHERE category="day"') as $
                 }
                 /* Set Values */
                 $mysqli->query("UPDATE auction_house SET bidderId = 0, bid = 0 WHERE name ='" . $value['name'] . "'");
+                /* insert in winners */
+                $mysqli->query("INSERT INTO auction_house_winners (itemName, userId, bid) VALUES ('" . $value['name'] . "'," . $value['bidderId'] . "," . $value['bid'] . ")");
             }
             break;
         case 'sentinel-legend':
@@ -37,6 +41,8 @@ foreach ($mysqli->query('SELECT * FROM auction_house WHERE category="day"') as $
                 }
                 /* Set Values */
                 $mysqli->query("UPDATE auction_house SET bidderId = 0, bid = 0 WHERE name ='" . $value['name'] . "'");
+                /* insert in winners */
+                $mysqli->query("INSERT INTO auction_house_winners (itemName, userId, bid) VALUES ('" . $value['name'] . "'," . $value['bidderId'] . "," . $value['bid'] . ")");
             }
             break;
         case 'sentinel-argon':
@@ -49,6 +55,8 @@ foreach ($mysqli->query('SELECT * FROM auction_house WHERE category="day"') as $
                 }
                 /* Set Values */
                 $mysqli->query("UPDATE auction_house SET bidderId = 0, bid = 0 WHERE name ='" . $value['name'] . "'");
+                /* insert in winners */
+                $mysqli->query("INSERT INTO auction_house_winners (itemName, userId, bid) VALUES ('" . $value['name'] . "'," . $value['bidderId'] . "," . $value['bid'] . ")");
             }
             break;
         case 'spectrum-legend':
@@ -61,6 +69,8 @@ foreach ($mysqli->query('SELECT * FROM auction_house WHERE category="day"') as $
                 }
                 /* Set Values */
                 $mysqli->query("UPDATE auction_house SET bidderId = 0, bid = 0 WHERE name ='" . $value['name'] . "'");
+                /* insert in winners */
+                $mysqli->query("INSERT INTO auction_house_winners (itemName, userId, bid) VALUES ('" . $value['name'] . "'," . $value['bidderId'] . "," . $value['bid'] . ")");
             }
             break;
         case 'spectrum-dusklight':
@@ -73,6 +83,8 @@ foreach ($mysqli->query('SELECT * FROM auction_house WHERE category="day"') as $
                 }
                 /* Set Values */
                 $mysqli->query("UPDATE auction_house SET bidderId = 0, bid = 0 WHERE name ='" . $value['name'] . "'");
+                /* insert in winners */
+                $mysqli->query("INSERT INTO auction_house_winners (itemName, userId, bid) VALUES ('" . $value['name'] . "'," . $value['bidderId'] . "," . $value['bid'] . ")");
             }
             break;
     }

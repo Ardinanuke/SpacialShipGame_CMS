@@ -770,7 +770,7 @@ if (isset($_POST['spectrum-legend-c']) && isset($_POST['spectrum-legend-bid-c'])
 }
 
 if (isset($_POST['spectrum-dusklight-c']) && isset($_POST['spectrum-dusklight-bid-c'])) {
-    
+
     $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="spectrum-dusklight-c" ')->fetch_assoc();
     if ($_POST['spectrum-dusklight-bid-c'] > 0) {
 
@@ -895,13 +895,14 @@ require_once(INCLUDES . 'header.php'); ?>
 
 
                 <div class="tab  white-text grey darken-3">
-                    <button class="tablinks" onclick="openCity(event, 'London')">Each hour</button>
-                    <button class="tablinks" onclick="openCity(event, 'Paris')">Daily</button>
-                    <button class="tablinks" onclick="openCity(event, 'Paris')">Winners each hour</button>
-                    <button class="tablinks" onclick="openCity(event, 'Paris')">Winners daily</button>
+                    <button class="tablinks" onclick="openCity(event, 'hour')">Each hour</button>
+                    <button class="tablinks" onclick="openCity(event, 'day')">Daily</button>
+                    <!-- 
+                    <button class="tablinks" onclick="openCity(event, 'winhour')">Winners each hour</button>
+                    <button class="tablinks" onclick="openCity(event, 'winday')">Winners daily</button> -->
                 </div>
 
-                <div id="London" class="tabcontent">
+                <div id="hour" class="tabcontent">
                     <div class="countdown">
                         <p class="timer">
                             <strong>Time remaining: </strong>
@@ -1164,7 +1165,7 @@ require_once(INCLUDES . 'header.php'); ?>
                     </div>
                 </div>
 
-                <div id="Paris" class="tabcontent">
+                <div id="day" class="tabcontent">
                     <div class="countdown2">
                         <p class="timer2">
                             <strong>Time remaining: </strong>
@@ -1416,7 +1417,7 @@ require_once(INCLUDES . 'header.php'); ?>
                                     ?></strong>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                        <?php echo number_format($diminisherLegend['bid'], 0, ',', '.'); ?> C.
+                            <?php echo number_format($diminisherLegend['bid'], 0, ',', '.'); ?> C.
                         </div>
                         <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
                             <form action="" method="post" style="display: flex;">
@@ -1450,7 +1451,7 @@ require_once(INCLUDES . 'header.php'); ?>
                                     ?></strong>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                        <?php echo number_format($diminisherArgon['bid'], 0, ',', '.'); ?> C.
+                            <?php echo number_format($diminisherArgon['bid'], 0, ',', '.'); ?> C.
                         </div>
                         <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
                             <form action="" method="post" style="display: flex;">
@@ -1484,7 +1485,7 @@ require_once(INCLUDES . 'header.php'); ?>
                                     ?></strong>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                        <?php echo number_format($sentinelLegend['bid'], 0, ',', '.'); ?> C.
+                            <?php echo number_format($sentinelLegend['bid'], 0, ',', '.'); ?> C.
                         </div>
                         <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
                             <form action="" method="post" style="display: flex;">
@@ -1518,7 +1519,7 @@ require_once(INCLUDES . 'header.php'); ?>
                                     ?></strong>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                        <?php echo number_format($sentinelArgon['bid'], 0, ',', '.'); ?> C.
+                            <?php echo number_format($sentinelArgon['bid'], 0, ',', '.'); ?> C.
                         </div>
                         <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
                             <form action="" method="post" style="display: flex;">
@@ -1552,7 +1553,7 @@ require_once(INCLUDES . 'header.php'); ?>
                                     ?></strong>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                        <?php echo number_format($spectrumLegend['bid'], 0, ',', '.'); ?> C.
+                            <?php echo number_format($spectrumLegend['bid'], 0, ',', '.'); ?> C.
                         </div>
                         <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
                             <form action="" method="post" style="display: flex;">
@@ -1585,7 +1586,7 @@ require_once(INCLUDES . 'header.php'); ?>
                                     ?></strong>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                        <?php echo number_format($spectrumDusklight['bid'], 0, ',', '.'); ?> C.
+                            <?php echo number_format($spectrumDusklight['bid'], 0, ',', '.'); ?> C.
                         </div>
                         <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
                             <form action="" method="post" style="display: flex;">
@@ -1598,6 +1599,7 @@ require_once(INCLUDES . 'header.php'); ?>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -1720,7 +1722,7 @@ require_once(INCLUDES . 'header.php'); ?>
     }());
 
     (function() {
-        openCity(null, 'London'); /* London */
+        openCity(null, 'hour'); /* London */
     }());
 </script>
 
