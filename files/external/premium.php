@@ -8,7 +8,7 @@
                 <div class="w3-panel w3-green">
                         <br>
                         <p> Donations are manually verified, rewards are given after verification. It may take some time.
-                            Contact email: <a href="mailto:support.deathspace@gmail.com" target="_blank"><strong>support.deathspace@gmail.com</strong></a></h4></p>
+                            Contact email: <a href="mailto:deathspace.team@gmail.com" target="_blank"><strong>deathspace.team@gmail.com</strong></a></h4></p>
                         <br>
                     </div>
                 <div class="module">
