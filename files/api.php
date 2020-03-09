@@ -46,6 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 		if (isset($_POST['pilotName'])) {
 			echo Functions::ChangePilotName(Functions::s($_POST['pilotName']));
 		}
+	}else if ($request === 'change_pet_name') {
+		if (isset($_POST['petName'])) {
+			echo Functions::ChangePetName(Functions::s($_POST['petName']));
+		}
 	} else if ($request === 'change_version') {
 		if (isset($_POST['version'])) {
 			echo Functions::ChangeVersion(Functions::s($_POST['version']));

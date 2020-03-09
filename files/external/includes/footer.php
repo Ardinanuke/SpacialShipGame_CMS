@@ -673,6 +673,31 @@ $('#end-war').click(function() {
     });
   });
 
+  $('#change_pet_name').submit(function(e) {
+    e.preventDefault();
+
+    var form = $(this);
+
+    $.ajax({
+      url: '<?php echo DOMAIN; ?>api/',
+      data: form.serialize() + '&action=change_pet_name',
+      type: 'POST',
+      success:function(response) {
+        var json = jQuery.parseJSON(response);
+
+        for (var input in json.inputs) {
+          $('#change_pet_name input[name='+input+'] + label + span').attr('data-error', json.inputs[input].error);
+          $('#change_pet_name input[name='+input+']').removeClass('valid invalid');
+          $('#change_pet_name input[name='+input+']').addClass(json.inputs[input].validate);
+        }
+
+        if (json.message != '') {
+          M.toast({html: '<span>'+ json.message +'</span>'});
+        }
+      }
+    });
+  });
+
   $('input[name=version]').change(function() {
     var version = $(this).prop('checked');
     $.ajax({

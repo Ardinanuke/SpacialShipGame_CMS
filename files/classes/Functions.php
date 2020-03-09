@@ -1242,6 +1242,14 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_vengeance_design_lightning', 8, " . $player['userId'] . ")");
             $status = true;
           }
+        } else if ($shop['items'][$itemId]['name'] == 'Vengeance Pusat') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_vengeance_design_pusat' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_vengeance_design_pusat', 8, " . $player['userId'] . ")");
+            $status = true;
+          }
         } else if ($shop['items'][$itemId]['name'] == 'Goliath Referee') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_referee' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
@@ -1294,7 +1302,12 @@ class Functions
 
           $mysqli->close();
         }
-      } else if ($shop['items'][$itemId]['priceType'] == 'event') {
+      } else {
+
+        $json['message'] = "You don't have enough " . ($shop['items'][$itemId]['priceType'] == 'uridium' ? 'Uridium' : 'Credits');
+      }
+
+      if ($shop['items'][$itemId]['priceType'] == 'event') {
         /*
         CHECK IF ARE EVENT COINS.
         cases: 
@@ -1359,9 +1372,6 @@ class Functions
         } else {
           $json['message'] = "You don't have enough Event Coins";
         }
-      } else {
-
-        $json['message'] = "You don't have enough " . ($shop['items'][$itemId]['priceType'] == 'uridium' ? 'Uridium' : 'Credits');
       }
     } else {
       $json['message'] = 'Something went wrong!';
@@ -1416,6 +1426,35 @@ class Functions
       } else {
         $json['message'] = 'You can only rename your Pilot once every 24 hours. <br> (Your last name change: ' . date('d.m.Y H:i', strtotime(end($oldPilotNames)->date)) . ')';
       }
+    }
+
+    return json_encode($json);
+  }
+
+  public static function ChangePetName($newPilotName)
+  {
+    $mysqli = Database::GetInstance();
+
+    $player = Functions::GetPlayer();
+    $newPilotName = $mysqli->real_escape_string($newPilotName);
+
+    $json = [
+      'inputs' => [
+        'pilotName' => ['validate' => 'valid', 'error' => 'Enter a valid P.E.T. name!']
+      ],
+      'message' => ''
+    ];
+
+    if (mb_strlen($newPilotName) < 4 || mb_strlen($newPilotName) > 20) {
+      $json['inputs']['pilotName']['validate'] = 'invalid';
+      $json['inputs']['pilotName']['error'] = 'Your P.E.T. name should be between 4 and 20 characters.';
+    }
+
+    if ($json['inputs']['pilotName']['validate'] === 'valid') {
+
+      $mysqli->query("UPDATE player_accounts SET petName = '" . $newPilotName . "' WHERE userId = " . $player['userId'] . "");
+
+      $json['message'] = 'Your P.E.T. name has been changed.';
     }
 
     return json_encode($json);
@@ -1773,6 +1812,17 @@ class Functions
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/citadel.gif',
+          'active' => true
+        ],
+        [
+          'id' => 17,
+          'category' => 'designs',
+          'name' => 'Vengeance Pusat',
+          'information' => 'Speed 30% and DMG 5%',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/pusat_100x100.png',
           'active' => true
         ]
       ]
