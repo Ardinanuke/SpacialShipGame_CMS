@@ -333,6 +333,25 @@ HOME CSS
   cursor: pointer;
 }
 
+.polygon3 {
+  width: 375px !important;
+  height: 70px !important;
+  -webkit-clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+  clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+  text-align: center;
+  background: rgba(0, 127, 0, 0.5);
+  border: 5px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  cursor: pointer;
+}
+
+
 .custom_container {
   margin-top: 2em;
 }

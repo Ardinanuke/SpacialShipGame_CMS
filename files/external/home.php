@@ -154,7 +154,7 @@
           echo '<div class="event">' . $value['html_code'];
           if ($value['active'] == 1) {
             echo '<br> <form action="/event" method="post">
-                    <input type="text" name="code" id="code" value="'.$value['event_code'].'" style="position: absolute; visibility: hidden;">
+                    <input type="text" name="code" id="code" value="' . $value['event_code'] . '" style="position: absolute; visibility: hidden;">
                     <button class="btn green darken-1 col s12">Claim Event Coins</button>
                   </form>';
           }
@@ -173,7 +173,83 @@
   </div>
   <br>
   <br>
+  <?php
+  if (!isset($_COOKIE['jquery_popup'])) {
+    setcookie("jquery_popup", 'sessionexists', time() + 3600); ?>
+    <!-- The Modal -->
+    <div id="id03" class="w3-modal" style="height: 100%; display: block;">
+      <div class="w3-modal-content modal_modification" style="height: 90% !important;">
+        <div class="w3-container">
+          <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+          <div class="center">
+            <img src="img/season1.png" width="100%">
+            <p style="font-weight: bold; color: gold; font-size: 25px;">THIS PACK INCLUDE</p>
+            <p style="font-weight: bold;  font-size: 15px;">Exclusive design "Goliath Orion", One month premium, Exclusive title: "The Hunter" & 1.000.000 U. </p>
+            <br>
+            <a class="btn green darken-4 col s12" href="premium" style="width: 400px !important; font-size: 30px; height: 80px !important; font-weight: bold; padding-top: 25px !important;">Buy now</a>
+            <br><br>
+            <div class="countdown2">
+              <p class="timer2">
+                <strong>Next season: </strong>
+                <span id="days"></span> Day(s)
+                <span id="hours"></span> Hour(s)
+                <span id="minutes"></span> Minute(s)
+                <span id="seconds"></span> Second(s)
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  <?php
+    //Add code to display popup here
+  }
+  ?>
 </div>
+<script>
+   function countdown(endDate) {
+        let days, hours, minutes, seconds;
+
+        endDate = new Date(endDate).getTime();
+
+        if (isNaN(endDate)) {
+            return;
+        }
+
+        setInterval(calculate, 1000);
+
+        function calculate() {
+
+            let startDate = new Date().getTime(); /* we only need change the start date */      
+
+            let timeRemaining = parseInt((endDate - startDate) / 1000);
 
 
+            if (timeRemaining >= 0) {
+                days = parseInt(timeRemaining / 86400);
+                timeRemaining = (timeRemaining % 86400);
+
+                hours = parseInt(timeRemaining / 3600);
+                timeRemaining = (timeRemaining % 3600);
+
+                minutes = parseInt(timeRemaining / 60);
+                timeRemaining = (timeRemaining % 60);
+
+                seconds = parseInt(timeRemaining);
+                document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+                document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+                document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+            } else {
+                return;
+            }
+        }
+    }
+
+    (function() {
+        /* mm / dd / yy */
+        countdown('04/15/2020 07:00:00 AM');
+    }());
+</script>
 <?php require_once(INCLUDES . 'footer.php'); ?>

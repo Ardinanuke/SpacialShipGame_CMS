@@ -3,6 +3,10 @@
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/materialize.min.js"></script>
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/main.js"></script>
 
+</script>
+</script>
+
+
 <?php if (!Functions::IsLoggedIn() && isset($page[0]) && $page[0] === 'index') { ?>
 <script type="text/javascript">
   $('#modal #agree').click(function() {

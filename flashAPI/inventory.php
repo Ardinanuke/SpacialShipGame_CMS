@@ -314,6 +314,8 @@ try {
 			} else if ($_POST['action'] == 'sellDrone') {
 				SendError($error[2]);
 			} else if ($_POST['action'] == 'changeShipModel') {
+				/* reset config */
+
 				$decoded = base64_decode($_POST['params']);
 				$json_array = json_decode($decoded, true);
 
@@ -332,6 +334,25 @@ try {
 					case 'ship_spearhead-eic':
 					case 'ship_spearhead-vru':
 						$json_array['lootId'] = 'ship_spearhead';
+						break;
+					case 'ship_vengeance_design_adept':
+					case 'ship_vengeance_design_corsair':
+					case 'ship_vengeance_design_avenger':
+					case 'ship_vengeance_design_revenge':
+					case 'ship_vengeance_design_pusat':
+						/* Temporal fix of pusat bug */
+						
+						$decoded = base64_decode($_POST['params']);
+						$json_array = json_decode($decoded, true);
+
+						$drones = '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]';
+
+						$mysqli->query("UPDATE player_equipment SET config1_generators = '[]', config1_lasers = '[]', config2_generators = '[]', config2_lasers = '[]', config1_drones ='" . $drones . "' , config2_drones = '" . $drones . "' WHERE userId = " . $player['userId'] . "");
+						if (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
+							Socket::Send('UpdateStatus', array('UserId' => $player['userId']));
+						}
+
+						echo base64_encode('{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}');
 						break;
 				}
 
@@ -752,7 +773,8 @@ function GetDesignsLootIds()
 			'ship_vengeance_design_adept',
 			'ship_vengeance_design_corsair',
 			'ship_vengeance_design_avenger',
-			'ship_vengeance_design_revenge'
+			'ship_vengeance_design_revenge',
+			'ship_vengeance_design_pusat'
 		];
 
 		/*
