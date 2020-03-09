@@ -815,7 +815,100 @@ if (isset($_POST['spectrum-dusklight-c']) && isset($_POST['spectrum-dusklight-bi
         $alert_error = "error, it is not an acceptable amount";
     }
 }
+/* PET Uridium */
+if (isset($_POST['pet']) && isset($_POST['pet-bid'])) {
+    $pet = $mysqli->query('SELECT * FROM auction_house WHERE name="pet" ')->fetch_assoc();
+    if ($_POST['pet-bid'] > 0) {
 
+        if ($pet['bidderId'] == 0) {
+            if ($data->uridium >= $_POST['pet-bid']) {
+                $restantU = ($data->uridium - $_POST['pet-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid'] . '" WHERE name="pet"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->uridium >= $_POST['pet-bid']) {
+                if ($pet['bidderId'] != $player['userId']) {
+                    if ($_POST['pet-bid'] > $pet['bid']) {
+                        /* Return the coins to user */
+                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $pet['bidderId'])->fetch_assoc();
+                        $sumBid = (json_decode($userBidder['data'])->uridium + $pet['bid']);
+                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $pet['bidderId']);
+                        /* Remove the bid to current user */
+                        $restantU = ($data->uridium - $_POST['pet-bid']);
+                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid'] . '" WHERE name="pet"');
+                        /* set data of the auction house*/
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid'] . '" WHERE name="pet"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+/* PET credits */
+
+if (isset($_POST['pet-c']) && isset($_POST['pet-bid-c'])) {
+
+    $petC = $mysqli->query('SELECT * FROM auction_house WHERE name="pet-c" ')->fetch_assoc();
+    if ($_POST['pet-bid-c'] > 0) {
+
+        if ($petC['bidderId'] == 0) {
+            if ($data->credits >= $_POST['pet-bid-c']) {
+                $restantC = ($data->credits - $_POST['pet-bid-c']);
+                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid-c'] . '" WHERE name="pet-c"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->credits >= $_POST['pet-bid-c']) {
+                if ($petC['bidderId'] != $player['userId']) {
+                    if ($_POST['pet-bid-c'] > $petC['bid']) {
+                        /* Return the coins to user */
+                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $petC['bidderId'])->fetch_assoc();
+                        $sumBid = (json_decode($userBidder['data'])->credits + $petC['bid']);
+                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $petC['bidderId']);
+                        /* Remove the bid to current user */
+                        $restantC = ($data->credits - $_POST['pet-bid-c']);
+                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid-c'] . '" WHERE name="pet-c"');
+                        /* set data of the auction house*/
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid-c'] . '" WHERE name="pet-c"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
 require_once(INCLUDES . 'header.php'); ?>
 <style>
     body {
@@ -1196,7 +1289,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/diminisher-legend_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Diminisher Legend</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1230,7 +1323,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/diminisher-argon_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Diminisher Argon</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1264,7 +1357,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/sentinel-legend_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Sentinel Legend</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1298,7 +1391,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/sentinel-argon_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Sentinel Argon</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1332,7 +1425,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-legend_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Spectrum Legend</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1366,7 +1459,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-dusklight_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Spectrum Dusklight</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1398,7 +1491,7 @@ require_once(INCLUDES . 'header.php'); ?>
                     <!-- DONE -->
                     <div class="card white-text grey darken-3 padding-15 custom_data">
                         <div style="display: flex; width: 300px;">
-                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-dusklight_30x30.png" width="50px">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/pet/pet10_63x63.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>P.E.T. 15</strong>
                                 <p>Advanced robotic</p>
@@ -1406,23 +1499,23 @@ require_once(INCLUDES . 'header.php'); ?>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
                             <strong><?php
-                                    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="spectrum-dusklight" ')->fetch_assoc();
-                                    if ($spectrumDusklight['bid'] == 0) {
+                                    $pet = $mysqli->query('SELECT * FROM auction_house WHERE name="pet" ')->fetch_assoc();
+                                    if ($pet['bid'] == 0) {
                                         echo "- - -";
                                     } else {
-                                        $user_spectrumDusklight = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $spectrumDusklight['bidderId'])->fetch_assoc();
-                                        echo $user_spectrumDusklight['pilotName'];
+                                        $user_pet = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $pet['bidderId'])->fetch_assoc();
+                                        echo $user_pet['pilotName'];
                                     }
 
                                     ?></strong>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            <?php echo number_format($spectrumDusklight['bid'], 0, ',', '.'); ?> U.
+                            <?php echo number_format($pet['bid'], 0, ',', '.'); ?> U.
                         </div>
                         <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
                             <form action="" method="post" style="display: flex;">
-                                <input type="number" name="spectrum-dusklight-bid" id="spectrum-dusklight-bid" placeholder="1.000.000 U." style="color:white;">
-                                <input type="text" name="spectrum-dusklight" id="spectrum-dusklight" value="spectrum-dusklight" style="position: absolute; visibility: hidden;">
+                                <input type="number" name="pet-bid" id="pet-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="pet" id="pet" value="pet" style="position: absolute; visibility: hidden;">
                                 <div class="container_t_auction">
                                     <button class="btn grey darken-2">Bid</button>
                                 </div>
@@ -1436,7 +1529,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/diminisher-legend_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Diminisher Legend</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1470,7 +1563,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/diminisher-argon_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Diminisher Argon</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1504,7 +1597,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/sentinel-legend_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Sentinel Legend</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1538,7 +1631,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/sentinel-argon_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Sentinel Argon</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1572,7 +1665,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-legend_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Spectrum Legend</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1605,7 +1698,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/spectrum-dusklight_30x30.png" width="50px">
                             <div class="container_t_auction">
                                 <strong>Spectrum Dusklight</strong>
-                                <p>15% Shield 20% Health (full set)</p>
+                                <p>Goliath design</p>
                             </div>
                         </div>
                         <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
@@ -1627,6 +1720,40 @@ require_once(INCLUDES . 'header.php'); ?>
                             <form action="" method="post" style="display: flex;">
                                 <input type="number" name="spectrum-dusklight-bid-c" id="spectrum-dusklight-bid-c" placeholder="1.000.000 C." style="color:white;">
                                 <input type="text" name="spectrum-dusklight-c" id="spectrum-dusklight-c" value="spectrum-dusklight-c" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                     <!-- DONE -->
+                     <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/pet/pet10_63x63.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>P.E.T. 15</strong>
+                                <p>Advanced robotic</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $petC = $mysqli->query('SELECT * FROM auction_house WHERE name="pet-c" ')->fetch_assoc();
+                                    if ($petC['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_petC = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $petC['bidderId'])->fetch_assoc();
+                                        echo $user_petC['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($petC['bid'], 0, ',', '.'); ?> C.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="pet-bid-c" id="pet-bid-c" placeholder="1.000.000 C." style="color:white;">
+                                <input type="text" name="pet-c" id="pet-c" value="pet-c" style="position: absolute; visibility: hidden;">
                                 <div class="container_t_auction">
                                     <button class="btn grey darken-2">Bid</button>
                                 </div>
