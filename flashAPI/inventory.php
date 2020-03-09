@@ -48,7 +48,7 @@ try {
 			CreateDrone(4, $apis ? 9 : 8, 1);
 		} //Zeus
 
-		CreateItem(7, 0, 40); //lf-3
+		CreateItem(7, 0, 0); //lf-3
 		CreateItem(0, 40, 60); //bo-2
 		CreateItem(1, 100, 20); //g3n
 		CreateItem(5, 120, $havocCount); //havoc
@@ -348,6 +348,7 @@ try {
 						$drones = '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]';
 
 						$mysqli->query("UPDATE player_equipment SET config1_generators = '[]', config1_lasers = '[]', config2_generators = '[]', config2_lasers = '[]', config1_drones ='" . $drones . "' , config2_drones = '" . $drones . "' WHERE userId = " . $player['userId'] . "");
+						
 						if (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
 							Socket::Send('UpdateStatus', array('UserId' => $player['userId']));
 						}
@@ -773,8 +774,8 @@ function GetDesignsLootIds()
 			'ship_vengeance_design_adept',
 			'ship_vengeance_design_corsair',
 			'ship_vengeance_design_avenger',
-			'ship_vengeance_design_revenge',
-			'ship_vengeance_design_pusat'
+			'ship_vengeance_design_revenge'
+			/*'ship_vengeance_design_pusat'*/
 		];
 
 		/*
