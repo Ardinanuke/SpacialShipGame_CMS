@@ -1294,80 +1294,74 @@ class Functions
 
           $mysqli->close();
         }
-      } else {
-
-        $json['message'] = "You don't have enough " . ($shop['items'][$itemId]['priceType'] == 'uridium' ? 'Uridium' : 'Credits');
-      }
-    }
-
-    if ($shop['items'][$itemId]['priceType'] == 'event') {
-      /*
-
+      } else if ($shop['items'][$itemId]['priceType'] == 'event') {
+        /*
         CHECK IF ARE EVENT COINS.
-
         cases: 
           1. are not registred in event coins. [x]
           2. are registred but dont have coins. [x]
           3. have event coins. [x]
         */
 
+        $search_user = $mysqli->query("SELECT * FROM event_coins WHERE userId= " . $player['userId'] . ";");
 
-      $search_user = $mysqli->query("SELECT * FROM event_coins WHERE userId= " . $player['userId'] . ";");
+        if (mysqli_num_rows($search_user) > 0) {
+          $user_coins = $search_user->fetch_assoc();
 
-      if (mysqli_num_rows($search_user) > 0) {
-        $user_coins = $search_user->fetch_assoc();
+          if ($user_coins['coins'] >= $price) {
 
-        if ($user_coins['coins'] >= $price) {
-
-          /*
+            /*
              
              1. Remove the event coins
              2. Add the item
              3. Send confirmation message.
-
             */
-          $user_coins['coins'] -= $price;
-          $status = false;
+            $user_coins['coins'] -= $price;
+            $status = false;
 
-          if ($shop['items'][$itemId]['name'] == 'Independence') {
-            $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_independence' AND userId= " . $player['userId'] . ";");
-            if (mysqli_num_rows($search_design) > 0) {
-              $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
-            } else {
-              $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_independence', 10, " . $player['userId'] . ")");
-              $status = true;
-            }
-          } else if ($shop['items'][$itemId]['name'] == 'Goliath Turkish') {
-            $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_turkish' AND userId= " . $player['userId'] . ";");
-            if (mysqli_num_rows($search_design) > 0) {
-              $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
-            } else {
-              $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_turkish', 10, " . $player['userId'] . ")");
-              $status = true;
-            }
-          }
-
-
-          if ($status) {
-            $mysqli->begin_transaction();
-            try {
-              $mysqli->query("UPDATE event_coins SET coins = '" . $user_coins['coins'] . "' WHERE userId = " . $player['userId'] . "");
-
-              $json['message'] = '' . $shop['items'][$itemId]['name'] . ' ' . ($amount != 0 ? '(' . number_format($amount) . ')' : '') . ' purchased';
-
-              $mysqli->commit();
-            } catch (Exception $e) {
-              $json['message'] = 'An error occurred. Please try again later.';
-              $mysqli->rollback();
+            if ($shop['items'][$itemId]['name'] == 'Independence') {
+              $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_independence' AND userId= " . $player['userId'] . ";");
+              if (mysqli_num_rows($search_design) > 0) {
+                $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+              } else {
+                $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_independence', 10, " . $player['userId'] . ")");
+                $status = true;
+              }
+            } else if ($shop['items'][$itemId]['name'] == 'Goliath Turkish') {
+              $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_turkish' AND userId= " . $player['userId'] . ";");
+              if (mysqli_num_rows($search_design) > 0) {
+                $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+              } else {
+                $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_turkish', 10, " . $player['userId'] . ")");
+                $status = true;
+              }
             }
 
-            $mysqli->close();
+
+            if ($status) {
+              $mysqli->begin_transaction();
+              try {
+                $mysqli->query("UPDATE event_coins SET coins = '" . $user_coins['coins'] . "' WHERE userId = " . $player['userId'] . "");
+
+                $json['message'] = '' . $shop['items'][$itemId]['name'] . ' ' . ($amount != 0 ? '(' . number_format($amount) . ')' : '') . ' purchased';
+
+                $mysqli->commit();
+              } catch (Exception $e) {
+                $json['message'] = 'An error occurred. Please try again later.';
+                $mysqli->rollback();
+              }
+
+              $mysqli->close();
+            }
+          } else {
+            $json['message'] = "You don't have enough Event Coins";
           }
         } else {
           $json['message'] = "You don't have enough Event Coins";
         }
       } else {
-        $json['message'] = "You don't have enough Event Coins";
+
+        $json['message'] = "You don't have enough " . ($shop['items'][$itemId]['priceType'] == 'uridium' ? 'Uridium' : 'Credits');
       }
     } else {
       $json['message'] = 'Something went wrong!';
