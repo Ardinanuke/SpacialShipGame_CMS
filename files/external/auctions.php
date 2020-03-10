@@ -1,4 +1,9 @@
 <?php
+date_default_timezone_set('America/Chicago'); 
+                    
+$start = date('m/d/Y h:m:s A');
+$end = date('m/d/Y 11:59:59');
+
 /*
     
 
@@ -1726,8 +1731,8 @@ require_once(INCLUDES . 'header.php'); ?>
                             </form>
                         </div>
                     </div>
-                     <!-- DONE -->
-                     <div class="card white-text grey darken-3 padding-15 custom_data">
+                    <!-- DONE -->
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
                         <div style="display: flex; width: 300px;">
                             <img src="<?php echo DOMAIN; ?>do_img/global/items/pet/pet10_63x63.png" width="50px">
                             <div class="container_t_auction">
@@ -1766,126 +1771,115 @@ require_once(INCLUDES . 'header.php'); ?>
         </div>
     </div>
 </div>
-<script>
-    function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        if (evt != null) {
-            evt.currentTarget.className += " active";
-        }
+<?php 
+
+
+echo "<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName('tabcontent');
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = 'none';
+    }
+    tablinks = document.getElementsByClassName('tablinks');
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(' active', '');
+    }
+    document.getElementById(cityName).style.display = 'block';
+    if (evt != null) {
+        evt.currentTarget.className += ' active';
+    }
+}
+function countdown(endDate) {
+    let days, hours, minutes, seconds;
+
+    endDate = new Date(endDate).getTime();
+
+    if (isNaN(endDate)) {
+        return;
     }
 
+    setInterval(calculate, 1000);
 
-    function countdown(endDate) {
-        let days, hours, minutes, seconds;
+    function calculate() {
 
-        endDate = new Date(endDate).getTime();
+        let startDate = new Date().getTime();
 
-        if (isNaN(endDate)) {
+        let timeRemaining = parseInt((endDate - startDate) / 1000);
+
+
+        if (timeRemaining >= 0) {
+            days = parseInt(timeRemaining / 86400);
+            timeRemaining = (timeRemaining % 86400);
+
+            hours = parseInt(timeRemaining / 3600);
+            timeRemaining = (timeRemaining % 3600);
+
+            minutes = parseInt(timeRemaining / 60);
+            timeRemaining = (timeRemaining % 60);
+
+            seconds = parseInt(timeRemaining);
+
+            document.getElementById('minutes').innerHTML = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
+        } else {
             return;
         }
+    }
+}
+function countdown2(endDate) {
+    let days, hours, minutes, seconds;
 
-        setInterval(calculate, 1000);
+    endDate = new Date(endDate).getTime();
 
-        function calculate() {
-
-            let startDate = new Date().getTime(); /* we only need change the start date */
-            startDate.toLocaleString("es-MX"); /* Time of Mexico */
-
-            let today = new Date();
-            today.toLocaleString("es-MX");
-            let endDate2 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), 59, 60);
-            console.log(endDate2);
-
-            let timeRemaining = parseInt((endDate2 - startDate) / 1000);
-
-
-            if (timeRemaining >= 0) {
-                days = parseInt(timeRemaining / 86400);
-                timeRemaining = (timeRemaining % 86400);
-
-                hours = parseInt(timeRemaining / 3600);
-                timeRemaining = (timeRemaining % 3600);
-
-                minutes = parseInt(timeRemaining / 60);
-                timeRemaining = (timeRemaining % 60);
-
-                seconds = parseInt(timeRemaining);
-
-                document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
-                document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
-            } else {
-                return;
-            }
-        }
+    if (isNaN(endDate)) {
+        return;
     }
 
-    function countdown2(endDate) {
-        let days, hours, minutes, seconds;
+    setInterval(calculate, 1000);
 
-        endDate = new Date(endDate).getTime();
+    function calculate() {
 
-        if (isNaN(endDate)) {
+        let startDate = new Date('".$start."').getTime();
+
+        let timeRemaining = parseInt((endDate - startDate) / 1000);
+
+
+        if (timeRemaining >= 0) {
+            days = parseInt(timeRemaining / 86400);
+            timeRemaining = (timeRemaining % 86400);
+
+            hours = parseInt(timeRemaining / 3600);
+            timeRemaining = (timeRemaining % 3600);
+
+            minutes = parseInt(timeRemaining / 60);
+            timeRemaining = (timeRemaining % 60);
+
+            seconds = parseInt(timeRemaining);
+
+            document.getElementById('hours').innerHTML = hours < 10 ? '0' + hours : hours;
+            document.getElementById('minutes2').innerHTML = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('seconds2').innerHTML = seconds < 10 ? '0' + seconds : seconds;
+        } else {
             return;
         }
-
-        setInterval(calculate, 1000);
-
-        function calculate() {
-
-            let startDate = new Date().getTime(); /* we only need change the start date */
-            startDate.toLocaleString("es-MX"); /* Time of Mexico */
-
-            let today = new Date();
-            today.toLocaleString("es-MX");
-            let endDate2 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 60);
-            console.log(endDate2);
-
-            let timeRemaining = parseInt((endDate2 - startDate) / 1000);
-
-
-            if (timeRemaining >= 0) {
-                days = parseInt(timeRemaining / 86400);
-                timeRemaining = (timeRemaining % 86400);
-
-                hours = parseInt(timeRemaining / 3600);
-                timeRemaining = (timeRemaining % 3600);
-
-                minutes = parseInt(timeRemaining / 60);
-                timeRemaining = (timeRemaining % 60);
-
-                seconds = parseInt(timeRemaining);
-
-                document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
-                document.getElementById("minutes2").innerHTML = minutes < 10 ? "0" + minutes : minutes;
-                document.getElementById("seconds2").innerHTML = seconds < 10 ? "0" + seconds : seconds;
-            } else {
-                return;
-            }
-        }
     }
+}
 
-    (function() {
-        /* mm / dd / yy */
-        countdown('03/05/2020 07:00:00 AM');
-    }());
+(function() {
+    /* mm / dd / yy */
+    countdown('03/11/2050 07:00:00 AM');
+}());
 
-    (function() {
-        /* mm / dd / yy */
-        countdown2('03/05/2020 07:00:00 AM');
-    }());
+(function() {
+    /* mm / dd / yy */
+    countdown2('".$end." PM');
+}());
 
-    (function() {
-        openCity(null, 'hour'); /* London */
-    }());
-</script>
+(function() {
+    openCity(null, 'hour'); /* London */
+}());
+</script>";
+?>
 
 <?php require_once(INCLUDES . 'footer.php'); ?>
