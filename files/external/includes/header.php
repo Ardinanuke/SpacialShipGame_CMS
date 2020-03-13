@@ -39,7 +39,7 @@ catch (Exception $ex) {
   <?php if (Functions::IsLoggedIn()) { ?>
     <style>
       body {
-        background: url('../img/backgroundEIC.jpg') !important;
+        background: url('../../img/backgroundEIC.jpg') !important;
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-attachment: fixed;
@@ -95,4 +95,67 @@ catch (Exception $ex) {
         </nav>
       </div>
     </div>
+<style>
+  .videos {
+  text-align: center;
+  width:100%;
+  overflow: auto;
+}
+.iframe{
+  display: flex;
+
+  width: 200px;
+}
+</style>
+    <!-- The Modal -->
+    <div id="id04" class="w3-modal" style="height: 100%; display: none;">
+      <div class="w3-modal-content modal_modification" style="height: 90% !important;">
+        <div class="w3-container">
+          <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+          <div class="center">
+            <img src="img/youtube.png" width="50%">
+            <p style="font-weight: bold; color: gold; font-size: 25px;">Youtube Stars</p>
+            <p style="font-weight: bold;  font-size: 15px;">The two best videos of the week get 350,000 Uridium</p>
+            <br>
+            <div  class="videos">
+              <iframe width="250" height="250" src="https://www.youtube.com/embed/-TEANqongAw"></iframe>
+              <iframe width="250" height="250" src="https://www.youtube.com/embed/63VVUBImw64"></iframe>
+            </div>
+            <br><br><br>
+            <a class="btn green darken-4 col s12" target="_blank" href="https://www.youtube.com/results?search_query=deathspace"  style="width: 300px !important; font-size: 14px; height: 50px !important; font-weight: bold; padding-top: 10px !important;">Upload video</a>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <style>
+      .float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 40px;
+        background-color: red;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 3px #999;
+        z-index: 100;
+        border: none;
+        padding-bottom: 0.2em;
+      }
+
+      .my-float {
+        margin-top: 16px;
+      }
+    </style>
+    </div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <button class="float" onclick="document.getElementById('id04').style.display='block'">
+      <img src="https://pngimage.net/wp-content/uploads/2018/06/white-youtube-png-4.png" width="30px">
+    </button>
   <?php } ?>

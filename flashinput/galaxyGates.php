@@ -1,6 +1,6 @@
 <?php
-require_once('../System/Init.php');
-$db = Database::Connection();
+require_once('../files/classes/Database.php');
+$db = Database::GetInstance();
 
 //multiplier gelen itemin miktarını çarpar ve mevcut kapı parçası gelirse gelir
 
@@ -20,7 +20,6 @@ $spinamount_selected = isset($_GET['spinamount']) ? $_GET['spinamount'] : 1;
 $items = [];
 
 try {
-  $db->beginTransaction();
 
   if ($_GET['action'] === 'multiEnergy' && ($extraEnergy >= 1 || $data->uridium >= 100)) {
 

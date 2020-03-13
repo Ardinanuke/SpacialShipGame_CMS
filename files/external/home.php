@@ -1,4 +1,12 @@
-<?php require_once(INCLUDES . 'header.php'); ?>
+<?php
+
+$base = $mysqli->query('SELECT * FROM server_battlestations WHERE id = 1')->fetch_assoc();
+$log_event_jpb = $mysqli->query('SELECT * FROM log_event_jpb  ORDER BY id DESC LIMIT 1')->fetch_assoc();
+
+$clan = $mysqli->query('SELECT * FROM server_clans WHERE id = ' . $base['clanId'])->fetch_assoc();
+$jpb_winner = $mysqli->query('SELECT * FROM player_accounts WHERE userId = ' . $log_event_jpb['winner_id'])->fetch_assoc();
+
+require_once(INCLUDES . 'header.php'); ?>
 
 <div class="container">
 
@@ -28,10 +36,68 @@
     </div>
   </div>
 
+  <div class="col s12">
+    <div class="row">
+      <div class="col s6">
+        <div class="padding-15 card white-text grey darken-4">
+          <h5 style="font-weight: bold;">Kings of PvP</h5>
+          <div class="inline-right">
+            <div style="display: flex;">
+              <img src="/img/jpb.png" width="75px">
+              <?php
+              if (isset($clan['name'])) {
+              ?>
+                <div style="display: block; padding-left: 1em;">
+                  <p>Name: <?php echo $clan['name']; ?></p>
+                  <p>Tag: <?php echo $clan['tag']; ?></p>
+                  <p>Clan Leader: <?php echo $mysqli->query('SELECT pilotName FROM player_accounts where userId = ' . $clan['leaderId'] . '')->fetch_assoc()['pilotName']; ?></p>
+                </div>
+              <?php
+              } else {
+              ?>
+                <div style="display: block; margin:auto; padding-left: 3em;">
+                  <p>Ups right now we don't have Kings of PvP ❤</p>
+                </div>
+              <?php
+              }
+              ?>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s6">
+        <div class="padding-15 card white-text grey darken-4">
+          <h5 style="font-weight: bold;">Jackpot Winner</h5>
+          <div style="display: flex;">
+            <img src="/img/pvp.png" width="75px">
+            <?php
+            if (isset($jpb_winner['pilotName'])) {
+            ?>
+              <div style="display: block; padding-left: 1em;">
+                <p>Name: <?php echo $jpb_winner['pilotName']; ?></p>
+                <p>Rank: <img src="/do_img/global/ranks/rank_<?php echo $jpb_winner['rankId']; ?>.png"></p>
+                <p>Top: <?php echo $jpb_winner['rank']; ?></p>
+              </div>
+            <?php
+            } else {
+            ?>
+              <div style="display: block; margin:auto; padding-left: 3em;">
+                <p>Ups right now we don't have Jackpot Winner ❤</p>
+              </div>
+            <?php
+            }
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="contenedor_boxes">
     <div class="box_hall col-12">
       <div class="white-text grey darken-4">
-        <div class="padding-15">
+        <div class="padding-15" style="padding-right: 0.5em; height: 722px; overflow: auto;">
           <h5 style="font-weight: bold;">HALL OF FAME</h5>
           <ul class="tabs grey darken-3 tabs-fixed-width tab-demo z-depth-1">
             <li class="tab"><a href="#pilots">PILOTS</a></li>
@@ -202,54 +268,53 @@
         </div>
       </div>
     </div>
-  <?php
-    //Add code to display popup here
-  }
-  ?>
-</div>
-<script>
-   function countdown(endDate) {
+    <script>
+      function countdown(endDate) {
         let days, hours, minutes, seconds;
 
         endDate = new Date(endDate).getTime();
 
         if (isNaN(endDate)) {
-            return;
+          return;
         }
 
         setInterval(calculate, 1000);
 
         function calculate() {
 
-            let startDate = new Date().getTime(); /* we only need change the start date */      
+          let startDate = new Date().getTime(); /* we only need change the start date */
 
-            let timeRemaining = parseInt((endDate - startDate) / 1000);
+          let timeRemaining = parseInt((endDate - startDate) / 1000);
 
 
-            if (timeRemaining >= 0) {
-                days = parseInt(timeRemaining / 86400);
-                timeRemaining = (timeRemaining % 86400);
+          if (timeRemaining >= 0) {
+            days = parseInt(timeRemaining / 86400);
+            timeRemaining = (timeRemaining % 86400);
 
-                hours = parseInt(timeRemaining / 3600);
-                timeRemaining = (timeRemaining % 3600);
+            hours = parseInt(timeRemaining / 3600);
+            timeRemaining = (timeRemaining % 3600);
 
-                minutes = parseInt(timeRemaining / 60);
-                timeRemaining = (timeRemaining % 60);
+            minutes = parseInt(timeRemaining / 60);
+            timeRemaining = (timeRemaining % 60);
 
-                seconds = parseInt(timeRemaining);
-                document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
-                document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
-                document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
-                document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
-            } else {
-                return;
-            }
+            seconds = parseInt(timeRemaining);
+            document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+          } else {
+            return;
+          }
         }
-    }
+      }
 
-    (function() {
+      (function() {
         /* mm / dd / yy */
         countdown('04/15/2020 07:00:00 AM');
-    }());
-</script>
+      }());
+    </script>
+  <?php
+    //Add code to display popup here
+  }
+  ?>
 <?php require_once(INCLUDES . 'footer.php'); ?>

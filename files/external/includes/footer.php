@@ -1,4 +1,4 @@
-
+</div>
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/materialize.min.js"></script>
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/main.js"></script>
@@ -954,7 +954,6 @@ $('#end-war').click(function() {
   <?php } ?>
 </script>
 <?php } ?>
-
 <?php if (Functions::IsLoggedIn() && isset($page[0]) && $page[0] === 'equipment') { ?>
   <script type="text/javascript" src="<?php echo DOMAIN; ?>js/darkorbit/jquery.flashembed.js"></script>
   <script type='text/javascript'>
