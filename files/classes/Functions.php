@@ -1275,6 +1275,40 @@ class Functions
             $status = true;
           }
         }
+        /* MODULES */ 
+        else if ($shop['items'][$itemId]['name'] == 'Module HULM-1') {
+          $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId= " . $player['userId'] . "")->fetch_assoc();
+          $modules = json_decode($equipment['modules']);
+          $module = '{"Id":'.(sizeof($modules)+1).',"Type":2,"InUse":false}';
+          $module_array = json_decode($module, true);
+          array_push($modules, $module_array);
+          $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");
+          $status = true;
+        }else if ($shop['items'][$itemId]['name'] == 'Module DEFM-1') {
+          $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId= " . $player['userId'] . "")->fetch_assoc();
+          $modules = json_decode($equipment['modules']);
+          $module = '{"Id":'.(sizeof($modules)+1).',"Type":3,"InUse":false}';
+          $module_array = json_decode($module, true);
+          array_push($modules, $module_array);
+          $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");
+          $status = true;
+        }else if ($shop['items'][$itemId]['name'] == 'Module LTM-HR') {
+          $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId= " . $player['userId'] . "")->fetch_assoc();
+          $modules = json_decode($equipment['modules']);
+          $module = '{"Id":'.(sizeof($modules)+1).',"Type":5,"InUse":false}';
+          $module_array = json_decode($module, true);
+          array_push($modules, $module_array);
+          $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");
+          $status = true;
+        }else if ($shop['items'][$itemId]['name'] == 'Module RAM-MA') {
+          $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId= " . $player['userId'] . "")->fetch_assoc();
+          $modules = json_decode($equipment['modules']);
+          $module = '{"Id":'.(sizeof($modules)+1).',"Type":8,"InUse":false}';
+          $module_array = json_decode($module, true);
+          array_push($modules, $module_array);
+          $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");
+          $status = true;
+        }
 
         if ($status) {
           $mysqli->begin_transaction();
@@ -1625,7 +1659,7 @@ class Functions
   public static function GetShop()
   {
     return [
-      'categories' => ['drones', 'ships', 'designs', 'extras'],
+      'categories' => ['drones', 'ships', 'designs', 'extras', 'modules'],
       'items' => [
         [
           'id' => 0,
@@ -1823,6 +1857,50 @@ class Functions
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/ship/pusat_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 18,
+          'category' => 'modules',
+          'name' => 'Module HULM-1',
+          'information' => 'Build a base 1/2',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/module/hulm-1_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 19,
+          'category' => 'modules',
+          'name' => 'Module DEFM-1',
+          'information' => 'Build a base 2/2',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/module/defm-1_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 20,
+          'category' => 'modules',
+          'name' => 'Module LTM-HR',
+          'information' => 'Damage: 48.500',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/module/ltm-hr_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 21,
+          'category' => 'modules',
+          'name' => 'Module RAM-MA',
+          'information' => 'Damage: 91.250',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/module/ram-ma_100x100.png',
           'active' => true
         ]
       ]

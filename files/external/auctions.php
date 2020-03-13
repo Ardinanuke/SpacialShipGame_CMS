@@ -914,6 +914,292 @@ if (isset($_POST['pet-c']) && isset($_POST['pet-bid-c'])) {
         $alert_error = "error, it is not an acceptable amount";
     }
 }
+
+/* modules uridium */
+
+if (isset($_POST['ltm-lr']) && isset($_POST['ltm-lr-bid'])) {
+    $ltmmr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-lr" ')->fetch_assoc();
+    if ($_POST['ltm-lr-bid'] > 0) {
+
+        if ($ltmmr['bidderId'] == 0) {
+            if ($data->uridium >= $_POST['ltm-lr-bid']) {
+                $restantU = ($data->uridium - $_POST['ltm-lr-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid'] . '" WHERE name="ltm-lr"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->uridium >= $_POST['ltm-lr-bid']) {
+                if ($ltmmr['bidderId'] != $player['userId']) {
+                    if ($_POST['ltm-lr-bid'] > $ltmmr['bid']) {
+                        /* Return the coins to user */
+                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmmr['bidderId'])->fetch_assoc();
+                        $sumBid = (json_decode($userBidder['data'])->uridium + $ltmmr['bid']);
+                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ltmmr['bidderId']);
+                        /* Remove the bid to current user */
+                        $restantU = ($data->uridium - $_POST['ltm-lr-bid']);
+                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid'] . '" WHERE name="ltm-lr"');
+                        /* set data of the auction house*/
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid'] . '" WHERE name="ltm-lr"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+
+if (isset($_POST['ltm-mr']) && isset($_POST['ltm-mr-bid'])) {
+    $ltmlr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-mr" ')->fetch_assoc();
+    if ($_POST['ltm-mr-bid'] > 0) {
+
+        if ($ltmlr['bidderId'] == 0) {
+            if ($data->uridium >= $_POST['ltm-mr-bid']) {
+                $restantU = ($data->uridium - $_POST['ltm-mr-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid'] . '" WHERE name="ltm-mr"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->uridium >= $_POST['ltm-mr-bid']) {
+                if ($ltmlr['bidderId'] != $player['userId']) {
+                    if ($_POST['ltm-mr-bid'] > $ltmlr['bid']) {
+                        /* Return the coins to user */
+                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmlr['bidderId'])->fetch_assoc();
+                        $sumBid = (json_decode($userBidder['data'])->uridium + $ltmlr['bid']);
+                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ltmlr['bidderId']);
+                        /* Remove the bid to current user */
+                        $restantU = ($data->uridium - $_POST['ltm-mr-bid']);
+                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid'] . '" WHERE name="ltm-mr"');
+                        /* set data of the auction house*/
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid'] . '" WHERE name="ltm-mr"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+if (isset($_POST['ram-la']) && isset($_POST['ram-la-bid'])) {
+    $ramla = $mysqli->query('SELECT * FROM auction_house WHERE name="ram-la" ')->fetch_assoc();
+    if ($_POST['ram-la-bid'] > 0) {
+
+        if ($ramla['bidderId'] == 0) {
+            if ($data->uridium >= $_POST['ram-la-bid']) {
+                $restantU = ($data->uridium - $_POST['ram-la-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid'] . '" WHERE name="ram-la"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->uridium >= $_POST['ram-la-bid']) {
+                if ($ramla['bidderId'] != $player['userId']) {
+                    if ($_POST['ram-la-bid'] > $ramla['bid']) {
+                        /* Return the coins to user */
+                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ramla['bidderId'])->fetch_assoc();
+                        $sumBid = (json_decode($userBidder['data'])->uridium + $ramla['bid']);
+                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ramla['bidderId']);
+                        /* Remove the bid to current user */
+                        $restantU = ($data->uridium - $_POST['ram-la-bid']);
+                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid'] . '" WHERE name="ram-la"');
+                        /* set data of the auction house*/
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid'] . '" WHERE name="ram-la"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+/* modules credits */
+
+if (isset($_POST['ltm-mr-c']) && isset($_POST['ltm-mr-bid-c'])) {
+
+    $ltmmrC = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-mr-c" ')->fetch_assoc();
+    if ($_POST['ltm-mr-bid-c'] > 0) {
+
+        if ($ltmmrC['bidderId'] == 0) {
+            if ($data->credits >= $_POST['ltm-mr-bid-c']) {
+                $restantC = ($data->credits - $_POST['ltm-mr-bid-c']);
+                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid-c'] . '" WHERE name="ltm-mr-c"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->credits >= $_POST['ltm-mr-bid-c']) {
+                if ($ltmmrC['bidderId'] != $player['userId']) {
+                    if ($_POST['ltm-mr-bid-c'] > $ltmmrC['bid']) {
+                        /* Return the coins to user */
+                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmmrC['bidderId'])->fetch_assoc();
+                        $sumBid = (json_decode($userBidder['data'])->credits + $ltmmrC['bid']);
+                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ltmmrC['bidderId']);
+                        /* Remove the bid to current user */
+                        $restantC = ($data->credits - $_POST['ltm-mr-bid-c']);
+                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid-c'] . '" WHERE name="ltm-mr-c"');
+                        /* set data of the auction house*/
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid-c'] . '" WHERE name="ltm-mr-c"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+if (isset($_POST['ltm-lr-c']) && isset($_POST['ltm-lr-bid-c'])) {
+
+    $ltmlrC = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-lr-c" ')->fetch_assoc();
+    if ($_POST['ltm-lr-bid-c'] > 0) {
+
+        if ($ltmlrC['bidderId'] == 0) {
+            if ($data->credits >= $_POST['ltm-lr-bid-c']) {
+                $restantC = ($data->credits - $_POST['ltm-lr-bid-c']);
+                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid-c'] . '" WHERE name="ltm-lr-c"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->credits >= $_POST['ltm-lr-bid-c']) {
+                if ($ltmlrC['bidderId'] != $player['userId']) {
+                    if ($_POST['ltm-lr-bid-c'] > $ltmlrC['bid']) {
+                        /* Return the coins to user */
+                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmlrC['bidderId'])->fetch_assoc();
+                        $sumBid = (json_decode($userBidder['data'])->credits + $ltmlrC['bid']);
+                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ltmlrC['bidderId']);
+                        /* Remove the bid to current user */
+                        $restantC = ($data->credits - $_POST['ltm-lr-bid-c']);
+                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid-c'] . '" WHERE name="ltm-lr-c"');
+                        /* set data of the auction house*/
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid-c'] . '" WHERE name="ltm-lr-c"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+if (isset($_POST['ram-la-c']) && isset($_POST['ram-la-bid-c'])) {
+
+    $ramlaC = $mysqli->query('SELECT * FROM auction_house WHERE name="ram-la-c" ')->fetch_assoc();
+    if ($_POST['ram-la-bid-c'] > 0) {
+
+        if ($ramlaC['bidderId'] == 0) {
+            if ($data->credits >= $_POST['ram-la-bid-c']) {
+                $restantC = ($data->credits - $_POST['ram-la-bid-c']);
+                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid-c'] . '" WHERE name="ram-la-c"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->credits >= $_POST['ram-la-bid-c']) {
+                if ($ramlaC['bidderId'] != $player['userId']) {
+                    if ($_POST['ram-la-bid-c'] > $ramlaC['bid']) {
+                        /* Return the coins to user */
+                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ramlaC['bidderId'])->fetch_assoc();
+                        $sumBid = (json_decode($userBidder['data'])->credits + $ramlaC['bid']);
+                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ramlaC['bidderId']);
+                        /* Remove the bid to current user */
+                        $restantC = ($data->credits - $_POST['ram-la-bid-c']);
+                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid-c'] . '" WHERE name="ram-la-c"');
+                        /* set data of the auction house*/
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid-c'] . '" WHERE name="ram-la-c"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+
 require_once(INCLUDES . 'header.php'); ?>
 <style>
     body {
@@ -1142,6 +1428,108 @@ require_once(INCLUDES . 'header.php'); ?>
                             </form>
                         </div>
                     </div>
+                    <!-- DONE -->
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ltm-mr_63x63.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Module LTM-MR</strong>
+                                <p>Damage: 68.450</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $ltmmr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-mr" ')->fetch_assoc();
+                                    if ($ltmmr['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_ltmmr = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmmr['bidderId'])->fetch_assoc();
+                                        echo $user_ltmmr['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($ltmmr['bid'], 0, ',', '.'); ?> U.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="ltm-mr-bid" id="ltm-mr-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="ltm-mr" id="ltm-mr" value="ltm-mr" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- DONE -->
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ltm-lr_63x63.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Module LTM-LR</strong>
+                                <p>Damage: 79.850</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $ltmlr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-lr" ')->fetch_assoc();
+                                    if ($ltmlr['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_ltmlr = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmlr['bidderId'])->fetch_assoc();
+                                        echo $user_ltmlr['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($ltmlr['bid'], 0, ',', '.'); ?> U.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="ltm-lr-bid" id="ltm-lr-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="ltm-lr" id="ltm-lr" value="ltm-lr" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- DONE -->
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ram-la_63x63.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Module RAM-LA</strong>
+                                <p>Damage: 105.500</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $ramla = $mysqli->query('SELECT * FROM auction_house WHERE name="ram-la" ')->fetch_assoc();
+                                    if ($ramla['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_ramla = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ramla['bidderId'])->fetch_assoc();
+                                        echo $user_ramla['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($ramla['bid'], 0, ',', '.'); ?> U.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="ram-la-bid" id="ram-la-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="ram-la" id="ram-la" value="ram-la" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <p>Credits:</p>
                     <!-- DONE 
                     <div class="card white-text grey darken-3 padding-15 custom_data">
@@ -1255,6 +1643,110 @@ require_once(INCLUDES . 'header.php'); ?>
                             <form action="" method="post" style="display: flex;">
                                 <input type="number" name="hercules-bid-c" id="hercules-bid-c" placeholder="1.000.000 C." style="color:white;">
                                 <input type="text" name="hercules-c" id="hercules-c" value="hercules-c" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    
+                    <!-- DONE -->
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ltm-mr_63x63.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Module LTM-MR</strong>
+                                <p>Damage: 68.450</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $ltmmr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-mr-c" ')->fetch_assoc();
+                                    if ($ltmmr['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_ltmmr = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmmr['bidderId'])->fetch_assoc();
+                                        echo $user_ltmmr['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($ltmmr['bid'], 0, ',', '.'); ?> C.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="ltm-mr-bid-c" id="ltm-mr-bid-c" placeholder="1.000.000 C." style="color:white;">
+                                <input type="text" name="ltm-mr-c" id="ltm-mr" value="ltm-mr-c" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- DONE -->
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ltm-lr_63x63.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Module LTM-LR</strong>
+                                <p>Damage: 79.850</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $ltmlr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-lr-c" ')->fetch_assoc();
+                                    if ($ltmlr['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_ltmlr = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmlr['bidderId'])->fetch_assoc();
+                                        echo $user_ltmlr['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($ltmlr['bid'], 0, ',', '.'); ?> C.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="ltm-lr-bid-c" id="ltm-lr-bid-c" placeholder="1.000.000 C." style="color:white;">
+                                <input type="text" name="ltm-lr-c" id="ltm-lr-c" value="ltm-lr-c" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- DONE -->
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ram-la_63x63.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Module RAM-LA</strong>
+                                <p>Damage: 105.500</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $ramla = $mysqli->query('SELECT * FROM auction_house WHERE name="ram-la-c" ')->fetch_assoc();
+                                    if ($ramla['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_ramla = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ramla['bidderId'])->fetch_assoc();
+                                        echo $user_ramla['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($ramla['bid'], 0, ',', '.'); ?> C.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="ram-la-bid-c" id="ram-la-bid-c" placeholder="1.000.000 C." style="color:white;">
+                                <input type="text" name="ram-la-c" id="ram-la-c" value="ram-la-c" style="position: absolute; visibility: hidden;">
                                 <div class="container_t_auction">
                                     <button class="btn grey darken-2">Bid</button>
                                 </div>

@@ -48,7 +48,7 @@ try {
 			CreateDrone(4, $apis ? 9 : 8, 1);
 		} //Zeus
 
-		CreateItem(7, 0, 0); //lf-3
+		CreateItem(7, 0, 40); //lf-3
 		CreateItem(0, 40, 60); //bo-2
 		CreateItem(1, 100, 20); //g3n
 		CreateItem(5, 120, $havocCount); //havoc
@@ -351,6 +351,7 @@ try {
 						
 						if (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
 							Socket::Send('UpdateStatus', array('UserId' => $player['userId']));
+							Socket::Send('ChangeShip', array('UserId' => $player['userId'], 'ShipId' => $ship['shipID']));
 						}
 
 						echo base64_encode('{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}');
