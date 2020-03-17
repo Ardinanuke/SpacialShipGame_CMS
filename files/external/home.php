@@ -1,5 +1,8 @@
 <?php
 
+/*
+TO REMOVE.
+*/
 $base = $mysqli->query('SELECT * FROM server_battlestations WHERE id = 1')->fetch_assoc();
 $log_event_jpb = $mysqli->query('SELECT * FROM log_event_jpb  ORDER BY id DESC LIMIT 1')->fetch_assoc();
 
