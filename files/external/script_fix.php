@@ -2,25 +2,21 @@
 require_once(INCLUDES . 'header.php'); 
 
 $mysqli = Database::GetInstance();
-/*
 
-[] 
-[]
-[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]
-[] 
-[]
-[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]
-{"lf4Count":0,"havocCount":0,"herculesCount":0,"apis":false,"zeus":false,"pet":false,"petModules":[],"ships":[],"designs":{},"skillTree":{"logdisks":0,"researchPoints":0,"resetCount":0}}
-{"engineering":0,"shieldEngineering":0,"detonation1":0,"detonation2":0,"heatseekingMissiles":0,"rocketFusion":0,"cruelty1":0,"cruelty2":0,"explosives":0,"luck1":0,"luck2":0}
-[] 
-[]
-*/
+$result = $mysqli->query("SELECT * FROM player_accounts");
 
-$drones = '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]';
+while($row = mysqli_fetch_array($result)){
+    $id = $row['userId'];
+    $uridium = json_decode($row['data'])->uridium;
 
-$mysqli->query("UPDATE player_equipment SET config1_drones ='".$drones."' , config2_drones = '".$drones."' ");
+    if($id != 1883){
+        if($uridium > 1500000){
+            //{"uridium":65984,"credits":1592394,"honor":38639,"experience":3996385,"jackpot":0}
+            $dataUser = '{"uridium":1500000,"credits":'.json_decode($row['data'])->credits.',"honor":'.json_decode($row['data'])->honor.',"experience":'.json_decode($row['data'])->experience.',"jackpot":'.json_decode($row['data'])->jackpot.'}';
+            $mysqli->query("UPDATE player_accounts SET data='".$dataUser."' WHERE userId=".$id);
+        }
+    }
+}
+
 $mysqli->commit();
 $mysqli->close();
-
-echo'<h1 style="color: white;"> Script executed.</h1>';
-?>

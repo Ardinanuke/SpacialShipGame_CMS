@@ -4,22 +4,6 @@ date_default_timezone_set('America/Chicago');
 $start = date('m/d/Y h:m:s A');
 $end = date('m/d/Y 11:59:59');
 
-/*
-    
-
-    Proceso para el cronjob (Cada hora): 
-    1. buscada cada objeto y al biddderId le otorga el item.
-    2. Reinicia el bidderId y bid a sus valores vacios
-
-    Proceso para el cronjob (Cada dia):     
-    1. buscada cada objeto y al biddderId le otorga el item.
-    2. Reinicia el bidderId y bid a sus valores vacios
-
-    Proceso para el cronjob (potenciadores):
-    - No implementado aun.
-
-*/
-
 /**
  * ----------------------------------
  * 
@@ -31,30 +15,13 @@ $end = date('m/d/Y 11:59:59');
  * ---------------------------------
  */
 
-
-/* URIDIUM */
-
-/*
-if (isset($_POST['shd-b01']) && isset($_POST['shd-b01-bid'])) {
-}
-
-if (isset($_POST['hp-b01']) && isset($_POST['hp-b01-bid'])) {
-} */
+/* Uridium */
 $mysqli = Database::GetInstance();
 $player = Functions::GetPlayer();
 
 $alert_succes = '';
 $alert_error = '';
-/* Proceso para pujar:
-    1. Checar si la puja es mayor al bid que trae actualmente.
 
-    casos:
-     1. es menor o igual: Mostrar alerta "No es suficiente para pujar"
-     2. Es mayor: Mostrar alerta "Puja correcta 'Reinicia la pagina'"
-        - Devolverle la moneda al anterior bidder en caso de que haya alguno.
-        - Reducirle la moneda al bidder   
-        - Actualizar el bidderId y el bid del item.
-         */
 if (isset($_POST['havoc']) && isset($_POST['havoc-bid'])) {
     $havoc = $mysqli->query('SELECT * FROM auction_house WHERE name="havoc" ')->fetch_assoc();
     if ($_POST['havoc-bid'] > 0) {
@@ -62,17 +29,15 @@ if (isset($_POST['havoc']) && isset($_POST['havoc-bid'])) {
         if ($havoc['bidderId'] == 0) {
             if ($data->uridium >= $_POST['havoc-bid']) {
 
-                /* Fix problemas de subastas */
+                $restantU = ($data->uridium - $_POST['havoc-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+
                 if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
                     Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['havoc-bid']]);
                 }
 
-                $restantU = ($data->uridium - $_POST['havoc-bid']);
-                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid'] . '" WHERE name="havoc"');
-
-
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
                 $alert_error = "you don't have enough money to bid";
@@ -82,32 +47,15 @@ if (isset($_POST['havoc']) && isset($_POST['havoc-bid'])) {
                 if ($havoc['bidderId'] != $player['userId']) {
                     if ($_POST['havoc-bid'] > $havoc['bid']) {
 
-                        /* Fix problemas de subastas */
-                        if (Socket::Get('IsOnline', ['UserId' => $havoc['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $havoc['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $havoc['bid']]);
-                        }
-
-
-                        /* Return the coins to user */
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $havoc['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $havoc['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $havoc['bidderId']);
-
-                        /* Fix problemas de subastas */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['havoc-bid']]);
-                        }
-
-                        /* Remove the bid to current user */
                         $restantU = ($data->uridium - $_POST['havoc-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid'] . '" WHERE name="havoc"');
 
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['havoc-bid']]);
+                        }
 
-
-                        /* set data of the auction house*/
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid'] . '" WHERE name="havoc"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -133,14 +81,14 @@ if (isset($_POST['hercules']) && isset($_POST['hercules-bid'])) {
         if ($hercules['bidderId'] == 0) {
             if ($data->uridium >= $_POST['hercules-bid']) {
 
-                /* Fix problemas de subastas */
+                $restantU = ($data->uridium - $_POST['hercules-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+
                 if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
                     Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['hercules-bid']]);
                 }
 
-                $restantU = ($data->uridium - $_POST['hercules-bid']);
-                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid'] . '" WHERE name="hercules"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -151,28 +99,15 @@ if (isset($_POST['hercules']) && isset($_POST['hercules-bid'])) {
                 if ($hercules['bidderId'] != $player['userId']) {
                     if ($_POST['hercules-bid'] > $hercules['bid']) {
 
-                        /* Fix problemas de subastas */
-                        if (Socket::Get('IsOnline', ['UserId' => $hercules['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $hercules['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $hercules['bid']]);
-                        }
-
-                        /* Return the coins to user */
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $hercules['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $hercules['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $hercules['bidderId']);
-                        /* Remove the bid to current user */
-
-                        /* Fix problemas de subastas */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['hercules-bid']]);
-                        }
-
                         $restantU = ($data->uridium - $_POST['hercules-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid'] . '" WHERE name="hercules"');
-                        /* set data of the auction house*/
+
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['hercules-bid']]);
+                        }
+
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid'] . '" WHERE name="hercules"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -207,14 +142,14 @@ if (isset($_POST['havoc-c']) && isset($_POST['havoc-bid-c'])) {
         if ($havoc['bidderId'] == 0) {
             if ($data->credits >= $_POST['havoc-bid-c']) {
 
-                /* Fix problemas de subastas */
+                $restantC = ($data->credits  - $_POST['havoc-bid-c']);
+                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+
                 if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
                     Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['havoc-bid-c']]);
                 }
 
-                $restantC = ($data->credits  - $_POST['havoc-bid-c']);
-                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid-c'] . '" WHERE name="havoc-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -225,30 +160,15 @@ if (isset($_POST['havoc-c']) && isset($_POST['havoc-bid-c'])) {
                 if ($havoc['bidderId'] != $player['userId']) {
                     if ($_POST['havoc-bid-c'] > $havoc['bid']) {
 
-
-                        /* Fix problemas de subastas */
-                        if (Socket::Get('IsOnline', ['UserId' => $havoc['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $havoc['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $havoc['bid']]);
-                        }
-
-                        /* Return the coins to user */
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $havoc['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $havoc['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid  . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $havoc['bidderId']);
-                        /* Remove the bid to current user */
-
-                        /* Fix problemas de subastas */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['havoc-bid-c']]);
-                        }
-
-
                         $restantC = ($data->credits  - $_POST['havoc-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid-c'] . '" WHERE name="havoc-c"');
-                        /* set data of the auction house*/
+
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['havoc-bid-c']]);
+                        }
+
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid-c'] . '" WHERE name="havoc-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -272,13 +192,15 @@ if (isset($_POST['hercules-c']) && isset($_POST['hercules-bid-c'])) {
 
         if ($hercules['bidderId'] == 0) {
             if ($data->credits >= $_POST['hercules-bid-c']) {
-                /* Fix problemas de subastas */
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hercules-bid-c']]);
-                }
+
                 $restantC = ($data->credits  - $_POST['hercules-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hercules-bid-c']]);
+                }
+
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid-c'] . '" WHERE name="hercules-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -288,25 +210,16 @@ if (isset($_POST['hercules-c']) && isset($_POST['hercules-bid-c'])) {
             if ($data->credits >= $_POST['hercules-bid-c']) {
                 if ($hercules['bidderId'] != $player['userId']) {
                     if ($_POST['hercules-bid-c'] > $hercules['bid']) {
-                        /* Fix problemas de subastas */
-                        if (Socket::Get('IsOnline', ['UserId' => $hercules['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $hercules['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $hercules['bid']]);
-                        }
-                        /* Return the coins to user */
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $hercules['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $hercules['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid  . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $hercules['bidderId']);
-                        /* Remove the bid to current user */
-                        /* Fix problemas de subastas */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hercules-bid-c']]);
-                        }
+
+
                         $restantC = ($data->credits  - $_POST['hercules-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid-c'] . '" WHERE name="hercules-c"');
-                        /* set data of the auction house*/
+
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hercules-bid-c']]);
+                        }
+
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid-c'] . '" WHERE name="hercules-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -342,17 +255,16 @@ if (isset($_POST['diminisher-legend']) && isset($_POST['diminisher-legend-bid'])
     if ($_POST['diminisher-legend-bid'] > 0) {
 
         if ($diminisherLegend['bidderId'] == 0) {
-            
-            if ($data->uridium >= $_POST['diminisher-legend-bid']) {
 
-                 /* Fix problemas de subastas */
-                 if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['diminisher-legend-bid']]);
-                }
+            if ($data->uridium >= $_POST['diminisher-legend-bid']) {
 
                 $restantU = ($data->uridium - $_POST['diminisher-legend-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                /* Fix problemas de subastas */
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['diminisher-legend-bid']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-legend-bid'] . '" WHERE name="diminisher-legend"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -362,24 +274,13 @@ if (isset($_POST['diminisher-legend']) && isset($_POST['diminisher-legend-bid'])
             if ($data->uridium >= $_POST['diminisher-legend-bid']) {
                 if ($diminisherLegend['bidderId'] != $player['userId']) {
                     if ($_POST['diminisher-legend-bid'] > $diminisherLegend['bid']) {
-                        /* Fix problemas de subastas */
-                        if (Socket::Get('IsOnline', ['UserId' => $diminisherLegend['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $diminisherLegend['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $diminisherLegend['bid']]);
-                        }
-                        /* Return the coins to user */
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $diminisherLegend['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $diminisherLegend['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $diminisherLegend['bidderId']);
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['diminisher-legend-bid']]);
-                        }
-                        /* Remove the bid to current user */
                         $restantU = ($data->uridium - $_POST['diminisher-legend-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-legend-bid'] . '" WHERE name="diminisher-legend"');
-                        /* set data of the auction house*/
+                        /* Fix problemas de subastas */
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['diminisher-legend-bid']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-legend-bid'] . '" WHERE name="diminisher-legend"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -403,13 +304,14 @@ if (isset($_POST['diminisher-argon']) && isset($_POST['diminisher-argon-bid'])) 
 
         if ($diminisherArgon['bidderId'] == 0) {
             if ($data->uridium >= $_POST['diminisher-argon-bid']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['diminisher-argon-bid']]);
-                }
+
                 $restantU = ($data->uridium - $_POST['diminisher-argon-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-argon-bid'] . '" WHERE name="diminisher-argon"');
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['diminisher-argon-bid']]);
+                }
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
                 $alert_error = "you don't have enough money to bid";
@@ -418,24 +320,13 @@ if (isset($_POST['diminisher-argon']) && isset($_POST['diminisher-argon-bid'])) 
             if ($data->uridium >= $_POST['diminisher-argon-bid']) {
                 if ($diminisherArgon['bidderId'] != $player['userId']) {
                     if ($_POST['diminisher-argon-bid'] > $diminisherArgon['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $diminisherArgon['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $diminisherArgon['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $diminisherArgon['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $diminisherArgon['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $diminisherArgon['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $diminisherArgon['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['diminisher-argon-bid']]);
-                        }
                         $restantU = ($data->uridium - $_POST['diminisher-argon-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-argon-bid'] . '" WHERE name="diminisher-argon"');
-                        /* set data of the auction house*/
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-argon-bid'] . '" WHERE name="diminisher-argon"');
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['diminisher-argon-bid']]);
+                        }
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
                         $alert_error = "you don't have enough money to bid";
@@ -458,12 +349,13 @@ if (isset($_POST['sentinel-legend']) && isset($_POST['sentinel-legend-bid'])) {
 
         if ($sentinelLegend['bidderId'] == 0) {
             if ($data->uridium >= $_POST['sentinel-legend-bid']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['sentinel-legend-bid']]);
-                }
+
                 $restantU = ($data->uridium - $_POST['sentinel-legend-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['sentinel-legend-bid']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-legend-bid'] . '" WHERE name="sentinel-legend"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -473,23 +365,12 @@ if (isset($_POST['sentinel-legend']) && isset($_POST['sentinel-legend-bid'])) {
             if ($data->uridium >= $_POST['sentinel-legend-bid']) {
                 if ($sentinelLegend['bidderId'] != $player['userId']) {
                     if ($_POST['sentinel-legend-bid'] > $sentinelLegend['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $sentinelLegend['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $sentinelLegend['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $sentinelLegend['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $sentinelLegend['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $sentinelLegend['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $sentinelLegend['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['sentinel-legend-bid']]);
-                        }
                         $restantU = ($data->uridium - $_POST['sentinel-legend-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-legend-bid'] . '" WHERE name="sentinel-legend"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['sentinel-legend-bid']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-legend-bid'] . '" WHERE name="sentinel-legend"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -513,12 +394,13 @@ if (isset($_POST['sentinel-argon']) && isset($_POST['sentinel-argon-bid'])) {
 
         if ($sentinelArgon['bidderId'] == 0) {
             if ($data->uridium >= $_POST['sentinel-argon-bid']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['sentinel-argon-bid']]);
-                }
+
                 $restantU = ($data->uridium - $_POST['sentinel-argon-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['sentinel-argon-bid']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-argon-bid'] . '" WHERE name="sentinel-argon"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -528,23 +410,12 @@ if (isset($_POST['sentinel-argon']) && isset($_POST['sentinel-argon-bid'])) {
             if ($data->uridium >= $_POST['sentinel-argon-bid']) {
                 if ($sentinelArgon['bidderId'] != $player['userId']) {
                     if ($_POST['sentinel-argon-bid'] > $sentinelArgon['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $sentinelArgon['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $sentinelArgon['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $sentinelArgon['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $sentinelArgon['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $sentinelArgon['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $sentinelArgon['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['sentinel-argon-bid']]);
-                        }
                         $restantU = ($data->uridium - $_POST['sentinel-argon-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-argon-bid'] . '" WHERE name="sentinel-argon"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['sentinel-argon-bid']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-argon-bid'] . '" WHERE name="sentinel-argon"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -568,12 +439,13 @@ if (isset($_POST['spectrum-legend']) && isset($_POST['spectrum-legend-bid'])) {
 
         if ($spectrumLegend['bidderId'] == 0) {
             if ($data->uridium >= $_POST['spectrum-legend-bid']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['spectrum-legend-bid']]);
-                }
+
                 $restantU = ($data->uridium - $_POST['spectrum-legend-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['spectrum-legend-bid']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-legend-bid'] . '" WHERE name="spectrum-legend"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -583,23 +455,12 @@ if (isset($_POST['spectrum-legend']) && isset($_POST['spectrum-legend-bid'])) {
             if ($data->uridium >= $_POST['spectrum-legend-bid']) {
                 if ($spectrumLegend['bidderId'] != $player['userId']) {
                     if ($_POST['spectrum-legend-bid'] > $spectrumLegend['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $spectrumLegend['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $spectrumLegend['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $spectrumLegend['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $spectrumLegend['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $spectrumLegend['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $spectrumLegend['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['spectrum-legend-bid']]);
-                        }
                         $restantU = ($data->uridium - $_POST['spectrum-legend-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-legend-bid'] . '" WHERE name="spectrum-legend"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['spectrum-legend-bid']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-legend-bid'] . '" WHERE name="spectrum-legend"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -624,12 +485,13 @@ if (isset($_POST['spectrum-dusklight']) && isset($_POST['spectrum-dusklight-bid'
 
         if ($spectrumDusklight['bidderId'] == 0) {
             if ($data->uridium >= $_POST['spectrum-dusklight-bid']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['spectrum-dusklight-bid']]);
-                }
+
                 $restantU = ($data->uridium - $_POST['spectrum-dusklight-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['spectrum-dusklight-bid']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-dusklight-bid'] . '" WHERE name="spectrum-dusklight"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -639,23 +501,12 @@ if (isset($_POST['spectrum-dusklight']) && isset($_POST['spectrum-dusklight-bid'
             if ($data->uridium >= $_POST['spectrum-dusklight-bid']) {
                 if ($spectrumDusklight['bidderId'] != $player['userId']) {
                     if ($_POST['spectrum-dusklight-bid'] > $spectrumDusklight['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $spectrumDusklight['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $spectrumDusklight['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $spectrumDusklight['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $spectrumDusklight['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $spectrumDusklight['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $spectrumDusklight['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['spectrum-dusklight-bid']]);
-                        }
                         $restantU = ($data->uridium - $_POST['spectrum-dusklight-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-dusklight-bid'] . '" WHERE name="spectrum-dusklight"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['spectrum-dusklight-bid']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-dusklight-bid'] . '" WHERE name="spectrum-dusklight"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -682,12 +533,13 @@ if (isset($_POST['diminisher-legend-c']) && isset($_POST['diminisher-legend-bid-
 
         if ($diminisherLegend['bidderId'] == 0) {
             if ($data->credits >= $_POST['diminisher-legend-bid-c']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['diminisher-legend-bid-c']]);
-                }
+
                 $restantC = ($data->credits - $_POST['diminisher-legend-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['diminisher-legend-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-legend-bid-c'] . '" WHERE name="diminisher-legend-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -697,23 +549,12 @@ if (isset($_POST['diminisher-legend-c']) && isset($_POST['diminisher-legend-bid-
             if ($data->credits >= $_POST['diminisher-legend-bid-c']) {
                 if ($diminisherLegend['bidderId'] != $player['userId']) {
                     if ($_POST['diminisher-legend-bid-c'] > $diminisherLegend['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $diminisherLegend['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $diminisherLegend['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $diminisherLegend['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $diminisherLegend['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $diminisherLegend['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $diminisherLegend['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['diminisher-legend-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['diminisher-legend-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-legend-bid-c'] . '" WHERE name="diminisher-legend-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['diminisher-legend-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-legend-bid-c'] . '" WHERE name="diminisher-legend-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -737,12 +578,13 @@ if (isset($_POST['diminisher-argon-c']) && isset($_POST['diminisher-argon-bid-c'
 
         if ($diminisherArgon['bidderId'] == 0) {
             if ($data->credits >= $_POST['diminisher-argon-bid-c']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['diminisher-argon-bid-c']]);
-                }
+
                 $restantC = ($data->credits - $_POST['diminisher-argon-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['diminisher-argon-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-argon-bid-c'] . '" WHERE name="diminisher-argon-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -752,23 +594,12 @@ if (isset($_POST['diminisher-argon-c']) && isset($_POST['diminisher-argon-bid-c'
             if ($data->credits >= $_POST['diminisher-argon-bid-c']) {
                 if ($diminisherArgon['bidderId'] != $player['userId']) {
                     if ($_POST['diminisher-argon-bid-c'] > $diminisherArgon['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $diminisherArgon['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $diminisherArgon['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $diminisherArgon['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $diminisherArgon['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $diminisherArgon['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $diminisherArgon['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['diminisher-argon-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['diminisher-argon-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-argon-bid-c'] . '" WHERE name="diminisher-argon-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['diminisher-argon-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['diminisher-argon-bid-c'] . '" WHERE name="diminisher-argon-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -792,12 +623,13 @@ if (isset($_POST['sentinel-legend-c']) && isset($_POST['sentinel-legend-bid-c'])
 
         if ($sentinelLegend['bidderId'] == 0) {
             if ($data->credits >= $_POST['sentinel-legend-bid-c']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['sentinel-legend-bid-c']]);
-                }
+
                 $restantC = ($data->credits - $_POST['sentinel-legend-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['sentinel-legend-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-legend-bid-c'] . '" WHERE name="sentinel-legend-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -807,23 +639,12 @@ if (isset($_POST['sentinel-legend-c']) && isset($_POST['sentinel-legend-bid-c'])
             if ($data->credits >= $_POST['sentinel-legend-bid-c']) {
                 if ($sentinelLegend['bidderId'] != $player['userId']) {
                     if ($_POST['sentinel-legend-bid-c'] > $sentinelLegend['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $sentinelLegend['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $sentinelLegend['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $sentinelLegend['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $sentinelLegend['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $sentinelLegend['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $sentinelLegend['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['sentinel-legend-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['sentinel-legend-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-legend-bid-c'] . '" WHERE name="sentinel-legend-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['sentinel-legend-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-legend-bid-c'] . '" WHERE name="sentinel-legend-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -848,12 +669,13 @@ if (isset($_POST['sentinel-argon-c']) && isset($_POST['sentinel-argon-bid-c'])) 
 
         if ($sentinelArgon['bidderId'] == 0) {
             if ($data->credits >= $_POST['sentinel-argon-bid-c']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['sentinel-argon-bid-c']]);
-                }
+
                 $restantC = ($data->credits - $_POST['sentinel-argon-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['sentinel-argon-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-argon-bid-c'] . '" WHERE name="sentinel-argon-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -863,23 +685,12 @@ if (isset($_POST['sentinel-argon-c']) && isset($_POST['sentinel-argon-bid-c'])) 
             if ($data->credits >= $_POST['sentinel-argon-bid-c']) {
                 if ($sentinelArgon['bidderId'] != $player['userId']) {
                     if ($_POST['sentinel-argon-bid-c'] > $sentinelArgon['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $sentinelArgon['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $sentinelArgon['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $sentinelArgon['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $sentinelArgon['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $sentinelArgon['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $sentinelArgon['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['sentinel-argon-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['sentinel-argon-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-argon-bid-c'] . '" WHERE name="sentinel-argon-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['sentinel-argon-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['sentinel-argon-bid-c'] . '" WHERE name="sentinel-argon-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -903,12 +714,13 @@ if (isset($_POST['spectrum-legend-c']) && isset($_POST['spectrum-legend-bid-c'])
 
         if ($spectrumLegend['bidderId'] == 0) {
             if ($data->credits >= $_POST['spectrum-legend-bid-c']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['spectrum-legend-bid-c']]);
-                }
+
                 $restantC = ($data->credits - $_POST['spectrum-legend-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['spectrum-legend-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-legend-bid-c'] . '" WHERE name="spectrum-legend-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -918,23 +730,12 @@ if (isset($_POST['spectrum-legend-c']) && isset($_POST['spectrum-legend-bid-c'])
             if ($data->credits >= $_POST['spectrum-legend-bid-c']) {
                 if ($spectrumLegend['bidderId'] != $player['userId']) {
                     if ($_POST['spectrum-legend-bid-c'] > $spectrumLegend['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $spectrumLegend['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $spectrumLegend['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $spectrumLegend['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $spectrumLegend['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $spectrumLegend['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $spectrumLegend['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['spectrum-legend-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['spectrum-legend-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-legend-bid-c'] . '" WHERE name="spectrum-legend-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['spectrum-legend-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-legend-bid-c'] . '" WHERE name="spectrum-legend-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -959,12 +760,13 @@ if (isset($_POST['spectrum-dusklight-c']) && isset($_POST['spectrum-dusklight-bi
 
         if ($spectrumDusklight['bidderId'] == 0) {
             if ($data->credits >= $_POST['spectrum-dusklight-bid-c']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['spectrum-dusklight-bid-c']]);
-                }
+
                 $restantC = ($data->credits - $_POST['spectrum-dusklight-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['spectrum-dusklight-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-dusklight-bid-c'] . '" WHERE name="spectrum-dusklight-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -974,23 +776,12 @@ if (isset($_POST['spectrum-dusklight-c']) && isset($_POST['spectrum-dusklight-bi
             if ($data->credits >= $_POST['spectrum-dusklight-bid-c']) {
                 if ($spectrumDusklight['bidderId'] != $player['userId']) {
                     if ($_POST['spectrum-dusklight-bid-c'] > $spectrumDusklight['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $spectrumDusklight['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $spectrumDusklight['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $spectrumDusklight['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $spectrumDusklight['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $spectrumDusklight['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $spectrumDusklight['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['spectrum-dusklight-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['spectrum-dusklight-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-dusklight-bid-c'] . '" WHERE name="spectrum-dusklight-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['spectrum-dusklight-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-dusklight-bid-c'] . '" WHERE name="spectrum-dusklight-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -1011,15 +802,14 @@ if (isset($_POST['spectrum-dusklight-c']) && isset($_POST['spectrum-dusklight-bi
 if (isset($_POST['pet']) && isset($_POST['pet-bid'])) {
     $pet = $mysqli->query('SELECT * FROM auction_house WHERE name="pet" ')->fetch_assoc();
     if ($_POST['pet-bid'] > 0) {
-
         if ($pet['bidderId'] == 0) {
             if ($data->uridium >= $_POST['pet-bid']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['pet-bid']]);
-                }
                 $restantU = ($data->uridium - $_POST['pet-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['pet-bid']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid'] . '" WHERE name="pet"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -1029,23 +819,12 @@ if (isset($_POST['pet']) && isset($_POST['pet-bid'])) {
             if ($data->uridium >= $_POST['pet-bid']) {
                 if ($pet['bidderId'] != $player['userId']) {
                     if ($_POST['pet-bid'] > $pet['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $pet['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $pet['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $pet['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $pet['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $pet['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $pet['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['pet-bid']]);
-                        }
                         $restantU = ($data->uridium - $_POST['pet-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid'] . '" WHERE name="pet"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['pet-bid']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid'] . '" WHERE name="pet"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -1068,15 +847,14 @@ if (isset($_POST['pet-c']) && isset($_POST['pet-bid-c'])) {
 
     $petC = $mysqli->query('SELECT * FROM auction_house WHERE name="pet-c" ')->fetch_assoc();
     if ($_POST['pet-bid-c'] > 0) {
-
         if ($petC['bidderId'] == 0) {
-            if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['pet-bid-c']]);
-            }
             if ($data->credits >= $_POST['pet-bid-c']) {
                 $restantC = ($data->credits - $_POST['pet-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['pet-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid-c'] . '" WHERE name="pet-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -1086,23 +864,12 @@ if (isset($_POST['pet-c']) && isset($_POST['pet-bid-c'])) {
             if ($data->credits >= $_POST['pet-bid-c']) {
                 if ($petC['bidderId'] != $player['userId']) {
                     if ($_POST['pet-bid-c'] > $petC['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $petC['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $petC['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $petC['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $petC['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $petC['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $petC['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['pet-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['pet-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid-c'] . '" WHERE name="pet-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['pet-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['pet-bid-c'] . '" WHERE name="pet-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -1125,15 +892,14 @@ if (isset($_POST['pet-c']) && isset($_POST['pet-bid-c'])) {
 if (isset($_POST['ltm-lr']) && isset($_POST['ltm-lr-bid'])) {
     $ltmmr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-lr" ')->fetch_assoc();
     if ($_POST['ltm-lr-bid'] > 0) {
-
         if ($ltmmr['bidderId'] == 0) {
             if ($data->uridium >= $_POST['ltm-lr-bid']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-lr-bid']]);
-                }
                 $restantU = ($data->uridium - $_POST['ltm-lr-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-lr-bid']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid'] . '" WHERE name="ltm-lr"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -1143,23 +909,12 @@ if (isset($_POST['ltm-lr']) && isset($_POST['ltm-lr-bid'])) {
             if ($data->uridium >= $_POST['ltm-lr-bid']) {
                 if ($ltmmr['bidderId'] != $player['userId']) {
                     if ($_POST['ltm-lr-bid'] > $ltmmr['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $ltmmr['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $ltmmr['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $ltmmr['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmmr['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $ltmmr['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ltmmr['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-lr-bid']]);
-                        }
                         $restantU = ($data->uridium - $_POST['ltm-lr-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid'] . '" WHERE name="ltm-lr"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-lr-bid']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid'] . '" WHERE name="ltm-lr"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -1184,12 +939,13 @@ if (isset($_POST['ltm-mr']) && isset($_POST['ltm-mr-bid'])) {
 
         if ($ltmlr['bidderId'] == 0) {
             if ($data->uridium >= $_POST['ltm-mr-bid']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-mr-bid']]);
-                }
+
                 $restantU = ($data->uridium - $_POST['ltm-mr-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-mr-bid']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid'] . '" WHERE name="ltm-mr"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -1199,23 +955,12 @@ if (isset($_POST['ltm-mr']) && isset($_POST['ltm-mr-bid'])) {
             if ($data->uridium >= $_POST['ltm-mr-bid']) {
                 if ($ltmlr['bidderId'] != $player['userId']) {
                     if ($_POST['ltm-mr-bid'] > $ltmlr['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $ltmlr['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $ltmlr['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $ltmlr['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmlr['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $ltmlr['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ltmlr['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-mr-bid']]);
-                        }
                         $restantU = ($data->uridium - $_POST['ltm-mr-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid'] . '" WHERE name="ltm-mr"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-mr-bid']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid'] . '" WHERE name="ltm-mr"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -1239,12 +984,13 @@ if (isset($_POST['ram-la']) && isset($_POST['ram-la-bid'])) {
 
         if ($ramla['bidderId'] == 0) {
             if ($data->uridium >= $_POST['ram-la-bid']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ram-la-bid']]);
-                }
+
                 $restantU = ($data->uridium - $_POST['ram-la-bid']);
                 $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ram-la-bid']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid'] . '" WHERE name="ram-la"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -1254,23 +1000,13 @@ if (isset($_POST['ram-la']) && isset($_POST['ram-la-bid'])) {
             if ($data->uridium >= $_POST['ram-la-bid']) {
                 if ($ramla['bidderId'] != $player['userId']) {
                     if ($_POST['ram-la-bid'] > $ramla['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $ramla['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $ramla['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $ramla['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ramla['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->uridium + $ramla['bid']);
-                        $dataBidder = '{"uridium":' . $sumBid . ',"credits":' . json_decode($userBidder['data'])->credits . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ramla['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ram-la-bid']]);
-                        }
+
                         $restantU = ($data->uridium - $_POST['ram-la-bid']);
                         $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid'] . '" WHERE name="ram-la"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ram-la-bid']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid'] . '" WHERE name="ram-la"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -1297,12 +1033,13 @@ if (isset($_POST['ltm-mr-c']) && isset($_POST['ltm-mr-bid-c'])) {
 
         if ($ltmmrC['bidderId'] == 0) {
             if ($data->credits >= $_POST['ltm-mr-bid-c']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-mr-bid-c']]);
-                }
+
                 $restantC = ($data->credits - $_POST['ltm-mr-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-mr-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid-c'] . '" WHERE name="ltm-mr-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -1312,23 +1049,12 @@ if (isset($_POST['ltm-mr-c']) && isset($_POST['ltm-mr-bid-c'])) {
             if ($data->credits >= $_POST['ltm-mr-bid-c']) {
                 if ($ltmmrC['bidderId'] != $player['userId']) {
                     if ($_POST['ltm-mr-bid-c'] > $ltmmrC['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $ltmmrC['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $ltmmrC['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $ltmmrC['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmmrC['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $ltmmrC['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ltmmrC['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-mr-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['ltm-mr-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid-c'] . '" WHERE name="ltm-mr-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-mr-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid-c'] . '" WHERE name="ltm-mr-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -1353,12 +1079,13 @@ if (isset($_POST['ltm-lr-c']) && isset($_POST['ltm-lr-bid-c'])) {
 
         if ($ltmlrC['bidderId'] == 0) {
             if ($data->credits >= $_POST['ltm-lr-bid-c']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-lr-bid-c']]);
-                }
+
                 $restantC = ($data->credits - $_POST['ltm-lr-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-lr-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid-c'] . '" WHERE name="ltm-lr-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -1368,23 +1095,12 @@ if (isset($_POST['ltm-lr-c']) && isset($_POST['ltm-lr-bid-c'])) {
             if ($data->credits >= $_POST['ltm-lr-bid-c']) {
                 if ($ltmlrC['bidderId'] != $player['userId']) {
                     if ($_POST['ltm-lr-bid-c'] > $ltmlrC['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $ltmlrC['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $ltmlrC['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $ltmlrC['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmlrC['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $ltmlrC['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ltmlrC['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-lr-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['ltm-lr-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid-c'] . '" WHERE name="ltm-lr-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-lr-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid-c'] . '" WHERE name="ltm-lr-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
@@ -1409,12 +1125,13 @@ if (isset($_POST['ram-la-c']) && isset($_POST['ram-la-bid-c'])) {
 
         if ($ramlaC['bidderId'] == 0) {
             if ($data->credits >= $_POST['ram-la-bid-c']) {
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ram-la-bid-c']]);
-                }
+
                 $restantC = ($data->credits - $_POST['ram-la-bid-c']);
                 $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                 $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ram-la-bid-c']]);
+                }
                 $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid-c'] . '" WHERE name="ram-la-c"');
                 $alert_succes = 'Correct bid! Please reload the page';
             } else {
@@ -1424,23 +1141,12 @@ if (isset($_POST['ram-la-c']) && isset($_POST['ram-la-bid-c'])) {
             if ($data->credits >= $_POST['ram-la-bid-c']) {
                 if ($ramlaC['bidderId'] != $player['userId']) {
                     if ($_POST['ram-la-bid-c'] > $ramlaC['bid']) {
-                        /* Return the coins to user */
-                        if (Socket::Get('IsOnline', ['UserId' => $ramlaC['bidderId'], 'Return' => false])) {
-                            Socket::Send('ReturnBuyItem', ['UserId' => $ramlaC['bidderId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $ramlaC['bid']]);
-                        }
-                        $userBidder = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ramlaC['bidderId'])->fetch_assoc();
-                        $sumBid = (json_decode($userBidder['data'])->credits + $ramlaC['bid']);
-                        $dataBidder = '{"uridium":' . json_decode($userBidder['data'])->uridium . ',"credits":' . $sumBid . ',"honor":' . json_decode($userBidder['data'])->honor . ',"experience":' . json_decode($userBidder['data'])->experience . ',"jackpot":' . json_decode($userBidder['data'])->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $dataBidder . "' WHERE userId=" . $ramlaC['bidderId']);
-                        /* Remove the bid to current user */
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ram-la-bid-c']]);
-                        }
                         $restantC = ($data->credits - $_POST['ram-la-bid-c']);
                         $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
                         $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid-c'] . '" WHERE name="ram-la-c"');
-                        /* set data of the auction house*/
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ram-la-bid-c']]);
+                        }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid-c'] . '" WHERE name="ram-la-c"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
