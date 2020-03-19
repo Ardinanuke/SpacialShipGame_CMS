@@ -1223,6 +1223,12 @@ require_once(INCLUDES . 'header.php'); ?>
             <?php require_once(INCLUDES . 'data.php'); ?>
             <div class="card white-text grey darken-4 padding-15">
                 <h5 style="font-weight: bold;">Auctions</h5>
+                <div class="w3-panel w3-red">
+                    <br>
+                    <p>
+                        IMPORTANT: The money bid is not returnable if you lose!</p>
+                    <br>
+                </div>
                 <?php
 
                 if ($alert_error != '') { ?>
@@ -1395,108 +1401,7 @@ require_once(INCLUDES . 'header.php'); ?>
                             </form>
                         </div>
                     </div>
-                    <!-- DONE -->
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex; width: 300px;">
-                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ltm-mr_63x63.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>Module LTM-MR</strong>
-                                <p>Damage: 68.450</p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong><?php
-                                    $ltmmr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-mr" ')->fetch_assoc();
-                                    if ($ltmmr['bid'] == 0) {
-                                        echo "- - -";
-                                    } else {
-                                        $user_ltmmr = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmmr['bidderId'])->fetch_assoc();
-                                        echo $user_ltmmr['pilotName'];
-                                    }
 
-                                    ?></strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            <?php echo number_format($ltmmr['bid'], 0, ',', '.'); ?> U.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="number" name="ltm-mr-bid" id="ltm-mr-bid" placeholder="1.000.000 U." style="color:white;">
-                                <input type="text" name="ltm-mr" id="ltm-mr" value="ltm-mr" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- DONE -->
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex; width: 300px;">
-                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ltm-lr_63x63.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>Module LTM-LR</strong>
-                                <p>Damage: 79.850</p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong><?php
-                                    $ltmlr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-lr" ')->fetch_assoc();
-                                    if ($ltmlr['bid'] == 0) {
-                                        echo "- - -";
-                                    } else {
-                                        $user_ltmlr = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmlr['bidderId'])->fetch_assoc();
-                                        echo $user_ltmlr['pilotName'];
-                                    }
-
-                                    ?></strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            <?php echo number_format($ltmlr['bid'], 0, ',', '.'); ?> U.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="number" name="ltm-lr-bid" id="ltm-lr-bid" placeholder="1.000.000 U." style="color:white;">
-                                <input type="text" name="ltm-lr" id="ltm-lr" value="ltm-lr" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- DONE -->
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex; width: 300px;">
-                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ram-la_63x63.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>Module RAM-LA</strong>
-                                <p>Damage: 105.500</p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong><?php
-                                    $ramla = $mysqli->query('SELECT * FROM auction_house WHERE name="ram-la" ')->fetch_assoc();
-                                    if ($ramla['bid'] == 0) {
-                                        echo "- - -";
-                                    } else {
-                                        $user_ramla = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ramla['bidderId'])->fetch_assoc();
-                                        echo $user_ramla['pilotName'];
-                                    }
-
-                                    ?></strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            <?php echo number_format($ramla['bid'], 0, ',', '.'); ?> U.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="number" name="ram-la-bid" id="ram-la-bid" placeholder="1.000.000 U." style="color:white;">
-                                <input type="text" name="ram-la" id="ram-la" value="ram-la" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                     <p>Credits:</p>
                     <!-- DONE 
                     <div class="card white-text grey darken-3 padding-15 custom_data">
@@ -1618,108 +1523,8 @@ require_once(INCLUDES . 'header.php'); ?>
                     </div>
 
 
-                    <!-- DONE -->
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex; width: 300px;">
-                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ltm-mr_63x63.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>Module LTM-MR</strong>
-                                <p>Damage: 68.450</p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong><?php
-                                    $ltmmr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-mr-c" ')->fetch_assoc();
-                                    if ($ltmmr['bid'] == 0) {
-                                        echo "- - -";
-                                    } else {
-                                        $user_ltmmr = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmmr['bidderId'])->fetch_assoc();
-                                        echo $user_ltmmr['pilotName'];
-                                    }
 
-                                    ?></strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            <?php echo number_format($ltmmr['bid'], 0, ',', '.'); ?> C.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="number" name="ltm-mr-bid-c" id="ltm-mr-bid-c" placeholder="1.000.000 C." style="color:white;">
-                                <input type="text" name="ltm-mr-c" id="ltm-mr" value="ltm-mr-c" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- DONE -->
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex; width: 300px;">
-                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ltm-lr_63x63.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>Module LTM-LR</strong>
-                                <p>Damage: 79.850</p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong><?php
-                                    $ltmlr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-lr-c" ')->fetch_assoc();
-                                    if ($ltmlr['bid'] == 0) {
-                                        echo "- - -";
-                                    } else {
-                                        $user_ltmlr = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ltmlr['bidderId'])->fetch_assoc();
-                                        echo $user_ltmlr['pilotName'];
-                                    }
 
-                                    ?></strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            <?php echo number_format($ltmlr['bid'], 0, ',', '.'); ?> C.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="number" name="ltm-lr-bid-c" id="ltm-lr-bid-c" placeholder="1.000.000 C." style="color:white;">
-                                <input type="text" name="ltm-lr-c" id="ltm-lr-c" value="ltm-lr-c" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- DONE -->
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex; width: 300px;">
-                            <img src="<?php echo DOMAIN; ?>do_img/global/items/module/ram-la_63x63.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>Module RAM-LA</strong>
-                                <p>Damage: 105.500</p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong><?php
-                                    $ramla = $mysqli->query('SELECT * FROM auction_house WHERE name="ram-la-c" ')->fetch_assoc();
-                                    if ($ramla['bid'] == 0) {
-                                        echo "- - -";
-                                    } else {
-                                        $user_ramla = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $ramla['bidderId'])->fetch_assoc();
-                                        echo $user_ramla['pilotName'];
-                                    }
-
-                                    ?></strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            <?php echo number_format($ramla['bid'], 0, ',', '.'); ?> C.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="number" name="ram-la-bid-c" id="ram-la-bid-c" placeholder="1.000.000 C." style="color:white;">
-                                <input type="text" name="ram-la-c" id="ram-la-c" value="ram-la-c" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
 
                 <div id="day" class="tabcontent">

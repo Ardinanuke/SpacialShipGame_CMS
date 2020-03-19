@@ -1,5 +1,4 @@
 <?php 
-require_once(INCLUDES . 'header.php'); 
 
 $mysqli = Database::GetInstance();
 
