@@ -25,6 +25,7 @@ catch (Exception $ex) {
   <!-- CUSTOM CSS by Lortega-->
   <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/custom/custom_index.css" />
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link href="http://www.mind.ilstu.edu/include/flv_player.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="http://www.mind.ilstu.edu/include/swfobject.js"></script>
   <?php if (Functions::IsLoggedIn() && ((isset($page[0]) && $page[0] === 'company_select') || (isset($page[0]) && $page[0] === 'clan' && isset($page[1]) && $page[1] === 'company'))) { ?>
@@ -53,7 +54,7 @@ catch (Exception $ex) {
       </a>
 
       <div class="container custom_container">
-        <h1 class="server_name">DeathSpace.net</h1>
+        <h1 class="server_name">Play.DeathSpaces.com</h1>
         <nav class="grey darken-4" style="overflow: auto;">
           <ul>
             <li><a href="<?php echo DOMAIN; ?>"><i class="material-icons left">home</i>Home</a></li>

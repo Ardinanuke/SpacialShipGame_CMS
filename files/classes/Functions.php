@@ -124,11 +124,11 @@ class Functions
           ];
 
           $verification = [
-            'verified' => true,
+            'verified' => false,
             'hash' => $sessionId
           ];
 
-          $mysqli->query("INSERT INTO player_accounts (sessionId, username, pilotName, email, password, info, verification) VALUES ('" . $sessionId . "', '" . $username . "', '" . $pilotName . "', '" . $email . "',  '" . password_hash($password, PASSWORD_DEFAULT) . "', '" . json_encode($info) . "', '" . json_encode($verification) . "')");
+          $register = $mysqli->query("INSERT INTO player_accounts (sessionId, username, pilotName, email, password, info, verification) VALUES ('" . $sessionId . "', '" . $username . "', '" . $pilotName . "', '" . $email . "',  '" . password_hash($password, PASSWORD_DEFAULT) . "', '" . json_encode($info) . "', '" . json_encode($verification) . "')");
 
           $userId = $mysqli->insert_id;
 
@@ -137,15 +137,18 @@ class Functions
           $mysqli->query('INSERT INTO player_titles (userID) VALUES (' . $userId . ')');
           $mysqli->query('INSERT INTO player_skilltree (userID) VALUES (' . $userId . ')');
 
-          SMTP::SendMail($email, $username, 'E-mail verification', '<p>Hi ' . $username . ', <br>Click this link to activate your account: <a href="' . DOMAIN . 'api/verify/' . $userId . '/' . $verification['hash'] . '">Activate</a></p><p style="font-size:small;color:#666">—<br>You are receiving this because you registered to the ' . SERVER_NAME . '.<br>If that was not your request, then you can ignore this email.<br>This is an automated message, please do not reply directly to this email.</p>');
-
-          $json['message'] = 'You successfully registered, NOW LOGIN!';
-
+          if ($register) {
+            SMTP2::SendMail($email, $username, 'E-mail verification', '<p>Hi ' . $username . ', <br>Click this link to activate your account: <a href="' . DOMAIN . 'api/verify/' . $userId . '/' . $verification['hash'] . '">Activate</a></p><p style="font-size:small;color:#666">—<br>You are receiving this because you registered to the ' . SERVER_NAME . '.<br>If that was not your request, then you can ignore this email.<br>This is an automated message, please do not reply directly to this email.</p>');
+          }
+          
+          $json['message'] = 'register done => PLEASE CHECK YOUR EMAIL <=';
           $mysqli->commit();
         } catch (Exception $e) {
           $json['message'] = 'An error occurred. Please try again later.';
           $mysqli->rollback();
         }
+
+
 
         $mysqli->close();
       } else {
@@ -1275,35 +1278,34 @@ class Functions
             $status = true;
           }
         }
-        /* MODULES */ 
-        else if ($shop['items'][$itemId]['name'] == 'Module HULM-1') {
+        /* MODULES */ else if ($shop['items'][$itemId]['name'] == 'Module HULM-1') {
           $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId= " . $player['userId'] . "")->fetch_assoc();
           $modules = json_decode($equipment['modules']);
-          $module = '{"Id":'.(sizeof($modules)+1).',"Type":2,"InUse":false}';
+          $module = '{"Id":' . (sizeof($modules) + 1) . ',"Type":2,"InUse":false}';
           $module_array = json_decode($module, true);
           array_push($modules, $module_array);
           $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");
           $status = true;
-        }else if ($shop['items'][$itemId]['name'] == 'Module DEFM-1') {
+        } else if ($shop['items'][$itemId]['name'] == 'Module DEFM-1') {
           $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId= " . $player['userId'] . "")->fetch_assoc();
           $modules = json_decode($equipment['modules']);
-          $module = '{"Id":'.(sizeof($modules)+1).',"Type":3,"InUse":false}';
+          $module = '{"Id":' . (sizeof($modules) + 1) . ',"Type":3,"InUse":false}';
           $module_array = json_decode($module, true);
           array_push($modules, $module_array);
           $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");
           $status = true;
-        }else if ($shop['items'][$itemId]['name'] == 'Module LTM-HR') {
+        } else if ($shop['items'][$itemId]['name'] == 'Module LTM-HR') {
           $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId= " . $player['userId'] . "")->fetch_assoc();
           $modules = json_decode($equipment['modules']);
-          $module = '{"Id":'.(sizeof($modules)+1).',"Type":5,"InUse":false}';
+          $module = '{"Id":' . (sizeof($modules) + 1) . ',"Type":5,"InUse":false}';
           $module_array = json_decode($module, true);
           array_push($modules, $module_array);
           $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");
           $status = true;
-        }else if ($shop['items'][$itemId]['name'] == 'Module RAM-MA') {
+        } else if ($shop['items'][$itemId]['name'] == 'Module RAM-MA') {
           $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId= " . $player['userId'] . "")->fetch_assoc();
           $modules = json_decode($equipment['modules']);
-          $module = '{"Id":'.(sizeof($modules)+1).',"Type":8,"InUse":false}';
+          $module = '{"Id":' . (sizeof($modules) + 1) . ',"Type":8,"InUse":false}';
           $module_array = json_decode($module, true);
           array_push($modules, $module_array);
           $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");

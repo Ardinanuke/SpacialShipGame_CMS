@@ -14,32 +14,65 @@
   });
 
   $('#register').submit(function(e) {
+
+    var rcres = grecaptcha.getResponse();
+    $('.reg_button').css('display', 'none');
+    $('.g-recaptcha').css('display', 'none');
+    $('.loader_img').css('display', 'block');
+
     e.preventDefault();
 
     var form = $(this);
 
-    if ($('#register input[name=agreement]').prop('checked')) {
+    if ($('#register input[name=agreement]').prop('checked') && rcres.length) {
+      grecaptcha.reset();
+      console.log("Form Submitted! success");
       $.ajax({
         type: 'POST',
         url: '<?php echo DOMAIN; ?>api/',
         data: form.serialize() + '&action=register',
         success: function(response) {
-          var json = jQuery.parseJSON(response);
+          console.log(response);
+          if(response.length < 500){
 
-          for (var input in json.inputs) {
-            $('#register input[name='+input+'] + label + span').attr('data-error', json.inputs[input].error);
-            $('#register input[name='+input+']').removeClass('valid invalid');
-            $('#register input[name='+input+']').addClass(json.inputs[input].validate);
-          }
+            var json = jQuery.parseJSON(response);
+            for (var input in json.inputs) {
+              $('#register input[name='+input+'] + label + span').attr('data-error', json.inputs[input].error);
+              $('#register input[name='+input+']').removeClass('valid invalid');
+              $('#register input[name='+input+']').addClass(json.inputs[input].validate);
+            }
 
-          if (json.message != '') {
-            M.toast({html: '<span>'+ json.message +'</span>'});
+            if (json.message != '') {
+              M.toast({html: '<span>'+ json.message +'</span>'});
+              $('.reg_button').css('display', 'block');
+              $('.g-recaptcha').css('display', 'block');
+              $('.loader_img').css('display', 'none');
+            }
+
+          }else{
+            M.toast({html: '<span> Register DONE! please check your EMAIL ✔</span>'});
+            $('.reg_button').css('display', 'block');
+              $('.g-recaptcha').css('display', 'block');
+              $('.loader_img').css('display', 'none');
           }
+          
         }
       });
     } else {
-      M.toast({html: '<span>Please agree Terms & Conditions in order to register!</span>'});
+      if(!$('#register input[name=agreement]').prop('checked')){
+        M.toast({html: '<span>Please agree Terms & Conditions in order to register!</span>'});
+      }else{
+        M.toast({html: '<span>Please complete the reCAPTCHA</span>'});
+      }
+      $('.reg_button').css('display', 'block');
+      $('.g-recaptcha').css('display', 'block');
+      $('.loader_img').css('display', 'none');
     }
+
+
+    $('.reg_button').css('display', 'block');
+      $('.g-recaptcha').css('display', 'block');
+      $('.loader_img').css('display', 'none');
   });
 
   $('#login').submit(function(e) {

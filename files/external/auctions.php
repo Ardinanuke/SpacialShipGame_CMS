@@ -1252,7 +1252,7 @@ require_once(INCLUDES . 'header.php'); ?>
 
 
                 <div class="tab  white-text grey darken-3">
-                    <button class="tablinks" onclick="openCity(event, 'hour')">Each hour</button>
+            <!-- <button class="tablinks" onclick="openCity(event, 'hour')">Each hour</button> -->
                     <button class="tablinks" onclick="openCity(event, 'day')">Daily</button>
                     <!-- 
                     <button class="tablinks" onclick="openCity(event, 'winhour')">Winners each hour</button>
@@ -1521,19 +1521,13 @@ require_once(INCLUDES . 'header.php'); ?>
                             </form>
                         </div>
                     </div>
-
-
-
-
                 </div>
 
                 <div id="day" class="tabcontent">
                     <div class="countdown2">
                         <p class="timer2">
-                            <strong>Time remaining: </strong>
-                            <span id="hours"></span> Hour(s)
-                            <span id="minutes2"></span> Minute(s)
-                            <span id="seconds2"></span> Second(s)
+                            <strong> Closing time (Server time): </strong>
+                            <span></span> 10:00 P.M.
                         </p>
                     </div>
                     <div class="custom_data">
@@ -2141,7 +2135,7 @@ function countdown2(endDate) {
 }());
 
 (function() {
-    openCity(null, 'hour'); /* London */
+    openCity(null, 'day'); /* London */
 }());
 </script>";
 ?>

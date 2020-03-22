@@ -54,9 +54,10 @@ require_once(INCLUDES . 'header.php'); ?>
         <div class="card-content">
           <p>Username</p>
           <input type="text" class="field_personal" placeholder="     Enter your username" name="username" id="r-username" class="validate" maxlength="20" required>
-          <span class="helper-text" data-error="Enter a valid username!"></span>
+          <span class="helper-text" data-error="Enter a valid username! like 'TheHunter06' avoid special characteres"></span>
           <p>Email</p>
           <input type="email" class="field_personal" placeholder="     Enter your email" name="email" id="r-email" class="validate" maxlength="260" required>
+          <span class="helper-text" data-error="Check that it is not an email already used"></span>
           <p>Password</p>
           <input type="password" class="field_personal" placeholder="     Enter your password" name="password" id="r-password" class="validate" maxlength="45" required>
           <p>Password confirm</p>
@@ -69,6 +70,12 @@ require_once(INCLUDES . 'header.php'); ?>
                 <span><a class="text" onclick="document.getElementById('id01').style.display='block'">Terms & Conditions</a> read and accepted</span>
               </label>
             </p>
+          </div>
+            <div class="g-recaptcha" data-sitekey="6LckFOMUAAAAALrlKMflu1KJvk56YU7ygkoJ6Sim"></div>
+          <div>
+            <br>
+            <img src="https://www.globe.gov/globe-gov-home-portlet/css/images/Loading_icon2.gif" id="img" width="100px" style=" display:none; margin:auto;" class="loader_img">
+            <br>
           </div>
           <button class="reg_button">REGISTER</button>
         </div>
