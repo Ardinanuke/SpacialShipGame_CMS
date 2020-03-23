@@ -345,16 +345,12 @@ try {
 						/* Temporal fix of pusat bug */
 						$decoded = base64_decode($_POST['params']);
 						$json_array = json_decode($decoded, true);
-
 						$drones = '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]';
-
 						$mysqli->query("UPDATE player_equipment SET config1_generators = '[]', config1_lasers = '[]', config2_generators = '[]', config2_lasers = '[]', config1_drones ='" . $drones . "' , config2_drones = '" . $drones . "' WHERE userId = " . $player['userId'] . "");
-						
 						if (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
 							Socket::Send('UpdateStatus', array('UserId' => $player['userId']));
 							Socket::Send('ChangeShip', array('UserId' => $player['userId'], 'ShipId' => $ship['shipID']));
 						}
-
 						echo base64_encode('{"isError":0,"data":{"ret":1,"money":{"uridium":"0","credits":"0"}}}');
 						break;
 				}
