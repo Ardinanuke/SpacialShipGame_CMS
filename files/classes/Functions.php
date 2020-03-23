@@ -140,7 +140,7 @@ class Functions
           if ($register) {
             SMTP2::SendMail($email, $username, 'E-mail verification', '<p>Hi ' . $username . ', <br>Click this link to activate your account: <a href="' . DOMAIN . 'api/verify/' . $userId . '/' . $verification['hash'] . '">Activate</a></p><p style="font-size:small;color:#666">—<br>You are receiving this because you registered to the ' . SERVER_NAME . '.<br>If that was not your request, then you can ignore this email.<br>This is an automated message, please do not reply directly to this email.</p>');
           }
-          
+
           $json['message'] = 'register done => PLEASE CHECK YOUR EMAIL <=';
           $mysqli->commit();
         } catch (Exception $e) {
@@ -1311,6 +1311,92 @@ class Functions
           $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");
           $status = true;
         }
+        /* Boosters */ 
+        
+        else if ($shop['items'][$itemId]['name'] == 'Health booster') {
+
+          if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+            /* send booster to socket */
+            $status = false;
+            $json['message'] = "Please disconnect to buy a Booster";
+          } else {
+            $boosters = json_decode($mysqli->query('SELECT boosters FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['boosters'], true);
+
+            if (!isset($boosters["7"])) {
+              /* Insert data */
+              $json_string   = '{"7":[{"Type":8,"Seconds":10800 },{"Type":9,"Seconds":10800 }]';
+              if (isset($boosters["2"])) {
+                $json_string = $json_string . ', "2":' . json_encode($boosters["2"]);
+              }
+              if (isset($boosters["3"])) {
+                $json_string  = $json_string . ', "3":' . json_encode($boosters["3"]);
+              }
+              $json_string = $json_string . "}";
+              /* finish insert data */
+
+              $boosters = $json_string;
+              $mysqli->query("UPDATE player_equipment SET boosters = '" . $boosters . "' WHERE userId = " . $player['userId'] . "");
+              $status = true;
+            } else {
+              $status = false;
+              $json['message'] = "You already have this booster";
+            }
+          }
+        } else if ($shop['items'][$itemId]['name'] == 'Shield booster') {
+          if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+            /* send booster to socket */
+            $status = false;
+            $json['message'] = "Please disconnect to buy a Booster";
+          } else {
+            $boosters = json_decode($mysqli->query('SELECT boosters FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['boosters'], true);
+
+            if (!isset($boosters["3"])) {
+              /* Insert data */
+              $json_string   = '{"3": [{"Type":15,"Seconds":10800}, {"Type":16,"Seconds":10800}]';
+
+              if (isset($boosters["2"])) {
+                $json_string = $json_string . ', "2":' . json_encode($boosters["2"]);
+              }
+              if (isset($boosters["7"])) {
+                $json_string  = $json_string . ', "7":' . json_encode($boosters["7"]);
+              }
+              $json_string = $json_string . "}";
+              $boosters = $json_string;
+              $mysqli->query("UPDATE player_equipment SET boosters = '" . $boosters . "' WHERE userId = " . $player['userId'] . "");
+              $status = true;
+            } else {
+              $status = false;
+              $json['message'] = "You already have this booster";
+            }
+          }
+        } else if ($shop['items'][$itemId]['name'] == 'Damage booster') {
+          if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+            /* send booster to socket */
+            $status = false;
+            $json['message'] = "Please disconnect to buy a Booster";
+          } else {
+            $boosters = json_decode($mysqli->query('SELECT boosters FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['boosters'], true);
+
+            if (!isset($boosters["2"])) {
+              /* Insert data */
+              $json_string   = '{"2":[{"Type":0,"Seconds":15550},{"Type":1,"Seconds":15555}]';
+
+              if (isset($boosters["7"])) {
+                $json_string  = $json_string . ', "7":' . json_encode($boosters["7"]);
+              }
+              if (isset($boosters["3"])) {
+                $json_string  = $json_string . ', "3":' . json_encode($boosters["3"]);
+              }
+              $json_string = $json_string . "}";
+              $boosters = $json_string;
+              $mysqli->query("UPDATE player_equipment SET boosters = '" . $boosters . "' WHERE userId = " . $player['userId'] . "");
+              $status = true;
+            } else {
+              $status = false;
+              $json['message'] = "You already have this booster";
+            }
+          }
+        }
 
         if ($status) {
           $mysqli->begin_transaction();
@@ -1661,7 +1747,7 @@ class Functions
   public static function GetShop()
   {
     return [
-      'categories' => ['drones', 'ships', 'designs', 'extras', 'modules'],
+      'categories' => ['drones', 'ships', 'designs', 'extras', 'modules', 'boosters'],
       'items' => [
         [
           'id' => 0,
@@ -1800,7 +1886,7 @@ class Functions
           'category' => 'drones',
           'name' => 'Havoc',
           'information' => '10% DMG (full set)',
-          'price' => 150000,
+          'price' => 125000,
           'priceType' => 'uridium',
           'amount' => true,
           'image' => 'do_img/global/items/drone/designs/havoc_100x100.png',
@@ -1811,7 +1897,7 @@ class Functions
           'category' => 'drones',
           'name' => 'Hercules',
           'information' => '15% Shield 20% Health (full set)',
-          'price' => 150000,
+          'price' => 125000,
           'priceType' => 'uridium',
           'amount' => true,
           'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
@@ -1854,7 +1940,7 @@ class Functions
           'id' => 17,
           'category' => 'designs',
           'name' => 'Vengeance Pusat',
-          'information' => 'Speed 30% and DMG 5%',
+          'information' => 'One extra slot ',
           'price' => 250000,
           'priceType' => 'uridium',
           'amount' => false,
@@ -1887,7 +1973,7 @@ class Functions
           'id' => 20,
           'category' => 'modules',
           'name' => 'Module LTM-HR',
-          'information' => 'Damage: 48.500',
+          'information' => 'Damage: 78.500',
           'price' => 185000,
           'priceType' => 'uridium',
           'amount' => false,
@@ -1898,11 +1984,44 @@ class Functions
           'id' => 21,
           'category' => 'modules',
           'name' => 'Module RAM-MA',
-          'information' => 'Damage: 91.250',
+          'information' => 'Damage: 121.250',
           'price' => 185000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/module/ram-ma_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 22,
+          'category' => 'boosters',
+          'name' => 'Health booster',
+          'information' => '3 hours playing',
+          'price' => 185000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/booster_hp-b02_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 23,
+          'category' => 'boosters',
+          'name' => 'Shield booster',
+          'information' => '3 hours playing',
+          'price' => 185000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/booster_shd-b02_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 24,
+          'category' => 'boosters',
+          'name' => 'Damage booster',
+          'information' => '3 hours playing',
+          'price' => 185000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/booster_dmg-b02_100x100.png',
           'active' => true
         ]
       ]

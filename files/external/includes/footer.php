@@ -40,6 +40,9 @@
               $('#register input[name='+input+'] + label + span').attr('data-error', json.inputs[input].error);
               $('#register input[name='+input+']').removeClass('valid invalid');
               $('#register input[name='+input+']').addClass(json.inputs[input].validate);
+              $('.reg_button').css('display', 'block');
+              $('.g-recaptcha').css('display', 'block');
+              $('.loader_img').css('display', 'none');
             }
 
             if (json.message != '') {
@@ -70,9 +73,7 @@
     }
 
 
-    $('.reg_button').css('display', 'block');
-      $('.g-recaptcha').css('display', 'block');
-      $('.loader_img').css('display', 'none');
+    
   });
 
   $('#login').submit(function(e) {

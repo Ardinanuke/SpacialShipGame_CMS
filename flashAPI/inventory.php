@@ -340,8 +340,9 @@ try {
 					case 'ship_vengeance_design_avenger':
 					case 'ship_vengeance_design_revenge':
 					case 'ship_vengeance_design_pusat':
+					case 'ship_vengeance_design_lightning':
+					case 'ship_vengeance':
 						/* Temporal fix of pusat bug */
-						
 						$decoded = base64_decode($_POST['params']);
 						$json_array = json_decode($decoded, true);
 
