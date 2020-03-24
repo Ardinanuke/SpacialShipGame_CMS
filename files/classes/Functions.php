@@ -105,52 +105,61 @@ class Functions
     }
 
     if ($json['inputs']['username']['validate'] === 'valid' && $json['inputs']['password']['validate'] === 'valid' && $json['inputs']['password_confirm']['validate'] === 'valid' && $json['inputs']['email']['validate'] === 'valid') {
+      
       if ($mysqli->query('SELECT userId FROM player_accounts WHERE username = "' . $username . '"')->num_rows <= 0) {
-        $ip = Functions::GetIP();
-        $sessionId = Functions::GetUniqueSessionId();
-        $pilotName = $username;
 
-        if ($mysqli->query('SELECT userId FROM player_accounts WHERE pilotName = "' . $pilotName . '"')->num_rows >= 1) {
-          $pilotName = Functions::GetUniquePilotName($pilotName);
-        }
+        if ($mysqli->query('SELECT userId FROM player_accounts WHERE email = "' . $email . '"')->num_rows <= 0){
 
-        $mysqli->begin_transaction();
-
-        try {
-          $info = [
-            'lastIP' => $ip,
-            'registerIP' => $ip,
-            'registerDate' => date('d.m.Y H:i:s')
-          ];
-
-          $verification = [
-            'verified' => false,
-            'hash' => $sessionId
-          ];
-
-          $register = $mysqli->query("INSERT INTO player_accounts (sessionId, username, pilotName, email, password, info, verification) VALUES ('" . $sessionId . "', '" . $username . "', '" . $pilotName . "', '" . $email . "',  '" . password_hash($password, PASSWORD_DEFAULT) . "', '" . json_encode($info) . "', '" . json_encode($verification) . "')");
-
-          $userId = $mysqli->insert_id;
-
-          $mysqli->query('INSERT INTO player_equipment (userId) VALUES (' . $userId . ')');
-          $mysqli->query('INSERT INTO player_settings (userId) VALUES (' . $userId . ')');
-          $mysqli->query('INSERT INTO player_titles (userID) VALUES (' . $userId . ')');
-          $mysqli->query('INSERT INTO player_skilltree (userID) VALUES (' . $userId . ')');
-
-          if ($register) {
-            SMTP2::SendMail($email, $username, 'E-mail verification', '<p>Hi ' . $username . ', <br>Click this link to activate your account: <a href="' . DOMAIN . 'api/verify/' . $userId . '/' . $verification['hash'] . '">Activate</a></p><p style="font-size:small;color:#666">—<br>You are receiving this because you registered to the ' . SERVER_NAME . '.<br>If that was not your request, then you can ignore this email.<br>This is an automated message, please do not reply directly to this email.</p>');
+          $ip = Functions::GetIP();
+          $sessionId = Functions::GetUniqueSessionId();
+          $pilotName = $username;
+  
+          if ($mysqli->query('SELECT userId FROM player_accounts WHERE pilotName = "' . $pilotName . '"')->num_rows >= 1) {
+            $pilotName = Functions::GetUniquePilotName($pilotName);
           }
+  
+          $mysqli->begin_transaction();
+  
+          try {
+            $info = [
+              'lastIP' => $ip,
+              'registerIP' => $ip,
+              'registerDate' => date('d.m.Y H:i:s')
+            ];
+  
+            $verification = [
+              'verified' => false,
+              'hash' => $sessionId
+            ];
+  
+            $register = $mysqli->query("INSERT INTO player_accounts (sessionId, username, pilotName, email, password, info, verification) VALUES ('" . $sessionId . "', '" . $username . "', '" . $pilotName . "', '" . $email . "',  '" . password_hash($password, PASSWORD_DEFAULT) . "', '" . json_encode($info) . "', '" . json_encode($verification) . "')");
+  
+            $userId = $mysqli->insert_id;
+  
+            $mysqli->query('INSERT INTO player_equipment (userId) VALUES (' . $userId . ')');
+            $mysqli->query('INSERT INTO player_settings (userId) VALUES (' . $userId . ')');
+            $mysqli->query('INSERT INTO player_titles (userID) VALUES (' . $userId . ')');
+            $mysqli->query('INSERT INTO player_skilltree (userID) VALUES (' . $userId . ')');
+  
+            if ($register) {
+              SMTP2::SendMail($email, $username, 'E-mail verification', '<p>Hi ' . $username . ', <br>Click this link to activate your account: <a href="' . DOMAIN . 'api/verify/' . $userId . '/' . $verification['hash'] . '">Activate</a></p><p style="font-size:small;color:#666">—<br>You are receiving this because you registered to the ' . SERVER_NAME . '.<br>If that was not your request, then you can ignore this email.<br>This is an automated message, please do not reply directly to this email.</p>');
+            }
+  
+            $json['message'] = 'register done => PLEASE CHECK YOUR EMAIL <=';
+            $mysqli->commit();
+          } catch (Exception $e) {
+            $json['message'] = 'An error occurred. Please try again later.';
+            $mysqli->rollback();
+          }
+  
+  
+  
+          $mysqli->close();
+        }else{
+          $json['message'] = 'This EMAIL is already taken.';
 
-          $json['message'] = 'register done => PLEASE CHECK YOUR EMAIL <=';
-          $mysqli->commit();
-        } catch (Exception $e) {
-          $json['message'] = 'An error occurred. Please try again later.';
-          $mysqli->rollback();
         }
 
-
-
-        $mysqli->close();
       } else {
         $json['message'] = 'This username is already taken.';
       }

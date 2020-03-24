@@ -4,6 +4,7 @@ $mysqli = Database::GetInstance();
 $mysqli->begin_transaction();
 
 try {
+  /*
   foreach ($mysqli->query('SELECT * FROM player_accounts WHERE rankId != 21') as $player) {
     if ($mysqli->query('SELECT id FROM server_bans WHERE userId = '.$player['userId'].' AND typeId = 1 AND ended = 0')->num_rows <= 0) {
       $warPoints = 0;
@@ -24,6 +25,20 @@ try {
 
       $warPoints = round($warPoints);
 
+      $mysqli->query('UPDATE player_accounts SET warPoints = '.$warPoints.' WHERE userId = '.$player['userId'].'');
+    }
+  }*/
+
+  /* UBA RANK */
+  foreach ($mysqli->query('SELECT * FROM player_accounts WHERE rankId != 21') as $player) {
+    if ($mysqli->query('SELECT id FROM server_bans WHERE userId = '.$player['userId'].' AND typeId = 1 AND ended = 0')->num_rows <= 0) {
+      $warPoints = 0;
+
+      foreach ($mysqli->query('SELECT * FROM log_uba_kills WHERE killer_id = '.$player['userId'].'') as $value) {
+        $warPoints = $warPoints + 500;
+      }
+      
+      $warPoints = round($warPoints);
       $mysqli->query('UPDATE player_accounts SET warPoints = '.$warPoints.' WHERE userId = '.$player['userId'].'');
     }
   }

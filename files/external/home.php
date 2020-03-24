@@ -105,6 +105,7 @@ require_once(INCLUDES . 'header.php'); ?>
           <ul class="tabs grey darken-3 tabs-fixed-width tab-demo z-depth-1">
             <li class="tab"><a href="#pilots">PILOTS</a></li>
             <li class="tab"><a href="#clans">CLANS</a></li>
+            <li class="tab"><a href="#uba">SEASON</a></li>
           </ul>
           <div id="pilots">
             <table class="striped highlight">
@@ -163,6 +164,36 @@ require_once(INCLUDES . 'header.php'); ?>
               </tbody>
             </table>
           </div>
+          <div id="uba">
+          <table class="striped highlight">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Company</th>
+                  <th>Rank</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($mysqli->query('SELECT * FROM player_accounts WHERE rankId != 21 AND rank > 0 ORDER BY warPoints DESC LIMIT 9') as $value) { ?>
+                  <tr>
+                    <td><?php echo $value['pilotName']; ?></td>
+                    <td><img src="/img/companies/logo_<?php echo ($value['factionId'] == 1 ? 'mmo' : ($value['factionId'] == 2 ? 'eic' : 'vru')); ?>_mini.png"></td>
+                    <td><?php echo $value['warRank']; ?></td>
+                    <td><?php echo $value['warPoints']; ?></td>
+                  </tr>
+                <?php } ?>
+                <?php if ($player['rank'] > 9) { ?>
+                  <tr>
+                    <td><?php echo $player['pilotName']; ?></td>
+                    <td><img src="/img/companies/logo_<?php echo ($player['factionId'] == 1 ? 'mmo' : ($player['factionId'] == 2 ? 'eic' : 'vru')); ?>_mini.png"></td>
+                    <td><?php echo $player['warRank']; ?></td>
+                    <td><?php echo $player['warPoints']; ?></td>
+                  </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -171,15 +202,16 @@ require_once(INCLUDES . 'header.php'); ?>
       <div class="w3-content w3-display-container">
         <?php
         foreach ($mysqli->query('SELECT * FROM news ORDER by id desc') as $value) { ?>
-          <div class="mySlides">
+          <div class="mySlides" style="height: 580px; overflow: auto;">
             <?php
             echo $value['html_code'];
             ?>
           </div>
         <?php
         } ?>
-        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+        <button class="w3-button w3-black w3-display-left" style="margin-top: 270px;"  onclick="plusDivs(-1)">&#10094;</button>
+        <button class="w3-button w3-black w3-display-right"style="margin-top: 270px;"  onclick="plusDivs(1)">&#10095;</button>
+        
       </div>
 
       <script>

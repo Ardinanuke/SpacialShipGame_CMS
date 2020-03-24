@@ -47,10 +47,10 @@ class SMTP2
 		$mail->Password = 'Asd123456!';
 
 		//Set who the message is to be sent from
-		$mail->setFrom('noreply.deathspaces@gmail.com', 'DeathSpaces ');
+		$mail->setFrom('noreply.deathspaces@gmail.com', 'DeathSpaces');
 
 		//Set an alternative reply-to address
-		$mail->addReplyTo('noreply.deathspaces@gmail.com', 'DeathSpaces ');
+		$mail->addReplyTo('noreply.deathspaces@gmail.com', 'DeathSpaces');
 
 		//Set who the message is to be sent to
 		$mail->addAddress($email, 'DeathSpace '.$head);
