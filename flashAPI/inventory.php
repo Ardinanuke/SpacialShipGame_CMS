@@ -815,6 +815,24 @@ function GetDesignsLootIds()
 			array_push($vecDesign, $row['name']);
 		}
 		$ships = array_merge($ships, $vecDesign, $currentDesigns);
+	} else if ($currentShip['baseShipId'] == 246) {
+		
+		$player = Functions::GetPlayer();
+		$designs = $mysqli->query("SELECT * FROM player_designs WHERE userId = {$player['userId']} AND baseShipId = 246");
+		$vecDesign = [];
+		while ($row = $designs->fetch_assoc()) {
+			array_push($vecDesign, $row['name']);
+		}
+		$ships = array_merge($ships, $vecDesign, $currentDesigns);
+	} else if ($currentShip['baseShipId'] == 245) {
+
+		$player = Functions::GetPlayer();
+		$designs = $mysqli->query("SELECT * FROM player_designs WHERE userId = {$player['userId']} AND baseShipId = 245");
+		$vecDesign = [];
+		while ($row = $designs->fetch_assoc()) {
+			array_push($vecDesign, $row['name']);
+		}
+		$ships = array_merge($ships, $vecDesign, $currentDesigns);
 	}
 
 	$designs = json_decode($equipment['items'])->designs;

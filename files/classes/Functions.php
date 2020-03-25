@@ -1333,7 +1333,7 @@ class Functions
 
             if (!isset($boosters["7"])) {
               /* Insert data */
-              $json_string   = '{"7":[{"Type":8,"Seconds":10800 },{"Type":9,"Seconds":10800 }]';
+              $json_string   = '{"7":[{"Type":8,"Seconds":43200 },{"Type":9,"Seconds":43200 }]';
               if (isset($boosters["2"])) {
                 $json_string = $json_string . ', "2":' . json_encode($boosters["2"]);
               }
@@ -1361,7 +1361,7 @@ class Functions
 
             if (!isset($boosters["3"])) {
               /* Insert data */
-              $json_string   = '{"3": [{"Type":15,"Seconds":10800}, {"Type":16,"Seconds":10800}]';
+              $json_string   = '{"3": [{"Type":15,"Seconds":43200}, {"Type":16,"Seconds":43200}]';
 
               if (isset($boosters["2"])) {
                 $json_string = $json_string . ', "2":' . json_encode($boosters["2"]);
@@ -1388,7 +1388,7 @@ class Functions
 
             if (!isset($boosters["2"])) {
               /* Insert data */
-              $json_string   = '{"2":[{"Type":0,"Seconds":15550},{"Type":1,"Seconds":15555}]';
+              $json_string   = '{"2":[{"Type":0,"Seconds":43200},{"Type":1,"Seconds":43200}]';
 
               if (isset($boosters["7"])) {
                 $json_string  = $json_string . ', "7":' . json_encode($boosters["7"]);
@@ -2004,8 +2004,8 @@ class Functions
           'id' => 22,
           'category' => 'boosters',
           'name' => 'Health booster',
-          'information' => '3 hours playing',
-          'price' => 185000,
+          'information' => '12 hours playing',
+          'price' => 50000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/booster_hp-b02_100x100.png',
@@ -2015,8 +2015,8 @@ class Functions
           'id' => 23,
           'category' => 'boosters',
           'name' => 'Shield booster',
-          'information' => '3 hours playing',
-          'price' => 185000,
+          'information' => '12 hours playing',
+          'price' => 50000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/booster_shd-b02_100x100.png',
@@ -2026,8 +2026,8 @@ class Functions
           'id' => 24,
           'category' => 'boosters',
           'name' => 'Damage booster',
-          'information' => '3 hours playing',
-          'price' => 185000,
+          'information' => '12 hours playing',
+          'price' => 50000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/booster_dmg-b02_100x100.png',
