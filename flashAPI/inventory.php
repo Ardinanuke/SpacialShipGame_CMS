@@ -816,7 +816,7 @@ function GetDesignsLootIds()
 		}
 		$ships = array_merge($ships, $vecDesign, $currentDesigns);
 	} else if ($currentShip['baseShipId'] == 246) {
-		
+		$currentDesigns = [];
 		$player = Functions::GetPlayer();
 		$designs = $mysqli->query("SELECT * FROM player_designs WHERE userId = {$player['userId']} AND baseShipId = 246");
 		$vecDesign = [];
@@ -825,7 +825,7 @@ function GetDesignsLootIds()
 		}
 		$ships = array_merge($ships, $vecDesign, $currentDesigns);
 	} else if ($currentShip['baseShipId'] == 245) {
-
+		$currentDesigns = [];
 		$player = Functions::GetPlayer();
 		$designs = $mysqli->query("SELECT * FROM player_designs WHERE userId = {$player['userId']} AND baseShipId = 245");
 		$vecDesign = [];
