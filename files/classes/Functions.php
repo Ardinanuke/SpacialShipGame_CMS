@@ -1,6 +1,7 @@
 <?php
 class Functions
 {
+	
   public static function ObStart()
   {
     function minify_everything($buffer)
@@ -33,6 +34,8 @@ class Functions
         $path = ROOT . 'api.php';
       } else if ($page[0] == 'cronjobs') {
         $path = CRONJOBS . $page[1] . '.php';
+      }else if ($page[0] == 'adm') {
+        $path = ADM . $page[1] . '.php';
       } else {
         if (isset($player)) {
           if ($page[0] == 'company_select' && $player['factionId'] != 0) {

@@ -5,6 +5,7 @@ ini_set('log_errors', 1);
 ini_set('error_log', ROOT . 'error_logs' . DIRECTORY_SEPARATOR . 'php_error.log');
 ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
+error_reporting(error_reporting() & ~E_NOTICE);
 
 $sessions_path = ROOT . 'sessions';
 ini_set('session.save_path', $sessions_path);
@@ -32,6 +33,7 @@ define('CLASSES', ROOT . 'classes' . DIRECTORY_SEPARATOR);
 define('EXTERNALS', ROOT . 'external' . DIRECTORY_SEPARATOR);
 define('INCLUDES', EXTERNALS . 'includes' . DIRECTORY_SEPARATOR);
 define('CRONJOBS', EXTERNALS . 'cronjobs' . DIRECTORY_SEPARATOR);
+define('ADM', EXTERNALS . 'adm' . DIRECTORY_SEPARATOR);
 
 require_once(CLASSES . 'SMTP.php');
 require_once(CLASSES . 'Functions.php');
