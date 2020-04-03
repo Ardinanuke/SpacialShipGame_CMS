@@ -181,7 +181,7 @@ if (isset($_POST['search'])) {
             $user = "0 results";
          }
 		 if (isset($_POST['username']) && isset($_POST['pilotName'])) {
-			 $query = "UPDATE player_accounts SET data = '{\"uridium\":".$_POST['uridium'].",\"credits\":".$_POST['credits'].",\"honor\":".$_POST['honor'].",\"experience\":".$_POST['experience'].",\"jackpot\":0}', `pilotName` = '".$_POST['pilotName']."', `email` = '".$_POST['email']."', `shipId` = '".$_POST['shipId']."', `premium` = '".$_POST['premium']."', `rankId` = '".$_POST['rankId']."', `clanId` = '".$_POST['clanId']."', `factionId` = '".$_POST['factionId']."', `rank` = '".$_POST['rank']."',`title` = '".$_POST['title']."' WHERE `player_accounts`.`userId` = 3010;";
+			 $query = "UPDATE player_accounts SET data = '{\"uridium\":".$_POST['uridium'].",\"credits\":".$_POST['credits'].",\"honor\":".$_POST['honor'].",\"experience\":".$_POST['experience'].",\"jackpot\":0}', `pilotName` = '".$_POST['pilotName']."', `email` = '".$_POST['email']."', `shipId` = '".$_POST['shipId']."', `premium` = '".$_POST['premium']."', `rankId` = '".$_POST['rankId']."', `clanId` = '".$_POST['clanId']."', `factionId` = '".$_POST['factionId']."', `rank` = '".$_POST['rank']."',`title` = '".$_POST['title']."' WHERE `player_accounts`.`userId` = ".$id.";";
     $mysqli->query($query);
 	
 	/* Save acp_log*/
