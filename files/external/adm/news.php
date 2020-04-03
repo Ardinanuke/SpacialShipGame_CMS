@@ -12,6 +12,9 @@ if(isset($id)){
 	if (isset($_POST['title']) && isset($_POST['summernote'])) {
 		$query = "UPDATE news SET html_code = '".$_POST['summernote']."' WHERE id = '".$id."'";
     $mysqli->query($query);
+	/* Save acp_log*/
+	$acp_log = "INSERT INTO `acp_logs` (`id`, `userId`, `action`, `date`) VALUES (NULL, '". $player['userId']."', 'Edit a new : ". $_POST['title'] . "', current_timestamp());";
+    $mysqli->query($acp_log);
     $server_response = 2;
 	}
 }else{
@@ -20,7 +23,11 @@ if(isset($id)){
 if (isset($_POST['title']) && isset($_POST['summernote'])) {
 	$query = "INSERT INTO news (id,html_code) VALUES (NULL,'" . $_POST['summernote'] . "')";
     $mysqli->query($query);
-    $server_response = 1;
+	
+	/* Save acp_log*/
+	$acp_log = "INSERT INTO `acp_logs` (`id`, `userId`, `action`, `date`) VALUES (NULL, '". $player['userId']."', 'Create a new : ". $_POST['title'] . "', current_timestamp());";
+    $mysqli->query($acp_log);
+	$server_response = 1;
 }
 }
 ?>
@@ -71,8 +78,8 @@ if ($result = $mysqli -> query($sql)) {
                         </div>
                         <div class="card white-text grey darken-4 padding-15" style="width: 100%; overflow:auto; display: block !important;">
                             <!-- working -->
-                            <h4><strong>Create a new:</strong></h4>
-						<?php if($server_response == 1) { ?> <div class="card-panel teal lighten-2">New Created!</div><?php }elseif($server_response == 2){ ?>	<div class="card-panel teal lighten-2">New Updated!</div> <?php }?>					
+                            <h4><strong><?php if(isset($id)){ echo "Edit"; }else{echo "Create";} ?> a new:</strong></h4>
+						<?php if($server_response == 1) { ?> <div class="card-panel green">New Created!</div><?php }elseif($server_response == 2){ ?>	<div class="card-panel light-blue accent-3">New Updated!</div> <?php }?>					
                            <form method="post">
 						    <input type="text" style="color: white;" name="title" id="title" placeholder="Title" required>
                                
