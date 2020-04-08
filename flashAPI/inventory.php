@@ -802,6 +802,8 @@ function GetDesignsLootIds()
 			'ship_goliath_design_exalted',
 			'ship_goliath_design_crimson',
 			'ship_goliath_design_ignite',
+		    'ship_goliath_design_blue', /*remover es para test a los users*/	
+			'ship_goliath_design_orange', /*remover es para test a los users*/	
 			'ship_goliath_design_centaur'
 		];
 

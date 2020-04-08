@@ -1,7 +1,6 @@
 <?php
 class Functions
 {
-	
   public static function ObStart()
   {
     function minify_everything($buffer)
@@ -34,8 +33,6 @@ class Functions
         $path = ROOT . 'api.php';
       } else if ($page[0] == 'cronjobs') {
         $path = CRONJOBS . $page[1] . '.php';
-      }else if ($page[0] == 'adm') {
-        $path = ADM . $page[1] . '.php';
       } else {
         if (isset($player)) {
           if ($page[0] == 'company_select' && $player['factionId'] != 0) {
@@ -1289,6 +1286,78 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_goal', 10, " . $player['userId'] . ")");
             $status = true;
           }
+        } else if ($shop['items'][$itemId]['name'] == 'Goliath Vanquisher') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_vanquisher' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_vanquisher', 10, " . $player['userId'] . ")");
+            $status = true;
+          }
+        }else if ($shop['items'][$itemId]['name'] == 'Goliath Sovereign') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_sovereign' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_sovereign', 10, " . $player['userId'] . ")");
+            $status = true;
+          }
+        }else if ($shop['items'][$itemId]['name'] == 'Goliath Peacemaker') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_peacemaker' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_peacemaker', 10, " . $player['userId'] . ")");
+            $status = true;
+          }
+        }else if ($shop['items'][$itemId]['name'] == 'Cyborg Ullrin') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_cyborg_design_cyborg-ullrin' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_cyborg_design_cyborg-ullrin', 245, " . $player['userId'] . ")");
+            $status = true;
+          }
+        }else if ($shop['items'][$itemId]['name'] == 'Cyborg Nobilis') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_cyborg_design_cyborg-nobilis' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_cyborg_design_cyborg-nobilis', 245, " . $player['userId'] . ")");
+            $status = true;
+          }
+        }else if ($shop['items'][$itemId]['name'] == 'Cyborg Infinite') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_cyborg_design_cyborg-infinite' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_cyborg_design_cyborg-infinite', 245, " . $player['userId'] . ")");
+            $status = true;
+          }
+        }else if ($shop['items'][$itemId]['name'] == 'Hammerclaw Frost') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_hammerclaw_design_hammerclaw-frost' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_hammerclaw_design_hammerclaw-frost', 246, " . $player['userId'] . ")");
+            $status = true;
+          }
+        }else if ($shop['items'][$itemId]['name'] == 'Hammerclaw Nobilis') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_hammerclaw_design_hammerclaw-nobilis' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_hammerclaw_design_hammerclaw-nobilis', 246, " . $player['userId'] . ")");
+            $status = true;
+          }
+        }else if ($shop['items'][$itemId]['name'] == 'Hammerclaw Lava') {
+          $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_hammerclaw_design_hammerclaw-lava' AND userId= " . $player['userId'] . ";");
+          if (mysqli_num_rows($search_design) > 0) {
+            $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
+          } else {
+            $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_hammerclaw_design_hammerclaw-lava', 246, " . $player['userId'] . ")");
+            $status = true;
+          }
         }
         /* MODULES */ else if ($shop['items'][$itemId]['name'] == 'Module HULM-1') {
           $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId= " . $player['userId'] . "")->fetch_assoc();
@@ -1759,7 +1828,7 @@ class Functions
   public static function GetShop()
   {
     return [
-      'categories' => ['drones', 'ships', 'designs', 'extras', 'modules', 'boosters'],
+      'categories' => ['drones', 'ships', 'designs', 'modules', 'boosters', 'extras'],
       'items' => [
         [
           'id' => 0,
@@ -1898,7 +1967,7 @@ class Functions
           'category' => 'drones',
           'name' => 'Havoc',
           'information' => '10% DMG (full set)',
-          'price' => 125000,
+          'price' => 100000,
           'priceType' => 'uridium',
           'amount' => true,
           'image' => 'do_img/global/items/drone/designs/havoc_100x100.png',
@@ -1909,7 +1978,7 @@ class Functions
           'category' => 'drones',
           'name' => 'Hercules',
           'information' => '15% Shield 20% Health (full set)',
-          'price' => 125000,
+          'price' => 100000,
           'priceType' => 'uridium',
           'amount' => true,
           'image' => 'do_img/global/items/drone/designs/hercules_100x100.png',
@@ -1964,7 +2033,7 @@ class Functions
           'category' => 'modules',
           'name' => 'Module HULM-1',
           'information' => 'Build a base 1/2',
-          'price' => 185000,
+          'price' => 15000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/module/hulm-1_100x100.png',
@@ -1975,7 +2044,7 @@ class Functions
           'category' => 'modules',
           'name' => 'Module DEFM-1',
           'information' => 'Build a base 2/2',
-          'price' => 185000,
+          'price' => 15000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/module/defm-1_100x100.png',
@@ -1986,7 +2055,7 @@ class Functions
           'category' => 'modules',
           'name' => 'Module LTM-HR',
           'information' => 'Damage: 78.500',
-          'price' => 185000,
+          'price' => 15000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/module/ltm-hr_100x100.png',
@@ -1997,7 +2066,7 @@ class Functions
           'category' => 'modules',
           'name' => 'Module RAM-MA',
           'information' => 'Damage: 121.250',
-          'price' => 185000,
+          'price' => 15000,
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/module/ram-ma_100x100.png',
@@ -2034,6 +2103,106 @@ class Functions
           'priceType' => 'uridium',
           'amount' => false,
           'image' => 'do_img/global/items/booster_dmg-b02_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 25,
+          'category' => 'designs',
+          'name' => 'Goliath Vanquisher',
+          'information' => 'DMG 7%',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/vanquisher.png',
+          'active' => true
+        ],
+        [
+          'id' => 26,
+          'category' => 'designs',
+          'name' => 'Goliath Sovereign',
+          'information' => 'DMG 7%',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/Sovereign.png',
+          'active' => true
+        ],
+        [
+          'id' => 27,
+          'category' => 'designs',
+          'name' => 'Goliath Peacemaker',
+          'information' => 'DMG 7%',
+          'price' => 250000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/Peacemaker.png',
+          'active' => true
+        ],
+        [
+          'id' => 28,
+          'category' => 'designs',
+          'name' => 'Cyborg Ullrin',
+          'information' => 'Cosmetic',
+          'price' => 450000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/cyborg/design/cyborg-ullrin_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 29,
+          'category' => 'designs',
+          'name' => 'Cyborg Nobilis',
+          'information' => 'Cosmetic',
+          'price' => 450000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/cyborg/design/cyborg-nobilis_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 30,
+          'category' => 'designs',
+          'name' => 'Cyborg Infinite',
+          'information' => 'Cosmetic',
+          'price' => 450000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/cyborg/design/cyborg-infinite_100x100.png',
+          'active' => true
+        ],
+        /*
+        [
+          'id' => 31,
+          'category' => 'designs',
+          'name' => 'Hammerclaw Frost',
+          'information' => '12 hours playing',
+          'price' => 450000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/hammerclaw/design/hammerclaw-frozen_100x100.png',
+          'active' => true
+        ],*/
+        [
+          'id' => 31,
+          'category' => 'designs',
+          'name' => 'Hammerclaw Nobilis',
+          'information' => 'Cosmetic',
+          'price' => 450000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/hammerclaw/design/hammerclaw-nobilis_100x100.png',
+          'active' => true
+        ],
+        [
+          'id' => 32,
+          'category' => 'designs',
+          'name' => 'Hammerclaw Lava',
+          'information' => 'Cosmetic',
+          'price' => 450000,
+          'priceType' => 'uridium',
+          'amount' => false,
+          'image' => 'do_img/global/items/ship/hammerclaw/design/hammerclaw-lava_100x100.png',
           'active' => true
         ]
       ]

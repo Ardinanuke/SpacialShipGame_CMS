@@ -10,7 +10,7 @@ while($row = mysqli_fetch_array($result)){
     $id = $row['userId'];
     $experience = json_decode($row['data'])->experience;
 
-    if($id < 2300){
+
         if($experience == 0){
             $cuentasBorradas = $cuentasBorradas + 1;
             /*
@@ -25,7 +25,7 @@ while($row = mysqli_fetch_array($result)){
             $mysqli->query("DELETE FROM player_settings WHERE userId=".$id);
             $mysqli->query("DELETE FROM player_equipment WHERE userId=".$id);
         }
-    }
+
 }
 
 echo "Numero de cuentas borradas "+$cuentasBorradas;

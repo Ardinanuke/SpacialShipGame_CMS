@@ -71,7 +71,7 @@ require_once(INCLUDES . 'header.php'); ?>
               </label>
             </p>
           </div>
-            <div class="g-recaptcha" data-sitekey="6LckFOMUAAAAALrlKMflu1KJvk56YU7ygkoJ6Sim"></div>
+            <div class="g-recaptcha" data-sitekey="6LcSFOMUAAAAAJNVhm3x8bDla9evkFHL5f9R6GZL"></div>
           <div>
             <br>
             <img src="https://www.globe.gov/globe-gov-home-portlet/css/images/Loading_icon2.gif" id="img" width="100px" style=" display:none; margin:auto;" class="loader_img">

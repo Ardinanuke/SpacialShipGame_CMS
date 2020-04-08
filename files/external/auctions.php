@@ -22,234 +22,7 @@ $player = Functions::GetPlayer();
 $alert_succes = '';
 $alert_error = '';
 
-if (isset($_POST['havoc']) && isset($_POST['havoc-bid'])) {
-    $havoc = $mysqli->query('SELECT * FROM auction_house WHERE name="havoc" ')->fetch_assoc();
-    if ($_POST['havoc-bid'] > 0) {
-
-        if ($havoc['bidderId'] == 0) {
-            if ($data->uridium >= $_POST['havoc-bid']) {
-
-                $restantU = ($data->uridium - $_POST['havoc-bid']);
-                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['havoc-bid']]);
-                }
-
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid'] . '" WHERE name="havoc"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->uridium >= $_POST['havoc-bid']) {
-                if ($havoc['bidderId'] != $player['userId']) {
-                    if ($_POST['havoc-bid'] > $havoc['bid']) {
-
-                        $restantU = ($data->uridium - $_POST['havoc-bid']);
-                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid'] . '" WHERE name="havoc"');
-
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['havoc-bid']]);
-                        }
-
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid'] . '" WHERE name="havoc"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-if (isset($_POST['hercules']) && isset($_POST['hercules-bid'])) {
-
-    $hercules = $mysqli->query('SELECT * FROM auction_house WHERE name="hercules" ')->fetch_assoc();
-    if ($_POST['hercules-bid'] > 0) {
-
-        if ($hercules['bidderId'] == 0) {
-            if ($data->uridium >= $_POST['hercules-bid']) {
-
-                $restantU = ($data->uridium - $_POST['hercules-bid']);
-                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['hercules-bid']]);
-                }
-
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid'] . '" WHERE name="hercules"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->uridium >= $_POST['hercules-bid']) {
-                if ($hercules['bidderId'] != $player['userId']) {
-                    if ($_POST['hercules-bid'] > $hercules['bid']) {
-
-                        $restantU = ($data->uridium - $_POST['hercules-bid']);
-                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid'] . '" WHERE name="hercules"');
-
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['hercules-bid']]);
-                        }
-
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid'] . '" WHERE name="hercules"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-/* CREDITS */
-
-/*
-if (isset($_POST['shd-b01-c']) && isset($_POST['shd-b01-bid-c'])) {
-}
-
-if (isset($_POST['hp-b01-c']) && isset($_POST['hp-b01-bid-c'])) {
-}
-*/
-
-if (isset($_POST['havoc-c']) && isset($_POST['havoc-bid-c'])) {
-    $havoc = $mysqli->query('SELECT * FROM auction_house WHERE name="havoc-c" ')->fetch_assoc();
-    if ($_POST['havoc-bid-c'] > 0) {
-
-        if ($havoc['bidderId'] == 0) {
-            if ($data->credits >= $_POST['havoc-bid-c']) {
-
-                $restantC = ($data->credits  - $_POST['havoc-bid-c']);
-                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['havoc-bid-c']]);
-                }
-
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid-c'] . '" WHERE name="havoc-c"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->credits >= $_POST['havoc-bid-c']) {
-                if ($havoc['bidderId'] != $player['userId']) {
-                    if ($_POST['havoc-bid-c'] > $havoc['bid']) {
-
-                        $restantC = ($data->credits  - $_POST['havoc-bid-c']);
-                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid-c'] . '" WHERE name="havoc-c"');
-
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['havoc-bid-c']]);
-                        }
-
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['havoc-bid-c'] . '" WHERE name="havoc-c"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-if (isset($_POST['hercules-c']) && isset($_POST['hercules-bid-c'])) {
-    $hercules = $mysqli->query('SELECT * FROM auction_house WHERE name="hercules-c" ')->fetch_assoc();
-    if ($_POST['hercules-bid-c'] > 0) {
-
-        if ($hercules['bidderId'] == 0) {
-            if ($data->credits >= $_POST['hercules-bid-c']) {
-
-                $restantC = ($data->credits  - $_POST['hercules-bid-c']);
-                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hercules-bid-c']]);
-                }
-
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid-c'] . '" WHERE name="hercules-c"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->credits >= $_POST['hercules-bid-c']) {
-                if ($hercules['bidderId'] != $player['userId']) {
-                    if ($_POST['hercules-bid-c'] > $hercules['bid']) {
-
-
-                        $restantC = ($data->credits  - $_POST['hercules-bid-c']);
-                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hercules-bid-c']]);
-                        }
-
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hercules-bid-c'] . '" WHERE name="hercules-c"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-/**
- * ----------------------------------
- * 
- * 
- * 
- *  DAILY
- * 
- * 
- * ---------------------------------
- */
-
 /* uridium */
-
 if (isset($_POST['diminisher-legend']) && isset($_POST['diminisher-legend-bid'])) {
     $diminisherLegend = $mysqli->query('SELECT * FROM auction_house WHERE name="diminisher-legend" ')->fetch_assoc();
     if ($_POST['diminisher-legend-bid'] > 0) {
@@ -508,6 +281,189 @@ if (isset($_POST['spectrum-dusklight']) && isset($_POST['spectrum-dusklight-bid'
                             Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['spectrum-dusklight-bid']]);
                         }
                         $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['spectrum-dusklight-bid'] . '" WHERE name="spectrum-dusklight"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+if (isset($_POST['hammerclaw-carbonite']) && isset($_POST['hammerclaw-carbonite-bid'])) {
+
+    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="hammerclaw-carbonite" ')->fetch_assoc();
+    if ($_POST['hammerclaw-carbonite-bid'] > 0) {
+
+        if ($spectrumDusklight['bidderId'] == 0) {
+            if ($data->uridium >= $_POST['hammerclaw-carbonite-bid']) {
+
+                $restantU = ($data->uridium - $_POST['hammerclaw-carbonite-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['hammerclaw-carbonite-bid']]);
+                }
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hammerclaw-carbonite-bid'] . '" WHERE name="hammerclaw-carbonite"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->uridium >= $_POST['hammerclaw-carbonite-bid']) {
+                if ($spectrumDusklight['bidderId'] != $player['userId']) {
+                    if ($_POST['hammerclaw-carbonite-bid'] > $spectrumDusklight['bid']) {
+                        $restantU = ($data->uridium - $_POST['hammerclaw-carbonite-bid']);
+                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['hammerclaw-carbonite-bid']]);
+                        }
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hammerclaw-carbonite-bid'] . '" WHERE name="hammerclaw-carbonite"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+if (isset($_POST['hammerclaw-bane']) && isset($_POST['hammerclaw-bane-bid'])) {
+
+    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="hammerclaw-bane" ')->fetch_assoc();
+    if ($_POST['hammerclaw-bane-bid'] > 0) {
+
+        if ($spectrumDusklight['bidderId'] == 0) {
+            if ($data->uridium >= $_POST['hammerclaw-bane-bid']) {
+
+                $restantU = ($data->uridium - $_POST['hammerclaw-bane-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['hammerclaw-bane-bid']]);
+                }
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hammerclaw-bane-bid'] . '" WHERE name="hammerclaw-bane"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->uridium >= $_POST['hammerclaw-bane-bid']) {
+                if ($spectrumDusklight['bidderId'] != $player['userId']) {
+                    if ($_POST['hammerclaw-bane-bid'] > $spectrumDusklight['bid']) {
+                        $restantU = ($data->uridium - $_POST['hammerclaw-bane-bid']);
+                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['hammerclaw-bane-bid']]);
+                        }
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hammerclaw-bane-bid'] . '" WHERE name="hammerclaw-bane"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+if (isset($_POST['cyborg-carbonite']) && isset($_POST['cyborg-carbonite-bid'])) {
+
+    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="cyborg-carbonite" ')->fetch_assoc();
+    if ($_POST['cyborg-carbonite-bid'] > 0) {
+
+        if ($spectrumDusklight['bidderId'] == 0) {
+            if ($data->uridium >= $_POST['cyborg-carbonite-bid']) {
+
+                $restantU = ($data->uridium - $_POST['cyborg-carbonite-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['cyborg-carbonite-bid']]);
+                }
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['cyborg-carbonite-bid'] . '" WHERE name="cyborg-carbonite"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->uridium >= $_POST['cyborg-carbonite-bid']) {
+                if ($spectrumDusklight['bidderId'] != $player['userId']) {
+                    if ($_POST['cyborg-carbonite-bid'] > $spectrumDusklight['bid']) {
+                        $restantU = ($data->uridium - $_POST['cyborg-carbonite-bid']);
+                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['cyborg-carbonite-bid']]);
+                        }
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['cyborg-carbonite-bid'] . '" WHERE name="cyborg-carbonite"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+if (isset($_POST['cyborg-sunstorm']) && isset($_POST['cyborg-sunstorm-bid'])) {
+
+    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="cyborg-sunstorm" ')->fetch_assoc();
+    if ($_POST['cyborg-sunstorm-bid'] > 0) {
+
+        if ($spectrumDusklight['bidderId'] == 0) {
+            if ($data->uridium >= $_POST['cyborg-sunstorm-bid']) {
+
+                $restantU = ($data->uridium - $_POST['cyborg-sunstorm-bid']);
+                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['cyborg-sunstorm-bid']]);
+                }
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['cyborg-sunstorm-bid'] . '" WHERE name="cyborg-sunstorm"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->uridium >= $_POST['cyborg-sunstorm-bid']) {
+                if ($spectrumDusklight['bidderId'] != $player['userId']) {
+                    if ($_POST['cyborg-sunstorm-bid'] > $spectrumDusklight['bid']) {
+                        $restantU = ($data->uridium - $_POST['cyborg-sunstorm-bid']);
+                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['cyborg-sunstorm-bid']]);
+                        }
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['cyborg-sunstorm-bid'] . '" WHERE name="cyborg-sunstorm"');
                         $alert_succes = 'Correct bid! Please reload the page';
                     } else {
                         $alert_error = "you don't have enough money to bid";
@@ -798,6 +754,191 @@ if (isset($_POST['spectrum-dusklight-c']) && isset($_POST['spectrum-dusklight-bi
         $alert_error = "error, it is not an acceptable amount";
     }
 }
+if (isset($_POST['hammerclaw-carbonite-c']) && isset($_POST['hammerclaw-carbonite-bid-c'])) {
+
+    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="hammerclaw-carbonite-c" ')->fetch_assoc();
+    if ($_POST['hammerclaw-carbonite-bid-c'] > 0) {
+
+        if ($spectrumDusklight['bidderId'] == 0) {
+            if ($data->credits >= $_POST['hammerclaw-carbonite-bid-c']) {
+
+                $restantC = ($data->credits - $_POST['hammerclaw-carbonite-bid-c']);
+                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hammerclaw-carbonite-bid-c']]);
+                }
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hammerclaw-carbonite-bid-c'] . '" WHERE name="hammerclaw-carbonite-c"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->credits >= $_POST['hammerclaw-carbonite-bid-c']) {
+                if ($spectrumDusklight['bidderId'] != $player['userId']) {
+                    if ($_POST['hammerclaw-carbonite-bid-c'] > $spectrumDusklight['bid']) {
+                        $restantC = ($data->credits - $_POST['hammerclaw-carbonite-bid-c']);
+                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hammerclaw-carbonite-bid-c']]);
+                        }
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hammerclaw-carbonite-bid-c'] . '" WHERE name="hammerclaw-carbonite-c"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+if (isset($_POST['hammerclaw-bane-c']) && isset($_POST['hammerclaw-bane-bid-c'])) {
+
+    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="hammerclaw-bane-c" ')->fetch_assoc();
+    if ($_POST['hammerclaw-bane-bid-c'] > 0) {
+
+        if ($spectrumDusklight['bidderId'] == 0) {
+            if ($data->credits >= $_POST['hammerclaw-bane-bid-c']) {
+
+                $restantC = ($data->credits - $_POST['hammerclaw-bane-bid-c']);
+                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hammerclaw-bane-bid-c']]);
+                }
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hammerclaw-bane-bid-c'] . '" WHERE name="hammerclaw-bane-c"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->credits >= $_POST['hammerclaw-bane-bid-c']) {
+                if ($spectrumDusklight['bidderId'] != $player['userId']) {
+                    if ($_POST['hammerclaw-bane-bid-c'] > $spectrumDusklight['bid']) {
+                        $restantC = ($data->credits - $_POST['hammerclaw-bane-bid-c']);
+                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['hammerclaw-bane-bid-c']]);
+                        }
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['hammerclaw-bane-bid-c'] . '" WHERE name="hammerclaw-bane-c"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+
+if (isset($_POST['cyborg-carbonite-c']) && isset($_POST['cyborg-carbonite-bid-c'])) {
+
+    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="cyborg-carbonite-c" ')->fetch_assoc();
+    if ($_POST['cyborg-carbonite-bid-c'] > 0) {
+
+        if ($spectrumDusklight['bidderId'] == 0) {
+            if ($data->credits >= $_POST['cyborg-carbonite-bid-c']) {
+
+                $restantC = ($data->credits - $_POST['cyborg-carbonite-bid-c']);
+                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['cyborg-carbonite-bid-c']]);
+                }
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['cyborg-carbonite-bid-c'] . '" WHERE name="cyborg-carbonite-c"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->credits >= $_POST['cyborg-carbonite-bid-c']) {
+                if ($spectrumDusklight['bidderId'] != $player['userId']) {
+                    if ($_POST['cyborg-carbonite-bid-c'] > $spectrumDusklight['bid']) {
+                        $restantC = ($data->credits - $_POST['cyborg-carbonite-bid-c']);
+                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['cyborg-carbonite-bid-c']]);
+                        }
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['cyborg-carbonite-bid-c'] . '" WHERE name="cyborg-carbonite-c"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
+if (isset($_POST['cyborg-sunstorm-c']) && isset($_POST['cyborg-sunstorm-bid-c'])) {
+
+    $spectrumDusklight = $mysqli->query('SELECT * FROM auction_house WHERE name="cyborg-sunstorm-c" ')->fetch_assoc();
+    if ($_POST['cyborg-sunstorm-bid-c'] > 0) {
+
+        if ($spectrumDusklight['bidderId'] == 0) {
+            if ($data->credits >= $_POST['cyborg-sunstorm-bid-c']) {
+
+                $restantC = ($data->credits - $_POST['cyborg-sunstorm-bid-c']);
+                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['cyborg-sunstorm-bid-c']]);
+                }
+                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['cyborg-sunstorm-bid-c'] . '" WHERE name="cyborg-sunstorm-c"');
+                $alert_succes = 'Correct bid! Please reload the page';
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        } else {
+            if ($data->credits >= $_POST['cyborg-sunstorm-bid-c']) {
+                if ($spectrumDusklight['bidderId'] != $player['userId']) {
+                    if ($_POST['cyborg-sunstorm-bid-c'] > $spectrumDusklight['bid']) {
+                        $restantC = ($data->credits - $_POST['cyborg-sunstorm-bid-c']);
+                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
+                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
+                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['cyborg-sunstorm-bid-c']]);
+                        }
+                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['cyborg-sunstorm-bid-c'] . '" WHERE name="cyborg-sunstorm-c"');
+                        $alert_succes = 'Correct bid! Please reload the page';
+                    } else {
+                        $alert_error = "you don't have enough money to bid";
+                    }
+                } else {
+                    $alert_error = "You already have an active bid for this Item";
+                }
+            } else {
+                $alert_error = "you don't have enough money to bid";
+            }
+        }
+    } else {
+        $alert_error = "error, it is not an acceptable amount";
+    }
+}
+
 /* PET Uridium */
 if (isset($_POST['pet']) && isset($_POST['pet-bid'])) {
     $pet = $mysqli->query('SELECT * FROM auction_house WHERE name="pet" ')->fetch_assoc();
@@ -886,287 +1027,6 @@ if (isset($_POST['pet-c']) && isset($_POST['pet-bid-c'])) {
         $alert_error = "error, it is not an acceptable amount";
     }
 }
-
-/* modules uridium */
-
-if (isset($_POST['ltm-lr']) && isset($_POST['ltm-lr-bid'])) {
-    $ltmmr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-lr" ')->fetch_assoc();
-    if ($_POST['ltm-lr-bid'] > 0) {
-        if ($ltmmr['bidderId'] == 0) {
-            if ($data->uridium >= $_POST['ltm-lr-bid']) {
-                $restantU = ($data->uridium - $_POST['ltm-lr-bid']);
-                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-lr-bid']]);
-                }
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid'] . '" WHERE name="ltm-lr"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->uridium >= $_POST['ltm-lr-bid']) {
-                if ($ltmmr['bidderId'] != $player['userId']) {
-                    if ($_POST['ltm-lr-bid'] > $ltmmr['bid']) {
-                        $restantU = ($data->uridium - $_POST['ltm-lr-bid']);
-                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-lr-bid']]);
-                        }
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid'] . '" WHERE name="ltm-lr"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-
-if (isset($_POST['ltm-mr']) && isset($_POST['ltm-mr-bid'])) {
-    $ltmlr = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-mr" ')->fetch_assoc();
-    if ($_POST['ltm-mr-bid'] > 0) {
-
-        if ($ltmlr['bidderId'] == 0) {
-            if ($data->uridium >= $_POST['ltm-mr-bid']) {
-
-                $restantU = ($data->uridium - $_POST['ltm-mr-bid']);
-                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-mr-bid']]);
-                }
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid'] . '" WHERE name="ltm-mr"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->uridium >= $_POST['ltm-mr-bid']) {
-                if ($ltmlr['bidderId'] != $player['userId']) {
-                    if ($_POST['ltm-mr-bid'] > $ltmlr['bid']) {
-                        $restantU = ($data->uridium - $_POST['ltm-mr-bid']);
-                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ltm-mr-bid']]);
-                        }
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid'] . '" WHERE name="ltm-mr"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-if (isset($_POST['ram-la']) && isset($_POST['ram-la-bid'])) {
-    $ramla = $mysqli->query('SELECT * FROM auction_house WHERE name="ram-la" ')->fetch_assoc();
-    if ($_POST['ram-la-bid'] > 0) {
-
-        if ($ramla['bidderId'] == 0) {
-            if ($data->uridium >= $_POST['ram-la-bid']) {
-
-                $restantU = ($data->uridium - $_POST['ram-la-bid']);
-                $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ram-la-bid']]);
-                }
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid'] . '" WHERE name="ram-la"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->uridium >= $_POST['ram-la-bid']) {
-                if ($ramla['bidderId'] != $player['userId']) {
-                    if ($_POST['ram-la-bid'] > $ramla['bid']) {
-
-                        $restantU = ($data->uridium - $_POST['ram-la-bid']);
-                        $playerBidder = '{"uridium":' . $restantU . ',"credits":' . $data->credits . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 0, 'Amount' => $_POST['ram-la-bid']]);
-                        }
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid'] . '" WHERE name="ram-la"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-/* modules credits */
-
-if (isset($_POST['ltm-mr-c']) && isset($_POST['ltm-mr-bid-c'])) {
-
-    $ltmmrC = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-mr-c" ')->fetch_assoc();
-    if ($_POST['ltm-mr-bid-c'] > 0) {
-
-        if ($ltmmrC['bidderId'] == 0) {
-            if ($data->credits >= $_POST['ltm-mr-bid-c']) {
-
-                $restantC = ($data->credits - $_POST['ltm-mr-bid-c']);
-                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-mr-bid-c']]);
-                }
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid-c'] . '" WHERE name="ltm-mr-c"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->credits >= $_POST['ltm-mr-bid-c']) {
-                if ($ltmmrC['bidderId'] != $player['userId']) {
-                    if ($_POST['ltm-mr-bid-c'] > $ltmmrC['bid']) {
-                        $restantC = ($data->credits - $_POST['ltm-mr-bid-c']);
-                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-mr-bid-c']]);
-                        }
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-mr-bid-c'] . '" WHERE name="ltm-mr-c"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-if (isset($_POST['ltm-lr-c']) && isset($_POST['ltm-lr-bid-c'])) {
-
-    $ltmlrC = $mysqli->query('SELECT * FROM auction_house WHERE name="ltm-lr-c" ')->fetch_assoc();
-    if ($_POST['ltm-lr-bid-c'] > 0) {
-
-        if ($ltmlrC['bidderId'] == 0) {
-            if ($data->credits >= $_POST['ltm-lr-bid-c']) {
-
-                $restantC = ($data->credits - $_POST['ltm-lr-bid-c']);
-                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-lr-bid-c']]);
-                }
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid-c'] . '" WHERE name="ltm-lr-c"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->credits >= $_POST['ltm-lr-bid-c']) {
-                if ($ltmlrC['bidderId'] != $player['userId']) {
-                    if ($_POST['ltm-lr-bid-c'] > $ltmlrC['bid']) {
-                        $restantC = ($data->credits - $_POST['ltm-lr-bid-c']);
-                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ltm-lr-bid-c']]);
-                        }
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ltm-lr-bid-c'] . '" WHERE name="ltm-lr-c"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-if (isset($_POST['ram-la-c']) && isset($_POST['ram-la-bid-c'])) {
-
-    $ramlaC = $mysqli->query('SELECT * FROM auction_house WHERE name="ram-la-c" ')->fetch_assoc();
-    if ($_POST['ram-la-bid-c'] > 0) {
-
-        if ($ramlaC['bidderId'] == 0) {
-            if ($data->credits >= $_POST['ram-la-bid-c']) {
-
-                $restantC = ($data->credits - $_POST['ram-la-bid-c']);
-                $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                    Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ram-la-bid-c']]);
-                }
-                $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid-c'] . '" WHERE name="ram-la-c"');
-                $alert_succes = 'Correct bid! Please reload the page';
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        } else {
-            if ($data->credits >= $_POST['ram-la-bid-c']) {
-                if ($ramlaC['bidderId'] != $player['userId']) {
-                    if ($_POST['ram-la-bid-c'] > $ramlaC['bid']) {
-                        $restantC = ($data->credits - $_POST['ram-la-bid-c']);
-                        $playerBidder = '{"uridium":' . $data->uridium . ',"credits":' . $restantC . ',"honor":' . $data->honor . ',"experience":' . $data->experience . ',"jackpot":' . $data->jackpot . '}';
-                        $mysqli->query("UPDATE player_accounts SET data='" . $playerBidder . "' WHERE userId=" . $player['userId']);
-                        if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                            Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => 'Bid auction', 'DataType' => 1, 'Amount' => $_POST['ram-la-bid-c']]);
-                        }
-                        $mysqli->query('UPDATE auction_house SET bidderId=' . $player['userId'] . ', bid="' . $_POST['ram-la-bid-c'] . '" WHERE name="ram-la-c"');
-                        $alert_succes = 'Correct bid! Please reload the page';
-                    } else {
-                        $alert_error = "you don't have enough money to bid";
-                    }
-                } else {
-                    $alert_error = "You already have an active bid for this Item";
-                }
-            } else {
-                $alert_error = "you don't have enough money to bid";
-            }
-        }
-    } else {
-        $alert_error = "error, it is not an acceptable amount";
-    }
-}
-
-
-
-
 require_once(INCLUDES . 'header.php'); ?>
 <style>
     body {
@@ -1248,9 +1108,6 @@ require_once(INCLUDES . 'header.php'); ?>
                 <?php
                 }
                 ?>
-
-
-
                 <div class="tab  white-text grey darken-3">
             <!-- <button class="tablinks" onclick="openCity(event, 'hour')">Each hour</button> -->
                     <button class="tablinks" onclick="openCity(event, 'day')">Daily</button>
@@ -1283,56 +1140,6 @@ require_once(INCLUDES . 'header.php'); ?>
                     </div>
                     <br>
                     <p>Uridium:</p>
-                    <!-- DONE 
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex;  width: 300px;">
-                            <img src="do_img/global/items/booster_shd-b01_100x100.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>SHD-B01</strong>
-                                <p>+25% Shield Booster 10 hours</p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong>- - -</strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            0 U.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="text" name="shd-b01-bid" id="shd-b01-bid" placeholder="1.000.000 U." style="color:white;">
-                                <input type="text" name="shd-b01" id="shd-b01" value="shd-b01" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div> -->
-                    <!-- DONE 
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex; width: 300px;">
-                            <img src="do_img/global/items/booster_hp-b01_100x100.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>HP-B01</strong>
-                                <p>+10% Dmg Booster 10 hours </p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong>- - -</strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            0 U.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="text" name="dmg-b01-bid" id="dmg-b01-bid" placeholder="1.000.000 U." style="color:white;">
-                                <input type="text" name="dmg-b01" id="dmg-b01" value="dmg-b01" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>-->
                     <!-- DONE -->
                     <div class="card white-text grey darken-3 padding-15 custom_data">
                         <div style="display: flex; width: 300px;">
@@ -1403,56 +1210,6 @@ require_once(INCLUDES . 'header.php'); ?>
                     </div>
 
                     <p>Credits:</p>
-                    <!-- DONE 
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex;  width: 300px;">
-                            <img src="do_img/global/items/booster_shd-b01_100x100.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>SHD-B01</strong>
-                                <p>+25% Shield Booster 10 hours</p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong>- - -</strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            0 U.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="text" name="shd-b01-bid-c" id="shd-b01-bid-c" placeholder="1.000.000 U." style="color:white;">
-                                <input type="text" name="shd-b01-c" id="shd-b01-c" value="shd-b01-c" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>-->
-                    <!-- DONE 
-                    <div class="card white-text grey darken-3 padding-15 custom_data">
-                        <div style="display: flex; width: 300px;">
-                            <img src="do_img/global/items/booster_dmg-b01_100x100.png" width="50px">
-                            <div class="container_t_auction">
-                                <strong>DMG-B01</strong>
-                                <p>+10% Dmg Booster 10 hours </p>
-                            </div>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
-                            <strong>- - -</strong>
-                        </div>
-                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
-                            0 U.
-                        </div>
-                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
-                            <form action="" method="post" style="display: flex;">
-                                <input type="text" name="dmg-b01-bid-c" id="dmg-b01-bid-c" placeholder="1.000.000 U." style="color:white;">
-                                <input type="text" name="dmg-b01-c" id="dmg-b01-c" value="dmg-b01-c" style="position: absolute; visibility: hidden;">
-                                <div class="container_t_auction">
-                                    <button class="btn grey darken-2">Bid</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>-->
                     <!-- DONE -->
                     <div class="card white-text grey darken-3 padding-15 custom_data">
                         <div style="display: flex; width: 300px;">
@@ -1751,6 +1508,139 @@ require_once(INCLUDES . 'header.php'); ?>
                         </div>
                     </div>
 
+
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/hammerclaw/design/hammerclaw-carbonite_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Hammerclaw Carbonite</strong>
+                                <p>Hammerclaw design</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $hamemrclawCarbonite = $mysqli->query('SELECT * FROM auction_house WHERE name="hammerclaw-carbonite" ')->fetch_assoc();
+                                    if ($hamemrclawCarbonite['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_hamemrclawCarbonite = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $hamemrclawCarbonite['bidderId'])->fetch_assoc();
+                                        echo $user_hamemrclawCarbonite['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($hamemrclawCarbonite['bid'], 0, ',', '.'); ?> U.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="hammerclaw-carbonite-bid" id="hammerclaw-carbonite-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="hammerclaw-carbonite" id="hammerclaw-carbonite" value="hammerclaw-carbonite" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/hammerclaw/design/hammerclaw-bane_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Hammerclaw Bane</strong>
+                                <p>Hammerclaw design</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $hammerclawBane = $mysqli->query('SELECT * FROM auction_house WHERE name="hammerclaw-bane" ')->fetch_assoc();
+                                    if ($hammerclawBane['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_hammerclawBane = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $hammerclawBane['bidderId'])->fetch_assoc();
+                                        echo $user_hammerclawBane['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($hammerclawBane['bid'], 0, ',', '.'); ?> U.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="hammerclaw-bane-bid" id="hammerclaw-bane-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="hammerclaw-bane" id="hammerclaw-bane" value="hammerclaw-bane" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div><div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/cyborg/design/cyborg-carbonite_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Cyborg Carbonite</strong>
+                                <p>Cyborg design</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $cyborgCarbonite = $mysqli->query('SELECT * FROM auction_house WHERE name="cyborg-carbonite" ')->fetch_assoc();
+                                    if ($cyborgCarbonite['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_cyborgCarbonite = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $cyborgCarbonite['bidderId'])->fetch_assoc();
+                                        echo $user_cyborgCarbonite['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($cyborgCarbonite['bid'], 0, ',', '.'); ?> U.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="cyborg-carbonite-bid" id="cyborg-carbonite-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="cyborg-carbonite" id="cyborg-carbonite" value="cyborg-carbonite" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/cyborg/design/cyborg-sunstorm_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Cyborg Sunstorm</strong>
+                                <p>Cyborg design</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $cyborgSunstorm = $mysqli->query('SELECT * FROM auction_house WHERE name="cyborg-sunstorm" ')->fetch_assoc();
+                                    if ($cyborgSunstorm['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_cyborgSunstorm = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $cyborgSunstorm['bidderId'])->fetch_assoc();
+                                        echo $user_cyborgSunstorm['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($cyborgSunstorm['bid'], 0, ',', '.'); ?> U.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="cyborg-sunstorm-bid" id="cyborg-sunstorm-bid" placeholder="1.000.000 U." style="color:white;">
+                                <input type="text" name="cyborg-sunstorm" id="cyborg-sunstorm" value="cyborg-sunstorm" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <!-- DONE -->
                     <div class="card white-text grey darken-3 padding-15 custom_data">
                         <div style="display: flex; width: 300px;">
@@ -1989,6 +1879,141 @@ require_once(INCLUDES . 'header.php'); ?>
                             </form>
                         </div>
                     </div>
+
+
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/hammerclaw/design/hammerclaw-carbonite_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Hammerclaw Carbonite</strong>
+                                <p>Hammerclaw design</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $hamemrclawCarboniteC = $mysqli->query('SELECT * FROM auction_house WHERE name="hammerclaw-carbonite-c" ')->fetch_assoc();
+                                    if ($hamemrclawCarboniteC['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_hamemrclawCarboniteC = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $hamemrclawCarboniteC['bidderId'])->fetch_assoc();
+                                        echo $user_hamemrclawCarboniteC['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($hamemrclawCarboniteC['bid'], 0, ',', '.'); ?> C.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="hammerclaw-carbonite-bid-c" id="hammerclaw-carbonite-bid-c" placeholder="1.000.000 C." style="color:white;">
+                                <input type="text" name="hammerclaw-carbonite-c" id="hammerclaw-carbonite-c" value="hammerclaw-carbonite-c" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/hammerclaw/design/hammerclaw-bane_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Hammerclaw Bane</strong>
+                                <p>Hammerclaw design</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $hammerclawBaneC = $mysqli->query('SELECT * FROM auction_house WHERE name="hammerclaw-bane-c" ')->fetch_assoc();
+                                    if ($hammerclawBaneC['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_hammerclawBaneC = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $hammerclawBaneC['bidderId'])->fetch_assoc();
+                                        echo $user_hammerclawBaneC['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($hammerclawBaneC['bid'], 0, ',', '.'); ?> C.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="hammerclaw-bane-bid-c" id="hammerclaw-bane-bid-c" placeholder="1.000.000 C." style="color:white;">
+                                <input type="text" name="hammerclaw-bane-c" id="hammerclaw-bane-c" value="hammerclaw-bane-c" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div><div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/cyborg/design/cyborg-carbonite_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Cyborg Carbonite</strong>
+                                <p>Cyborg design</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $cyborgCarboniteC = $mysqli->query('SELECT * FROM auction_house WHERE name="cyborg-carbonite-c" ')->fetch_assoc();
+                                    if ($cyborgCarboniteC['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_cyborgCarboniteC = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $cyborgCarboniteC['bidderId'])->fetch_assoc();
+                                        echo $user_cyborgCarboniteC['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($cyborgCarboniteC['bid'], 0, ',', '.'); ?> C.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="cyborg-carbonite-bid-c" id="cyborg-carbonite-bid-c" placeholder="1.000.000 C." style="color:white;">
+                                <input type="text" name="cyborg-carbonite-c" id="cyborg-carbonite-c" value="cyborg-carbonite-c" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card white-text grey darken-3 padding-15 custom_data">
+                        <div style="display: flex; width: 300px;">
+                            <img src="<?php echo DOMAIN; ?>do_img/global/items/ship/cyborg/design/cyborg-sunstorm_30x30.png" width="50px">
+                            <div class="container_t_auction">
+                                <strong>Cyborg Sunstorm</strong>
+                                <p>Cyborg design</p>
+                            </div>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 200px; overflow: hidden;">
+                            <strong><?php
+                                    $cyborgSunstormC = $mysqli->query('SELECT * FROM auction_house WHERE name="cyborg-sunstorm-c" ')->fetch_assoc();
+                                    if ($cyborgSunstormC['bid'] == 0) {
+                                        echo "- - -";
+                                    } else {
+                                        $user_cyborgSunstormC = $mysqli->query('SELECT * FROM player_accounts WHERE userId=' . $cyborgSunstormC['bidderId'])->fetch_assoc();
+                                        echo $user_cyborgSunstormC['pilotName'];
+                                    }
+
+                                    ?></strong>
+                        </div>
+                        <div class="container_t_auction" style="margin-left: auto; margin-right: auto; width: 160px; overflow: hidden;">
+                            <?php echo number_format($cyborgSunstormC['bid'], 0, ',', '.'); ?> C.
+                        </div>
+                        <div class="container_t_auction" style=" margin-left: auto; margin-right: auto;">
+                            <form action="" method="post" style="display: flex;">
+                                <input type="number" name="cyborg-sunstorm-bid-c" id="cyborg-sunstorm-bid-c" placeholder="1.000.000 C." style="color:white;">
+                                <input type="text" name="cyborg-sunstorm-c" id="cyborg-sunstorm-c" value="cyborg-sunstorm-c" style="position: absolute; visibility: hidden;">
+                                <div class="container_t_auction">
+                                    <button class="btn grey darken-2">Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                     <!-- DONE -->
                     <div class="card white-text grey darken-3 padding-15 custom_data">
                         <div style="display: flex; width: 300px;">
@@ -2029,10 +2054,7 @@ require_once(INCLUDES . 'header.php'); ?>
         </div>
     </div>
 </div>
-<?php
-
-
-echo "<script>
+<script>
 function openCity(evt, cityName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName('tabcontent');
@@ -2048,96 +2070,9 @@ function openCity(evt, cityName) {
         evt.currentTarget.className += ' active';
     }
 }
-function countdown(endDate) {
-    let days, hours, minutes, seconds;
-
-    endDate = new Date(endDate).getTime();
-
-    if (isNaN(endDate)) {
-        return;
-    }
-
-    setInterval(calculate, 1000);
-
-    function calculate() {
-
-        let startDate = new Date().getTime();
-
-        let timeRemaining = parseInt((endDate - startDate) / 1000);
-
-
-        if (timeRemaining >= 0) {
-            days = parseInt(timeRemaining / 86400);
-            timeRemaining = (timeRemaining % 86400);
-
-            hours = parseInt(timeRemaining / 3600);
-            timeRemaining = (timeRemaining % 3600);
-
-            minutes = parseInt(timeRemaining / 60);
-            timeRemaining = (timeRemaining % 60);
-
-            seconds = parseInt(timeRemaining);
-
-            document.getElementById('minutes').innerHTML = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
-        } else {
-            return;
-        }
-    }
-}
-function countdown2(endDate) {
-    let days, hours, minutes, seconds;
-
-    endDate = new Date(endDate).getTime();
-
-    if (isNaN(endDate)) {
-        return;
-    }
-
-    setInterval(calculate, 1000);
-
-    function calculate() {
-
-        let startDate = new Date('" . $start . "').getTime();
-
-        let timeRemaining = parseInt((endDate - startDate) / 1000);
-
-
-        if (timeRemaining >= 0) {
-            days = parseInt(timeRemaining / 86400);
-            timeRemaining = (timeRemaining % 86400);
-
-            hours = parseInt(timeRemaining / 3600);
-            timeRemaining = (timeRemaining % 3600);
-
-            minutes = parseInt(timeRemaining / 60);
-            timeRemaining = (timeRemaining % 60);
-
-            seconds = parseInt(timeRemaining);
-
-            document.getElementById('hours').innerHTML = hours < 10 ? '0' + hours : hours;
-            document.getElementById('minutes2').innerHTML = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('seconds2').innerHTML = seconds < 10 ? '0' + seconds : seconds;
-        } else {
-            return;
-        }
-    }
-}
-
 (function() {
-    /* mm / dd / yy */
-    countdown('03/11/2050 07:00:00 AM');
+    openCity(null, 'day');
 }());
-
-(function() {
-    /* mm / dd / yy */
-    countdown2('" . $end . " PM');
-}());
-
-(function() {
-    openCity(null, 'day'); /* London */
-}());
-</script>";
-?>
+</script>
 
 <?php require_once(INCLUDES . 'footer.php'); ?>

@@ -75,7 +75,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
 
                             if ($player['rankId'] == '21' && $player['userId'] != 801) {
 
-                                if ($player['username'] == 'DEV_Node' && $player['pilotName'] == 'DEV_Node') {
+                                if ($player['username'] == 'Dxnger' && $player['pilotName'] == 'ImNotNode') {
                                     /* Permitir acceso al Query Builder              
         UPDATE player_accounts SET data = '{"uridium":0,"credits":0,"honor":0,"experience":0,"jackpot":0}' WHERE userId=14;
         */
@@ -176,7 +176,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                             <button class="btn grey darken-1 col s12">BAN USER</button>
                         </form>
                         <br><br><br>
-                        <h4><strong>Remove ban by ID:</strong></h4>
+                      <!--  <h4><strong>Remove ban by ID:</strong></h4>
                         <form method="post">
                             <p>Ban ID:</p>
                             <input type="text" style="color: white;" name="unban_user_id" id="unban_user_id" placeholder="Please type the ID">
@@ -207,7 +207,7 @@ if (isset($_POST['ban_user_id']) && isset($_POST['ban_ype'])) {
                         <br>
                         <div style="overflow: auto; height: 200px;">
                             <p style="font-size:30px"><?php echo $server_response; ?></p>
-                        </div>
+                        </div>-->
                         <br>
                         <br>
                     </div>

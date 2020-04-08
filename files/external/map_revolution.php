@@ -87,7 +87,6 @@ try {
 </head>
 <style>#k38f{position:fixed!important;position:absolute;z-index:9999999999;top:0;top:expression((t=document.documentElement.scrollTop?document.documentElement.scrollTop:document.body.scrollTop)+"px");left:0;width:100%;height:100%;background-color:#000;opacity:.9;filter:alpha(opacity=95);display:block}#k38f p{opacity:1;filter:none;font:bold 16px Verdana,Arial,sans-serif;text-align:center;color:white;margin:5% 0}#k38f p a,#k38f p i{font-size:12px}#k38f ~ *{display:none}</style><noscript><i id=k38f></i></noscript><script>/*<![CDATA[*/(function(b,c){var f=b.document,e=typeof c;function a(){function i(o,k){var n=f.createElement("i"),g=f.body,m=g.style,j=g.childNodes.length;if(typeof k!=e){n.setAttribute("id",k);m.margin=m.padding=0;m.height="100%";j=Math.floor(Math.random()*j)+1}n.innerHTML=o;g.insertBefore(n,g.childNodes[j-1])}function d(j,g){return !g?f.getElementById(j):f.getElementsByTagName(g)}function h(g){if(!d("k38f")){document.body.innerHTML="";i('<p><img src="https://2.bp.blogspot.com/-zKetYgyNzDI/VF5tTrSe_mI/AAAAAAABjU4/nTzAWfemjng/s1600/adblock.png"><br>¡Please disable Adblock to play!<br><a href="./map-revolution" style="color:#0887D4;text-decoration:none;">Already disabled ? CLICK HERE</a><br><i></i><br></p>',"k38f")}}(function(){var j=["ad_P","btnads","header-ad","hideads","left-bottom-ad","systemad_background","wXcds12-ad","ad","ads","adsense"],g=j.length,k,m="",n;for(k=0;k<g;k++){if(!d(j[k])){m+='<a id="'+j[k]+'"></a>'}}i(m);g=j.length;setTimeout(function(){for(k=0;k<g;k++){n=d(j[k]);if(n.offsetParent==null||(b.getComputedStyle?f.defaultView.getComputedStyle(n,null).getPropertyValue("display"):n.currentStyle.display)=="none"){return h("#"+j[k])}}},250)}());(function(){var k=d(0,"img"),g=["/adsponsor.","/adtopleft.","/adzoneplayerright.","/aff_frame.","/commercial_horizontal.","/dart_ads/ad","/googleads/ad","_feast_ad.","_top_ad_",".468x60_"],j;if(typeof k[0]!=e&&typeof k[0].src!=e){j=new Image();j.onload=function(){this.onload=e;this.onerror=function(){h(this.src)};this.src=k[0].src+"#"+g.join("")};j.src=k[0].src}}());(function(){var t={"https://pagead2.googlesyndication.com/pagead/show_ads.js":"google_ad_client","https://js.adscale.de/getads.js":"adscale_slot_id","https://get.mirando.de/mirando.js":"adPlaceId"},m=d(0,"script"),g=m.length-1,u,q,k,j,p;f.write=null;for(k=g;k>=0;--k){p=m[k];if(typeof t[p.src]!=e){u=f.createElement("script");u.type="text/javascript";u.src=p.src;j=t[p.src];b[j]=c;q=m[0];u.onload=u.onreadystatechange=function(){if(typeof b[j]==e&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")){u.onload=u.onreadystatechange=null;q.parentNode.removeChild(u);b[j]=null}};q.parentNode.insertBefore(u,q);setTimeout(function(){if(b[j]===c){h(u.src)}},2000);break}}}())}if(f.addEventListener){b.addEventListener("load",a,false)}else{b.attachEvent("onload",a)}})(window);/*]]>*/</script>
 
-
 <body>
 
   <?php
@@ -140,9 +139,9 @@ try {
 
         flashembed("container", {
           "onFail": onFailFlashembed,
-          "src": "<?php echo DOMAIN; ?>spacemap/preloader.swf",
+          "src": "http://127.0.0.1/spacemap/preloader.swf",
           "version": [11, 0],
-          "expressInstall": "<?php echo DOMAIN; ?>swf_global/expressInstall.swf",
+          "expressInstall": "http://127.0.0.1/swf_global/expressInstall.swf",
           "width": "100%",
           "height": "100%",
           "wmode": "direct",
@@ -158,11 +157,11 @@ try {
           "pid": "563",
           "boardLink": "",
           "helpLink": "",
-          "loadingClaim": "LOADING",
-          "chatHost": "dev.deathspace.com",
+          "loadingClaim": "DeathSpace..",
+          "chatHost": "127.0.0.1",
           "cdn": "",
           "useHash": "0",
-          "host": "dev.deathspace.com",
+          "host": "<?php echo $_SERVER['SERVER_NAME']; ?>",
           "browser": "Chrome",
           "Chrome": "1",
           "gameXmlHash": "",
@@ -193,6 +192,7 @@ try {
       </div>
     </div>
   <?php } ?>
+  
 </body>
 
 </html>

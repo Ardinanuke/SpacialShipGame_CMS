@@ -108,6 +108,7 @@ catch (Exception $ex) {
   width: 200px;
 }
 </style>
+
     <!-- The Modal -->
     <div id="id04" class="w3-modal" style="height: 100%; display: none;">
       <div class="w3-modal-content modal_modification" style="height: 90% !important;">

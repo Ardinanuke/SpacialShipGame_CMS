@@ -40,7 +40,7 @@
                               
                                 <tr>
                                     <td style="text-align: center;"><img src="<?php echo DOMAIN; ?>do_img/global/items/uridium.png" width="50px"></td>
-                                    <td style="vertical-align:middle;">1.000.000 Uridium</td>
+                                    <td style="vertical-align:middle;">1.000.000 Uridium + PET </td>
                                     <td style="text-align: center; vertical-align:middle;">15.00€</td>
                                     <td style="vertical-align:middle;">
                                         <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -64,7 +64,7 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;"><img src="<?php echo DOMAIN; ?>do_img/global/items/uridium.png" width="50px"></td>
-                                    <td style="vertical-align:middle;">1.500.000 Uridium</td>
+                                    <td style="vertical-align:middle;">1.500.000 Uridium + PET </td>
                                     <td style="text-align: center; vertical-align:middle;">20.00€</td>
                                     <td style="vertical-align:middle;">
                                         <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -88,7 +88,7 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;"><img src="<?php echo DOMAIN; ?>do_img/global/items/uridium.png" width="50px"></td>
-                                    <td style="vertical-align:middle;">20.000.000 Uridium</td>
+                                    <td style="vertical-align:middle;">20.000.000 Uridium + PET </td>
                                     <td style="text-align: center; vertical-align:middle;">45.00€</td>
                                     <td style="vertical-align:middle;">
                                         <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -129,7 +129,7 @@
                             <tbody>
                                 <tr>
                                     <td style="text-align: center;"><img src="<?php echo DOMAIN; ?>do_img/global/items/ship_goliath_design_independence_100x100.png" width="50px"></td>
-                                    <td style="vertical-align:middle;"><strong style="color:green;"> RARE </strong>Goliath Independence <em>(7% damage + 7% shield)</em></td>
+                                    <td style="vertical-align:middle;"><strong style="color:green;"> RARE </strong>Goliath Independence <em>(7% damage + 7% shield) + PET </em></td>
                                     <td style="text-align: center; vertical-align:middle;">5.00€</td>
                                     <td style="vertical-align:middle;">
                                         <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -153,7 +153,7 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;"><img src="<?php echo DOMAIN; ?>do_img/global/items/turkish_100x100.png" width="50px"></td>
-                                    <td style="vertical-align:middle;"><strong style="color:green;"> RARE </strong>Goliath Turkish <em>(7% damage + 7% shield)</em></td>
+                                    <td style="vertical-align:middle;"><strong style="color:green;"> RARE </strong>Goliath Turkish <em>(7% damage + 7% shield) + PET </em></td>
                                     <td style="text-align: center; vertical-align:middle;">5.00€</td>
                                     <td style="vertical-align:middle;">
                                         <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -177,7 +177,7 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;"><img src="<?php echo DOMAIN; ?>do_img/global/items/goliath-orion.png" width="50px"></td>
-                                    <td style="vertical-align:middle;"> <strong style="color:purple;"> LEGENDARY </strong> Goliath Orion <em>(7% damage + 7% shield + 5% hp)</em></td>
+                                    <td style="vertical-align:middle;"> <strong style="color:purple;"> LEGENDARY </strong> Goliath Orion <em>(7% damage + 7% shield + 5% hp) + PET </em></td>
                                     <td style="text-align: center; vertical-align:middle;">15.00€</td>
                                     <td style="vertical-align:middle;">
                                         <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -201,7 +201,7 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;"><img src="<?php echo DOMAIN; ?>do_img/global/items/razer_100x100.png" width="50px"></td>
-                                    <td style="vertical-align:middle;"> <strong style="color:orange;"> VERY RARE </strong> Goliath Razer <em>(7% damage + 7% shield)</em></td>
+                                    <td style="vertical-align:middle;"> <strong style="color:orange;"> VERY RARE </strong> Goliath Razer <em>(7% damage + 7% shield) + PET </em></td>
                                     <td style="text-align: center; vertical-align:middle;">5.00€</td>
                                     <td style="vertical-align:middle;">
                                         <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -243,7 +243,7 @@
                             <tbody>
                                 <tr>
                                     <td style="text-align: center;"><img src="<?php echo DOMAIN; ?>do_img/global/items/s1.png" width="50px"></td>
-                                    <td style="vertical-align:middle;"> <strong style="color:gold;"> EXCLUSIVE </strong> Pack Season ONE <em> (Goliath Orion</em> + <em>title: "The Hunter" </em>+ <em>1.000.000 U.) + Premium</em></td>
+                                    <td style="vertical-align:middle;"> <strong style="color:gold;"> EXCLUSIVE </strong> Pack Season ONE <em> (Goliath Orion</em> + <em>title: "The Hunter" </em>+ <em>1.000.000 U.) + Premium + PET </em></td>
                                     <td style="text-align: center; vertical-align:middle;">20.00€</td>
                                     <td style="vertical-align:middle;">
                                         <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -267,7 +267,7 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;"><img src="<?php echo DOMAIN; ?>do_img/global/items/ship_goliath_design_independence_100x100.png" width="50px"></td>
-                                    <td style="vertical-align:middle;"> <img src="<?php echo DOMAIN; ?>do_img/global/items/turkish_100x100.png" width="50px" style="margin-right: 1em;"> <img src="<?php echo DOMAIN; ?>do_img/global/items/razer_100x100.png" width="50px" style="margin-right: 1em;"> <strong style="color:orange;"> VERY RARE </strong> Pack Trinity <em>(Design:  Independence</em> + <em>Turkish</em> + <em>Razzer) + Premium</em></td>
+                                    <td style="vertical-align:middle;"> <img src="<?php echo DOMAIN; ?>do_img/global/items/turkish_100x100.png" width="50px" style="margin-right: 1em;"> <img src="<?php echo DOMAIN; ?>do_img/global/items/razer_100x100.png" width="50px" style="margin-right: 1em;"> <strong style="color:orange;"> VERY RARE </strong> Pack Trinity <em>(Design:  Independence</em> + <em>Turkish</em> + <em>Razzer) + Premium + PET </em></td>
                                     <td style="text-align: center; vertical-align:middle;">12.00€</td>
                                     <td style="vertical-align:middle;">
                                         <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
