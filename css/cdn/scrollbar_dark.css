@@ -1,0 +1,70 @@
+/**
+ * scrollbar_dark.css
+ * 
+ * Styles for the themed jScrollPane.
+ * @author  Wolfgang Timme <w.timme@bigpoint.net>
+ */
+
+/* Horizontal bar */
+.jspHorizontalBar .jspTrack {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/horizontal-track.png?__cv=6a54b28e9ff9fbb794710a767c86b600);
+}
+.jspHorizontalBar .jspArrowLeft {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/horizontal-arrowLeft.png?__cv=cce179282cc9592685ff011e952b1300);
+}
+.jspHorizontalBar .jspArrowRight {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/horizontal-arrowRight.png?__cv=c43194a9a25d239ac3f643f991e7d400);
+}
+.jspHorizontalBar .jspDrag {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/horizontal-drag.png?__cv=502d2b3280891d54db214c8bbe7fd700);
+}
+.jspHorizontalBar .jspDragLeft {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/horizontal-dragLeft.png?__cv=31fe9cd43dfdb251e0c709ddc5b78500);
+}
+.jspHorizontalBar .jspDragRight {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/horizontal-dragRight.png?__cv=07169ed8867758ba9b03b11c30639c00);
+    position            : absolute;
+    right               : 0;
+    top                 : 0;
+}
+.jspHorizontalBar .jspDragLeft,
+.jspHorizontalBar .jspDragRight {
+    width               : 5px;
+    height              : 16px;
+}
+
+/* Vertical bar */
+.jspVerticalBar .jspTrack {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-track.png?__cv=dd98a99e90f38a537d1b101120bf4e00);
+}
+.jspVerticalBar .jspArrowUp,
+.jspVerticalBar .jspArrowUp.jspDisabled  {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-arrowUp.png?__cv=af8f39b734607a66d525ecd9c3507300);
+}
+.jspVerticalBar .jspArrowDown,
+.jspVerticalBar .jspArrowDown.jspDisabled  {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-arrowDown.png?__cv=f713e30d8bc38e41eb990996f2eee000);
+}
+.jspVerticalBar .jspDrag {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-drag.png?__cv=a08cd1949d30985c53436ac606159e00);
+    background-position : bottom;
+}
+.jspVerticalBar .jspDragTop {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-dragTop.png?__cv=10576603ceb45d23804af4f1fd4ed000);
+}
+.jspVerticalBar .jspDragBottom {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-dragBottom.png?__cv=443ed2b02c8b2c51266782c19be46500);
+    position            : absolute;
+    left                : 0;
+    bottom              : 0;
+}
+.jspVerticalBar .jspDragTop,
+.jspVerticalBar .jspDragBottom {
+    width               : 16px;
+    height              : 5px;
+}
+
+/* Corner between the two scrollbars */
+.jspCorner {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/corner.jpg?__cv=bd25a19ff947841234e849a557629700);
+}

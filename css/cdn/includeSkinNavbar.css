@@ -1,0 +1,30 @@
+.scroll-pane .jspArrowUp  {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-arrowUp.png?__cv=af8f39b734607a66d525ecd9c3507300);
+}
+.scroll-pane .jspArrowUp.jspDisabled {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-arrowUp.png?__cv=af8f39b734607a66d525ecd9c3507300);
+}
+.scroll-pane .jspArrowDown  {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-arrowDown.png?__cv=f713e30d8bc38e41eb990996f2eee000);
+}
+.scroll-pane .jspArrowDown.jspDisabled  {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-arrowDown.png?__cv=f713e30d8bc38e41eb990996f2eee000);
+}
+.scroll-pane .jspTrack {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-track.png?__cv=dd98a99e90f38a537d1b101120bf4e00);
+}
+.scroll-pane .jspDrag {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-drag.png?__cv=a08cd1949d30985c53436ac606159e00);
+    background-position: bottom;
+
+}
+.scroll-pane .jspDragTop {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/scrollbar/dark/vertical-dragTop.png?__cv=10576603ceb45d23804af4f1fd4ed000);
+    height: 5px;
+    top: 0;
+}
+.scroll-pane .jspVerticalBar {
+    right: 3px;
+    top: 1px;
+    z-index: 5;
+}

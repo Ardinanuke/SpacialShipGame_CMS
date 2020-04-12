@@ -145,7 +145,7 @@ class Functions
               SMTP2::SendMail($email, $username, 'E-mail verification', '<p>Hi ' . $username . ', <br>Click this link to activate your account: <a href="' . DOMAIN . 'api/verify/' . $userId . '/' . $verification['hash'] . '">Activate</a></p><p style="font-size:small;color:#666">—<br>You are receiving this because you registered to the ' . SERVER_NAME . '.<br>If that was not your request, then you can ignore this email.<br>This is an automated message, please do not reply directly to this email.</p>');
             }
   
-            $json['message'] = 'register done => PLEASE CHECK YOUR EMAIL <=';
+            $json['message'] = 'PLEASE CHECK YOUR EMAIL';
             $mysqli->commit();
           } catch (Exception $e) {
             $json['message'] = 'An error occurred. Please try again later.';
