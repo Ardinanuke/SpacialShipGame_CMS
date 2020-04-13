@@ -39,8 +39,8 @@
     
             <div id="header_button_logout" onclick="do_redirect('/api/logout')"></div>
             <div id="header_button_help" onclick="showHelp()"></div>
-                <div id="header_button_account" onclick="do_redirect('https://accountcenter.bpsecure.com/Settings/Newsletter?authUser=22&amp;token=LsPDnsj-9r18sI7vbFGydtSP2e-vqHW_mD4hMgihadb-HwGciY2ZbdZweGPGBr88TsLw74VFAv6MEz9Kz7-HPze5AROC1XHEK81u0lyKWIb11TAJBw4utagY7GFu88VgbpwiCg')"></div>
-                                <a onclick="openExternal('/?action=internalPaymentProxy&amp;req=3667e63b9f6b6da6cd23b5d9cb4a39f809aa7c79966da199b14a33725d2c4aa3306016ef0be83c8dee091f59ecd293e4757653d79a73fe667c04042af2929605&amp;v=f667780e3949648b09c8312046b77496');" id="header_main_noPremium" style="background-image: url('https://darkorbit-22.bpsecure.com/do_img/en/header/adds/add_premium.png');"></a>
+                <div id="header_button_account" onclick="do_redirect('#')"></div>
+                                <a onclick="openExternal('#');" id="header_main_noPremium" style="background-image: url('https://darkorbit-22.bpsecure.com/do_img/en/header/adds/add_premium.png');"></a>
                     
     </div>
     
@@ -78,7 +78,7 @@
     
         <div id="header_main_right">
             <a class="header_std_btn header_rgt_std" id="shop_btn" href="/shop" alt="">
-                                <img src="https://darkorbit-22.bpsecure.com/do_img/global/header/buttons/event_icon.png" width="21" height="21" id="header_event_icon">
+                                <!-- <img src="https://darkorbit-22.bpsecure.com/do_img/global/header/buttons/event_icon.png" width="21" height="21" id="header_event_icon"> -->
                             <img src="https://darkorbit-22.bpsecure.com/do_img/en/text/header_shop_lightestBlue_blue.gif" alt="">
             </a>
             <a class="header_std_btn header_rgt_std" id="uri_btn" href="/">

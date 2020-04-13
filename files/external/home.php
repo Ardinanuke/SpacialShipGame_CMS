@@ -605,7 +605,7 @@ function closeNews(newsID) {
 </script>
                   
 
-<div class="backgroundImageContainer" style="background-image: url(https://darkorbit-22.bpsecure.com/do_img/global/bg_standard_vru.jpg">
+<div class="backgroundImageContainer" style="background-image: url(https://darkorbit-22.bpsecure.com/do_img/global/bg_standard_<?php echo ($player['factionId'] == 1 ? 'mmo' : ($player['factionId'] == 2 ? 'eic' : 'vru')); ?>.jpg">
 <div class="overallContainer">
 
 <div class="outerContainer fliess11px-gelb">
@@ -681,7 +681,7 @@ function expressInstallCallback(info) {
                 </div>
             </div>
 
-            <a id="userButtonLeft" class="userHomeButton" href="#" target="_blank">
+            <a id="userButtonLeft" class="userHomeButton" href="#">
                 Pilot
             </a>
             <a id="userButtonMiddle" class="userHomeButton" href="#">
@@ -695,10 +695,10 @@ function expressInstallCallback(info) {
         <div id="homeRankingContent">
             <div class="infoContainerHeadline">FACTION RECORDS</div>
 
-            <div id="rankingTabLeft" class="rankingTab homeTabActive">
+            <div id="rankingTabLeft" class="rankingTab homeTabActive" onclick="openUsers()">
                 PILOTS
             </div>
-            <div id="rankingTabRight" class="rankingTab">
+            <div id="rankingTabRight" class="rankingTab" onclick="openClan()">
                 CLANS
             </div>
        
@@ -713,7 +713,7 @@ function expressInstallCallback(info) {
                 <?php foreach ($mysqli->query('SELECT * FROM player_accounts WHERE rankId != 21 AND rank > 0 ORDER BY rank ASC LIMIT 9') as $value) { ?>
 
                   <tr class="rankingOdd">
-                    <td showuser="4xpaW" title="<?php echo $value['pilotName']; ?>: Haz clic para ver los detalles" style="cursor: pointer">
+                    <td showuser="4xpaW" title="<?php echo $value['pilotName']; ?>: Click to see details" style="cursor: pointer">
                     <?php echo $value['pilotName']; ?>
                     </td>
                     <td>
@@ -728,7 +728,7 @@ function expressInstallCallback(info) {
 
                 <?php if ($player['rank'] > 9) { ?>
                   <tr class="rankingOdd">
-                    <td showuser="4xpaW" title="<?php echo $player['pilotName']; ?>: Haz clic para ver los detalles" style="cursor: pointer">
+                    <td showuser="4xpaW" title="<?php echo $player['pilotName']; ?>: Click to see details" style="cursor: pointer">
                     <?php echo $player['pilotName']; ?>
                     </td>
                     <td>
@@ -744,94 +744,37 @@ function expressInstallCallback(info) {
 
             <table class="homeRankingTable" id="ranking_Clans" border="0" cellpadding="1" cellspacing="1" style="display: none">
                 <tbody><tr class="rankingHeadline">
-                    <td style="width: 138px;">Nombre</td>
-                    <td style="width: 52px;">Rango</td>
-                    <td style="width: 110px;">Valor</td>
+                    <td style="width: 138px;">Tag</td>
+                    <td style="width: 52px;">Rank</td>
+                    <td style="width: 110px;">Value</td>
                 </tr>
-                            <tr class="rankingOdd">
-                    <td class="clan_name_qtip" title="GANG">
-                        <a href="/indexInternal.es?action=internalNewClanDetails&amp;clanId=35340">
-                            [24K]
+                <?php foreach ($mysqli->query('SELECT * FROM server_clans WHERE rank > 0 ORDER BY rank ASC LIMIT 9') as $value) { ?>
+
+                    <tr class="rankingOdd">
+                    <td class="clan_name_qtip" title="<?php echo $value['name']; ?>">
+                        <a href="/#">
+                        <?php echo $value['tag']; ?>
                         </a>
                     </td>
-                    <td>1</td>
-                    <td>6277740938</td>
+                    <td><?php echo $value['rank']; ?></td>
+                    <td><?php echo $value['rankPoints']; ?></td>
                 </tr>
-                            <tr class="none">
-                    <td class="clan_name_qtip" title="Nogizaka46">
-                        <a href="/indexInternal.es?action=internalNewClanDetails&amp;clanId=25289">
-                            [мvр☆]
+                    
+                <?php if (isset($clan) && $clan['rank'] > 9) { ?>
+                    <tr class="rankingOdd">
+                    <td class="clan_name_qtip" title="<?php echo $value['name']; ?>">
+                        <a href="/#">
+                        <?php echo $clan['tag']; ?>
                         </a>
                     </td>
-                    <td>2</td>
-                    <td>4199414254</td>
+                    <td><?php echo $clan['rank']; ?></td>
+                    <td><?php echo $clan['rankPoints']; ?></td>
                 </tr>
-                            <tr class="rankingOdd">
-                    <td class="clan_name_qtip" title="ŁΔ ĆØŞΔ ŇØŞŦŘΔ ΣIC">
-                        <a href="/indexInternal.es?action=internalNewClanDetails&amp;clanId=37609">
-                            [ΣIC☆]
-                        </a>
-                    </td>
-                    <td>3</td>
-                    <td>2700684200</td>
-                </tr>
-                            <tr class="none">
-                    <td class="clan_name_qtip" title="STACKEDㅤDECK">
-                        <a href="/indexInternal.es?action=internalNewClanDetails&amp;clanId=40170">
-                            [SŦҜ]
-                        </a>
-                    </td>
-                    <td>4</td>
-                    <td>2622815304</td>
-                </tr>
-                            <tr class="rankingOdd">
-                    <td class="clan_name_qtip" title="OS CARAS DA HORA.">
-                        <a href="/indexInternal.es?action=internalNewClanDetails&amp;clanId=42927">
-                            [¢ћ]
-                        </a>
-                    </td>
-                    <td>5</td>
-                    <td>2566704850</td>
-                </tr>
-                            <tr class="none">
-                    <td class="clan_name_qtip" title="Pocos^Pero^Locos">
-                        <a href="/indexInternal.es?action=internalNewClanDetails&amp;clanId=30544">
-                            [ƒцм™]
-                        </a>
-                    </td>
-                    <td>6</td>
-                    <td>2549001330</td>
-                </tr>
-                            <tr class="rankingOdd">
-                    <td class="clan_name_qtip" title="Simply_Gods">
-                        <a href="/indexInternal.es?action=internalNewClanDetails&amp;clanId=36874">
-                            [Ɠσđѕ]
-                        </a>
-                    </td>
-                    <td>7</td>
-                    <td>2424677550</td>
-                </tr>
-                            <tr class="none">
-                    <td class="clan_name_qtip" title="TheZueraNeverEnds-ΞPΤ">
-                        <a href="/indexInternal.es?action=internalNewClanDetails&amp;clanId=41007">
-                            [ΞPT]
-                        </a>
-                    </td>
-                    <td>8</td>
-                    <td>2105466516</td>
-                </tr>
-                            <tr class="rankingOdd">
-                    <td class="clan_name_qtip" title="Łegendários">
-                        <a href="/indexInternal.es?action=internalNewClanDetails&amp;clanId=55260">
-                            [Ł€ŇĐ]
-                        </a>
-                    </td>
-                    <td>9</td>
-                    <td>1665048216</td>
-                </tr>
+                <?php } ?>
+                <?php } ?>
             
             </tbody></table>
-            <a id="hallOfFame" class="userHomeButton" href="/indexInternal.es?action=internalHallofFame">
+            <a id="hallOfFame" class="userHomeButton" href="#">
                 Hall of fame
             </a>
         </div>
@@ -1315,8 +1258,33 @@ function expressInstallCallback(info) {
                         22:00
                     </div>
                 </div>
+                <div class="upcomingEvent">
+                    <div class="eventDate">12.04.</div>
+                    <div class="eventTitle">Capture the Beacon</div>
+                    <div class="eventTime">
+                        19:00 -
+                        22:00
+                    </div>
+                </div>
+                <div class="upcomingEvent">
+                    <div class="eventDate">12.04.</div>
+                    <div class="eventTitle">Capture the Beacon</div>
+                    <div class="eventTime">
+                        19:00 -
+                        22:00
+                    </div>
+                </div>
+                 <div class="upcomingEvent">
+                    <div class="eventDate">12.04.</div>
+                    <div class="eventTitle">Capture the Beacon</div>
+                    <div class="eventTime">
+                        19:00 -
+                        22:00
+                    </div>
+                </div>
             
             </div>
+            
 
                 </div>
 
@@ -1555,6 +1523,24 @@ function expressInstallCallback(info) {
 </div>
 <div id="popup-modalBackground"></div>
 <img id="popup-loading" alt="Loading..." src="https://darkorbit-22.bpsecure.com/do_img/global/pilotSheet/profilePage/loadingAnimation.gif">
+<script>
+let rankingTabLeft = document.getElementById("rankingTabLeft");
+let rankingTab = document.getElementById("rankingTabRight");
+let rankingUsers = document.getElementById("ranking_Users");
+let rankingClans = document.getElementById("ranking_Clans");
 
+function openUsers(){
+    rankingTabLeft.classList.add("homeTabActive");
+    rankingTab.classList.remove("homeTabActive");
+    rankingUsers.style.display = "block";
+    rankingClans.style.display = "none";
+}
+function openClan(){
+    rankingTab.classList.add("homeTabActive");
+    rankingTabLeft.classList.remove("homeTabActive");
+    rankingUsers.style.display = "none";
+    rankingClans.style.display = "block";
+}
+</script>
 <?php 
 require_once(INCLUDES . 'footer.php'); ?>

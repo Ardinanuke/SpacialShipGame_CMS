@@ -209,47 +209,34 @@
       };
 
       var header_ttips = new Object;
-      header_ttips['uid'] = 'User ID';
-      header_ttips['lvl'] = 'Level';
-      header_ttips['exp'] = 'Experience';
-      header_ttips['hnr'] = 'Honor';
-      header_ttips['fri'] = '';
-      header_ttips['nms'] = 'Message system';
-      header_ttips['jpt'] = 'Jackpot';
-      header_ttips['uri'] = 'Uridium';
-      header_ttips['cdt'] = 'Credits';
-      header_ttips['userInfo_addFriend'] = 'Agregar como amigo';
-      header_ttips['userInfo_sendMessage'] = 'Escribir mensaje';
-      header_ttips['userInfo_showProfile'] = 'Mostrar perfil de jugador';
-      header_ttips['userInfo_blacklistUser'] = 'Añadir jugador a la lista negra';
-      header_ttips['userInfo_blacklistUserListed'] = 'Este usuario está en tu lista negra';
-      header_ttips['pilot'] = 'Aquí puedes encontrar:<br />- El perfil<br />- Los logros<br />- El árbol de habilidades';
-      header_ttips['skylab'] = 'Aquí puedes encontrar:<br />- El Skylab<br />- La tecnofábrica<br />- Las mejoras de objetos';
-      header_ttips['hangarSlot_arrow_tooltip_expand'] = 'Desplegar';
-      header_ttips['hangarSlot_arrow_tooltip_collapse'] = 'Plegar';
-      header_ttips['tp_expand_hangar'] = 'Compra un pabellón adicional para el hangar.';
-      header_ttips['head_multiplier'] = 'En la próxima transacción de uridium recibes 0-veces la cantidad solicitada.';
-      header_ttips['clanInfo_contactClan'] = 'Contactar con el clan';
-      header_ttips['head_multiplier'] = 'En la próxima transacción de uridium recibes 0-veces la cantidad solicitada.';
-      header_ttips['header_home'] = 'Inicio';
-      header_ttips['header_server'] = 'Servidor';
-      header_ttips['header_help'] = 'Help';
-      header_ttips['header_logout'] = 'Close';
-      header_ttips['header_account'] = 'Settings';
-
-      User.Parameters = {
-        "balance": {
-          "uridium": 0,
-          "credits": 0
-        },
-        "language": "es",
-        "isActiveHangarEmpty": false
-      };
+    header_ttips['uid'] = 'User ID';
+    header_ttips['lvl'] = 'Level';
+    header_ttips['exp'] = 'Experience';
+    header_ttips['hnr'] = 'Honor';
+    header_ttips['fri'] = '';
+    header_ttips['nms'] = 'Message system';
+    header_ttips['jpt'] = 'Jackpot';
+    header_ttips['uri'] = 'Uridium';
+    header_ttips['cdt'] = 'Credits';
+    header_ttips['userInfo_addFriend'] = 'Agregar como amigo';
+    header_ttips['userInfo_sendMessage'] = 'Escribir mensaje';
+    header_ttips['userInfo_showProfile'] = 'Mostrar perfil de jugador';
+    header_ttips['userInfo_blacklistUser'] = 'Añadir jugador a la lista negra';
+    header_ttips['userInfo_blacklistUserListed'] = 'Este usuario está en tu lista negra';
+    header_ttips['pilot'] = 'Here you can see:<br />- Profile<br />- Archievements<br />- Skill tree';
+    header_ttips['skylab'] = 'Here you can see:<br />- Skylab<br />- TechLab<br />- Upgrades';
+    header_ttips['hangarSlot_arrow_tooltip_expand'] = 'Desplegar';
+    header_ttips['hangarSlot_arrow_tooltip_collapse'] = 'Plegar';
+    header_ttips['tp_expand_hangar'] = 'Compra un pabellón adicional para el hangar.';
+    header_ttips['head_multiplier'] = 'En la próxima transacción de uridium recibes 0-veces la cantidad solicitada.';
+    header_ttips['clanInfo_contactClan'] = 'Clan contact';
+    header_ttips['head_multiplier'] = 'En la próxima transacción de uridium recibes 0-veces la cantidad solicitada.';
+    header_ttips['header_home'] = 'Inicio';
+    header_ttips['header_server'] = 'Servidor';
+    header_ttips['header_help'] = 'Help';
+    header_ttips['header_logout'] = 'Close';
+    header_ttips['header_account'] = 'Settings';
     </script>
-    <!-- affiliateHeadTag -->
-    <script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/978983407/?random=1586676119878&amp;cv=9&amp;fst=1586676119878&amp;num=1&amp;label=ev3rCMHAoQcQ77Po0gM&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1040&amp;u_aw=1920&amp;u_cd=24&amp;u_his=4&amp;u_tz=-300&amp;u_java=false&amp;u_nplug=3&amp;u_nmime=4&amp;gtm=2wg432&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Fmx1.darkorbit.com%2FindexInternal.es%3Faction%3DinternalStart%26prc%3D100&amp;ref=https%3A%2F%2Fweb.facebook.com%2F&amp;tiba=DarkOrbit%20Reloaded%20%7C%20MMO%20de%20acci%C3%B3n%20espacial&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script>
-    <script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/978983407/?random=1586676119883&amp;cv=9&amp;fst=1586676119883&amp;num=1&amp;label=5OZjCMm_oQcQ77Po0gM&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1040&amp;u_aw=1920&amp;u_cd=24&amp;u_his=4&amp;u_tz=-300&amp;u_java=false&amp;u_nplug=3&amp;u_nmime=4&amp;gtm=2wg432&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Fmx1.darkorbit.com%2FindexInternal.es%3Faction%3DinternalStart%26prc%3D100&amp;ref=https%3A%2F%2Fweb.facebook.com%2F&amp;tiba=DarkOrbit%20Reloaded%20%7C%20MMO%20de%20acci%C3%B3n%20espacial&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script>
-    <script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/978983407/?random=1586676119886&amp;cv=9&amp;fst=1586676119886&amp;num=1&amp;label=Ect1CLnBoQcQ77Po0gM&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1040&amp;u_aw=1920&amp;u_cd=24&amp;u_his=4&amp;u_tz=-300&amp;u_java=false&amp;u_nplug=3&amp;u_nmime=4&amp;gtm=2wg432&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Fmx1.darkorbit.com%2FindexInternal.es%3Faction%3DinternalStart%26prc%3D100&amp;ref=https%3A%2F%2Fweb.facebook.com%2F&amp;tiba=DarkOrbit%20Reloaded%20%7C%20MMO%20de%20acci%C3%B3n%20espacial&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script>
 </head>
 <?php } ?>
 </head>
