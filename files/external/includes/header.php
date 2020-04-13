@@ -58,16 +58,7 @@
     <link rel="stylesheet" media="all" href="/css/cdn/window.css">
     <link rel="stylesheet" media="all" href="/css/cdn/window_alert.css">
     <link rel="SHORTCUT ICON" href="/favicon.ico" type="image/x-icon">
-    <script src="https://connect.facebook.net/signals/config/1657406304546718?v=2.9.15&amp;r=stable" async=""></script>
-    <script async="" src="//connect.facebook.net/en_US/fbevents.js"></script>
-    <script type="text/javascript" async="" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
-    <script type="text/javascript" async="" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
-    <script type="text/javascript" async="" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
-    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
-    <script async="" src="//www.googletagmanager.com/gtm.js?cb=1586676112074&amp;id=GTM-PVBMJ2"></script>
-    <script language="javascript">
-      var CDN = "https://darkorbit-22.bpsecure.com/";
-    </script>
+
     <script type="text/javascript" src="/js/scriptaculous/prototype.js"></script>
     <script type="text/javascript" src="/js/scriptaculous/scriptaculous.js"></script>
     <script type="text/javascript" src="/js/scriptaculous/builder.js"></script>
