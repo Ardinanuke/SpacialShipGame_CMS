@@ -8,15 +8,6 @@ if (!Functions::IsLoggedIn()) {
 
 $mysqli->begin_transaction();
 
-/* 
-
-BAN MANAGER 
-
-1. Search if the ip have a banType 2 and die
-
-2. Search if the account have a ban 
-
-*/
 if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
   $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
   $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
@@ -139,9 +130,9 @@ try {
 
         flashembed("container", {
           "onFail": onFailFlashembed,
-          "src": "http://127.0.0.1/spacemap/preloader.swf",
+          "src": "<?php echo DOMAIN; ?>spacemap/preloader.swf",
           "version": [11, 0],
-          "expressInstall": "http://127.0.0.1/swf_global/expressInstall.swf",
+          "expressInstall": "<?php echo DOMAIN; ?>swf_global/expressInstall.swf",
           "width": "100%",
           "height": "100%",
           "wmode": "direct",
@@ -158,10 +149,10 @@ try {
           "boardLink": "",
           "helpLink": "",
           "loadingClaim": "DeathSpace..",
-          "chatHost": "127.0.0.1",
+          "chatHost": "<?php echo DOMAIN; ?>",
           "cdn": "",
           "useHash": "0",
-          "host": "<?php echo $_SERVER['SERVER_NAME']; ?>",
+          "host": "<?php echo DOMAIN; ?>",
           "browser": "Chrome",
           "Chrome": "1",
           "gameXmlHash": "",

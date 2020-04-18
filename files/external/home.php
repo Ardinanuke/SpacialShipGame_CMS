@@ -109,7 +109,7 @@ require_once(INCLUDES . 'header.php'); ?>
           </ul>
           <div id="pilots">
             <table class="striped highlight">
-              <thead>
+              <thead> 
                 <tr>
                   <th>Name</th>
                   <th>Company</th>
@@ -308,20 +308,13 @@ require_once(INCLUDES . 'header.php'); ?>
         let days, hours, minutes, seconds;
 
         endDate = new Date(endDate).getTime();
-
         if (isNaN(endDate)) {
           return;
         }
-
         setInterval(calculate, 1000);
-
         function calculate() {
-
           let startDate = new Date().getTime(); /* we only need change the start date */
-
           let timeRemaining = parseInt((endDate - startDate) / 1000);
-
-
           if (timeRemaining >= 0) {
             days = parseInt(timeRemaining / 86400);
             timeRemaining = (timeRemaining % 86400);
@@ -345,7 +338,7 @@ require_once(INCLUDES . 'header.php'); ?>
 
       (function() {
         /* mm / dd / yy */
-        countdown('04/15/2020 07:00:00 AM');
+        countdown('05/30/2020 07:00:00 AM');
       }());
     </script>
   <?php

@@ -54,13 +54,8 @@ $shop = Functions::GetShop(); ?>
               </div>
             <?php } ?>
           </div>
-
         </div>
-
-
-
       </div>
-
     </div>
     <div id="modal" class="modal grey darken-4 white-text">
       <div class="modal-content">

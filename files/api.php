@@ -6,6 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 		if (isset($_POST['username'], $_POST['password'], $_POST['password_confirm'], $_POST['email'])) {
 			echo Functions::Register(Functions::s($_POST['username']), Functions::s($_POST['password']), Functions::s($_POST['password_confirm']), Functions::s($_POST['email']));
 		}
+	} else if ($request === 'galaxygate') {
+		echo Functions::GalaxyGate();
 	} else if ($request === 'login') {
 		if (isset($_POST['username'], $_POST['password'])) {
 			echo Functions::Login(Functions::s($_POST['username']), Functions::s($_POST['password']));
@@ -46,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 		if (isset($_POST['pilotName'])) {
 			echo Functions::ChangePilotName(Functions::s($_POST['pilotName']));
 		}
-	}else if ($request === 'change_pet_name') {
+	} else if ($request === 'change_pet_name') {
 		if (isset($_POST['petName'])) {
 			echo Functions::ChangePetName(Functions::s($_POST['petName']));
 		}
