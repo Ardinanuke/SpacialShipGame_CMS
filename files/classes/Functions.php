@@ -2355,9 +2355,7 @@ class Functions
   public static function GetUniquePilotName($pilotName)
   {
     $mysqli = Database::GetInstance();
-
     $newPilotName = $pilotName .= Functions::GenerateRandom(4, true, false, false);
-
     if ($mysqli->query('SELECT userId FROM player_accounts WHERE pilotName = "' . $newPilotName . '"')->num_rows >= 1)
       $newPilotName = GetUniquePilotName($pilotName);
     return $newPilotName;
@@ -2532,18 +2530,38 @@ class Functions
     }
   }
 
-  public static function GalaxyGateBuilder($gateId){
+  public static function GalaxyGateBuilder($gateId)
+  {
     $mysqli = Database::GetInstance();
     $json = [
       'status' => false,
       'message' => ''
     ];
+
     if (!$mysqli->connect_errno && Functions::IsLoggedIn()) {
       $player = Functions::GetPlayer();
+      if (!Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
 
+        $gg = $mysqli->query('SELECT * FROM player_galaxygates WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId)->fetch_assoc();
+        switch ($gateId) {
+          case 1:
+            if ($gg['parts'] >= 34) {
+              $json['message'] = "Alpha Gate in base";
+              $mysqli->query('UPDATE player_galaxygates SET prepared=1 WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
+            } else {
+              $json['message'] = "Error bro, you haven't complete this gg";
+            }
+            break;
+          case 2:
+            /* beta */
+            break;
+        }
+        
+      } else {
+        $json['message'] = "Plase disconnect your ship to build the gate.";
+      }
     }
     return json_encode($json);
-
   }
 
   public static function GalaxyGate($gateId)
@@ -2572,10 +2590,27 @@ class Functions
               $json['message'] = "You already have this GG";
               $piezes = 34;
             } else {
-              $json['message'] = "100 energias";
-              $piezes += $gg['parts'];
-              $mysqli->query('UPDATE player_galaxygates SET parts=' . $piezes . ' WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
+              /* checar si tiene uri y quitarselo */
+              $data = json_decode($player['data']);
+
+              if($data->uridium >= 200000){
+                $data->uridium -= 200000;
+                $mysqli->query("UPDATE player_accounts SET data = '" . json_encode($data) . "' WHERE userId = " . $player['userId'] . "");
+                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
+                  Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => "100 Galaxy Gate Energy", 'DataType' => 0, 'Amount' => 200000]);
+                }
+                $piezes += $gg['parts'];
+                $mysqli->query('UPDATE player_galaxygates SET parts=' . $piezes . ' WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
+                $json['message'] = "100 Galaxy Gate Energy";
+
+              }else{
+                $json['message'] = "You haven't 200.000 U.";
+              }
+             
             }
+            break;
+          case 2:
+            /* beta */
             break;
         }
       } else {

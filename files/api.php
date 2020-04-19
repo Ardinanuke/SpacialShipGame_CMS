@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 		if (isset($_POST['gate'])) {
 			echo Functions::GalaxyGate($_POST['gate']);
 		}
-	}} else if ($request === 'buildergg') {
+	} else if ($request === 'buildergg') {
 		if (isset($_POST['gate'])) {
 			echo Functions::GalaxyGateBuilder($_POST['gate']);
 		}
