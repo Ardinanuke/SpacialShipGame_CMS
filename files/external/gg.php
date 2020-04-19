@@ -2,7 +2,7 @@
 
 <div id="main">
   <div class="container">
-  <?php require_once(INCLUDES . 'data.php'); ?>
+    <?php require_once(INCLUDES . 'data.php'); ?>
 
     <div class="row">
       <div class="card white-text grey darken-4 padding-15">
@@ -89,6 +89,83 @@
         }
         ?>
 
+        <?php
+        $result = $mysqli->query('SELECT * FROM player_galaxygates WHERE userId=' . $player['userId'] . " AND gateId=3");
+        if (mysqli_num_rows($result)) {
+          $gg = $result->fetch_assoc();
+        ?>
+          <div style="background: black; padding: 10px">
+            <p>Gamma Gate</p>
+            <img src="<?php echo DOMAIN; ?>img/gamma.png" style="display:block;margin:auto;">
+            <div id="contenedor_gg3">
+              <p id="piezes3">Piezes: <?php echo ($gg['parts'] >= 82) ? 82 : $gg['parts']; ?>/82</p>
+
+              <p>lives: <?php echo $gg['lives']; ?></p>
+
+              <button id="botonspin3" onclick="spin3()" class="btn grey darken-1" <?php echo ($gg['parts'] >= 82) ? "style='display:none;'" : "style='display:initial;'"; ?>>100 Energy (200.000 U.)</button>
+
+              <?php if ($gg['parts'] >= 82 && $gg['prepared'] != 1) {
+              ?>
+                <button onclick="build3()" class="btn grey darken-1" id="launch3">BUILD</button>
+              <?php
+              } ?>
+            </div>
+          </div>
+        <?php
+        } else { ?>
+          <div style="background: black; padding: 10px">
+            <p>Gamma Gate</p>
+            <img src="<?php echo DOMAIN; ?>img/gamma.png" style="display:block;margin:auto;">
+            <div id="contenedor_gg3">
+              <p id="piezes3">Piezes: 0/82</p>
+              <p>lives: 3</p>
+              <button id="botonspin3" onclick="spin3()" class="btn grey darken-1">100 Energy (200.000 U.) </button>
+            </div>
+          </div>
+        <?php
+        }
+        ?>
+
+
+
+<?php
+        $result = $mysqli->query('SELECT * FROM player_galaxygates WHERE userId=' . $player['userId'] . " AND gateId=3");
+        if (mysqli_num_rows($result)) {
+          $gg = $result->fetch_assoc();
+        ?>
+          <div style="background: black; padding: 10px">
+            <p>Delta Gate</p>
+            <img src="<?php echo DOMAIN; ?>img/delta.png" style="display:block;margin:auto;">
+            <div id="contenedor_gg3">
+              <p id="piezes3">Piezes: <?php echo ($gg['parts'] >= 82) ? 82 : $gg['parts']; ?>/82</p>
+
+              <p>lives: <?php echo $gg['lives']; ?></p>
+
+              <button id="botonspin3" onclick="spin3()" class="btn grey darken-1" <?php echo ($gg['parts'] >= 82) ? "style='display:none;'" : "style='display:initial;'"; ?>>100 Energy (200.000 U.)</button>
+
+              <?php if ($gg['parts'] >= 82 && $gg['prepared'] != 1) {
+              ?>
+                <button onclick="build3()" class="btn grey darken-1" id="launch3">BUILD</button>
+              <?php
+              } ?>
+            </div>
+          </div>
+        <?php
+        } else { ?>
+          <div style="background: black; padding: 10px">
+            <p>Delta Gate</p>
+            <img src="<?php echo DOMAIN; ?>img/delta.png" style="display:block;margin:auto;">
+            <div id="contenedor_gg3">
+              <p id="piezes3">Piezes: 0/82</p>
+              <p>lives: 3</p>
+              <button id="botonspin3" onclick="spin3()" class="btn grey darken-1">100 Energy (200.000 U.) </button>
+            </div>
+          </div>
+        <?php
+        }
+        ?>
+
+
       </div>
     </div>
   </div>
@@ -102,6 +179,11 @@
     let botonspin2 = document.getElementById("botonspin2");
     let contenedor2 = document.getElementById("contenedor_gg2");
     let switch2 = true;
+
+    let piezes3 = document.getElementById("piezes3");
+    let botonspin3 = document.getElementById("botonspin3");
+    let contenedor3 = document.getElementById("contenedor_gg3");
+    let switch3 = true;
 
     function spin1() {
       $.ajax({
@@ -129,6 +211,58 @@
       });
     }
 
+    function spin2() {
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo DOMAIN; ?>api/',
+        data: 'gate=2&action=galaxygate',
+        success: function(response) {
+          var json = jQuery.parseJSON(response);
+          if (json.message != '') {
+            var html = '<span>' + json.message + ' </span>';
+            if (json.piezes >= 48) {
+              json.piezes = 48;
+              if (switch2) {
+                botonspin2.style.display = "none";
+                contenedor2.innerHTML += '<button onclick="build2()" class="btn grey darken-1" id="launch2">BUILD</button>';
+                switch2 = false;
+              }
+            }
+            piezes2.innerHTML = `Piezes: ${json.piezes}/48`;
+            M.toast({
+              html: html
+            });
+          }
+        }
+      });
+    }
+
+    function spin3() {
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo DOMAIN; ?>api/',
+        data: 'gate=3&action=galaxygate',
+        success: function(response) {
+          var json = jQuery.parseJSON(response);
+          if (json.message != '') {
+            var html = '<span>' + json.message + ' </span>';
+            if (json.piezes >= 82) {
+              json.piezes = 82;
+              if (switch3) {
+                botonspin3.style.display = "none";
+                contenedor3.innerHTML += '<button onclick="build3()" class="btn grey darken-1" id="launch3">BUILD</button>';
+                switch3 = false;
+              }
+            }
+            piezes3.innerHTML = `Piezes: ${json.piezes}/82`;
+            M.toast({
+              html: html
+            });
+          }
+        }
+      });
+    }
+
     function build1() {
       $.ajax({
         type: 'POST',
@@ -140,6 +274,44 @@
             var html = '<span>' + json.message + ' </span>';
             let launch1 = document.getElementById("launch1");
             launch1.style.display = "none";
+            M.toast({
+              html: html
+            });
+          }
+        }
+      });
+    }
+
+    function build2() {
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo DOMAIN; ?>api/',
+        data: 'gate=2&action=buildergg',
+        success: function(response) {
+          var json = jQuery.parseJSON(response);
+          if (json.message != '') {
+            var html = '<span>' + json.message + ' </span>';
+            let launch2 = document.getElementById("launch2");
+            launch2.style.display = "none";
+            M.toast({
+              html: html
+            });
+          }
+        }
+      });
+    }
+
+    function build3() {
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo DOMAIN; ?>api/',
+        data: 'gate=3&action=buildergg',
+        success: function(response) {
+          var json = jQuery.parseJSON(response);
+          if (json.message != '') {
+            var html = '<span>' + json.message + ' </span>';
+            let launch3 = document.getElementById("launch3");
+            launch3.style.display = "none";
             M.toast({
               html: html
             });
