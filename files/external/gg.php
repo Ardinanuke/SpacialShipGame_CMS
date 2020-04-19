@@ -12,51 +12,88 @@
           <button class="btn grey darken-2" style="width: 140px">Zeta</button> <br> <br>
           <button class="btn grey darken-2" style="width: 140px">Hades</button> <br> <br>
         </div>
-        <div style="background: black; padding: 10px">
-          <p>Alpha Gate</p>
-          <img src="<?php echo DOMAIN; ?>img/alpha.png" style="display:block;margin:auto;">
-          <div>
-            <p>Piezes: 0/34</p>
-            <p>Free energy: 0</p>
-            <button onclick="spin()" class="btn grey darken-1">100 Energy (200.000 U.) </button>
+        <?php
+        $result = $mysqli->query('SELECT * FROM player_galaxygates WHERE userId=' . $player['userId'] . " AND gateId=1");
+
+        if (mysqli_num_rows($result)) {
+          $gg = $result->fetch_assoc();
+        ?>
+          <div style="background: black; padding: 10px">
+            <p>Alpha Gate</p>
+            <img src="<?php echo DOMAIN; ?>img/alpha.png" style="display:block;margin:auto;">
+            <div id="contenedor_gg1">
+              <p id="piezes1">Piezes: <?php echo ($gg['parts'] >= 34) ? 34 : $gg['parts']; ?>/34</p>
+              <p>lives: <?php echo $gg['lives']; ?></p>
+              <button id="botonspin1" onclick="spin1()" class="btn grey darken-1" <?php echo ($gg['parts'] >= 34)? "style='display:none;'" : "style='display:initial;'" ; ?>>100 Energy (200.000 U.)</button>
+
+              <?php if ($gg['parts'] >= 34) {
+              ?>
+                <button onclick="build1()" class="btn grey darken-1" id="launch">BUILD</button>
+              <?php
+              } ?>
+            </div>
           </div>
-        </div>
+        <?php
+        } else { ?>
+          <div style="background: black; padding: 10px">
+            <p>Alpha Gate</p>
+            <img src="<?php echo DOMAIN; ?>img/alpha.png" style="display:block;margin:auto;">
+            <div id="contenedor_gg1">
+              <p id="piezes1">Piezes: 0/34</p>
+              <p>lives: 0</p>
+              <button id="botonspin1"  onclick="spin1()" class="btn grey darken-1">100 Energy (200.000 U.) </button>
+            </div>
+          </div>
+        <?php
+        }
+        ?>
         <div style="background: black; padding: 10px">
           <p>Beta Gate</p>
           <img src="<?php echo DOMAIN; ?>img/beta.png" style="display:block;margin:auto;">
-          <div>
+          <div  >
             <p>Piezes: 0/48</p>
-            <p>Free energy: 0</p>
-            <button onclick="spin()" class="btn grey darken-1">100 Energy (200.000 U.) </button>
+            <p>lives: 3</p>
+            <button onclick="spin2()" class="btn grey darken-1">100 Energy (200.000 U.) </button>
           </div>
         </div>
+
       </div>
     </div>
   </div>
   <script>
-    var contador = 0;
-    var piezes = 0;
+    let piezes1 = document.getElementById("piezes1");
+    let botonspin1 = document.getElementById("botonspin1");
+    let contenedor1 = document.getElementById("contenedor_gg1");
+    let switch1 = true;
 
-    function spin() {
+    function spin1() {
       $.ajax({
         type: 'POST',
         url: '<?php echo DOMAIN; ?>api/',
-        data: 'action=galaxygate',
+        data: 'gate=1&action=galaxygate',
         success: function(response) {
-
-          contador += 200000;
           var json = jQuery.parseJSON(response);
-
           if (json.message != '') {
             var html = '<span>' + json.message + ' </span>';
-            piezes += json.piezes;
-        
+            if (json.piezes >= 34) {
+              json.piezes = 34;
+              if (switch1) {
+                botonspin1.style.display = "none";
+                contenedor1.innerHTML += '<button onclick="build1()" class="btn grey darken-1" id="launch">BUILD</button>';
+                switch1 = false;
+              }
+            }
+            piezes1.innerHTML = `Piezes: ${json.piezes}/34`;
             M.toast({
-              html: html+" U:"+contador+" T: "+piezes
+              html: html
             });
           }
         }
       });
+    }
+    
+    function build1(){
+
     }
   </script>
   <?php require_once(INCLUDES . 'footer.php'); ?>

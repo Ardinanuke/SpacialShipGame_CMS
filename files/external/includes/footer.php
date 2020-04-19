@@ -34,7 +34,6 @@
         success: function(response) {
           console.log(response);
           if(response.length < 500){
-
             var json = jQuery.parseJSON(response);
             for (var input in json.inputs) {
               $('#register input[name='+input+'] + label + span').attr('data-error', json.inputs[input].error);

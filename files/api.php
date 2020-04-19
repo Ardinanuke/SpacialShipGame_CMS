@@ -7,7 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 			echo Functions::Register(Functions::s($_POST['username']), Functions::s($_POST['password']), Functions::s($_POST['password_confirm']), Functions::s($_POST['email']));
 		}
 	} else if ($request === 'galaxygate') {
-		echo Functions::GalaxyGate();
+		if (isset($_POST['gate'])) {
+			echo Functions::GalaxyGate($_POST['gate']);
+		}
+	}} else if ($request === 'buildergg') {
+		if (isset($_POST['gate'])) {
+			echo Functions::GalaxyGateBuilder($_POST['gate']);
+		}
 	} else if ($request === 'login') {
 		if (isset($_POST['username'], $_POST['password'])) {
 			echo Functions::Login(Functions::s($_POST['username']), Functions::s($_POST['password']));

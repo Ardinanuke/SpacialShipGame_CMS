@@ -2532,7 +2532,21 @@ class Functions
     }
   }
 
-  public static function GalaxyGate()
+  public static function GalaxyGateBuilder($gateId){
+    $mysqli = Database::GetInstance();
+    $json = [
+      'status' => false,
+      'message' => ''
+    ];
+    if (!$mysqli->connect_errno && Functions::IsLoggedIn()) {
+      $player = Functions::GetPlayer();
+
+    }
+    return json_encode($json);
+
+  }
+
+  public static function GalaxyGate($gateId)
   {
     $mysqli = Database::GetInstance();
     $json = [
@@ -2540,18 +2554,33 @@ class Functions
       'message' => '',
       'piezes' => 0
     ];
-    $json['message'] = "test";
     $piezes = 0;
     if (!$mysqli->connect_errno && Functions::IsLoggedIn()) {
       $player = Functions::GetPlayer();
-      /* launch here */
       for ($i = 0; $i <= 99; $i++) {
         $prob = rand(0, 100);
         if ($prob < 10) {
           $piezes += 1;
         }
       }
-      $json['message'] = "Piezas ".$piezes;
+      $result = $mysqli->query('SELECT * FROM player_galaxygates WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
+      if (mysqli_num_rows($result)) {
+        $gg = $result->fetch_assoc();
+        switch ($gateId) {
+          case 1:
+            if ($gg['parts'] >= 34) {
+              $json['message'] = "You already have this GG";
+              $piezes = 34;
+            } else {
+              $json['message'] = "100 energias";
+              $piezes += $gg['parts'];
+              $mysqli->query('UPDATE player_galaxygates SET parts=' . $piezes . ' WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
+            }
+            break;
+        }
+      } else {
+        $mysqli->query('INSERT INTO player_galaxygates (userId, gateId, parts, multiplier, lives, prepared) VALUES (' . $player['userId'] . ', ' . $gateId . ', ' . $piezes . ', 0, 3, 0)');
+      }
       $json['piezes'] = $piezes;
     }
     return json_encode($json);
