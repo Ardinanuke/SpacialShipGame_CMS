@@ -1,4 +1,6 @@
 
+    /* API URL */
+    let apiURL = '<?php echo DOMAIN; ?>api/';
     /* Alfa */
     let piezes1 = document.getElementById("piezes1");
     let botonspin1 = document.getElementById("botonspin1");
@@ -29,11 +31,72 @@
     let botonspin6 = document.getElementById("botonspin6");
     let contenedor6 = document.getElementById("contenedor_gg6");
     let switch6 = true;
+    /* ggs */
+    let gg1 = document.getElementById("gg1");
+    let gg2 = document.getElementById("gg2");
+    let gg3 = document.getElementById("gg3");
+    let gg4 = document.getElementById("gg4");
+    let gg5 = document.getElementById("gg5");
+    let gg6 = document.getElementById("gg6");
+
+    function changeGate(gateId) {
+      switch (gateId) {
+        case 1:
+          gg1.style.display = "block";
+          gg2.style.display = "none";
+          gg3.style.display = "none";
+          gg4.style.display = "none";
+          gg5.style.display = "none";
+          gg6.style.display = "none";
+          break;
+        case 2:
+          gg1.style.display = "none";
+          gg2.style.display = "block";
+          gg3.style.display = "none";
+          gg4.style.display = "none";
+          gg5.style.display = "none";
+          gg6.style.display = "none";
+
+          break;
+        case 3:
+          gg1.style.display = "none";
+          gg2.style.display = "none";
+          gg3.style.display = "block";
+          gg4.style.display = "none";
+          gg5.style.display = "none";
+          gg6.style.display = "none";
+          break;
+        case 4:
+          gg1.style.display = "none";
+          gg2.style.display = "none";
+          gg3.style.display = "none";
+          gg4.style.display = "block";
+          gg5.style.display = "none";
+          gg6.style.display = "none";
+          break;
+        case 5:
+          gg1.style.display = "none";
+          gg2.style.display = "none";
+          gg3.style.display = "none";
+          gg4.style.display = "none";
+          gg5.style.display = "block";
+          gg6.style.display = "none";
+          break;
+        case 6:
+          gg1.style.display = "none";
+          gg2.style.display = "none";
+          gg3.style.display = "none";
+          gg4.style.display = "none";
+          gg5.style.display = "none";
+          gg6.style.display = "block";
+          break;
+      }
+    }
 
     function spin1() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=1&action=galaxygate',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -60,7 +123,7 @@
     function spin2() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=2&action=galaxygate',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -88,7 +151,7 @@
     function spin3() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=3&action=galaxygate',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -116,7 +179,7 @@
     function spin4() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=4&action=galaxygate',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -148,7 +211,7 @@
     function spin5() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=5&action=galaxygate',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -176,11 +239,11 @@
         }
       });
     }
-    
+
     function spin6() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=6&action=galaxygate',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -212,7 +275,7 @@
     function build1() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=1&action=buildergg',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -231,7 +294,7 @@
     function build2() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=2&action=buildergg',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -250,7 +313,7 @@
     function build3() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=3&action=buildergg',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -269,7 +332,7 @@
     function build4() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=4&action=buildergg',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -288,7 +351,7 @@
     function build5() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=5&action=buildergg',
         success: function(response) {
           var json = jQuery.parseJSON(response);
@@ -307,7 +370,7 @@
     function build6() {
       $.ajax({
         type: 'POST',
-        url: '<?php echo DOMAIN; ?>api/',
+        url: apiURL,
         data: 'gate=6&action=buildergg',
         success: function(response) {
           var json = jQuery.parseJSON(response);
