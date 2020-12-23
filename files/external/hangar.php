@@ -66,104 +66,196 @@
 <!-- website content -->
 <div class="main-container-content">
     <div class="row">
+        <button class="button-hangar">SHIPS</button>
+        <button class="button-hangar">EQUIPMENT</button>
         <div style="padding: 20px;">
             <div class="wrapper">
-                <button onclick="changeShip(1)">
-                    <div class="ship-wrapper">
-                        <div class="absolute-container">
-                            <div class="ship-name">
-                                Phoenix
+                <?php
+                const PHOENIX = 1;
+                const PIRANHA = 6;
+                const NOSTROMO = 7;
+                const BIGBOY = 9;
+                const LEONOV = 3;
+                const VENGEANCE = 8;
+                const GOLIATH = 10;
+
+                $player = Functions::GetPlayer();
+
+                $availableShips = array(PHOENIX, PIRANHA, NOSTROMO, BIGBOY, LEONOV, VENGEANCE, GOLIATH);
+
+                $items = json_decode($mysqli->query('SELECT items FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['items']);
+                //if (in_array($player['shipId'], $items->ships)) {
+                for ($i = 0; $i < 7; $i++) {
+                ?>
+                    <button onclick="changeShip(<?php echo $availableShips[$i]; ?>)">
+                        <div class="ship-wrapper">
+                            <div class="absolute-container">
+                                <div class="ship-name">
+                                    <?php
+                                    switch ($availableShips[$i]) {
+                                        case PHOENIX:
+                                            echo "Phoenix";
+                                            break;
+                                        case PIRANHA:
+                                            echo "Piranha";
+                                            break;
+                                        case NOSTROMO:
+                                            echo "Nostromo";
+                                            break;
+                                        case BIGBOY:
+                                            echo "Bigboy";
+                                            break;
+                                        case LEONOV:
+                                            echo "Leonov";
+                                            break;
+                                        case VENGEANCE:
+                                            echo "Vengeance";
+                                            break;
+                                        case GOLIATH:
+                                            echo "Goliath";
+                                            break;
+                                    }
+                                    ?>
+                                </div>
+                                <div class="ship-selected">
+                                    <?php
+                                    echo in_array($availableShips[$i], $items->ships) ? "O" : "X";
+                                    ?>
+                                </div>
                             </div>
-                            <div class="ship-selected">
-                                o
-                            </div>
+                            <?php
+                            $shipSelected = "phoenix";
+                            switch ($availableShips[$i]) {
+                                case PHOENIX:
+                                    $shipSelected = "phoenix";
+                                    break;
+                                case PIRANHA:
+                                    $shipSelected = "piranha";
+                                    break;
+                                case NOSTROMO:
+                                    $shipSelected = "nostromo";
+                                    break;
+                                case BIGBOY:
+                                    $shipSelected = "bigboy";
+                                    break;
+                                case LEONOV:
+                                    $shipSelected = "leonov";
+                                    break;
+                                case VENGEANCE:
+                                    $shipSelected = "vengeance";
+                                    break;
+                                case GOLIATH:
+                                    $shipSelected = "goliath";
+                                    break;
+                            }
+                            echo '<img src="do_img/global/' . $shipSelected . '_100x100.png" width="110px" height="110px" style="background-color: gray;">';
+                            ?>
                         </div>
-                        <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
-                    </div>
-                </button>
-                <button onclick="changeShip(6)">
-                    <div class="ship-wrapper">
-                        <div class="absolute-container">
-                            <div class="ship-name">
-                                Piranha
-                            </div>
-                            <div class="ship-selected">
-                                o
-                            </div>
-                        </div>
-                        <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
-                    </div>
-                </button>
-                <button onclick="changeShip(7)">
-                    <div class="ship-wrapper">
-                        <div class="absolute-container">
-                            <div class="ship-name">
-                                Nostromo
-                            </div>
-                            <div class="ship-selected">
-                                o
-                            </div>
-                        </div>
-                        <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
-                    </div>
-                </button>
-                <button onclick="changeShip(9)">
-                    <div class="ship-wrapper">
-                        <div class="absolute-container">
-                            <div class="ship-name">
-                                Bigboy
-                            </div>
-                            <div class="ship-selected">
-                                o
-                            </div>
-                        </div>
-                        <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
-                    </div>
-                </button>
-                <button onclick="changeShip(3)">
-                    <div class="ship-wrapper">
-                        <div class="absolute-container">
-                            <div class="ship-name">
-                                Leonov
-                            </div>
-                            <div class="ship-selected">
-                                o
-                            </div>
-                        </div>
-                        <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
-                    </div>
-                </button>
-                <button onclick="changeShip(8)">
-                    <div class="ship-wrapper">
-                        <div class="absolute-container">
-                            <div class="ship-name">
-                                Vengeance
-                            </div>
-                            <div class="ship-selected">
-                                o
-                            </div>
-                        </div>
-                        <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
-                    </div>
-                </button>
-                <button onclick="changeShip(10)">
-                    <div class="ship-wrapper">
-                        <div class="absolute-container">
-                            <div class="ship-name">
-                                Goliath
-                            </div>
-                            <div class="ship-selected">
-                                o
-                            </div>
-                        </div>
-                        <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
-                    </div>
-                </button>
+                    </button>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <p>Lasers</p>
+        <div class="wrapper2">
+            <div>
+                1
+            </div>
+            <div>
+                2
+            </div>
+            <div>
+                3
+            </div>
+            <div>
+                4
+            </div>
+            <div>
+                5
+            </div>
+            <div>
+                1
+            </div>
+            <div>
+                2
+            </div>
+            <div>
+                3
+            </div>
+            <div>
+                4
+            </div>
+            <div>
+                5
+            </div>
+            <div>
+                1
+            </div>
+            <div>
+                2
+            </div>
+            <div>
+                3
+            </div>
+            <div>
+                4
+            </div>
+            <div>
+                5
+            </div>
+        </div>
+        <p>Generators</p>
+        <div class="wrapper2">
+            <div>
+                1
+            </div>
+            <div>
+                2
+            </div>
+            <div>
+                3
+            </div>
+            <div>
+                4
+            </div>
+            <div>
+                5
+            </div>
+            <div>
+                1
+            </div>
+            <div>
+                2
+            </div>
+            <div>
+                3
+            </div>
+            <div>
+                4
+            </div>
+            <div>
+                5
+            </div>
+            <div>
+                1
+            </div>
+            <div>
+                2
+            </div>
+            <div>
+                3
+            </div>
+            <div>
+                4
+            </div>
+            <div>
+                5
             </div>
         </div>
     </div>
 </div>
-
 <div id="snackbar">Some text some message..</div>
-
 <?php require_once(INCLUDES . 'footer.php'); ?>

@@ -2561,7 +2561,7 @@ class Functions
       $items = json_decode($mysqli->query('SELECT items FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['items']);
 
       if ($notOnlineOrOnlineAndInEquipZone) {
-        if (in_array($shipId, $items->ships) || $shipId == 10) {
+        if (in_array($shipId, $items->ships)) {
           $mysqli->begin_transaction();
 
           try {

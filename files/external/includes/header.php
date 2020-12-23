@@ -264,8 +264,19 @@
         margin: 0;
       }
 
-      .wrapper {
+      .wrapper2 {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-gap: 10px;
+      }
 
+      .wrapper2 div{
+        width: 50px;
+        height: 50px;
+        background-color: red;
+      }
+
+      .wrapper {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 10px;
@@ -302,7 +313,11 @@
       .ship-selected {
         margin-top: 60px;
       }
-
+      .button-hangar{
+        background: black;
+        width: 150px;
+        border: none;
+      }
 
 
 
