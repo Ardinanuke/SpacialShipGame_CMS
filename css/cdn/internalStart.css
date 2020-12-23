@@ -1,0 +1,798 @@
+#mainContainer {
+    height: 444px;
+    width: 808px;
+}
+#mainContainerContent {
+    width: 674px;
+    height: 444px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/main_container.png?__cv=b9667dbc203c0f268df874494e242c00) no-repeat 0 0;
+    position: absolute;
+    top: 0;
+    left: 22px;
+}
+.infoContainerHeadline {
+    font-family: 'Ubuntu Condensed', Arial;
+    font-size: 18px;
+    text-align: center;
+    color: #00AAFF;
+}
+#homeUserContent {
+    height: 165px;
+    width: 320px;
+    position: absolute;
+    top: 0;
+    left: 16px;
+}
+#homeUserContent #pilotAvatar {
+    display: block;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+#homeUserContent .infoContainerHeadline {
+    width: 195px;
+    margin: 10px 0 0 90px;
+}
+#userInfoSheet {
+    width: 220px;
+    margin: 14px 0 0 85px;
+}
+#userContentLevel {
+    position: absolute;
+    top: 85px;
+    right: 15px;
+    font-family: 'Ubuntu', Verdana;
+    font-size: 12px;
+    color: #FFFFFF;
+    line-height: 18px;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.userInfoLine {
+    font-family: 'Ubuntu', Verdana;
+    font-size: 12px;
+    color: #FFFFFF;
+    line-height: 18px;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.userInfoLine label {
+    color: #00AAFF;
+    font-size: 9px;
+    display: inline-block;
+    font-family: 'Ubuntu', Verdana;
+    line-height: 8px;
+    width: 55px;
+}
+#userContentLevel label {
+	color: #00AAFF;
+    font-size: 9px;
+    display: inline-block;
+    font-family: 'Ubuntu', Verdana;
+    line-height: 8px;
+    width: 30px;
+}
+#userRankIcon {
+    position: absolute;
+    top: 90px;
+    left: 113px;
+}
+
+#sidebarHome {
+    width: 134px;
+    height: 452px;
+    position: absolute;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/sidebar_bg.png?__cv=6d56cce62b92781efc89769a000d3800) no-repeat 0 0;
+    top: 0;
+    right: 30px;
+}
+
+#serverTimeContainer {
+    font-family: Verdana;
+    font-size: 10px;
+    color: #649ec4;
+    width: 85px;
+    height: 25px;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/sidebar/time_display_85x25.png?__cv=650a39736e2a0d0649dd0d38c7b27100);
+    position: absolute;
+    top: 3px;
+    left: 22px;
+    line-height: 24px;
+    text-align: center;
+    cursor: default;
+}
+#meridiem {
+    font-weight: bold;
+    color: #324f62;
+}
+#sidebarLights {
+    width: 112px;
+    height: 17px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/sidebar_live-event_lights.png?__cv=0a9acfe28df56b80990542d752de7800) no-repeat center top;
+    margin: 28px 0 0 8px;
+    text-align: center;
+    font-family: 'Ubuntu Condensed', Arial;
+    font-weight: 400;
+    font-size: 9px;
+    color: #FFCC00;
+    padding-top: 1px;
+}
+#sidebarLights.sidebarNoEvent {
+    background: 0 none;
+}
+#sidebarStatus {
+    color: #00AAFF;
+    text-align: center;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/button_default_80x15.png?__cv=3a5afd9445d071176bac2eaf7a7dd300) no-repeat center top;
+    margin: 7px 0 0 23px;
+    height: 15px;
+    width: 80px;
+}
+#sidebarEvent {
+    position: absolute;
+    top: 75px;
+    left: 10px;
+    width: 111px;
+    height: 325px;
+}
+.eventDisplay {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    z-index: 2;
+}
+#eventDisplay_upcoming.eventDisplay {
+    z-index: 1;
+}
+.upcomingEvent {
+    width: 100px;
+    margin-top: 10px;
+    padding: 2px 0 0 14px;
+    height: 65px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/sidebar_block_element.png?__cv=23eae6a5eddb0c300022f4bdb203e100) no-repeat left center;
+}
+.upcomingEvent .eventDate {
+    font-family: 'Ubuntu Condensed', Arial;
+    color: #afafaf;
+    font-size: 16px;
+}
+.upcomingEvent .eventTitle {
+    font-family: 'Ubuntu', Arial;
+    color: #74abda;
+    font-size: 12px;
+}
+.upcomingEvent .eventTime {
+    font-family: 'Ubuntu', Arial;
+    color: #9b9b9b;
+    font-size: 9px;
+}
+.sidebarBottomLink {
+    display: block;
+    font-family: 'Ubuntu', Arial;
+    font-size: 10px;
+    color: #74abda;
+    width: 74px;
+    height: 18px;
+    text-align: center;
+    position: absolute;
+    text-align: center;
+    left: 27px;
+    bottom: 30px;
+    cursor: pointer;
+}
+.sidebarBottomLink:hover {
+    color: #badcfa;
+}
+
+#sidebar_time {
+    display: none;
+}
+#sidebar_container .companyScore {
+    width: 110px;
+    height: 33px;
+    padding-top: 2px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/score_display_faction.png?__cv=a6d5f9d2e2c4ca410df888e0d5ba3300) no-repeat center;
+    text-align: center;
+    font-weight: bold;
+    color: #e7f4ff;
+}
+#sidebar_container .sidebar_userEntry {
+    width: 110px;
+    height: 26px;
+    padding-top: 2px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/score_display_faction.png?__cv=a6d5f9d2e2c4ca410df888e0d5ba3300) no-repeat center;
+    text-align: center;
+    font-weight: normal;
+    font-size: 10px;
+    color: #badcfa;
+    margin-bottom: 2px;
+}
+#sidebar_container .sidebar_userEntry span {
+    color: #74abda;
+}
+#sidebar_container .companyScore .actualRank {
+    font-family: 'Ubuntu', Verdana;
+    color: #badcfa;
+    font-size: 13px;
+}
+#sidebar_container .companyScore .companyIconSmall {
+    width: 17px;
+    height: 17px;
+    position: relative;
+    left: 8px;
+    bottom: 23px;
+}
+#company_MMO .companyIconSmall, #company_1 .companyIconSmall {
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/logos/logo_faction_mmo_17x17.png?__cv=737afbbe7969af0dc6715b7e54aacd00) no-repeat center;
+}
+#company_EIC .companyIconSmall, #company_2 .companyIconSmall {
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/logos/logo_faction_eic_17x17.png?__cv=3cbef604e6feb92e940224b1e6d89c00) no-repeat center;
+}
+#company_VRU .companyIconSmall, #company_3 .companyIconSmall {
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/logos/logo_faction_vru_17x17.png?__cv=df24cd3c42b2da01ba5ce50c41d17a00) no-repeat center;
+}
+#user_myPoints {
+    width: 106px;
+    height: 37px;
+    padding-top: 6px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/score_display_user.png?__cv=311643c46e36441c1899240852925e00) no-repeat center;
+    text-align: center;
+    position: absolute;
+    left: 3px;
+    bottom: 45px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #badcfa;
+}
+#user_myPoints span {
+    font-weight: normal;
+    font-size: 10px;
+    color: #ffcc00;
+}
+.sidebar_footer {
+    position: absolute;
+    bottom: 1px;
+    width: 110px;
+    text-align: center;
+}
+.sidebar_footer .completeRanking {
+    color: #686868;
+    font-size: 10px;
+}
+.sidebar_footer a {
+    color: #46d2fb !important;
+}
+
+.userHomeButton {
+    display: block;
+    width: 99px;
+    height: 15px;
+    text-align: center;
+    cursor: pointer;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/button_window_sprite_99x15.png?__cv=486d0d0b2e06c1efa5fbf483e6f67200) no-repeat center 0;
+    position: absolute;
+    top: 113px;
+}
+a.userHomeButton, a.userHomeButton:visited, a.userHomeButton:link {
+    color: #46d2fb;
+}
+.userHomeButton:hover {
+    background-position: center -15px;
+}
+.userHomeButton:active {
+    background-position: center -30px;
+}
+.userHomeButton.homeButtonInactive {
+    cursor: default;
+    background-position: center 0;
+}
+#userButtonLeft {
+    left: 9px;
+}
+#userButtonMiddle {
+    left: 111px;
+}
+#userButtonRight {
+    left: 212px;
+}
+#hallOfFame {
+    position: absolute;
+    top: 290px;
+    left: 113px;
+}
+#companyLogo {
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 74px;
+    left: 5px;
+}
+.companyLogoSmall_mmo {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/logos/logo_mmo.png?__cv=6ce55fa9933dd905fea7d77a6b791400);
+    width: 65px;
+    height: 36px;
+}
+.companyLogoSmall_eic {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/logos/logo_eic.png?__cv=4a52618fce64d396fbe1c12495aefd00);
+    width: 65px;
+    height: 36px;
+}
+.companyLogoSmall_vru {
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/logos/logo_vru.png?__cv=5416ea953e8fcd0b83e50827a0059b00);
+    width: 65px;
+    height: 36px;
+}
+
+#homeRankingContent {
+    position: absolute;
+    height: 240px;
+    width: 320px;
+    top: 136px;
+    left: 14px;
+}
+#homeRankingContent .infoContainerHeadline {
+    padding-top: 12px;
+}
+.rankingTab {
+    height: 16px;
+    padding-top: 2px;
+    text-align: center;
+    position: absolute;
+    top: 50px;
+    cursor: pointer;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    color: #46d2fb;
+}
+#rankingTabLeft {
+    width: 147px;
+    left: 32px;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/tab_diagonal_sprite_147x18.png?__cv=db347eab81be1d86e51aa319be004400);
+}
+#rankingTabRight {
+    width: 137px;
+    left: 182px;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/tab_squared_sprite_137x18.png?__cv=ea0f7a75eaf2253f2e8b0649948f9900);
+}
+.rankingTab:hover {
+    background-position: center -18px;
+    color: #FFFFFF;
+}
+.rankingTab.homeTabActive {
+    background-position: center -36px;
+    cursor: default;
+    color: #FFFFFF;
+}
+.homeRankingTable {
+	table-layout: fixed;
+    margin: 33px 0 0 3px;
+    width: 320px;
+}
+.homeRankingTable tr {
+    height: 19px;
+}
+.homeRankingTable td {
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    padding: 0 3px;
+}
+.homeRankingTable td, .homeRankingTable td a {
+    color: #46d2fb !important;
+}
+.homeRankingTable td img {
+    display: block;
+    margin: 0 0 0 15px;
+}
+.homeRankingTable tr.rankingOdd {
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/row_bright_319x20.png?__cv=94bf8f3f02fad77294eb769aa461a200) repeat-x 0 0;
+}
+.rankingHeadline {
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/row_dark_319x20.png?__cv=9cf5ee5286be1eaaaac3a8ad48f64600) repeat-x 0 0;
+}
+.homeRankingTable .rankingHeadline td {
+    color: #CCCCCC;
+}
+
+#homeNewsContent {
+    width: 320px;
+    height: 410px;
+    position: absolute;
+    left: 343px;
+    top: 5px;
+}
+#breakingNewsHeadline {
+    position: absolute;
+    top: 4px;
+    width: inherit;
+    text-align: center;
+    font-family: Arial;
+    font-size: 11px;
+    color: #aee2ff;
+}
+#breakingNewsHeadline span {
+    font-family: 'Ubuntu', Arial;
+    font-weight: 500;
+    font-style: italic;
+}
+#breakingNewsHeadline span.bnHead_mmo {
+    color: #b61313;
+}
+#breakingNewsHeadline span.bnHead_eic {
+    color: #1322b6;
+}
+#breakingNewsHeadline span.bnHead_vru {
+    color: #41b613;
+}
+#breakingNewsTop {
+    width: 100%;
+    height: 195px;
+}
+#breakingNewsTop .newsImage {
+    display: block;
+    width: 301px;
+    height: 168px;
+    position: absolute;
+    top: 20px;
+    left: 10px;
+}
+#breakingNewsTop .newsImage.oldNews {
+    width: 239px;
+    height: 120px;
+    position: absolute;
+    top: 44px;
+    left: 42px;
+}
+
+#newsImageOverlay {
+    position: absolute;
+    z-index: 1;
+    width: 288px;
+    height: 141px;
+    top: 30px;
+    left: 18px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/breaking_news_frame.png?__cv=b8bd824c12a3117a914dd7be43698f00) no-repeat center;
+}
+#breakingNewsIconWrapper {
+    position: absolute;
+    z-index: 2;
+    width: 200px;
+    height: 25px;
+    top: 176px;
+    left: 67px;
+}
+#breakingNewsIconWrapper img {
+    margin: 2px 0 0 2px;
+    cursor: pointer;
+}
+#newsIconHighlight {
+    position: absolute;
+    z-index: 3;
+    width: 25px;
+    height: 25px;
+    top: 0;
+    left: 0px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/breaking_news_small_overlay.png?__cv=b2f27938608e77f21b7e7e808a061900) no-repeat center;
+}
+.breakingNewsArrow {
+    position: absolute;
+    z-index: 3;
+    top: 75px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: -25px center;
+    width: 25px;
+    height: 50px;
+}
+#breakingNewsLeftArrow {
+    left: 0;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/breaking_news_button_left_25x50.png?__cv=0a76211a8f089bc45cbfd85995753b00);
+}
+#breakingNewsRightArrow {
+    right: 0;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/breaking_news_button_right_25x50.png?__cv=8b04ea90bd49a052e539ca5df3dd4900);
+}
+.breakingNewsArrow:hover {
+    background-position: -50px center;
+}
+.breakingNewsArrow:active {
+    background-position: -75px center;
+}
+.breakingNewsArrow.arrowInactive {
+    background-position: 0 center;
+    cursor: default;
+}
+#breakingNewsText {
+    font-family: 'Ubuntu Condensed', Verdana;
+    font-size: 12px;
+    margin: 0 auto;
+    color: #FFFFFF;
+    overflow: hidden;
+    height: 229px;
+    padding: 25px 0 0 0;
+}
+#breakingNewsText b, #breakingNewsText a {
+    font-weight: 400;
+    color: #34d6ff;
+}
+#breakingNewsText h3 {
+    color: #46d2fb;
+    font-family: 'Ubuntu Condensed', Verdana;
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+.newsTextContainer {
+    width: 270px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+.newsTextContainer ul {
+    margin: 10px 10px;
+}
+.newsTextContainer ul li {
+    list-style-type: circle;
+    margin: 0 10px;
+}
+.newsTextContainerBanner {
+    margin: -7px 60px 0;
+}
+#breakingNewsTopGradiant {
+    position: absolute;
+    z-index: 1;
+    width: 317px;
+    height: 17px;
+    top: 195px;
+    left: 1px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/gradient_top.png?__cv=ae2e4494c04391865ee53488cca6f600) repeat-x 0 0;
+}
+#breakingNewsBottomGradiant {
+    position: absolute;
+    z-index: 1;
+    width: 317px;
+    height: 17px;
+    top: 408px;
+    left: 1px;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/internalStart/gradient_down.png?__cv=a0c8b281a10fc6efe4b12e62c9b14b00) repeat-x 0 0;
+}
+
+/* Layer */
+#galaxyGatesEvent_layer_close {
+    width: 25px;
+    height: 22px;
+    float:right;
+    cursor: pointer;
+}
+#galaxyGatesEvent_layer_content {
+    position: absolute;
+    width: 390px;
+    height: 265px;
+    overflow: auto;
+    top: 270px;
+    left: 52px;
+    overflow: auto;
+}
+#percentBoosterEvent_layer_close {
+    width: 24px;
+    height: 24px;
+    float:right;
+    cursor: pointer;
+    background:  url(https://darkorbit-22.bpsecure.com/do_img/global/layer/close_button_sprite.png?__cv=fa1f7ef0f89ab04212dbf02f3424d700) no-repeat 0 0;
+}
+#percentBoosterEvent_layer_content {
+    position: absolute;
+    width: 360px;
+    height: 280px;
+    overflow: auto;
+    top: 165px;
+    left: 59px;
+    cursor:pointer;
+}
+#percentBoosterEvent_layer_content ul {
+    margin-left: 20px;
+}
+#percentBoosterEvent_layer_content li {
+    list-style-type: circle;
+}
+#percentBoosterEvent_layer_advertisingHint {
+    position: absolute;
+    top: 545px;
+    right: 90px;
+    color: #79321a;
+    font-family: Verdana;
+    font-size: 7pt;
+}
+#teaser_soccer_2010 {
+    background-image: url(https://darkorbit-22.bpsecure.com/do_img/global/left/overlay_soccer_2010.png?__cv=d642aafa10e7a76c735684be0a715f00);
+    height:72px;
+    left:-30px;
+    top:364px;
+    width:157px;
+    position: relative;
+}
+
+#teaser_left {
+    float:right;
+    width:127px;
+    height:439px;
+    padding-left:30px;
+}
+#independenceDay2010News {
+    position: relative;
+    float:right;
+    text-align: left;
+    width:127px;
+    height:439px;
+    padding-left:30px;
+}
+#independenceDay2010News_text {
+    position: absolute;
+    top: 90px;
+    width: 112px;
+    text-align: center;
+    z-index: 10;
+}#independenceDay2010NewsTeasertext {
+     position: absolute;
+     top: 90px;
+     width: 112px;
+     z-index: 10;
+ }
+
+/**
+#link_wm2010 {
+   width: 157px;
+   height: 72px;
+   display: block;
+}
+
+#bettingGames {
+   position:absolute;
+   left:0px;
+   top:50px;
+   background-position:0 0px;
+   display:none;
+   text-align:left;
+   z-index:1000;
+}
+#bettingGame_info {
+   width: 390px;
+   margin: 115px 0px 0px 27px;
+}
+#bettingGame_info p {
+   margin-bottom: 11px;
+}
+#bettingGame_select {
+   margin: auto;
+   margin-top:20px;
+   width: 249px;
+   height: 101px;
+   background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/layer/bettingGame_select_bg.png?__cv=289a8787ef0832af530bd266eb970c00);
+}
+#bettingGame_select_inner {
+   padding: 13px 0px 0px 25px;
+}
+#bettingGame_select_inner input[type='radio'] {
+   margin: 5px 0px;
+}
+#bettingGame_select_inner label {
+   margin-left: 10px;
+}
+#bettingGame_bet {
+   margin-top: 15px;
+}
+
+.input_bet {
+   width: 45px;
+   height:14px;
+   text-align:center;
+}
+#game_bet_code_1, #game_bet_code_2 {
+   font-weight: bold;
+   font-size: 13px;
+}
+#bettingGames_butSave {
+   position: absolute;
+   top: 500px;
+   left: 104px;
+   text-align: center;
+   line-height: 47px;
+   font-weight: bold;
+   width: 241px;
+   height: 58px;
+   background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/layer/bettingGame_but_0.png?__cv=3ed0a55c1869c24e35f0355b17bf9d00);
+}
+#bettingGames_butSave :hover {
+   background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/layer/bettingGame_but_1.png?__cv=ef36489bb01d63b8f16909152181fb00);
+}
+#bettingGame_send {
+}
+#bettingGame_seperator {
+   width:15px;text-align:center;color: #FFFFFF;font-size:20px;line-height:20px;
+}
+#game_bet_flag_1 {
+   float:right;
+   width:56px;
+   height:40px;
+   margin:auto;
+   background-image: url(https://darkorbit-22.bpsecure.com/do_img/global/flaggen/soccerlayer/GHA.png?__cv=67aaf558768f946db4c073fd691cf900);
+}
+#game_bet_flag_2 {
+   width:56px;
+   height:40px;
+   margin:auto;
+   background-image: url(https://darkorbit-22.bpsecure.com/do_img/global/flaggen/soccerlayer/ARG.png?__cv=af94252ca7b3140cf99393a72c068400);
+}
+.game_bet_col {
+   width:30px;
+}
+
+#breakingnews_image {
+   margin: 20px 0;
+}
+*/
+
+.notrans {
+}
+
+.empty {
+    height: 1px;
+}
+
+/*
+ * Pre-Roll
+ */
+#prerollContainer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10000;
+	width: 100%;
+	min-width: 1024px;
+	height: 100%;
+	background-color: #000;
+	background-color: rgba(0,0,0,.9);
+	opacity: 0.00000001; /* important to prevent clicking until pre-roll finished! */
+}
+
+#prerollContainer:before {
+	content: '.';
+	position: absolute;
+	top: -3px;
+	left: 50%;
+	width: 250px;
+	height: 90px;
+	background:  url(https://darkorbit-22.bpsecure.com/do_img/global/header/buttons/logo_darkorbit_sprite.png?__cv=a104d49b1b4c0ed0c40c9920adf29e00) 0 0 no-repeat;
+	margin-left: -105px;  /* (width / -2) + 20px */
+	color: transparent;
+	font-size: 0;
+}
+
+#prerollContainer > div {
+	width: 768px;
+	margin: 125px auto 0 auto;
+	text-align: right;
+	visibility: visible;
+}
+
+#prerollContainer object {
+	display: block;
+	margin-bottom: 3px;
+}
+
+#prerollContainer a {
+	color: #aef;
+	cursor: pointer;
+}
+
+#prerollContainer p {
+    margin-bottom: .25em;
+    color: #fff;
+	text-align: left;
+}

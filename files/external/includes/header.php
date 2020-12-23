@@ -1,163 +1,502 @@
-<?php
-/*
-try {
-  if (!file_exists('anti_ddos/start.php'))
-    throw new Exception('anti_ddos/start.php does not exist');
-  else
-    require_once('anti_ddos/start.php');
-}
-//CATCH the exception if something goes wrong.
-catch (Exception $ex) {
-  //echo '<div style="padding:10px;color:white;position:fixed;top:0;left:0;width:100%;background:black;text-align:center;">The <a href="https://github.com/sanix-darker/antiddos-system" target="_blank">"AntiDDOS System"</a> failed to load properly on this Web Site, please de-comment the \'catch Exception\' to see what happening!</div>';
-  //Print out the exception message.
-  //echo $ex->getMessage();
-}*/
-?>
+<!--
+  @Developer: DEV_Node
+  @Github: luislortega
+  @Owners: play.deathspaces.com
+-->
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
-  <title>DeathSpace: Multiplayer Game</title>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/materialize.min.css" media="screen,projection" />
-  <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/style.css" />
-  <!-- CUSTOM CSS by Lortega-->
-  <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/custom/custom_index.css" />
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <link href="http://www.mind.ilstu.edu/include/flv_player.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="http://www.mind.ilstu.edu/include/swfobject.js"></script>
-  <?php if (Functions::IsLoggedIn() && ((isset($page[0]) && $page[0] === 'company_select') || (isset($page[0]) && $page[0] === 'clan' && isset($page[1]) && $page[1] === 'company'))) { ?>
-    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/company-select.css" />
+  <title>DeathSpaces: Massive Multiplayer Game</title>
+  <meta charset="UTF-8" />
+  <meta name="description" content="DeathSpaces CMS" />
+  <meta name="keywords" content="Universe, Wars, Ships" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="shortcut icon" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet" />
+  <!-- Stylesheets -->
+
+  <?php if (!Functions::IsLoggedIn()) { ?>
+    <!-- IF loggin == true remove this -->
+    <link rel="stylesheet" href="<?php echo DOMAIN; ?>css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?php echo DOMAIN; ?>css/font-awesome.min.css" />
+    <link rel="stylesheet" href="<?php echo DOMAIN; ?>css/owl.carousel.css" />
+    <link rel="stylesheet" href="<?php echo DOMAIN; ?>css/custom/custom_index.css" />
+    <link rel="stylesheet" href="<?php echo DOMAIN; ?>css/animate.css" />
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- END IF -->
   <?php } ?>
-  <?php if (Functions::IsLoggedIn() && (isset($page[0]) && $page[0] === 'skill_tree')) { ?>
-    <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/skill-tree.css" />
+
+  <?php if (Functions::IsLoggedIn()) { ?>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+      body {
+        background-image: url("/do_img/global/background.jpg");
+      }
+
+      .main-container-header {
+        display: flex;
+        justify-content: center;
+      }
+
+      /* 860 x 230 */
+      .container-header {
+        background-image: url("https://darkorbit-22.bpsecure.com/do_img/global/header/buttons/header_background_02.png?__cv=fcdc868cb714055ebdfe929360c3ea00");
+        background-repeat: no-repeat;
+      }
+
+      .user-stats {
+        display: flex;
+        color: white;
+        margin-left: 70px;
+      }
+
+      .user-stats p {
+        font-family: Arial, Helvetica, sans-serif;
+        width: 150px;
+        font-size: 11px;
+        margin-top: 2px;
+      }
+
+      .user-stats-lvl {
+        margin-right: 200px;
+      }
+
+      .button-invisible span {
+        color: #276EF1;
+        font-size: 20px;
+      }
+
+      .button-invisible {
+        background: none;
+        box-shadow: 0px 0px 0px transparent;
+        border: 0px solid transparent;
+        text-shadow: 0px 0px 0px transparent;
+      }
+
+      .invisible-home {
+        margin-left: 70px;
+      }
+
+      .invisible-user {
+        margin-left: 620px;
+      }
+
+      .container-header-ship {
+        position: absolute;
+        display: flex;
+        top: 0;
+        margin-left: 330px;
+      }
+
+      .container-ship {
+        margin-top: 35px;
+      }
+
+      .container-iris,
+      .container-pet {
+        margin-top: 55px;
+      }
+
+      .container-main-menu {
+        margin-top: 5px;
+        display: flex;
+      }
+
+      .button-menu {
+        margin-bottom: 7px;
+        color: white;
+        border: none;
+        width: 120px;
+        height: 30px;
+        text-align: center;
+        background-color: #276EF1;
+      }
+
+      .left-button-top {
+        margin-left: 20px;
+      }
+
+      .left-button-mid {
+        margin-left: 35px;
+      }
+
+      .left-button-bot {
+        margin-left: 55px;
+      }
+
+      .center-buttons {
+        margin-top: 70px;
+        margin-left: 46px;
+        margin-right: 50px;
+      }
+
+      .start-button {
+        font-size: 30px;
+        color: white;
+        border: none;
+        width: 170px;
+        height: 50px;
+        text-align: center;
+        background-color: #3AA76D;
+      }
+
+      .right-button-top {
+        margin-left: 150px;
+      }
+
+      .right-button-mid {
+        margin-left: 15px;
+      }
+
+      .premium-text {
+        color: #FFD600;
+        text-align: center;
+        font-size: 15px;
+        margin-bottom: 0;
+      }
+
+      .container-money {
+        display: flex;
+        margin-left: 580px;
+      }
+
+      .container-money p {
+        color: white;
+        margin-top: 9px;
+        margin-bottom: 0;
+        width: 130px;
+      }
+
+      /* content */
+      .main-container-content {
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding-right: 2vw;
+        padding-left: 2vw;
+        margin-left: 6vw;
+        margin-right: 7vw;
+      }
+
+      .black-box-info {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .box-info-titulo {
+        font-size: 18px;
+        text-align: center;
+      }
+
+      .container-pilot-bio {
+        display: flex;
+        justify-content: center;
+      }
+
+      .pilot-bio-images {
+        margin-right: 10px;
+      }
+
+      .container-hall-of-fame {
+        display: flex;
+        justify-content: center;
+      }
+
+      .button-see-all {
+        border: none;
+        background-color: #3AA76D;
+      }
+
+      .container-buttons-hall-of-fame button {
+        margin: 0;
+        border: none;
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .container-news {
+        text-align: center;
+      }
+
+      .container-buttons-news {
+        text-align: center;
+      }
+
+      .container-buttons-news button {
+        margin-left: 50px;
+        margin-right: 50px;
+        background: none;
+        border: none;
+      }
+
+      .container-buttons-content {
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 180px;
+        overflow: hidden;
+      }
+
+      .event-container {
+        background-color: gray;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .event-title {
+        color: #74abda;
+        font-size: 18px;
+      }
+
+      .info-events {
+        text-align: center;
+        height: 256px;
+        overflow: hidden;
+      }
+
+      .info-events p {
+        margin: 0;
+      }
+
+      .wrapper {
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
+      }
+
+      .wrapper button {
+        border: none;
+        background: none;
+        width: 128px;
+        height: 115px;
+      }
+
+      .absolute-container:hover {
+        cursor: pointer;
+      }
+
+      .ship-wrapper {
+        margin-bottom: 10px !important;
+      }
+
+      .absolute-container {
+        position: absolute;
+        padding-left: 8px;
+        padding-top: 5px;
+      }
+
+      .ship-name,
+      .ship-selected {
+        width: 100px;
+        background-color: black;
+        text-align: center;
+      }
+
+      .ship-selected {
+        margin-top: 60px;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+
+
+
+
+
+
+      /*
+    
+    
+     RESPONSIVE 
+    
+    
+    */
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      [class*="col-"] {
+        float: left;
+        padding: 15px;
+      }
+
+      /* For mobile phones: */
+      [class*="col-"] {
+        width: 100%;
+      }
+
+      @media only screen and (min-width: 600px) {
+
+        /* For tablets: */
+        .col-s-1 {
+          width: 8.33%;
+        }
+
+        .col-s-2 {
+          width: 16.66%;
+        }
+
+        .col-s-3 {
+          width: 25%;
+        }
+
+        .col-s-4 {
+          width: 33.33%;
+        }
+
+        .col-s-5 {
+          width: 41.66%;
+        }
+
+        .col-s-6 {
+          width: 50%;
+        }
+
+        .col-s-7 {
+          width: 58.33%;
+        }
+
+        .col-s-8 {
+          width: 66.66%;
+        }
+
+        .col-s-9 {
+          width: 75%;
+        }
+
+        .col-s-10 {
+          width: 83.33%;
+        }
+
+        .col-s-11 {
+          width: 91.66%;
+        }
+
+        .col-s-12 {
+          width: 100%;
+        }
+      }
+
+      @media only screen and (min-width: 768px) {
+
+        /* For desktop: */
+        .col-1 {
+          width: 8.33%;
+        }
+
+        .col-2 {
+          width: 16.66%;
+        }
+
+        .col-3 {
+          width: 25%;
+        }
+
+        .col-4 {
+          width: 33.33%;
+        }
+
+        .col-5 {
+          width: 41.66%;
+        }
+
+        .col-6 {
+          width: 50%;
+        }
+
+        .col-7 {
+          width: 58.33%;
+        }
+
+        .col-8 {
+          width: 66.66%;
+        }
+
+        .col-9 {
+          width: 75%;
+        }
+
+        .col-10 {
+          width: 83.33%;
+        }
+
+        .col-11 {
+          width: 91.66%;
+        }
+
+        .col-12 {
+          width: 100%;
+        }
+      }
+    </style>
   <?php } ?>
+
 </head>
 
 <body>
-  <?php if (Functions::IsLoggedIn()) { ?>
-    <style>
-      body {
-        background: url('../../img/backgroundEIC.jpg') !important;
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        background-attachment: fixed;
-      }
-    </style>
-    <div class="container_head">
-      <a href="<?php echo DOMAIN; ?>map-revolution" target="_blank">
-        <div class="polygon2">
-          <p class="texto_poly">START</p>
-        </div>
-      </a>
-
-      <div class="container custom_container">
-        <h1 class="server_name">Play.DeathSpaces.com</h1>
-        <nav class="grey darken-4" style="overflow: auto;">
-          <ul>
-            <li><a href="<?php echo DOMAIN; ?>"><i class="material-icons left">home</i>Home</a></li>
-            <li><a><i class="material-icons left">flight</i>Hangar <i class="material-icons right">keyboard_arrow_down</i></a>
-              <ol class="menu_dropdown grey darken-3">
-                <li class="no_float"><a href="<?php echo DOMAIN; ?>ships">SHIPS</a></li>
-                <li class="no_float"><a href="<?php echo DOMAIN; ?>equipment">EQUIPMENT</a></li>
-                <li class="no_float"><a href="<?php echo DOMAIN; ?>skill_tree">SKILL TREE</a></li>
-              </ol>
-            </li>
-            <li><a><i class="material-icons left">group</i>Clan <i class="material-icons right">keyboard_arrow_down</i></a>
-              <ol class="menu_dropdown grey darken-3">
-                <?php if ($player['clanId'] <= 0) { ?>
-                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/join">JOIN</a></li>
-                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/found">FOUND</a></li>
-                <?php } else { ?>
-                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/informations">INFORMATIONS</a></li>
-                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/members">MEMBERS</a></li>
-                  <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/diplomacy">DIPLOMACY</a></li>
-                <?php } ?>
-                <li class="no_float"><a href="<?php echo DOMAIN; ?>clan/company">COMPANY</a></li>
-              </ol>
-            </li>
-            <li><a><i class="material-icons left">attach_money</i>Shop <i class="material-icons right">keyboard_arrow_down</i></a>
-              <ol class="menu_dropdown grey darken-3">
-                <li class="no_float"><a href="<?php echo DOMAIN; ?>shop">SHOP</a></li>
-                <li class="no_float"><a href="<?php echo DOMAIN; ?>auctions">AUCTIONS</a></li>
-                <li class="no_float"><a href="<?php echo DOMAIN; ?>premium">PREMIUM</a></li>
-              </ol>
-            </li>
-            <li><a href="<?php echo DOMAIN; ?>gg"><i class="material-icons left">data_usage</i>Galaxy Gates</a></li>
-            <li><a href="<?php echo DOMAIN; ?>settings"><i class="material-icons left">settings</i>Settings</a></li>
-            <?php if ($player['rankId'] == '21') { ?>
-              <li><a href="<?php echo DOMAIN; ?>querybuilder"><i class="material-icons left">settings</i>ADM</a></li>
-            <?php
-            } ?>
-            <li><a href="/api/logout"><i class="material-icons left">input</i> Exit</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-<style>
-  .videos {
-  text-align: center;
-  width:100%;
-  overflow: auto;
-}
-.iframe{
-  display: flex;
-
-  width: 200px;
-}
-</style>
-
-    <!-- The Modal -->
-    <div id="id04" class="w3-modal" style="height: 100%; display: none;">
-      <div class="w3-modal-content modal_modification" style="height: 90% !important;">
-        <div class="w3-container">
-          <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-          <div class="center">
-            <img src="img/youtube.png" width="50%">
-            <p style="font-weight: bold; color: gold; font-size: 25px;">Youtube Stars</p>
-            <p style="font-weight: bold;  font-size: 15px;">The two best videos of the week get 350,000 Uridium</p>
-            <br>
-            <div  class="videos">
-              <iframe width="250" height="250" src="https://www.youtube.com/embed/-TEANqongAw"></iframe>
-              <iframe width="250" height="250" src="https://www.youtube.com/embed/63VVUBImw64"></iframe>
-            </div>
-            <br><br><br>
-            <a class="btn green darken-4 col s12" target="_blank" href="https://www.youtube.com/results?search_query=deathspace"  style="width: 300px !important; font-size: 14px; height: 50px !important; font-weight: bold; padding-top: 10px !important;">Upload video</a>
-
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-
-    <style>
-      .float {
-        position: fixed;
-        width: 60px;
-        height: 60px;
-        bottom: 40px;
-        right: 40px;
-        background-color: red;
-        color: #FFF;
-        border-radius: 50px;
-        text-align: center;
-        font-size: 30px;
-        box-shadow: 2px 2px 3px #999;
-        z-index: 100;
-        border: none;
-        padding-bottom: 0.2em;
-      }
-
-      .my-float {
-        margin-top: 16px;
-      }
-    </style>
-    </div>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <button class="float" onclick="document.getElementById('id04').style.display='block'">
-      <img src="https://pngimage.net/wp-content/uploads/2018/06/white-youtube-png-4.png" width="30px">
-    </button>
-  <?php } ?>

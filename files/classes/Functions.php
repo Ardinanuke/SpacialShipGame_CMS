@@ -105,59 +105,61 @@ class Functions
     }
 
     if ($json['inputs']['username']['validate'] === 'valid' && $json['inputs']['password']['validate'] === 'valid' && $json['inputs']['password_confirm']['validate'] === 'valid' && $json['inputs']['email']['validate'] === 'valid') {
-
+      
       if ($mysqli->query('SELECT userId FROM player_accounts WHERE username = "' . $username . '"')->num_rows <= 0) {
 
-        if ($mysqli->query('SELECT userId FROM player_accounts WHERE email = "' . $email . '"')->num_rows <= 0) {
+        if ($mysqli->query('SELECT userId FROM player_accounts WHERE email = "' . $email . '"')->num_rows <= 0){
 
           $ip = Functions::GetIP();
           $sessionId = Functions::GetUniqueSessionId();
           $pilotName = $username;
-
+  
           if ($mysqli->query('SELECT userId FROM player_accounts WHERE pilotName = "' . $pilotName . '"')->num_rows >= 1) {
             $pilotName = Functions::GetUniquePilotName($pilotName);
           }
-
+  
           $mysqli->begin_transaction();
-
+  
           try {
             $info = [
               'lastIP' => $ip,
               'registerIP' => $ip,
               'registerDate' => date('d.m.Y H:i:s')
             ];
-
+  
             $verification = [
               'verified' => false,
               'hash' => $sessionId
             ];
-
+  
             $register = $mysqli->query("INSERT INTO player_accounts (sessionId, username, pilotName, email, password, info, verification) VALUES ('" . $sessionId . "', '" . $username . "', '" . $pilotName . "', '" . $email . "',  '" . password_hash($password, PASSWORD_DEFAULT) . "', '" . json_encode($info) . "', '" . json_encode($verification) . "')");
-
+  
             $userId = $mysqli->insert_id;
-
+  
             $mysqli->query('INSERT INTO player_equipment (userId) VALUES (' . $userId . ')');
             $mysqli->query('INSERT INTO player_settings (userId) VALUES (' . $userId . ')');
             $mysqli->query('INSERT INTO player_titles (userID) VALUES (' . $userId . ')');
             $mysqli->query('INSERT INTO player_skilltree (userID) VALUES (' . $userId . ')');
-
+  
             if ($register) {
               SMTP2::SendMail($email, $username, 'E-mail verification', '<p>Hi ' . $username . ', <br>Click this link to activate your account: <a href="' . DOMAIN . 'api/verify/' . $userId . '/' . $verification['hash'] . '">Activate</a></p><p style="font-size:small;color:#666">—<br>You are receiving this because you registered to the ' . SERVER_NAME . '.<br>If that was not your request, then you can ignore this email.<br>This is an automated message, please do not reply directly to this email.</p>');
             }
-
-            $json['message'] = 'register done => PLEASE CHECK YOUR EMAIL <=';
+  
+            $json['message'] = 'PLEASE CHECK YOUR EMAIL';
             $mysqli->commit();
           } catch (Exception $e) {
             $json['message'] = 'An error occurred. Please try again later.';
             $mysqli->rollback();
           }
-
-
-
+  
+  
+  
           $mysqli->close();
-        } else {
+        }else{
           $json['message'] = 'This EMAIL is already taken.';
+
         }
+
       } else {
         $json['message'] = 'This username is already taken.';
       }
@@ -1292,7 +1294,7 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_vanquisher', 10, " . $player['userId'] . ")");
             $status = true;
           }
-        } else if ($shop['items'][$itemId]['name'] == 'Goliath Sovereign') {
+        }else if ($shop['items'][$itemId]['name'] == 'Goliath Sovereign') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_sovereign' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1300,7 +1302,7 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_sovereign', 10, " . $player['userId'] . ")");
             $status = true;
           }
-        } else if ($shop['items'][$itemId]['name'] == 'Goliath Peacemaker') {
+        }else if ($shop['items'][$itemId]['name'] == 'Goliath Peacemaker') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_goliath_design_peacemaker' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1308,7 +1310,7 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_goliath_design_peacemaker', 10, " . $player['userId'] . ")");
             $status = true;
           }
-        } else if ($shop['items'][$itemId]['name'] == 'Cyborg Ullrin') {
+        }else if ($shop['items'][$itemId]['name'] == 'Cyborg Ullrin') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_cyborg_design_cyborg-ullrin' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1316,7 +1318,7 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_cyborg_design_cyborg-ullrin', 245, " . $player['userId'] . ")");
             $status = true;
           }
-        } else if ($shop['items'][$itemId]['name'] == 'Cyborg Nobilis') {
+        }else if ($shop['items'][$itemId]['name'] == 'Cyborg Nobilis') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_cyborg_design_cyborg-nobilis' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1324,7 +1326,7 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_cyborg_design_cyborg-nobilis', 245, " . $player['userId'] . ")");
             $status = true;
           }
-        } else if ($shop['items'][$itemId]['name'] == 'Cyborg Infinite') {
+        }else if ($shop['items'][$itemId]['name'] == 'Cyborg Infinite') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_cyborg_design_cyborg-infinite' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1332,7 +1334,7 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_cyborg_design_cyborg-infinite', 245, " . $player['userId'] . ")");
             $status = true;
           }
-        } else if ($shop['items'][$itemId]['name'] == 'Hammerclaw Frost') {
+        }else if ($shop['items'][$itemId]['name'] == 'Hammerclaw Frost') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_hammerclaw_design_hammerclaw-frost' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1340,7 +1342,7 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_hammerclaw_design_hammerclaw-frost', 246, " . $player['userId'] . ")");
             $status = true;
           }
-        } else if ($shop['items'][$itemId]['name'] == 'Hammerclaw Nobilis') {
+        }else if ($shop['items'][$itemId]['name'] == 'Hammerclaw Nobilis') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_hammerclaw_design_hammerclaw-nobilis' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1348,7 +1350,7 @@ class Functions
             $mysqli->query("INSERT INTO player_designs (name, baseShipId, userId) VALUES ('ship_hammerclaw_design_hammerclaw-nobilis', 246, " . $player['userId'] . ")");
             $status = true;
           }
-        } else if ($shop['items'][$itemId]['name'] == 'Hammerclaw Lava') {
+        }else if ($shop['items'][$itemId]['name'] == 'Hammerclaw Lava') {
           $search_design = $mysqli->query("SELECT * FROM player_designs WHERE name='ship_hammerclaw_design_hammerclaw-lava' AND userId= " . $player['userId'] . ";");
           if (mysqli_num_rows($search_design) > 0) {
             $json['message'] = 'You already have an ' . $shop['items'][$itemId]['name'] . '.';
@@ -1390,7 +1392,9 @@ class Functions
           $mysqli->query("UPDATE player_equipment SET modules = '" . json_encode($modules) . "' WHERE userId = " . $player['userId'] . "");
           $status = true;
         }
-        /* Boosters */ else if ($shop['items'][$itemId]['name'] == 'Health booster') {
+        /* Boosters */ 
+        
+        else if ($shop['items'][$itemId]['name'] == 'Health booster') {
 
           if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
             /* send booster to socket */
@@ -2349,15 +2353,19 @@ class Functions
       $expNext *= 2;
       $lvl++;
     }
+
     return $lvl;
   }
 
   public static function GetUniquePilotName($pilotName)
   {
     $mysqli = Database::GetInstance();
+
     $newPilotName = $pilotName .= Functions::GenerateRandom(4, true, false, false);
+
     if ($mysqli->query('SELECT userId FROM player_accounts WHERE pilotName = "' . $newPilotName . '"')->num_rows >= 1)
       $newPilotName = GetUniquePilotName($pilotName);
+
     return $newPilotName;
   }
 
@@ -2389,6 +2397,7 @@ class Functions
     $chars .= ($numbers) ? '0123456789' : '';
     $chars .= ($uppercase) ? 'QWERTYUIOPASDFGHJKLLZXCVBNM' : '';
     $chars .= ($letters) ? 'qwertyuiopasdfghjklzxcvbnm' : '';
+
     $str = '';
     $c = 0;
     while ($c < $length) {
@@ -2530,281 +2539,70 @@ class Functions
     }
   }
 
-  public static function GalaxyGateBuilder($gateId)
-  {
-    $mysqli = Database::GetInstance();
-    $json = [
-      'status' => false,
-      'message' => ''
-    ];
-
-    if (!$mysqli->connect_errno && Functions::IsLoggedIn()) {
-      $player = Functions::GetPlayer();
-      if (!Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
-
-        $gg = $mysqli->query('SELECT * FROM player_galaxygates WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId)->fetch_assoc();
-        switch ($gateId) {
-          case 1:
-            if ($gg['parts'] >= 34) {
-              $json['message'] = "Alpha Gate in base";
-              $mysqli->query('UPDATE player_galaxygates SET prepared=1 WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-            } else {
-              $json['message'] = "Error bro, you haven't complete this gg";
-            }
-            break;
-          case 2:
-            /* beta */
-            if ($gg['parts'] >= 48) {
-              $json['message'] = "Beta Gate in base";
-              $mysqli->query('UPDATE player_galaxygates SET prepared=1 WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-            } else {
-              $json['message'] = "Error bro, you haven't complete this gg";
-            }
-            break;
-          case 3:
-            /* gamma */
-            if ($gg['parts'] >= 82) {
-              $json['message'] = "Gamma Gate in base";
-              $mysqli->query('UPDATE player_galaxygates SET prepared=1 WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-            } else {
-              $json['message'] = "Error bro, you haven't complete this gg";
-            }
-            break;
-          case 4:
-            /* delta */
-            if ($gg['parts'] >= 128) {
-              $json['message'] = "Delta Gate in base";
-              $mysqli->query('UPDATE player_galaxygates SET prepared=1 WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-            } else {
-              $json['message'] = "Error bro, you haven't complete this gg";
-            }
-            break;
-
-          case 5:
-            /* epsilon */
-            if ($gg['parts'] >= 99) {
-              $json['message'] = "Epsilon Gate in base";
-              $mysqli->query('UPDATE player_galaxygates SET prepared=1 WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-            } else {
-              $json['message'] = "Error bro, you haven't complete this gg";
-            }
-            break;
-          case 6:
-            /* zeta */
-            if ($gg['parts'] >= 111) {
-              $json['message'] = "Zeta Gate in base";
-              $mysqli->query('UPDATE player_galaxygates SET prepared=1 WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-            } else {
-              $json['message'] = "Error bro, you haven't complete this gg";
-            }
-            break;
-        }
-      } else {
-        $json['message'] = "Plase disconnect your ship to build the gate.";
-      }
-    }
-    return json_encode($json);
-  }
-
-  public static function GalaxyGate($gateId)
-  {
-    $mysqli = Database::GetInstance();
-    $json = [
-      'status' => false,
-      'message' => '',
-      'piezes' => 0
-    ];
-    $piezes = 0;
-    if (!$mysqli->connect_errno && Functions::IsLoggedIn()) {
-      $player = Functions::GetPlayer();
-      for ($i = 0; $i <= 99; $i++) {
-        $prob = rand(0, 100);
-        if ($prob < 5) {
-          $piezes += 1;
-        }
-      }
-      $result = $mysqli->query('SELECT * FROM player_galaxygates WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-      if (mysqli_num_rows($result)) {
-        $gg = $result->fetch_assoc();
-        switch ($gateId) {
-          case 1:
-            if ($gg['parts'] >= 34) {
-              $json['message'] = "You already have this GG";
-              $piezes = 34;
-            } else {
-              /* checar si tiene uri y quitarselo */
-              $data = json_decode($player['data']);
-
-              if ($data->uridium >= 150000) {
-                $data->uridium -= 150000;
-                $mysqli->query("UPDATE player_accounts SET data = '" . json_encode($data) . "' WHERE userId = " . $player['userId'] . "");
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                  Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => "100 Galaxy Gate Energy", 'DataType' => 0, 'Amount' => 200000]);
-                }
-                $piezes += $gg['parts'];
-                $mysqli->query('UPDATE player_galaxygates SET parts=' . $piezes . ' WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-                $json['message'] = "100 Galaxy Gate Energy";
-              } else {
-                $json['message'] = "You haven't 150.000 U.";
-              }
-            }
-            break;
-          case 2:
-            /* beta */
-            if ($gg['parts'] >= 48) {
-              $json['message'] = "You already have this GG";
-              $piezes = 48;
-            } else {
-              /* checar si tiene uri y quitarselo */
-              $data = json_decode($player['data']);
-
-              if ($data->uridium >= 150000) {
-                $data->uridium -= 150000;
-                $mysqli->query("UPDATE player_accounts SET data = '" . json_encode($data) . "' WHERE userId = " . $player['userId'] . "");
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                  Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => "100 Galaxy Gate Energy", 'DataType' => 0, 'Amount' => 200000]);
-                }
-                $piezes += $gg['parts'];
-                $mysqli->query('UPDATE player_galaxygates SET parts=' . $piezes . ' WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-                $json['message'] = "100 Galaxy Gate Energy";
-              } else {
-                $json['message'] = "You haven't 150.000 U.";
-              }
-            }
-            break;
-          case 3:
-            /* gamma */
-            if ($gg['parts'] >= 82) {
-              $json['message'] = "You already have this GG";
-              $piezes = 82;
-            } else {
-              /* checar si tiene uri y quitarselo */
-              $data = json_decode($player['data']);
-
-              if ($data->uridium >= 150000) {
-                $data->uridium -= 150000;
-                $mysqli->query("UPDATE player_accounts SET data = '" . json_encode($data) . "' WHERE userId = " . $player['userId'] . "");
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                  Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => "100 Galaxy Gate Energy", 'DataType' => 0, 'Amount' => 200000]);
-                }
-                $piezes += $gg['parts'];
-                $mysqli->query('UPDATE player_galaxygates SET parts=' . $piezes . ' WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-                $json['message'] = "100 Galaxy Gate Energy";
-              } else {
-                $json['message'] = "You haven't 150.000 U.";
-              }
-            }
-            break;
-          case 4:
-            /* delta */
-            if ($gg['parts'] >= 128) {
-              $json['message'] = "You already have this GG";
-              $piezes = 128;
-            } else {
-              /* checar si tiene uri y quitarselo */
-              $data = json_decode($player['data']);
-
-              if ($data->uridium >= 150000) {
-                $data->uridium -= 150000;
-                $mysqli->query("UPDATE player_accounts SET data = '" . json_encode($data) . "' WHERE userId = " . $player['userId'] . "");
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                  Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => "100 Galaxy Gate Energy", 'DataType' => 0, 'Amount' => 200000]);
-                }
-                $piezes += $gg['parts'];
-                $mysqli->query('UPDATE player_galaxygates SET parts=' . $piezes . ' WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-                $json['message'] = "100 Galaxy Gate Energy";
-              } else {
-                $json['message'] = "You haven't 150.000 U.";
-              }
-            }
-            break;
-          case 5:
-            /* epsilon */
-            if ($gg['parts'] >= 99) {
-              $json['message'] = "You already have this GG";
-              $piezes = 99;
-            } else {
-              /* checar si tiene uri y quitarselo */
-              $data = json_decode($player['data']);
-
-              if ($data->uridium >= 150000) {
-                $data->uridium -= 150000;
-                $mysqli->query("UPDATE player_accounts SET data = '" . json_encode($data) . "' WHERE userId = " . $player['userId'] . "");
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                  Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => "100 Galaxy Gate Energy", 'DataType' => 0, 'Amount' => 200000]);
-                }
-                $piezes += $gg['parts'];
-                $mysqli->query('UPDATE player_galaxygates SET parts=' . $piezes . ' WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-                $json['message'] = "100 Galaxy Gate Energy";
-              } else {
-                $json['message'] = "You haven't 150.000 U.";
-              }
-            }
-            break;
-          case 6:
-            /* zeta */
-            if ($gg['parts'] >= 111) {
-              $json['message'] = "You already have this GG";
-              $piezes = 111;
-            } else {
-              /* checar si tiene uri y quitarselo */
-              $data = json_decode($player['data']);
-              if ($data->uridium >= 150000) {
-                $data->uridium -= 150000;
-                $mysqli->query("UPDATE player_accounts SET data = '" . json_encode($data) . "' WHERE userId = " . $player['userId'] . "");
-                if (Socket::Get('IsOnline', ['UserId' => $player['userId'], 'Return' => false])) {
-                  Socket::Send('BuyItem', ['UserId' => $player['userId'], 'ItemType' => "100 Galaxy Gate Energy", 'DataType' => 0, 'Amount' => 200000]);
-                }
-                $piezes += $gg['parts'];
-                $mysqli->query('UPDATE player_galaxygates SET parts=' . $piezes . ' WHERE userId=' . $player['userId'] . " AND gateId=" . $gateId);
-                $json['message'] = "100 Galaxy Gate Energy";
-              } else {
-                $json['message'] = "You haven't 150.000 U.";
-              }
-            }
-            break;
-        }
-      } else {
-        $mysqli->query('INSERT INTO player_galaxygates (userId, gateId, parts, multiplier, lives, prepared) VALUES (' . $player['userId'] . ', ' . $gateId . ', ' . $piezes . ', 0, 3, 0)');
-      }
-      $json['piezes'] = $piezes;
-    }
-    return json_encode($json);
-  }
-
   public static function ChangeShip($shipId)
   {
     $mysqli = Database::GetInstance();
+
     $json = [
       'status' => false,
       'message' => ''
     ];
-    $json['message'] = "test";
+
+    $json['message'] = "esto es simplemente una prueba";
+
     if (!$mysqli->connect_errno && Functions::IsLoggedIn()) {
       $player = Functions::GetPlayer();
+      $notOnlineOrOnlineAndInEquipZone = !Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) || (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) && Socket::Get('IsInEquipZone', array('UserId' => $player['userId'], 'Return' => false)));
+      /**
+       * Steps: 
+       * 1. Verify that have the ship.
+       * 2. Put the ship.
+       */
       $items = json_decode($mysqli->query('SELECT items FROM player_equipment WHERE userId = ' . $player['userId'] . '')->fetch_assoc()['items']);
-      if (!Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
+
+      if ($notOnlineOrOnlineAndInEquipZone) {
         if (in_array($shipId, $items->ships) || $shipId == 10) {
           $mysqli->begin_transaction();
+
           try {
             $mysqli->query('UPDATE player_accounts SET shipId = "' . $shipId . '" WHERE userId = ' . $player['userId'] . '');
+            /*
+            SETTING DRONES Y EQUIPAMIENTO
+            */
             $drones = '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]';
+
             $mysqli->query("UPDATE player_equipment SET config1_generators = '[]', config1_lasers = '[]', config2_generators = '[]', config2_lasers = '[]', config1_drones ='" . $drones . "' , config2_drones = '" . $drones . "' WHERE userId = " . $player['userId'] . "");
+
+            /*
+
+            Send socket information about the ship change.
+
+            */
+            if (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false))) {
+              Socket::Send('UpdateStatus', array('UserId' => $player['userId']));
+              Socket::Send('ChangeShip', array('UserId' => $player['userId'], 'ShipId' => $shipId));
+            }
+
             $json['message'] = "Ship successfully changed";
             $json['status'] = true;
+
             $mysqli->commit();
           } catch (Exception $e) {
             $json['message'] = 'An error occurred. Please try again later.';
             $mysqli->rollback();
           }
+
           $mysqli->close();
         } else {
           $json['message'] = "You don't have this ship...";
         }
       } else {
-        $json['message'] = "Please disconnect your ship.";
+        $json['message'] = "Disconnect or go to a safe area.";
       }
     }
+
+
+
     return json_encode($json);
   }
 }

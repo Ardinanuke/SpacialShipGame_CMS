@@ -1,0 +1,118 @@
+.overlay_alert {
+	background-color: #000000;
+	filter:alpha(opacity=60);
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+}
+
+.alert_nw {
+	width: 4px;
+	height: 4px;
+	background: transparent  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/window_alert/top_left.gif?__cv=6ce53d9594d3bccfe14020808f784200) no-repeat bottom left;
+}
+
+.alert_n {
+	height: 4px;
+	background: transparent  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/window_alert/top.gif?__cv=e99b22bb7ee0c436bf9694da36f9df00) repeat-x bottom left;
+}
+
+.alert_ne {
+	width: 4px;
+	height: 4px;
+	background: transparent  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/window_alert/top_right.gif?__cv=583e16ae287d453965454004d5e4ef00) no-repeat bottom left
+}
+
+.alert_e {
+	width: 4px;
+	background: transparent  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/window_alert/right.gif?__cv=aff796a406d4f803bef101008d7fd200) repeat-y 0 0;
+}
+
+.alert_w {
+	width: 4px;
+	background: transparent  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/window_alert/left.gif?__cv=ec28ae3c22fa808259c71fdf68b83600) repeat-y 0 0;
+}
+
+.alert_sw {
+	width: 4px;
+	height: 4px;
+	background: transparent  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/window_alert/bottom_left.gif?__cv=d81e884b2003086e45461e606548f000) no-repeat 0 0;
+}
+
+.alert_s {
+	height: 4px;
+	background: transparent  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/window_alert/bottom.gif?__cv=49be87fb94d9abde501eaca9ec156d00) repeat-x 0 0;
+}
+
+.alert_se, .alert_sizer {
+	width: 5px;
+	height: 5px;
+	background: transparent  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/window_alert/bottom_right.gif?__cv=8d5b7412ac7b770312a58ba5b8532900) no-repeat 0 0;
+}
+
+.alert_close {
+	width:0px;
+	height:0px;
+	display:none;
+}
+
+.alert_minimize {
+	width:0px;
+	height:0px;
+	display:none;
+}
+
+.alert_maximize {
+	width:0px;
+	height:0px;
+	display:none;
+}
+
+.alert_title {
+	float:left;
+	height:1px;
+	width:100%;
+}
+
+.alert_content {
+	overflow:visible;
+	color: #000;
+	font-family: Tahoma, Arial, sans-serif;
+    font: 12px arial;
+	background:  url(https://darkorbit-22.bpsecure.com/do_img/global/misc/window_alert/bg.gif?__cv=e005c0f9ad13731bf876c25a38d8ad00);
+}
+
+/* For alert/confirm dialog */
+.alert_window {
+	background: #FFF;
+	padding:20px;
+	margin-left:auto;
+	margin-right:auto;
+	width:400px;
+}
+
+.alert_message {
+  font: 12px arial;
+	width:100%;
+	color:#FFF;
+	padding-bottom:10px;
+}
+
+.alert_buttons {
+	text-align:center;
+	width:100%;
+}
+
+.alert_buttons input {
+	margin:10px;
+}
+
+.alert_progress {
+	float:left;
+	margin:auto;
+	text-align:center;
+	width:100%;
+	height:16px;
+	background:  url('alert/progress.gif') no-repeat center center #FFF;
+}
+
+

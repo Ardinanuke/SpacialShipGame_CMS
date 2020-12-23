@@ -1,0 +1,120 @@
+/* InfoPopup */
+#infoLayer.confirmInfoLayer {
+    position:absolute;
+    top:0;
+    left:250.5px;
+    width:359px;
+    display:none;
+    z-index:10;
+}
+
+#infoLayerConfirm, #infoLayerInfo {
+    display: none;
+}
+
+#infoLayer .popup_shop_headcontainer {
+    width:359px;
+    height:39px;
+    text-align: center;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/hangar/popup_header.png?__cv=57187cad6e380a0957fc186fd7b20b00);
+    color: #ffcc04;
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+#infoLayer .popup_shop_head_title {
+    color: #ffcc04;
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+#infoLayer .popup_shop_contentcontainer {
+    width:359px;
+    text-align: center;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/hangar/popup_middle.png?__cv=56226ac40551323a9a89453ad36fc500);
+}
+
+#infoLayer .popup_shop_footcontainer {
+    width:359px;
+    height:49px;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/hangar/popup_footer.png?__cv=bda06559499f3631035304b343035900);
+    margin-top: 20px;
+}
+
+#infoLayer a.popup_shop_close {
+    width:24px;
+    height:24px;
+    float: right;
+    margin-top: 7px;
+    margin-right: 7px;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/hangar/close_button_sprite.png?__cv=fa1f7ef0f89ab04212dbf02f3424d700);
+}
+
+#infoLayer a.popup_shop_close:hover {
+    background-position: 0px 48px;
+}
+
+#infoLayer .popup_shop_close_button {
+    width:150px;
+    height:32px;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/hangar/button_sprite_150x32px.png?__cv=221b3d144671e9354638ad5a6bd9cf00);
+    background-position: 0 -96px;
+    margin: auto;
+}
+
+#infoLayer .popup_shop_close_button:hover {
+    background-position: 0 -128px;
+    cursor: pointer;
+}
+
+#infoLayer .popup_shop_confirm_button {
+    width:150px;
+    height:32px;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/hangar/button_sprite_150x32px.png?__cv=221b3d144671e9354638ad5a6bd9cf00);
+    background-position: 0 -96px;
+    float: left;
+    margin-left: 20px;
+}
+
+#infoLayer .popup_shop_confirm_button:hover {
+    background-position: 0 -128px;
+    cursor: pointer;
+}
+
+#infoLayer .popup_shop_abort_button {
+    width:150px;
+    height:32px;
+    background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/hangar/button_sprite_150x32px.png?__cv=221b3d144671e9354638ad5a6bd9cf00);
+    background-position: 0 0;
+    float: right;
+    margin-right: 20px;
+}
+
+#infoLayer .popup_shop_abort_button:hover {
+    background-position: 0 -32px;
+    cursor: pointer;
+}
+
+#infoLayer .popup_shop_question {
+
+}
+#infoLayer .question {
+    padding-top: 60px;
+    text-align: center;
+    margin: 0 20px;
+}
+
+#infoLayer .icon_success, #infoLayer .icon_error, #infoLayer .icon_question {
+    background-repeat: no-repeat;
+    background-position: center -3px;
+}
+#infoLayer .icon_success    { background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/icon_success.png?__cv=4757057e0fc2cc236801922aba846800);}
+#infoLayer .icon_error      { background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/icon_error.png?__cv=1ccb0dcd83aa2eaf8a2684885602b600);}
+#infoLayer .icon_question   { background-image:  url(https://darkorbit-22.bpsecure.com/do_img/global/popups/icon_question.png?__cv=70c3a930d8d50265d35ae9fe4036b600);}
+
+#infoLayer .popup_shop_confirm_text, #infoLayer .popup_shop_abort_text, #infoLayer .popup_shop_close_text {
+    background-repeat: no-repeat;
+    background-position: center 7px;
+    height: 32px;
+    cursor: pointer;
+}

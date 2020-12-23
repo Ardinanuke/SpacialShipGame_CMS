@@ -19,11 +19,11 @@ if (session_start()) {
 
 define('MAINTENANCE', FALSE);
 
-define('MYSQL_HOST', 'localhost');
+define('MYSQL_HOST', '127.0.0.1');
 define('MYSQL_USER', 'root');
 define('MYSQL_PASSWORD', '');
 define('MYSQL_DATABASE', 'server');
-define('MYSQL_PORT', '3306');
+define('MYSQL_PORT', '30200');
 define('SERVER_NAME', "DeathSpace");
 
 define('DOMAIN', ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') && (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] . '/');
