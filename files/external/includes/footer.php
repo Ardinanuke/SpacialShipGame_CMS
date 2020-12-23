@@ -3,8 +3,28 @@
     let url = "http://127.0.0.1/api/";
 
     function changeShip(shipId) {
-      console.log(shipId);
+      changeShipAPI(`shipId=${shipId}&action=change_ship`);
+    }
 
+    /*
+     API USAGE 
+    */
+    function changeShipAPI(userParams) {
+      var http = new XMLHttpRequest();
+      var params = userParams;
+      http.open("POST", url, true);
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+          var json = jQuery.parseJSON(http.responseText);
+          if (json.status) {
+            showToast("ship succesfully changed", "green");
+          } else if (json.message != "") {
+            showToast(json.message, "red");
+          }
+        }
+      };
+      http.send(params);
     }
 
     function showToast(text, color) {

@@ -2548,7 +2548,7 @@ class Functions
       'message' => ''
     ];
 
-    $json['message'] = "esto es simplemente una prueba";
+    $json['message'] = "null message...";
 
     if (!$mysqli->connect_errno && Functions::IsLoggedIn()) {
       $player = Functions::GetPlayer();

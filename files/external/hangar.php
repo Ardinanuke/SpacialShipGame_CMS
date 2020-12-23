@@ -81,7 +81,7 @@
                         <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
                     </div>
                 </button>
-                <button onclick="changeShip(2)">
+                <button onclick="changeShip(6)">
                     <div class="ship-wrapper">
                         <div class="absolute-container">
                             <div class="ship-name">
@@ -94,7 +94,7 @@
                         <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
                     </div>
                 </button>
-                <button onclick="changeShip(3)">
+                <button onclick="changeShip(7)">
                     <div class="ship-wrapper">
                         <div class="absolute-container">
                             <div class="ship-name">
@@ -107,7 +107,7 @@
                         <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
                     </div>
                 </button>
-                <button onclick="changeShip(4)">
+                <button onclick="changeShip(9)">
                     <div class="ship-wrapper">
                         <div class="absolute-container">
                             <div class="ship-name">
@@ -120,7 +120,7 @@
                         <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
                     </div>
                 </button>
-                <button onclick="changeShip(5)">
+                <button onclick="changeShip(3)">
                     <div class="ship-wrapper">
                         <div class="absolute-container">
                             <div class="ship-name">
@@ -133,7 +133,7 @@
                         <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
                     </div>
                 </button>
-                <button onclick="changeShip(6)">
+                <button onclick="changeShip(8)">
                     <div class="ship-wrapper">
                         <div class="absolute-container">
                             <div class="ship-name">
@@ -146,7 +146,7 @@
                         <img src="https://www.solidbackgrounds.com/images/2560x1600/2560x1600-dark-gray-solid-color-background.jpg" width="110px" height="110px">
                     </div>
                 </button>
-                <button onclick="changeShip(7)">
+                <button onclick="changeShip(10)">
                     <div class="ship-wrapper">
                         <div class="absolute-container">
                             <div class="ship-name">
