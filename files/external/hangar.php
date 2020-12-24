@@ -159,100 +159,177 @@
         </div>
     </div>
     <div class="row">
-        <p>Lasers</p>
-        <div class="wrapper2">
-            <div>
-                1
+        <!-- Ship elements -->
+        <div class="col-8">
+            <p>Configuration</p>
+            <button style="background-color: black; border: none;">1</button>
+            <button style="background-color: black; border: none;">2</button>
+            <br><br>
+            <button style="background-color: black; border: none;">SHIP</button>
+            <button style="background-color: black; border: none;">VANTS</button>
+            <button style="background-color: black; border: none;">P.E.T.</button>
+            <br><br>
+            <p>Lasers</p>
+            <div class="wrapper2">
+                <div>
+                    1
+                </div>
+                <div>
+                    2
+                </div>
+                <div>
+                    3
+                </div>
+                <div>
+                    4
+                </div>
+                <div>
+                    5
+                </div>
+                <div>
+                    1
+                </div>
+                <div>
+                    2
+                </div>
+                <div>
+                    3
+                </div>
+                <div>
+                    4
+                </div>
+                <div>
+                    5
+                </div>
+                <div>
+                    1
+                </div>
+                <div>
+                    2
+                </div>
+                <div>
+                    3
+                </div>
+                <div>
+                    4
+                </div>
+                <div>
+                    5
+                </div>
             </div>
-            <div>
-                2
-            </div>
-            <div>
-                3
-            </div>
-            <div>
-                4
-            </div>
-            <div>
-                5
-            </div>
-            <div>
-                1
-            </div>
-            <div>
-                2
-            </div>
-            <div>
-                3
-            </div>
-            <div>
-                4
-            </div>
-            <div>
-                5
-            </div>
-            <div>
-                1
-            </div>
-            <div>
-                2
-            </div>
-            <div>
-                3
-            </div>
-            <div>
-                4
-            </div>
-            <div>
-                5
+            <p>Generators</p>
+            <div class="wrapper2">
+                <div>
+                    1
+                </div>
+                <div>
+                    2
+                </div>
+                <div>
+                    3
+                </div>
+                <div>
+                    4
+                </div>
+                <div>
+                    5
+                </div>
+                <div>
+                    1
+                </div>
+                <div>
+                    2
+                </div>
+                <div>
+                    3
+                </div>
+                <div>
+                    4
+                </div>
+                <div>
+                    5
+                </div>
+                <div>
+                    1
+                </div>
+                <div>
+                    2
+                </div>
+                <div>
+                    3
+                </div>
+                <div>
+                    4
+                </div>
+                <div>
+                    5
+                </div>
             </div>
         </div>
-        <p>Generators</p>
-        <div class="wrapper2">
-            <div>
-                1
-            </div>
-            <div>
-                2
-            </div>
-            <div>
-                3
-            </div>
-            <div>
-                4
-            </div>
-            <div>
-                5
-            </div>
-            <div>
-                1
-            </div>
-            <div>
-                2
-            </div>
-            <div>
-                3
-            </div>
-            <div>
-                4
-            </div>
-            <div>
-                5
-            </div>
-            <div>
-                1
-            </div>
-            <div>
-                2
-            </div>
-            <div>
-                3
-            </div>
-            <div>
-                4
-            </div>
-            <div>
-                5
+        <!-- Vants -->
+        <div class="col-4">
+            <p>Inventory</p>
+            <div class="wrapper3">
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/lf-1_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/mp-1_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/lf-2_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/lf-3_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/g3n-1010_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/g3n-2010_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/g3n-3210_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/g3n-3310_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/g3n-6900_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/g3n-7900_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/sg3n-a01_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/sg3n-a02_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/sg3n-a03_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/sg3n-b01_100x100.png" width="50" class="img-item">
+                </div>
+                <div>
+                    <p>0</p>
+                    <img src="/do_img/global/inventory/sg3n-b02_100x100.png" width="50" class="img-item">
+                </div>
             </div>
         </div>
     </div>

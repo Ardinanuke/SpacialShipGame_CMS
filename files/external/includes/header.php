@@ -264,17 +264,7 @@
         margin: 0;
       }
 
-      .wrapper2 {
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        grid-gap: 10px;
-      }
-
-      .wrapper2 div{
-        width: 50px;
-        height: 50px;
-        background-color: red;
-      }
+      
 
       .wrapper {
         display: grid;
@@ -287,6 +277,36 @@
         background: none;
         width: 128px;
         height: 115px;
+      }
+
+      .wrapper2 {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-gap: 10px;
+      }
+
+      .wrapper2 div{
+        width: 50px;
+        height: 50px;
+        background-color: red;
+      }
+
+      .wrapper3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+      }
+
+      .wrapper3 div{
+        width: 50px;
+        height: 50px;
+        background-color: red;
+      }
+
+      .wrapper3 div p{
+        width: 48px;
+        position: absolute;
+        text-align: right;
       }
 
       .absolute-container:hover {
