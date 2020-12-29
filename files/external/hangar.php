@@ -270,64 +270,64 @@
         <div class="col-4">
             <p>Inventory</p>
             <div class="wrapper3">
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(0)">
+                    <p class="quantity-item">1</p>
                     <img src="/do_img/global/inventory/lf-1_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(1)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/mp-1_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(2)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/lf-2_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(3)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/lf-3_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(4)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/g3n-1010_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(5)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/g3n-2010_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(6)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/g3n-3210_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(7)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/g3n-3310_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(8)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/g3n-6900_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(9)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/g3n-7900_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(10)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/sg3n-a01_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(11)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/sg3n-a02_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(12)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/sg3n-a03_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(13)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/sg3n-b01_100x100.png" width="50" class="img-item">
                 </div>
-                <div>
-                    <p>0</p>
+                <div class="inventory-item" onclick="selectInventoryItem(14)">
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/sg3n-b02_100x100.png" width="50" class="img-item">
                 </div>
             </div>

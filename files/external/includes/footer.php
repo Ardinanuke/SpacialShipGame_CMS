@@ -2,8 +2,32 @@
   <script>
     let url = "http://127.0.0.1/api/";
 
+    var inventoryItems = document.getElementsByClassName('inventory-item');
+
+
     function changeShip(shipId) {
       changeShipAPI(`shipId=${shipId}&action=change_ship`);
+    }
+
+    /*
+    Website functions
+    */
+    function selectInventoryItem(itemId){
+      let quantityItems = inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML;
+      if(quantityItems != 0){
+        /* 
+        Algorithm to add item to inventory 
+        1. Check in the server if the player have the item
+        2. Add to the grid
+        */
+        inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML = quantityItems - 1;
+      }else{
+        showToast("you haven't this item", "red");
+      }
+      /*
+      console.log(`He seleccionado ${itemId}`);
+      inventoryItems[0].getElementsByClassName("quantity-item")[0].innerHTML = "hola";
+      console.log(inventoryItems); */
     }
 
     /*
