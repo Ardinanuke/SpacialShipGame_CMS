@@ -214,7 +214,7 @@ CREATE TABLE `player_equipment` (
   `config2_lasers` text COLLATE utf8_bin NOT NULL DEFAULT '[]',
   `config2_generators` text COLLATE utf8_bin NOT NULL DEFAULT '[]',
   `config2_drones` text COLLATE utf8_bin NOT NULL DEFAULT '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]',
-  `items` text COLLATE utf8_bin NOT NULL DEFAULT '{"lf1Count":0, "lf2Count":0, "lf3Count":0, "lf4Count":0,"havocCount":0,"herculesCount":0,"apis":false,"zeus":false,"pet":false,"petModules":[],"ships":[],"designs":{},"skillTree":{"logdisks":0,"researchPoints":0,"resetCount":0}}',
+  `items` text COLLATE utf8_bin NOT NULL DEFAULT '{"sg3na01Count":0, "sg3na02Count":0, "sg3na03Count":0, "sg3nb01Count":0, "sg3nb02Count":0,"g3n1010Count":0,"g3n2010Count":0,"g3n3210Count":0,"g3n3310Count":0,"g3n6900Count":0,"g3n7900Count":0,"lf1Count":0, "lf2Count":0, "lf3Count":0, "lf4Count":0,"havocCount":0,"herculesCount":0,"apis":false,"zeus":false,"pet":false,"petModules":[],"ships":[],"designs":{},"skillTree":{"logdisks":0,"researchPoints":0,"resetCount":0}}',
   `skill_points` text COLLATE utf8_bin NOT NULL DEFAULT '{"engineering":0,"shieldEngineering":0,"detonation1":0,"detonation2":0,"heatseekingMissiles":0,"rocketFusion":0,"cruelty1":0,"cruelty2":0,"explosives":0,"luck1":0,"luck2":0}',
   `modules` longtext COLLATE utf8_bin NOT NULL DEFAULT '[]',
   `boosters` longtext COLLATE utf8_bin NOT NULL DEFAULT '{}'
