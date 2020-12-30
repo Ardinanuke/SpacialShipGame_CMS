@@ -161,6 +161,52 @@
     <div class="row">
         <!-- Ship elements -->
         <div class="col-8">
+            <div class="stat-container">
+                <?php
+                $player = Functions::GetPlayer();
+
+                $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId = {$player['userId']}")->fetch_assoc();
+                $currentShip = $mysqli->query("SELECT * FROM server_ships WHERE shipID = {$player['shipId']}")->fetch_assoc();
+                //$array = $equipment['config1_lasers']; 
+                //Generators
+                $sg3na01Count = json_decode($equipment['items'])->sg3na01Count;
+                echo "<p>" . $sg3na01Count . "</p>";
+                $sg3na02Count = json_decode($equipment['items'])->sg3na02Count;
+                echo "<p>" . $sg3na02Count . "</p>";
+                $sg3na03Count = json_decode($equipment['items'])->sg3na03Count;
+                echo "<p>" . $sg3na03Count . "</p>";
+                $sg3nb01Count = json_decode($equipment['items'])->sg3nb01Count;
+                echo "<p>" . $sg3nb01Count . "</p>";
+                $sg3nb02Count = json_decode($equipment['items'])->sg3nb02Count;
+                echo "<p>" . $sg3nb02Count . "</p>";
+                $g3n1010Count = json_decode($equipment['items'])->g3n1010Count;
+                echo "<p>" . $g3n1010Count . "</p>";
+                $g3n2010Count = json_decode($equipment['items'])->g3n2010Count;
+                echo "<p>" . $g3n2010Count . "</p>";
+                $g3n3210Count = json_decode($equipment['items'])->g3n3210Count;
+                echo "<p>" . $g3n3210Count . "</p>";
+                $g3n3310Count = json_decode($equipment['items'])->g3n3310Count;
+                echo "<p>" . $g3n3310Count . "</p>";
+                $g3n6900Count = json_decode($equipment['items'])->g3n6900Count;
+                echo "<p>" . $g3n6900Count . "</p>";
+                $g3n7900Count = json_decode($equipment['items'])->g3n7900Count;
+                echo "<p>" . $g3n7900Count . "</p>";
+                //Lasers
+                $lf1Count = json_decode($equipment['items'])->lf1Count;
+                echo "<p>" . $lf1Count . "</p>";
+                $lf2Count = json_decode($equipment['items'])->lf2Count;
+                echo "<p>" . $lf2Count . "</p>";
+                $lf3Count = json_decode($equipment['items'])->lf3Count;
+                echo "<p>" . $lf3Count . "</p>";
+                $lf4Count = json_decode($equipment['items'])->lf4Count;
+                echo "<p>" . $lf4Count . "</p>";
+                //Isn't available by the moment.
+                $havocCount = json_decode($equipment['items'])->havocCount;
+                $herculesCount = json_decode($equipment['items'])->herculesCount;
+                $apis = json_decode($equipment['items'])->apis;
+                $zeus = json_decode($equipment['items'])->zeus;
+                ?>
+            </div>
             <p>Configuration</p>
             <button style="background-color: black; border: none;">1</button>
             <button style="background-color: black; border: none;">2</button>
@@ -171,99 +217,19 @@
             <br><br>
             <p>Lasers</p>
             <div class="wrapper2">
-                <div>
-                    1
-                </div>
-                <div>
-                    2
-                </div>
-                <div>
-                    3
-                </div>
-                <div>
-                    4
-                </div>
-                <div>
-                    5
-                </div>
-                <div>
-                    1
-                </div>
-                <div>
-                    2
-                </div>
-                <div>
-                    3
-                </div>
-                <div>
-                    4
-                </div>
-                <div>
-                    5
-                </div>
-                <div>
-                    1
-                </div>
-                <div>
-                    2
-                </div>
-                <div>
-                    3
-                </div>
-                <div>
-                    4
-                </div>
-                <div>
-                    5
-                </div>
+                <?php
+                for ($i = 1; $i == $currentShip['lasers']; $i++) {
+                    echo "<div>" . $i . "</div> ";
+                }
+                ?>
             </div>
             <p>Generators</p>
             <div class="wrapper2">
-                <div>
-                    1
-                </div>
-                <div>
-                    2
-                </div>
-                <div>
-                    3
-                </div>
-                <div>
-                    4
-                </div>
-                <div>
-                    5
-                </div>
-                <div>
-                    1
-                </div>
-                <div>
-                    2
-                </div>
-                <div>
-                    3
-                </div>
-                <div>
-                    4
-                </div>
-                <div>
-                    5
-                </div>
-                <div>
-                    1
-                </div>
-                <div>
-                    2
-                </div>
-                <div>
-                    3
-                </div>
-                <div>
-                    4
-                </div>
-                <div>
-                    5
-                </div>
+                <?php
+                for ($i = 1; $i == $currentShip['generators']; $i++) {
+                    echo "<div>" . $i . "</div> ";
+                }
+                ?>
             </div>
         </div>
         <!-- Vants -->

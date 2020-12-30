@@ -4,7 +4,6 @@
 
     var inventoryItems = document.getElementsByClassName('inventory-item');
 
-
     function changeShip(shipId) {
       changeShipAPI(`shipId=${shipId}&action=change_ship`);
     }
@@ -21,6 +20,7 @@
         2. Add to the grid
         */
         inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML = quantityItems - 1;
+
       }else{
         showToast("you haven't this item", "red");
       }
