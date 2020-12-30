@@ -161,13 +161,89 @@
     <div class="row">
         <!-- Ship elements -->
         <div class="col-8">
-            <div class="stat-container">
+            <div class="stats-container">
                 <?php
                 $player = Functions::GetPlayer();
 
                 $equipment = $mysqli->query("SELECT * FROM player_equipment WHERE userId = {$player['userId']}")->fetch_assoc();
                 $currentShip = $mysqli->query("SELECT * FROM server_ships WHERE shipID = {$player['shipId']}")->fetch_assoc();
-                //$array = $equipment['config1_lasers']; 
+
+                //User equipment
+                $config1_lasers =  explode(",", $equipment["config1_lasers"]);
+                if ($equipment["config1_lasers"] !== "[]") {
+                    echo "<p class='total-config1-lasers'>" . sizeof($config1_lasers) . "</p>";
+                    //Busca en bucle
+                    $arrayItem = $equipment["config1_lasers"];
+                    $arrayItem = str_replace("[", " ", $arrayItem);
+                    $arrayItem = str_replace("]", " ", $arrayItem);
+                    $arrayItem =  explode(",", $arrayItem);
+                    $quantityLf1 = 0;
+                    $quantityLf2 = 0;
+                    $quantityLf3 = 0;
+                    for ($i = 0; $i < sizeof($arrayItem); $i++) {
+                        switch ($arrayItem[$i]) {
+                            case 1:
+                                $quantityLf1++;
+                                break;
+                            case 2:
+                                $quantityLf2++;
+                                break;
+                            case 3:
+                                $quantityLf3++;
+                                break;
+                        }
+                    }
+                    echo "<p class='total-config1-lf1'>".$quantityLf1."</p> <p class='total-config1-lf2'>".$quantityLf2."</p> <p class='total-config1-lf3'>".$quantityLf3."</p>";
+                } else {
+                    echo "<p class='total-config1-lasers'>0</p> <p class='total-config1-lf1'>0</p> <p class='total-config1-lf2'>0</p> <p class='total-config1-lf3'>0</p>";
+                }
+
+
+
+                $config1_generators =  explode(",", $equipment["config1_generators"]);
+                if ($equipment["config1_generators"] !== "[]") {
+                    echo "<p class='total-config1-generators'>" . sizeof($config1_generators) . "</p>";
+                    //Busca en bucle
+                    $arrayItem = $equipment["config1_generators"];
+                    $arrayItem = str_replace("[", " ", $arrayItem);
+                    $arrayItem = str_replace("]", " ", $arrayItem);
+                    $arrayItem =  explode(",", $arrayItem);
+                    
+                    $quantityLf1 = 0;
+                    $quantityLf2 = 0;
+                    $quantityLf3 = 0;
+
+                    for ($i = 0; $i < sizeof($arrayItem); $i++) {
+                        switch ($arrayItem[$i]) {
+                            case 1:
+                                $quantityLf1++;
+                                break;
+                            case 2:
+                                $quantityLf2++;
+                                break;
+                            case 3:
+                                $quantityLf3++;
+                                break;
+                        }
+                    }
+                    //echo "<p class='total-config1-lf1'>".$quantityLf1."</p> <p class='total-config1-lf2'>".$quantityLf2."</p> <p class='total-config1-lf3'>".$quantityLf3."</p>";
+                } else {
+                    //echo "<p class='total-config1-lasers'>0</p> <p class='total-config1-lf1'>0</p> <p class='total-config1-lf2'>0</p> <p class='total-config1-lf3'>0</p>";
+                }
+
+                $config2_lasers =  explode(",", $equipment["config2_lasers"]);
+                if ($equipment["config2_lasers"] !== "[]") {
+                    echo "<p>" . sizeof($config2_lasers) . "</p>";
+                } else {
+                    echo "<p>0</p>";
+                }
+
+                $config2_generators =  explode(",", $equipment["config2_generators"]);
+                if ($equipment["config2_generators"] !== "[]") {
+                    echo "<p>" . sizeof($config2_generators) . "</p>";
+                } else {
+                    echo "<p>0</p>";
+                }
                 //Generators
                 $sg3na01Count = json_decode($equipment['items'])->sg3na01Count;
                 echo "<p>" . $sg3na01Count . "</p>";
@@ -200,6 +276,7 @@
                 echo "<p>" . $lf3Count . "</p>";
                 $lf4Count = json_decode($equipment['items'])->lf4Count;
                 echo "<p>" . $lf4Count . "</p>";
+
                 //Isn't available by the moment.
                 $havocCount = json_decode($equipment['items'])->havocCount;
                 $herculesCount = json_decode($equipment['items'])->herculesCount;
