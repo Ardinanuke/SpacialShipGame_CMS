@@ -171,7 +171,6 @@
                 //User equipment
                 $config1_lasers =  explode(",", $equipment["config1_lasers"]);
                 if ($equipment["config1_lasers"] !== "[]") {
-                    echo "<p class='total-config1-lasers'>" . sizeof($config1_lasers) . "</p>";
                     //Busca en bucle
                     $arrayItem = $equipment["config1_lasers"];
                     $arrayItem = str_replace("[", " ", $arrayItem);
@@ -194,12 +193,14 @@
                         }
                     }
                 ?>
+                    <p class='total-config1-lasers'><?php echo sizeof($config1_lasers); ?></p>
                     <p class='total-config1-lf1'><?php echo $quantityLf1; ?></p>
                     <p class='total-config1-lf2'><?php echo $quantityLf2; ?></p>
                     <p class='total-config1-lf3'><?php echo $quantityLf3; ?></p>
                 <?php
                 } else {
                 ?>
+                    <p class='total-config1-lasers'>0</p>
                     <p class='total-config1-lf1'>0</p>
                     <p class='total-config1-lf2'>0</p>
                     <p class='total-config1-lf3'>0</p>
@@ -208,7 +209,6 @@
 
                 $config1_generators =  explode(",", $equipment["config1_generators"]);
                 if ($equipment["config1_generators"] !== "[]") {
-                    echo "<p class='total-config1-generators'>" . sizeof($config1_generators) . "</p>";
                     //Busca en bucle
                     $arrayItem = $equipment["config1_generators"];
                     $arrayItem = str_replace("[", " ", $arrayItem);
@@ -267,6 +267,7 @@
                                 break;
                         }
                     } ?>
+                    <p class='total-config1-generators'><?php echo sizeof($config1_generators); ?></p>
                     <p class='total-config1-g3n1010'><?php echo $quantityg3n1010; ?></p>
                     <p class='total-config1-g3n2010'><?php echo $quantityg3n2010; ?></p>
                     <p class='total-config1-g3n3210'><?php echo $quantityg3n3210; ?></p>
@@ -280,6 +281,7 @@
                     <p class='total-config1-sg3nb02'><?php echo $quantitysg3nb02; ?></p>
                 <?php
                 } else { ?>
+                    <p class='total-config1-generators'>0</p>
                     <p class='total-config1-g3n1010'>0</p>
                     <p class='total-config1-g3n2010'>0</p>
                     <p class='total-config1-g3n3210'>0</p>
@@ -293,14 +295,45 @@
                     <p class='total-config1-sg3nb02'>0</p>
                 <?php
                 }
-                
+
                 $config2_lasers =  explode(",", $equipment["config2_lasers"]);
                 if ($equipment["config2_lasers"] !== "[]") {
-                    echo "<p>" . sizeof($config2_lasers) . "</p>";
+                    //Busca en bucle
+                    $arrayItem = $equipment["config2_lasers"];
+                    $arrayItem = str_replace("[", " ", $arrayItem);
+                    $arrayItem = str_replace("]", " ", $arrayItem);
+                    $arrayItem =  explode(",", $arrayItem);
+                    $quantityLf1 = 0;
+                    $quantityLf2 = 0;
+                    $quantityLf3 = 0;
+                    for ($i = 0; $i < sizeof($arrayItem); $i++) {
+                        switch ($arrayItem[$i]) {
+                            case 1:
+                                $quantityLf1++;
+                                break;
+                            case 2:
+                                $quantityLf2++;
+                                break;
+                            case 3:
+                                $quantityLf3++;
+                                break;
+                        }
+                    }
+                ?>
+                    <p class='total-config2-lasers'><?php echo sizeof($config2_lasers); ?></p>
+                    <p class='total-config2-lf1'><?php echo $quantityLf1; ?></p>
+                    <p class='total-config2-lf2'><?php echo $quantityLf2; ?></p>
+                    <p class='total-config2-lf3'><?php echo $quantityLf3; ?></p>
+                <?php
                 } else {
-                    echo "<p>0</p>";
+                ?>
+                    <p class='total-config2-lasers'>0</p>
+                    <p class='total-config2-lf1'>0</p>
+                    <p class='total-config2-lf2'>0</p>
+                    <p class='total-config2-lf3'>0</p>
+                <?php
                 }
-
+                
                 $config2_generators =  explode(",", $equipment["config2_generators"]);
                 if ($equipment["config2_generators"] !== "[]") {
                     echo "<p>" . sizeof($config2_generators) . "</p>";
