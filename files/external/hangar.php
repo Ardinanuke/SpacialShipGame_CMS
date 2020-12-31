@@ -193,12 +193,18 @@
                                 break;
                         }
                     }
-                    echo "<p class='total-config1-lf1'>".$quantityLf1."</p> <p class='total-config1-lf2'>".$quantityLf2."</p> <p class='total-config1-lf3'>".$quantityLf3."</p>";
+                ?>
+                    <p class='total-config1-lf1'><?php echo $quantityLf1; ?></p>
+                    <p class='total-config1-lf2'><?php echo $quantityLf2; ?></p>
+                    <p class='total-config1-lf3'><?php echo $quantityLf3; ?></p>
+                <?php
                 } else {
-                    echo "<p class='total-config1-lasers'>0</p> <p class='total-config1-lf1'>0</p> <p class='total-config1-lf2'>0</p> <p class='total-config1-lf3'>0</p>";
+                ?>
+                    <p class='total-config1-lf1'>0</p>
+                    <p class='total-config1-lf2'>0</p>
+                    <p class='total-config1-lf3'>0</p>
+                <?php
                 }
-
-
 
                 $config1_generators =  explode(",", $equipment["config1_generators"]);
                 if ($equipment["config1_generators"] !== "[]") {
@@ -208,29 +214,86 @@
                     $arrayItem = str_replace("[", " ", $arrayItem);
                     $arrayItem = str_replace("]", " ", $arrayItem);
                     $arrayItem =  explode(",", $arrayItem);
-                    
-                    $quantityLf1 = 0;
-                    $quantityLf2 = 0;
-                    $quantityLf3 = 0;
+
+                    //Speed generators
+                    $quantityg3n1010 = 0;
+                    $quantityg3n2010 = 0;
+                    $quantityg3n3210 = 0;
+                    $quantityg3n3310 = 0;
+                    $quantityg3n6900 = 0;
+                    $quantityg3n7900 = 0;
+
+                    //Shield generators
+                    $quantitysg3na01 = 0;
+                    $quantitysg3na02 = 0;
+                    $quantitysg3na03 = 0;
+                    $quantitysg3nb01 = 0;
+                    $quantitysg3nb02 = 0;
 
                     for ($i = 0; $i < sizeof($arrayItem); $i++) {
                         switch ($arrayItem[$i]) {
                             case 1:
-                                $quantityLf1++;
+                                $quantityg3n1010++;
                                 break;
                             case 2:
-                                $quantityLf2++;
+                                $quantityg3n2010++;
                                 break;
                             case 3:
-                                $quantityLf3++;
+                                $quantityg3n3210++;
+                                break;
+                            case 4:
+                                $quantityg3n3310++;
+                                break;
+                            case 5:
+                                $quantityg3n6900++;
+                                break;
+                            case 6:
+                                $quantityg3n7900++;
+                                break;
+                            case 7:
+                                $quantitysg3na01++;
+                                break;
+                            case 8:
+                                $quantitysg3na02++;
+                                break;
+                            case 9:
+                                $quantitysg3na03++;
+                                break;
+                            case 10:
+                                $quantitysg3nb01++;
+                                break;
+                            case 11:
+                                $quantitysg3nb02++;
                                 break;
                         }
-                    }
-                    //echo "<p class='total-config1-lf1'>".$quantityLf1."</p> <p class='total-config1-lf2'>".$quantityLf2."</p> <p class='total-config1-lf3'>".$quantityLf3."</p>";
-                } else {
-                    //echo "<p class='total-config1-lasers'>0</p> <p class='total-config1-lf1'>0</p> <p class='total-config1-lf2'>0</p> <p class='total-config1-lf3'>0</p>";
+                    } ?>
+                    <p class='total-config1-g3n1010'><?php echo $quantityg3n1010; ?></p>
+                    <p class='total-config1-g3n2010'><?php echo $quantityg3n2010; ?></p>
+                    <p class='total-config1-g3n3210'><?php echo $quantityg3n3210; ?></p>
+                    <p class='total-config1-g3n3310'><?php echo $quantityg3n3310; ?></p>
+                    <p class='total-config1-g3n6900'><?php echo $quantityg3n6900; ?></p>
+                    <p class='total-config1-g3n7900'><?php echo $quantityg3n7900; ?></p>
+                    <p class='total-config1-sg3na01'><?php echo $quantitysg3na01; ?></p>
+                    <p class='total-config1-sg3na02'><?php echo $quantitysg3na02; ?></p>
+                    <p class='total-config1-sg3na03'><?php echo $quantitysg3na03; ?></p>
+                    <p class='total-config1-sg3nb01'><?php echo $quantitysg3nb01; ?></p>
+                    <p class='total-config1-sg3nb02'><?php echo $quantitysg3nb02; ?></p>
+                <?php
+                } else { ?>
+                    <p class='total-config1-g3n1010'>0</p>
+                    <p class='total-config1-g3n2010'>0</p>
+                    <p class='total-config1-g3n3210'>0</p>
+                    <p class='total-config1-g3n3310'>0</p>
+                    <p class='total-config1-g3n6900'>0</p>
+                    <p class='total-config1-g3n7900'>0</p>
+                    <p class='total-config1-sg3na01'>0</p>
+                    <p class='total-config1-sg3na02'>0</p>
+                    <p class='total-config1-sg3na03'>0</p>
+                    <p class='total-config1-sg3nb01'>0</p>
+                    <p class='total-config1-sg3nb02'>0</p>
+                <?php
                 }
-
+                
                 $config2_lasers =  explode(",", $equipment["config2_lasers"]);
                 if ($equipment["config2_lasers"] !== "[]") {
                     echo "<p>" . sizeof($config2_lasers) . "</p>";
