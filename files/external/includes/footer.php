@@ -3,6 +3,8 @@
     let url = "http://127.0.0.1/api/";
 
     var inventoryItems = document.getElementsByClassName('inventory-item');
+    var equipmentConfig1 = [];
+    var equipmentConfig2 = [];
 
     loadHangar();
 
@@ -69,6 +71,23 @@
       var config1Sg3nb01 = document.getElementsByClassName("total-config1-sg3nb01");
       var config1Sg3nb02 = document.getElementsByClassName("total-config1-sg3nb02");
 
+      equipmentConfig1.push(config1Lf1[0].innerHTML);
+      equipmentConfig1.push(config1Lf2[0].innerHTML);
+      equipmentConfig1.push(config1Lf3[0].innerHTML);
+
+      equipmentConfig1.push(config1G3n1010[0].innerHTML);
+      equipmentConfig1.push(config1G3n2010[0].innerHTML);
+      equipmentConfig1.push(config1G3n3210[0].innerHTML);
+      equipmentConfig1.push(config1G3n3310[0].innerHTML);
+      equipmentConfig1.push(config1G3n6900[0].innerHTML);
+      equipmentConfig1.push(config1G3n7900[0].innerHTML);
+
+      equipmentConfig1.push(config1Sg3na01[0].innerHTML);
+      equipmentConfig1.push(config1Sg3na02[0].innerHTML);
+      equipmentConfig1.push(config1Sg3na03[0].innerHTML);
+      equipmentConfig1.push(config1Sg3nb01[0].innerHTML);
+      equipmentConfig1.push(config1Sg3nb02[0].innerHTML);
+
       console.log("Loading equipment config2....");
       /* Total lasers config 2 */
       var config2Lf1 = document.getElementsByClassName("total-config2-lf1");
@@ -90,7 +109,33 @@
       var config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
       var config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
 
-      console.log("Loading equipment (P.E.T. 15)....");
+      equipmentConfig2.push(config2Lf1[0].innerHTML);
+      equipmentConfig2.push(config2Lf2[0].innerHTML);
+      equipmentConfig2.push(config2Lf3[0].innerHTML);
+
+      equipmentConfig2.push(config2G3n1010[0].innerHTML);
+      equipmentConfig2.push(config2G3n2010[0].innerHTML);
+      equipmentConfig2.push(config2G3n3210[0].innerHTML);
+      equipmentConfig2.push(config2G3n3310[0].innerHTML);
+      equipmentConfig2.push(config2G3n6900[0].innerHTML);
+      equipmentConfig2.push(config2G3n7900[0].innerHTML);
+
+      equipmentConfig2.push(config2Sg3na01[0].innerHTML);
+      equipmentConfig2.push(config2Sg3na02[0].innerHTML);
+      equipmentConfig2.push(config2Sg3na03[0].innerHTML);
+      equipmentConfig2.push(config2Sg3nb01[0].innerHTML);
+      equipmentConfig2.push(config2Sg3nb02[0].innerHTML);
+
+      console.log("[In process] Loading equipment (P.E.T. 15)....");
+
+      console.log("Showing the equipment....");
+      /**
+       * Algorith to show the equipment
+       * 
+       * 2. Add all to array
+       * 2. in a for loop if anyone is >= 1 add the image to slot.
+       */
+
     }
 
     /*

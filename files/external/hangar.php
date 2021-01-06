@@ -459,7 +459,7 @@
                 echo "<p class='total-inventory-sg3nb01'>" . $sg3nb01Count . "</p>";
                 $sg3nb02Count = json_decode($equipment['items'])->sg3nb02Count;
                 echo "<p class='total-inventory-sg3nb02'>" . $sg3nb02Count . "</p>";
-                
+
 
                 //Isn't available by the moment.
                 $havocCount = json_decode($equipment['items'])->havocCount;
@@ -476,22 +476,45 @@
             <button style="background-color: black; border: none;">VANTS</button>
             <button style="background-color: black; border: none;">P.E.T.</button>
             <br><br>
-            <p>Lasers</p>
-            <div class="wrapper2">
-                <?php
-                for ($i = 1; $i == $currentShip['lasers']; $i++) {
-                    echo "<div>" . $i . "</div> ";
-                }
-                ?>
+            <div class="config-1">
+                <p>Lasers (1)</p>
+                <div class="wrapper2">
+                    <?php
+                    for ($i = 1; $i == $currentShip['lasers']; $i++) {
+                        echo "<div>" . $i . "</div> ";
+                    }
+                    ?>
+                </div>
+                <p>Generators</p>
+                <div class="wrapper2">
+                    <?php
+                    for ($i = 1; $i == $currentShip['generators']; $i++) {
+                        echo "<div>" . $i . "</div> ";
+                    }
+                    ?>
+                </div>
             </div>
-            <p>Generators</p>
-            <div class="wrapper2">
-                <?php
-                for ($i = 1; $i == $currentShip['generators']; $i++) {
-                    echo "<div>" . $i . "</div> ";
-                }
-                ?>
+            <br>
+            <br>
+            <div class="config-2">
+                <p>Lasers (2)</p>
+                <div class="wrapper2">
+                    <?php
+                    for ($i = 1; $i == $currentShip['lasers']; $i++) {
+                        echo "<div>" . $i . "</div> ";
+                    }
+                    ?>
+                </div>
+                <p>Generators</p>
+                <div class="wrapper2">
+                    <?php
+                    for ($i = 1; $i == $currentShip['generators']; $i++) {
+                        echo "<div>" . $i . "</div> ";
+                    }
+                    ?>
+                </div>
             </div>
+
         </div>
         <!-- Vants -->
         <div class="col-4">
