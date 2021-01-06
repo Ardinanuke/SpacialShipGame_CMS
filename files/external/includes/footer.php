@@ -1,10 +1,13 @@
 <?php if (Functions::IsLoggedIn()) { ?>
   <script>
-    let url = "http://127.0.0.1/api/";
 
-    var inventoryItems = document.getElementsByClassName('inventory-item');
-    var equipmentConfig1 = [];
-    var equipmentConfig2 = [];
+    const URL = "http://127.0.0.1/api/";
+    const MIN_ITEMS = 1;
+    
+    let inventoryItems = document.getElementsByClassName('inventory-item');
+    let equipmentConfig1 = [];
+    let equipmentConfig2 = [];
+
 
     loadHangar();
 
@@ -139,15 +142,14 @@
       var slotGeneratorsConf1 = document.getElementById("generators-conf1").children;
       var slotLasersConf2 = document.getElementById("lasers-conf2").children;
       var slotGeneratorsConf2 = document.getElementById("generators-conf2").children;
-
-      /*
-      equipmentConfig1.forEach( (value, index, array) => {
-        if(value >= 1){
-          
+      /*slotLasersConf1[0].innerHTML = "lol";*/
+      equipmentConfig1.forEach((value, index, array) => {
+        if (value >= MIN_ITEMS) {
+          for(let position = 0; position < value; position++){
+            slotLasersConf1[position].innerHTML = "laser";
+          }
         }
-      }); */
-
-
+      });
     }
 
     /*
@@ -177,7 +179,7 @@
     function changeShipAPI(userParams) {
       var http = new XMLHttpRequest();
       var params = userParams;
-      http.open("POST", url, true);
+      http.open("POST", URL, true);
       http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
