@@ -340,8 +340,13 @@
         border: none;
       }
 
-      .inventory-item{
+      .inventory-item {
         cursor: pointer;
+      }
+
+      .stats-container {
+        position: absolute;
+        left: -9999px;
       }
 
 

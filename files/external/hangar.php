@@ -333,45 +333,133 @@
                     <p class='total-config2-lf3'>0</p>
                 <?php
                 }
-                
+
                 $config2_generators =  explode(",", $equipment["config2_generators"]);
                 if ($equipment["config2_generators"] !== "[]") {
-                    echo "<p>" . sizeof($config2_generators) . "</p>";
-                } else {
-                    echo "<p>0</p>";
+                    //Busca en bucle
+                    $arrayItem = $equipment["config2_generators"];
+                    $arrayItem = str_replace("[", " ", $arrayItem);
+                    $arrayItem = str_replace("]", " ", $arrayItem);
+                    $arrayItem =  explode(",", $arrayItem);
+
+                    //Speed generators
+                    $quantityg3n1010 = 0;
+                    $quantityg3n2010 = 0;
+                    $quantityg3n3210 = 0;
+                    $quantityg3n3310 = 0;
+                    $quantityg3n6900 = 0;
+                    $quantityg3n7900 = 0;
+
+                    //Shield generators
+                    $quantitysg3na01 = 0;
+                    $quantitysg3na02 = 0;
+                    $quantitysg3na03 = 0;
+                    $quantitysg3nb01 = 0;
+                    $quantitysg3nb02 = 0;
+
+                    for ($i = 0; $i < sizeof($arrayItem); $i++) {
+                        switch ($arrayItem[$i]) {
+                            case 1:
+                                $quantityg3n1010++;
+                                break;
+                            case 2:
+                                $quantityg3n2010++;
+                                break;
+                            case 3:
+                                $quantityg3n3210++;
+                                break;
+                            case 4:
+                                $quantityg3n3310++;
+                                break;
+                            case 5:
+                                $quantityg3n6900++;
+                                break;
+                            case 6:
+                                $quantityg3n7900++;
+                                break;
+                            case 7:
+                                $quantitysg3na01++;
+                                break;
+                            case 8:
+                                $quantitysg3na02++;
+                                break;
+                            case 9:
+                                $quantitysg3na03++;
+                                break;
+                            case 10:
+                                $quantitysg3nb01++;
+                                break;
+                            case 11:
+                                $quantitysg3nb02++;
+                                break;
+                        }
+                    } ?>
+                    <p class='total-config2-generators'><?php echo sizeof($config2_generators); ?></p>
+                    <p class='total-config2-g3n1010'><?php echo $quantityg3n1010; ?></p>
+                    <p class='total-config2-g3n2010'><?php echo $quantityg3n2010; ?></p>
+                    <p class='total-config2-g3n3210'><?php echo $quantityg3n3210; ?></p>
+                    <p class='total-config2-g3n3310'><?php echo $quantityg3n3310; ?></p>
+                    <p class='total-config2-g3n6900'><?php echo $quantityg3n6900; ?></p>
+                    <p class='total-config2-g3n7900'><?php echo $quantityg3n7900; ?></p>
+                    <p class='total-config2-sg3na01'><?php echo $quantitysg3na01; ?></p>
+                    <p class='total-config2-sg3na02'><?php echo $quantitysg3na02; ?></p>
+                    <p class='total-config2-sg3na03'><?php echo $quantitysg3na03; ?></p>
+                    <p class='total-config2-sg3nb01'><?php echo $quantitysg3nb01; ?></p>
+                    <p class='total-config2-sg3nb02'><?php echo $quantitysg3nb02; ?></p>
+                <?php
+                } else { ?>
+                    <p class='total-config2-generators'>0</p>
+                    <p class='total-config2-g3n1010'>0</p>
+                    <p class='total-config2-g3n2010'>0</p>
+                    <p class='total-config2-g3n3210'>0</p>
+                    <p class='total-config2-g3n3310'>0</p>
+                    <p class='total-config2-g3n6900'>0</p>
+                    <p class='total-config2-g3n7900'>0</p>
+                    <p class='total-config2-sg3na01'>0</p>
+                    <p class='total-config2-sg3na02'>0</p>
+                    <p class='total-config2-sg3na03'>0</p>
+                    <p class='total-config2-sg3nb01'>0</p>
+                    <p class='total-config2-sg3nb02'>0</p>
+                <?php
                 }
-                //Generators
-                $sg3na01Count = json_decode($equipment['items'])->sg3na01Count;
-                echo "<p>" . $sg3na01Count . "</p>";
-                $sg3na02Count = json_decode($equipment['items'])->sg3na02Count;
-                echo "<p>" . $sg3na02Count . "</p>";
-                $sg3na03Count = json_decode($equipment['items'])->sg3na03Count;
-                echo "<p>" . $sg3na03Count . "</p>";
-                $sg3nb01Count = json_decode($equipment['items'])->sg3nb01Count;
-                echo "<p>" . $sg3nb01Count . "</p>";
-                $sg3nb02Count = json_decode($equipment['items'])->sg3nb02Count;
-                echo "<p>" . $sg3nb02Count . "</p>";
-                $g3n1010Count = json_decode($equipment['items'])->g3n1010Count;
-                echo "<p>" . $g3n1010Count . "</p>";
-                $g3n2010Count = json_decode($equipment['items'])->g3n2010Count;
-                echo "<p>" . $g3n2010Count . "</p>";
-                $g3n3210Count = json_decode($equipment['items'])->g3n3210Count;
-                echo "<p>" . $g3n3210Count . "</p>";
-                $g3n3310Count = json_decode($equipment['items'])->g3n3310Count;
-                echo "<p>" . $g3n3310Count . "</p>";
-                $g3n6900Count = json_decode($equipment['items'])->g3n6900Count;
-                echo "<p>" . $g3n6900Count . "</p>";
-                $g3n7900Count = json_decode($equipment['items'])->g3n7900Count;
-                echo "<p>" . $g3n7900Count . "</p>";
+
                 //Lasers
                 $lf1Count = json_decode($equipment['items'])->lf1Count;
-                echo "<p>" . $lf1Count . "</p>";
+                echo "<p class='total-inventory-lf1'>" . $lf1Count . "</p>";
                 $lf2Count = json_decode($equipment['items'])->lf2Count;
-                echo "<p>" . $lf2Count . "</p>";
+                echo "<p class='total-inventory-lf2'>" . $lf2Count . "</p>";
                 $lf3Count = json_decode($equipment['items'])->lf3Count;
-                echo "<p>" . $lf3Count . "</p>";
+                echo "<p class='total-inventory-lf3'>" . $lf3Count . "</p>";
+                //Ins't available
                 $lf4Count = json_decode($equipment['items'])->lf4Count;
-                echo "<p>" . $lf4Count . "</p>";
+                echo "<p class='total-inventory-lf4'>" . $lf4Count . "</p>";
+
+                //Speed generators
+                $g3n1010Count = json_decode($equipment['items'])->g3n1010Count;
+                echo "<p class='total-inventory-g3n1010'>" . $g3n1010Count . "</p>";
+                $g3n2010Count = json_decode($equipment['items'])->g3n2010Count;
+                echo "<p class='total-inventory-g3n2010'>" . $g3n2010Count . "</p>";
+                $g3n3210Count = json_decode($equipment['items'])->g3n3210Count;
+                echo "<p class='total-inventory-g3n3210'>" . $g3n3210Count . "</p>";
+                $g3n3310Count = json_decode($equipment['items'])->g3n3310Count;
+                echo "<p class='total-inventory-g3n3310'>" . $g3n3310Count . "</p>";
+                $g3n6900Count = json_decode($equipment['items'])->g3n6900Count;
+                echo "<p class='total-inventory-g3n6900'>" . $g3n6900Count . "</p>";
+                $g3n7900Count = json_decode($equipment['items'])->g3n7900Count;
+                echo "<p class='total-inventory-g3n7900'>" . $g3n7900Count . "</p>";
+
+                //Shiled generator
+                $sg3na01Count = json_decode($equipment['items'])->sg3na01Count;
+                echo "<p class='total-inventory-sg3na01'>" . $sg3na01Count . "</p>";
+                $sg3na02Count = json_decode($equipment['items'])->sg3na02Count;
+                echo "<p class='total-inventory-sg3na02'>" . $sg3na02Count . "</p>";
+                $sg3na03Count = json_decode($equipment['items'])->sg3na03Count;
+                echo "<p class='total-inventory-sg3na03'>" . $sg3na03Count . "</p>";
+                $sg3nb01Count = json_decode($equipment['items'])->sg3nb01Count;
+                echo "<p class='total-inventory-sg3nb01'>" . $sg3nb01Count . "</p>";
+                $sg3nb02Count = json_decode($equipment['items'])->sg3nb02Count;
+                echo "<p class='total-inventory-sg3nb02'>" . $sg3nb02Count . "</p>";
+                
 
                 //Isn't available by the moment.
                 $havocCount = json_decode($equipment['items'])->havocCount;
@@ -410,7 +498,7 @@
             <p>Inventory</p>
             <div class="wrapper3">
                 <div class="inventory-item" onclick="selectInventoryItem(0)">
-                    <p class="quantity-item">1</p>
+                    <p class="quantity-item">0</p>
                     <img src="/do_img/global/inventory/lf-1_100x100.png" width="50" class="img-item">
                 </div>
                 <div class="inventory-item" onclick="selectInventoryItem(1)">
