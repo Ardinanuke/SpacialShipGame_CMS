@@ -135,6 +135,18 @@
        * 2. Add all to array
        * 2. in a for loop if anyone is >= 1 add the image to slot.
        */
+      var slotLasersConf1 = document.getElementById("lasers-conf1").children;
+      var slotGeneratorsConf1 = document.getElementById("generators-conf1").children;
+      var slotLasersConf2 = document.getElementById("lasers-conf2").children;
+      var slotGeneratorsConf2 = document.getElementById("generators-conf2").children;
+
+      /*
+      equipmentConfig1.forEach( (value, index, array) => {
+        if(value >= 1){
+          
+        }
+      }); */
+
 
     }
 

@@ -478,18 +478,18 @@
             <br><br>
             <div class="config-1">
                 <p>Lasers (1)</p>
-                <div class="wrapper2">
+                <div class="wrapper2" id="lasers-conf1">
                     <?php
                     for ($i = 1; $i == $currentShip['lasers']; $i++) {
-                        echo "<div>" . $i . "</div> ";
+                        echo "<div class='".$i."' >" . $i . "</div> ";
                     }
                     ?>
                 </div>
                 <p>Generators</p>
-                <div class="wrapper2">
+                <div class="wrapper2" id="generators-conf1">
                     <?php
                     for ($i = 1; $i == $currentShip['generators']; $i++) {
-                        echo "<div>" . $i . "</div> ";
+                        echo "<div class='".$i."' >" . $i . "</div> ";
                     }
                     ?>
                 </div>
@@ -498,18 +498,18 @@
             <br>
             <div class="config-2">
                 <p>Lasers (2)</p>
-                <div class="wrapper2">
+                <div class="wrapper2" id="lasers-conf2">
                     <?php
                     for ($i = 1; $i == $currentShip['lasers']; $i++) {
-                        echo "<div>" . $i . "</div> ";
+                        echo "<div class='".$i."' >" . $i . "</div> ";
                     }
                     ?>
                 </div>
                 <p>Generators</p>
-                <div class="wrapper2">
+                <div class="wrapper2" id="generators-conf2">
                     <?php
                     for ($i = 1; $i == $currentShip['generators']; $i++) {
-                        echo "<div>" . $i . "</div> ";
+                        echo "<div class='".$i."' >" . $i . "</div> ";
                     }
                     ?>
                 </div>
