@@ -5,13 +5,13 @@
     var inventoryItems = document.getElementsByClassName('inventory-item');
 
     loadHangar();
-    
-    function loadHangar(){
+
+    function loadHangar() {
       /* 
       1.Load the stats of inventory
       2.Load the ship equipment
       */
-      console.log("im trying to open the hangar");
+      console.log("Loading inventory....");
       /* lasers */
       var quantityLf1 = document.getElementsByClassName("total-inventory-lf1");
       var quantityLf2 = document.getElementsByClassName("total-inventory-lf2");
@@ -41,7 +41,56 @@
       inventoryItems[6].getElementsByClassName("quantity-item")[0].innerHTML = quantityG3n3310[0].innerHTML;
       inventoryItems[7].getElementsByClassName("quantity-item")[0].innerHTML = quantityG3n6900[0].innerHTML;
       inventoryItems[8].getElementsByClassName("quantity-item")[0].innerHTML = quantityG3n7900[0].innerHTML;
+      /* Update shield gen */
+      inventoryItems[9].getElementsByClassName("quantity-item")[0].innerHTML = quantitySg3na01[0].innerHTML;
+      inventoryItems[10].getElementsByClassName("quantity-item")[0].innerHTML = quantitySg3na02[0].innerHTML;
+      inventoryItems[11].getElementsByClassName("quantity-item")[0].innerHTML = quantitySg3na03[0].innerHTML;
+      inventoryItems[12].getElementsByClassName("quantity-item")[0].innerHTML = quantitySg3nb01[0].innerHTML;
+      inventoryItems[13].getElementsByClassName("quantity-item")[0].innerHTML = quantitySg3nb02[0].innerHTML;
 
+      console.log("Loading equipment config1....");
+      /* Total lasers config 1 */
+      var config1Lf1 = document.getElementsByClassName("total-config1-lf1");
+      var config1Lf2 = document.getElementsByClassName("total-config1-lf2");
+      var config1Lf3 = document.getElementsByClassName("total-config1-lf3");
+
+      /* Total speed gen config 1 */
+      var config1G3n1010 = document.getElementsByClassName("total-config1-g3n1010");
+      var config1G3n2010 = document.getElementsByClassName("total-config1-g3n2010");
+      var config1G3n3210 = document.getElementsByClassName("total-config1-g3n3210");
+      var config1G3n3310 = document.getElementsByClassName("total-config1-g3n3310");
+      var config1G3n6900 = document.getElementsByClassName("total-config1-g3n6900");
+      var config1G3n7900 = document.getElementsByClassName("total-config1-g3n7900");
+
+      /* Total shield gen config 1 */
+      var config1Sg3na01 = document.getElementsByClassName("total-config1-sg3na01");
+      var config1Sg3na02 = document.getElementsByClassName("total-config1-sg3na02");
+      var config1Sg3na03 = document.getElementsByClassName("total-config1-sg3na03");
+      var config1Sg3nb01 = document.getElementsByClassName("total-config1-sg3nb01");
+      var config1Sg3nb02 = document.getElementsByClassName("total-config1-sg3nb02");
+
+      console.log("Loading equipment config2....");
+      /* Total lasers config 2 */
+      var config2Lf1 = document.getElementsByClassName("total-config2-lf1");
+      var config2Lf2 = document.getElementsByClassName("total-config2-lf2");
+      var config2Lf3 = document.getElementsByClassName("total-config2-lf3");
+
+      /* Total speed gen config 2 */
+      var config2G3n1010 = document.getElementsByClassName("total-config2-g3n1010");
+      var config2G3n2010 = document.getElementsByClassName("total-config2-g3n2010");
+      var config2G3n3210 = document.getElementsByClassName("total-config2-g3n3210");
+      var config2G3n3310 = document.getElementsByClassName("total-config2-g3n3310");
+      var config2G3n6900 = document.getElementsByClassName("total-config2-g3n6900");
+      var config2G3n7900 = document.getElementsByClassName("total-config2-g3n7900");
+
+      /* Total shield gen config 2 */
+      var config2Sg3na01 = document.getElementsByClassName("total-config2-sg3na01");
+      var config2Sg3na02 = document.getElementsByClassName("total-config2-sg3na02");
+      var config2Sg3na03 = document.getElementsByClassName("total-config2-sg3na03");
+      var config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
+      var config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
+
+      console.log("Loading equipment (P.E.T. 15)....");
     }
 
     /*
@@ -51,16 +100,16 @@
       changeShipAPI(`shipId=${shipId}&action=change_ship`);
     }
 
-    function selectInventoryItem(itemId){
+    function selectInventoryItem(itemId) {
       let quantityItems = inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML;
-      if(quantityItems != 0){
+      if (quantityItems != 0) {
         /* 
         Algorithm to add item to inventory 
         1. Check in the server if the player have the item
         2. Add to the grid
         */
         inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML = quantityItems - 1;
-      }else{
+      } else {
         showToast("you haven't this item", "red");
       }
     }
