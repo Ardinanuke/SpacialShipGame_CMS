@@ -129,9 +129,9 @@
       equipmentConfig2.push(config2Sg3nb01[0].innerHTML);
       equipmentConfig2.push(config2Sg3nb02[0].innerHTML);
 
-      console.log("[In process] Loading equipment (P.E.T. 15)....");
+      console.log("[To-Do] Loading equipment (P.E.T. 15)....");
 
-      console.log("Showing the equipment....");
+      console.log("[In process] Showing the equipment....");
       /**
        * Algorith to show the equipment
        * 
