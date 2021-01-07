@@ -3,7 +3,23 @@
 
     const URL = "http://127.0.0.1/api/";
     const MIN_ITEMS = 1;
-    
+    //constants lasers
+    const LF1 = 0;
+    const LF2 = 1;
+    const LF3 = 2;
+    //constants generators
+    const G3N1010 = 0;
+    const G3N2010 = 1;
+    const G3N3210 = 2;
+    const G3N3310 = 3;
+    const G3N6900 = 4;
+    const G3N7900 = 5;
+    const SG3NA01 = 6;
+    const SG3NA02 = 7;
+    const SG3NA03 = 8;
+    const SG3NB01 = 9;
+    const SG3NB02 = 10;
+
     let inventoryItems = document.getElementsByClassName('inventory-item');
     let equipmentConfig1 = [];
     let equipmentConfig2 = [];
