@@ -1,13 +1,12 @@
 <?php if (Functions::IsLoggedIn()) { ?>
   <script>
-
     const URL = "http://127.0.0.1/api/";
     const MIN_ITEMS = 1;
-    //constants lasers
+    /*constants lasers*/
     const LF1 = 0;
     const LF2 = 1;
     const LF3 = 2;
-    //constants generators
+    /*constants generators*/
     const G3N1010 = 0;
     const G3N2010 = 1;
     const G3N3210 = 2;
@@ -21,9 +20,11 @@
     const SG3NB02 = 10;
 
     let inventoryItems = document.getElementsByClassName('inventory-item');
-    let equipmentConfig1 = [];
-    let equipmentConfig2 = [];
 
+    let conf1Lasers = [];
+    let conf1Generators = [];
+    let conf2Lasers = [];
+    let conf2Generators = [];
 
     loadHangar();
 
@@ -90,22 +91,22 @@
       var config1Sg3nb01 = document.getElementsByClassName("total-config1-sg3nb01");
       var config1Sg3nb02 = document.getElementsByClassName("total-config1-sg3nb02");
 
-      equipmentConfig1.push(config1Lf1[0].innerHTML);
-      equipmentConfig1.push(config1Lf2[0].innerHTML);
-      equipmentConfig1.push(config1Lf3[0].innerHTML);
+      conf1Lasers.push(config1Lf1[0].innerHTML);
+      conf1Lasers.push(config1Lf2[0].innerHTML);
+      conf1Lasers.push(config1Lf3[0].innerHTML);
 
-      equipmentConfig1.push(config1G3n1010[0].innerHTML);
-      equipmentConfig1.push(config1G3n2010[0].innerHTML);
-      equipmentConfig1.push(config1G3n3210[0].innerHTML);
-      equipmentConfig1.push(config1G3n3310[0].innerHTML);
-      equipmentConfig1.push(config1G3n6900[0].innerHTML);
-      equipmentConfig1.push(config1G3n7900[0].innerHTML);
+      conf1Generators.push(config1G3n1010[0].innerHTML);
+      conf1Generators.push(config1G3n2010[0].innerHTML);
+      conf1Generators.push(config1G3n3210[0].innerHTML);
+      conf1Generators.push(config1G3n3310[0].innerHTML);
+      conf1Generators.push(config1G3n6900[0].innerHTML);
+      conf1Generators.push(config1G3n7900[0].innerHTML);
 
-      equipmentConfig1.push(config1Sg3na01[0].innerHTML);
-      equipmentConfig1.push(config1Sg3na02[0].innerHTML);
-      equipmentConfig1.push(config1Sg3na03[0].innerHTML);
-      equipmentConfig1.push(config1Sg3nb01[0].innerHTML);
-      equipmentConfig1.push(config1Sg3nb02[0].innerHTML);
+      conf1Generators.push(config1Sg3na01[0].innerHTML);
+      conf1Generators.push(config1Sg3na02[0].innerHTML);
+      conf1Generators.push(config1Sg3na03[0].innerHTML);
+      conf1Generators.push(config1Sg3nb01[0].innerHTML);
+      conf1Generators.push(config1Sg3nb02[0].innerHTML);
 
       console.log("Loading equipment config2....");
       /* Total lasers config 2 */
@@ -128,22 +129,22 @@
       var config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
       var config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
 
-      equipmentConfig2.push(config2Lf1[0].innerHTML);
-      equipmentConfig2.push(config2Lf2[0].innerHTML);
-      equipmentConfig2.push(config2Lf3[0].innerHTML);
+      conf2Lasers.push(config2Lf1[0].innerHTML);
+      conf2Lasers.push(config2Lf2[0].innerHTML);
+      conf2Lasers.push(config2Lf3[0].innerHTML);
 
-      equipmentConfig2.push(config2G3n1010[0].innerHTML);
-      equipmentConfig2.push(config2G3n2010[0].innerHTML);
-      equipmentConfig2.push(config2G3n3210[0].innerHTML);
-      equipmentConfig2.push(config2G3n3310[0].innerHTML);
-      equipmentConfig2.push(config2G3n6900[0].innerHTML);
-      equipmentConfig2.push(config2G3n7900[0].innerHTML);
+      conf2Generators.push(config2G3n1010[0].innerHTML);
+      conf2Generators.push(config2G3n2010[0].innerHTML);
+      conf2Generators.push(config2G3n3210[0].innerHTML);
+      conf2Generators.push(config2G3n3310[0].innerHTML);
+      conf2Generators.push(config2G3n6900[0].innerHTML);
+      conf2Generators.push(config2G3n7900[0].innerHTML);
 
-      equipmentConfig2.push(config2Sg3na01[0].innerHTML);
-      equipmentConfig2.push(config2Sg3na02[0].innerHTML);
-      equipmentConfig2.push(config2Sg3na03[0].innerHTML);
-      equipmentConfig2.push(config2Sg3nb01[0].innerHTML);
-      equipmentConfig2.push(config2Sg3nb02[0].innerHTML);
+      conf2Generators.push(config2Sg3na01[0].innerHTML);
+      conf2Generators.push(config2Sg3na02[0].innerHTML);
+      conf2Generators.push(config2Sg3na03[0].innerHTML);
+      conf2Generators.push(config2Sg3nb01[0].innerHTML);
+      conf2Generators.push(config2Sg3nb02[0].innerHTML);
 
       console.log("[To-Do] Loading equipment (P.E.T. 15)....");
 
@@ -158,14 +159,25 @@
       var slotGeneratorsConf1 = document.getElementById("generators-conf1").children;
       var slotLasersConf2 = document.getElementById("lasers-conf2").children;
       var slotGeneratorsConf2 = document.getElementById("generators-conf2").children;
-      /*slotLasersConf1[0].innerHTML = "lol";*/
-      equipmentConfig1.forEach((value, index, array) => {
+
+      conf1Lasers.forEach((value, index, array) => {
         if (value >= MIN_ITEMS) {
-          for(let position = 0; position < value; position++){
-            slotLasersConf1[position].innerHTML = "laser";
+          for (let position = 0; position < value; position++) {
+            switch (index) {
+              case LF1:
+                slotLasersConf1[position].innerHTML = "lf1";
+                break;
+              case LF2:
+                slotLasersConf1[position].innerHTML = "lf2";
+                break;
+              case LF3:
+                slotLasersConf1[position].innerHTML = "lf3";
+                break;
+            }
           }
         }
       });
+
     }
 
     /*
