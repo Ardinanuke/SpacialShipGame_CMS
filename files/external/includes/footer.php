@@ -2,22 +2,43 @@
   <script>
     const URL = "http://127.0.0.1/api/";
     const MIN_ITEMS = 1;
-    /*constants lasers*/
-    const LF1 = 0;
-    const LF2 = 1;
-    const LF3 = 2;
-    /*constants generators*/
-    const G3N1010 = 0;
-    const G3N2010 = 1;
-    const G3N3210 = 2;
-    const G3N3310 = 3;
-    const G3N6900 = 4;
-    const G3N7900 = 5;
-    const SG3NA01 = 6;
-    const SG3NA02 = 7;
-    const SG3NA03 = 8;
-    const SG3NB01 = 9;
-    const SG3NB02 = 10;
+    /* constants lasers */
+    const lasers = {
+      LF1: 0,
+      LF2: 1,
+      LF3: 2,
+    };
+    /* constants generators */
+    const generators = {
+      G3N1010: 0,
+      G3N2010: 1,
+      G3N3210: 2,
+      G3N3310: 3,
+      G3N6900: 4,
+      G3N7900: 5,
+      SG3NA01: 6,
+      SG3NA02: 7,
+      SG3NA03: 8,
+      SG3NB01: 9,
+      SG3NB02: 10,
+    };
+    /* constants of items positions */
+    const inventoryItem = {
+      LF1: 0,
+      LF2: 1,
+      LF3: 2,
+      G3N1010: 3,
+      G3N2010: 4,
+      G3N3210: 5,
+      G3N3310: 6,
+      G3N6900: 7,
+      G3N7900: 8,
+      SG3NA01: 9,
+      SG3NA02: 10,
+      SG3NA03: 11,
+      SG3NB01: 12,
+      SG3NB02: 12,
+    };
 
     let inventoryItems = document.getElementsByClassName('inventory-item');
 
@@ -66,7 +87,52 @@
     let config2Sg3na03 = document.getElementsByClassName("total-config2-sg3na03");
     let config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
     let config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
+    
     loadHangar();
+
+    /*
+    Website functions
+    */
+    function changeShip(shipId) {
+      changeShipAPI(`shipId=${shipId}&action=change_ship`);
+    }
+
+    function selectInventoryItem(itemId) {
+      let quantityItems = inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML;
+      if (quantityItems != 0) {
+        /* 
+        Algorithm to add item to inventory 
+        1. Check in the server if the player have the item
+        2. Add to the grid
+        */
+
+        inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML = quantityItems - 1;
+
+      } else {
+        showToast("you haven't this item", "red");
+      }
+    }
+
+    /*
+     API USAGE 
+    */
+    function changeShipAPI(userParams) {
+      let http = new XMLHttpRequest();
+      let params = userParams;
+      http.open("POST", URL, true);
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+          let json = jQuery.parseJSON(http.responseText);
+          if (json.status) {
+            showToast("ship succesfully changed", "green");
+          } else if (json.message != "") {
+            showToast(json.message, "red");
+          }
+        }
+      };
+      http.send(params);
+    }
 
     function loadHangar() {
       /* 
@@ -150,7 +216,7 @@
 
       console.log("[To-Do] Loading equipment (P.E.T. 15)....");
       /* To-Do */
-      
+
       console.log("[In process] Showing the equipment....");
       /*
        * Algorith to show the equipment
@@ -164,13 +230,13 @@
         if (value >= MIN_ITEMS) {
           for (let position = 0; position < value; position++) {
             switch (index) {
-              case LF1:
+              case lasers.LF1:
                 slotLasersConf1[position].innerHTML = "lf1";
                 break;
-              case LF2:
+              case lasers.LF2:
                 slotLasersConf1[position].innerHTML = "lf2";
                 break;
-              case LF3:
+              case lasers.LF3:
                 slotLasersConf1[position].innerHTML = "lf3";
                 break;
             }
@@ -182,37 +248,37 @@
         if (value >= MIN_ITEMS) {
           for (let position = 0; position < value; position++) {
             switch (index) {
-              case G3N1010:
+              case generators.G3N1010:
                 slotGeneratorsConf1[position].innerHTML = "G3N1010";
                 break;
-              case G3N2010:
+              case generators.G3N2010:
                 slotGeneratorsConf1[position].innerHTML = "G3N2010";
                 break;
-              case G3N3210:
+              case generators.G3N3210:
                 slotGeneratorsConf1[position].innerHTML = "G3N3210";
                 break;
-              case G3N3310:
+              case generators.G3N3310:
                 slotGeneratorsConf1[position].innerHTML = "G3N3310";
                 break;
-              case G3N6900:
+              case generators.G3N6900:
                 slotGeneratorsConf1[position].innerHTML = "G3N6900";
                 break;
-              case G3N7900:
+              case generators.G3N7900:
                 slotGeneratorsConf1[position].innerHTML = "G3N7900";
                 break;
-              case SG3NA01:
+              case generators.SG3NA01:
                 slotGeneratorsConf1[position].innerHTML = "SG3NA01";
                 break;
-              case SG3NA02:
+              case generators.SG3NA02:
                 slotGeneratorsConf1[position].innerHTML = "SG3NA02";
                 break;
-              case SG3NA03:
+              case generators.SG3NA03:
                 slotGeneratorsConf1[position].innerHTML = "SG3NA03";
                 break;
-              case SG3NB01:
+              case generators.SG3NB01:
                 slotGeneratorsConf1[position].innerHTML = "SG3NB01";
                 break;
-              case SG3NB02:
+              case generators.SG3NB02:
                 slotGeneratorsConf1[position].innerHTML = "SG3NB02";
                 break;
             }
@@ -224,13 +290,13 @@
         if (value >= MIN_ITEMS) {
           for (let position = 0; position < value; position++) {
             switch (index) {
-              case LF1:
+              case lasers.LF1:
                 slotLasersConf2[position].innerHTML = "lf1";
                 break;
-              case LF2:
+              case lasers.LF2:
                 slotLasersConf2[position].innerHTML = "lf2";
                 break;
-              case LF3:
+              case lasers.LF3:
                 slotLasersConf2[position].innerHTML = "lf3";
                 break;
             }
@@ -242,86 +308,43 @@
         if (value >= MIN_ITEMS) {
           for (let position = 0; position < value; position++) {
             switch (index) {
-              case G3N1010:
+              case generators.G3N1010:
                 slotGeneratorsConf2[position].innerHTML = "G3N1010";
                 break;
-              case G3N2010:
+              case generators.G3N2010:
                 slotGeneratorsConf2[position].innerHTML = "G3N2010";
                 break;
-              case G3N3210:
+              case generators.G3N3210:
                 slotGeneratorsConf2[position].innerHTML = "G3N3210";
                 break;
-              case G3N3310:
+              case generators.G3N3310:
                 slotGeneratorsConf2[position].innerHTML = "G3N3310";
                 break;
-              case G3N6900:
+              case generators.G3N6900:
                 slotGeneratorsConf2[position].innerHTML = "G3N6900";
                 break;
-              case G3N7900:
+              case generators.G3N7900:
                 slotGeneratorsConf2[position].innerHTML = "G3N7900";
                 break;
-              case SG3NA01:
+              case generators.SG3NA01:
                 slotGeneratorsConf2[position].innerHTML = "SG3NA01";
                 break;
-              case SG3NA02:
+              case generators.SG3NA02:
                 slotGeneratorsConf2[position].innerHTML = "SG3NA02";
                 break;
-              case SG3NA03:
+              case generators.SG3NA03:
                 slotGeneratorsConf2[position].innerHTML = "SG3NA03";
                 break;
-              case SG3NB01:
+              case generators.SG3NB01:
                 slotGeneratorsConf2[position].innerHTML = "SG3NB01";
                 break;
-              case SG3NB02:
+              case generators.SG3NB02:
                 slotGeneratorsConf2[position].innerHTML = "SG3NB02";
                 break;
             }
           }
         }
       });
-    }
-
-
-    /*
-    Website functions
-    */
-    function changeShip(shipId) {
-      changeShipAPI(`shipId=${shipId}&action=change_ship`);
-    }
-
-    function selectInventoryItem(itemId) {
-      let quantityItems = inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML;
-      if (quantityItems != 0) {
-        /* 
-        Algorithm to add item to inventory 
-        1. Check in the server if the player have the item
-        2. Add to the grid
-        */
-        inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML = quantityItems - 1;
-      } else {
-        showToast("you haven't this item", "red");
-      }
-    }
-
-    /*
-     API USAGE 
-    */
-    function changeShipAPI(userParams) {
-      let http = new XMLHttpRequest();
-      let params = userParams;
-      http.open("POST", URL, true);
-      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      http.onreadystatechange = function() {
-        if (http.readyState == 4 && http.status == 200) {
-          let json = jQuery.parseJSON(http.responseText);
-          if (json.status) {
-            showToast("ship succesfully changed", "green");
-          } else if (json.message != "") {
-            showToast(json.message, "red");
-          }
-        }
-      };
-      http.send(params);
     }
 
     function showToast(text, color) {
