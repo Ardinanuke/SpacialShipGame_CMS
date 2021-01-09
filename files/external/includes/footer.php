@@ -26,6 +26,46 @@
     let conf2Lasers = [];
     let conf2Generators = [];
 
+
+    /* Total lasers config 1 */
+    let config1Lf1 = document.getElementsByClassName("total-config1-lf1");
+    let config1Lf2 = document.getElementsByClassName("total-config1-lf2");
+    let config1Lf3 = document.getElementsByClassName("total-config1-lf3");
+
+    /* Total speed gen config 1 */
+    let config1G3n1010 = document.getElementsByClassName("total-config1-g3n1010");
+    let config1G3n2010 = document.getElementsByClassName("total-config1-g3n2010");
+    let config1G3n3210 = document.getElementsByClassName("total-config1-g3n3210");
+    let config1G3n3310 = document.getElementsByClassName("total-config1-g3n3310");
+    let config1G3n6900 = document.getElementsByClassName("total-config1-g3n6900");
+    let config1G3n7900 = document.getElementsByClassName("total-config1-g3n7900");
+
+    /* Total shield gen config 1 */
+    let config1Sg3na01 = document.getElementsByClassName("total-config1-sg3na01");
+    let config1Sg3na02 = document.getElementsByClassName("total-config1-sg3na02");
+    let config1Sg3na03 = document.getElementsByClassName("total-config1-sg3na03");
+    let config1Sg3nb01 = document.getElementsByClassName("total-config1-sg3nb01");
+    let config1Sg3nb02 = document.getElementsByClassName("total-config1-sg3nb02");
+
+    /* Total lasers config 2 */
+    let config2Lf1 = document.getElementsByClassName("total-config2-lf1");
+    let config2Lf2 = document.getElementsByClassName("total-config2-lf2");
+    let config2Lf3 = document.getElementsByClassName("total-config2-lf3");
+
+    /* Total speed gen config 2 */
+    let config2G3n1010 = document.getElementsByClassName("total-config2-g3n1010");
+    let config2G3n2010 = document.getElementsByClassName("total-config2-g3n2010");
+    let config2G3n3210 = document.getElementsByClassName("total-config2-g3n3210");
+    let config2G3n3310 = document.getElementsByClassName("total-config2-g3n3310");
+    let config2G3n6900 = document.getElementsByClassName("total-config2-g3n6900");
+    let config2G3n7900 = document.getElementsByClassName("total-config2-g3n7900");
+
+    /* Total shield gen config 2 */
+    let config2Sg3na01 = document.getElementsByClassName("total-config2-sg3na01");
+    let config2Sg3na02 = document.getElementsByClassName("total-config2-sg3na02");
+    let config2Sg3na03 = document.getElementsByClassName("total-config2-sg3na03");
+    let config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
+    let config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
     loadHangar();
 
     function loadHangar() {
@@ -71,25 +111,6 @@
       inventoryItems[13].getElementsByClassName("quantity-item")[0].innerHTML = quantitySg3nb02[0].innerHTML;
 
       console.log("Loading equipment config1....");
-      /* Total lasers config 1 */
-      let config1Lf1 = document.getElementsByClassName("total-config1-lf1");
-      let config1Lf2 = document.getElementsByClassName("total-config1-lf2");
-      let config1Lf3 = document.getElementsByClassName("total-config1-lf3");
-
-      /* Total speed gen config 1 */
-      let config1G3n1010 = document.getElementsByClassName("total-config1-g3n1010");
-      let config1G3n2010 = document.getElementsByClassName("total-config1-g3n2010");
-      let config1G3n3210 = document.getElementsByClassName("total-config1-g3n3210");
-      let config1G3n3310 = document.getElementsByClassName("total-config1-g3n3310");
-      let config1G3n6900 = document.getElementsByClassName("total-config1-g3n6900");
-      let config1G3n7900 = document.getElementsByClassName("total-config1-g3n7900");
-
-      /* Total shield gen config 1 */
-      let config1Sg3na01 = document.getElementsByClassName("total-config1-sg3na01");
-      let config1Sg3na02 = document.getElementsByClassName("total-config1-sg3na02");
-      let config1Sg3na03 = document.getElementsByClassName("total-config1-sg3na03");
-      let config1Sg3nb01 = document.getElementsByClassName("total-config1-sg3nb01");
-      let config1Sg3nb02 = document.getElementsByClassName("total-config1-sg3nb02");
 
       conf1Lasers.push(config1Lf1[0].innerHTML);
       conf1Lasers.push(config1Lf2[0].innerHTML);
@@ -109,25 +130,6 @@
       conf1Generators.push(config1Sg3nb02[0].innerHTML);
 
       console.log("Loading equipment config2....");
-      /* Total lasers config 2 */
-      let config2Lf1 = document.getElementsByClassName("total-config2-lf1");
-      let config2Lf2 = document.getElementsByClassName("total-config2-lf2");
-      let config2Lf3 = document.getElementsByClassName("total-config2-lf3");
-
-      /* Total speed gen config 2 */
-      let config2G3n1010 = document.getElementsByClassName("total-config2-g3n1010");
-      let config2G3n2010 = document.getElementsByClassName("total-config2-g3n2010");
-      let config2G3n3210 = document.getElementsByClassName("total-config2-g3n3210");
-      let config2G3n3310 = document.getElementsByClassName("total-config2-g3n3310");
-      let config2G3n6900 = document.getElementsByClassName("total-config2-g3n6900");
-      let config2G3n7900 = document.getElementsByClassName("total-config2-g3n7900");
-
-      /* Total shield gen config 2 */
-      let config2Sg3na01 = document.getElementsByClassName("total-config2-sg3na01");
-      let config2Sg3na02 = document.getElementsByClassName("total-config2-sg3na02");
-      let config2Sg3na03 = document.getElementsByClassName("total-config2-sg3na03");
-      let config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
-      let config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
 
       conf2Lasers.push(config2Lf1[0].innerHTML);
       conf2Lasers.push(config2Lf2[0].innerHTML);
@@ -147,7 +149,8 @@
       conf2Generators.push(config2Sg3nb02[0].innerHTML);
 
       console.log("[To-Do] Loading equipment (P.E.T. 15)....");
-
+      /* To-Do */
+      
       console.log("[In process] Showing the equipment....");
       /*
        * Algorith to show the equipment
@@ -173,7 +176,6 @@
             }
           }
         }
-
       });
 
       conf1Generators.forEach((value, index, array) => {
@@ -277,7 +279,6 @@
           }
         }
       });
-
     }
 
 
