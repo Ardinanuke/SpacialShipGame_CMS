@@ -35,22 +35,22 @@
       */
       console.log("Loading inventory....");
       /* lasers */
-      var quantityLf1 = document.getElementsByClassName("total-inventory-lf1");
-      var quantityLf2 = document.getElementsByClassName("total-inventory-lf2");
-      var quantityLf3 = document.getElementsByClassName("total-inventory-lf3");
+      let quantityLf1 = document.getElementsByClassName("total-inventory-lf1");
+      let quantityLf2 = document.getElementsByClassName("total-inventory-lf2");
+      let quantityLf3 = document.getElementsByClassName("total-inventory-lf3");
       /* Speed gen */
-      var quantityG3n1010 = document.getElementsByClassName("total-inventory-g3n1010");
-      var quantityG3n2010 = document.getElementsByClassName("total-inventory-g3n2010");
-      var quantityG3n3210 = document.getElementsByClassName("total-inventory-g3n3210");
-      var quantityG3n3310 = document.getElementsByClassName("total-inventory-g3n3310");
-      var quantityG3n6900 = document.getElementsByClassName("total-inventory-g3n6900");
-      var quantityG3n7900 = document.getElementsByClassName("total-inventory-g3n7900");
+      let quantityG3n1010 = document.getElementsByClassName("total-inventory-g3n1010");
+      let quantityG3n2010 = document.getElementsByClassName("total-inventory-g3n2010");
+      let quantityG3n3210 = document.getElementsByClassName("total-inventory-g3n3210");
+      let quantityG3n3310 = document.getElementsByClassName("total-inventory-g3n3310");
+      let quantityG3n6900 = document.getElementsByClassName("total-inventory-g3n6900");
+      let quantityG3n7900 = document.getElementsByClassName("total-inventory-g3n7900");
       /* shield gen */
-      var quantitySg3na01 = document.getElementsByClassName("total-inventory-sg3na01");
-      var quantitySg3na02 = document.getElementsByClassName("total-inventory-sg3na02");
-      var quantitySg3na03 = document.getElementsByClassName("total-inventory-sg3na03");
-      var quantitySg3nb01 = document.getElementsByClassName("total-inventory-sg3nb01");
-      var quantitySg3nb02 = document.getElementsByClassName("total-inventory-sg3nb02");
+      let quantitySg3na01 = document.getElementsByClassName("total-inventory-sg3na01");
+      let quantitySg3na02 = document.getElementsByClassName("total-inventory-sg3na02");
+      let quantitySg3na03 = document.getElementsByClassName("total-inventory-sg3na03");
+      let quantitySg3nb01 = document.getElementsByClassName("total-inventory-sg3nb01");
+      let quantitySg3nb02 = document.getElementsByClassName("total-inventory-sg3nb02");
 
       /* Update lasers */
       inventoryItems[0].getElementsByClassName("quantity-item")[0].innerHTML = quantityLf1[0].innerHTML;
@@ -72,24 +72,24 @@
 
       console.log("Loading equipment config1....");
       /* Total lasers config 1 */
-      var config1Lf1 = document.getElementsByClassName("total-config1-lf1");
-      var config1Lf2 = document.getElementsByClassName("total-config1-lf2");
-      var config1Lf3 = document.getElementsByClassName("total-config1-lf3");
+      let config1Lf1 = document.getElementsByClassName("total-config1-lf1");
+      let config1Lf2 = document.getElementsByClassName("total-config1-lf2");
+      let config1Lf3 = document.getElementsByClassName("total-config1-lf3");
 
       /* Total speed gen config 1 */
-      var config1G3n1010 = document.getElementsByClassName("total-config1-g3n1010");
-      var config1G3n2010 = document.getElementsByClassName("total-config1-g3n2010");
-      var config1G3n3210 = document.getElementsByClassName("total-config1-g3n3210");
-      var config1G3n3310 = document.getElementsByClassName("total-config1-g3n3310");
-      var config1G3n6900 = document.getElementsByClassName("total-config1-g3n6900");
-      var config1G3n7900 = document.getElementsByClassName("total-config1-g3n7900");
+      let config1G3n1010 = document.getElementsByClassName("total-config1-g3n1010");
+      let config1G3n2010 = document.getElementsByClassName("total-config1-g3n2010");
+      let config1G3n3210 = document.getElementsByClassName("total-config1-g3n3210");
+      let config1G3n3310 = document.getElementsByClassName("total-config1-g3n3310");
+      let config1G3n6900 = document.getElementsByClassName("total-config1-g3n6900");
+      let config1G3n7900 = document.getElementsByClassName("total-config1-g3n7900");
 
       /* Total shield gen config 1 */
-      var config1Sg3na01 = document.getElementsByClassName("total-config1-sg3na01");
-      var config1Sg3na02 = document.getElementsByClassName("total-config1-sg3na02");
-      var config1Sg3na03 = document.getElementsByClassName("total-config1-sg3na03");
-      var config1Sg3nb01 = document.getElementsByClassName("total-config1-sg3nb01");
-      var config1Sg3nb02 = document.getElementsByClassName("total-config1-sg3nb02");
+      let config1Sg3na01 = document.getElementsByClassName("total-config1-sg3na01");
+      let config1Sg3na02 = document.getElementsByClassName("total-config1-sg3na02");
+      let config1Sg3na03 = document.getElementsByClassName("total-config1-sg3na03");
+      let config1Sg3nb01 = document.getElementsByClassName("total-config1-sg3nb01");
+      let config1Sg3nb02 = document.getElementsByClassName("total-config1-sg3nb02");
 
       conf1Lasers.push(config1Lf1[0].innerHTML);
       conf1Lasers.push(config1Lf2[0].innerHTML);
@@ -110,24 +110,24 @@
 
       console.log("Loading equipment config2....");
       /* Total lasers config 2 */
-      var config2Lf1 = document.getElementsByClassName("total-config2-lf1");
-      var config2Lf2 = document.getElementsByClassName("total-config2-lf2");
-      var config2Lf3 = document.getElementsByClassName("total-config2-lf3");
+      let config2Lf1 = document.getElementsByClassName("total-config2-lf1");
+      let config2Lf2 = document.getElementsByClassName("total-config2-lf2");
+      let config2Lf3 = document.getElementsByClassName("total-config2-lf3");
 
       /* Total speed gen config 2 */
-      var config2G3n1010 = document.getElementsByClassName("total-config2-g3n1010");
-      var config2G3n2010 = document.getElementsByClassName("total-config2-g3n2010");
-      var config2G3n3210 = document.getElementsByClassName("total-config2-g3n3210");
-      var config2G3n3310 = document.getElementsByClassName("total-config2-g3n3310");
-      var config2G3n6900 = document.getElementsByClassName("total-config2-g3n6900");
-      var config2G3n7900 = document.getElementsByClassName("total-config2-g3n7900");
+      let config2G3n1010 = document.getElementsByClassName("total-config2-g3n1010");
+      let config2G3n2010 = document.getElementsByClassName("total-config2-g3n2010");
+      let config2G3n3210 = document.getElementsByClassName("total-config2-g3n3210");
+      let config2G3n3310 = document.getElementsByClassName("total-config2-g3n3310");
+      let config2G3n6900 = document.getElementsByClassName("total-config2-g3n6900");
+      let config2G3n7900 = document.getElementsByClassName("total-config2-g3n7900");
 
       /* Total shield gen config 2 */
-      var config2Sg3na01 = document.getElementsByClassName("total-config2-sg3na01");
-      var config2Sg3na02 = document.getElementsByClassName("total-config2-sg3na02");
-      var config2Sg3na03 = document.getElementsByClassName("total-config2-sg3na03");
-      var config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
-      var config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
+      let config2Sg3na01 = document.getElementsByClassName("total-config2-sg3na01");
+      let config2Sg3na02 = document.getElementsByClassName("total-config2-sg3na02");
+      let config2Sg3na03 = document.getElementsByClassName("total-config2-sg3na03");
+      let config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
+      let config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
 
       conf2Lasers.push(config2Lf1[0].innerHTML);
       conf2Lasers.push(config2Lf2[0].innerHTML);
@@ -149,16 +149,13 @@
       console.log("[To-Do] Loading equipment (P.E.T. 15)....");
 
       console.log("[In process] Showing the equipment....");
-      /**
+      /*
        * Algorith to show the equipment
-       * 
-       * 2. Add all to array
-       * 2. in a for loop if anyone is >= 1 add the image to slot.
        */
-      var slotLasersConf1 = document.getElementById("lasers-conf1").children;
-      var slotGeneratorsConf1 = document.getElementById("generators-conf1").children;
-      var slotLasersConf2 = document.getElementById("lasers-conf2").children;
-      var slotGeneratorsConf2 = document.getElementById("generators-conf2").children;
+      let slotLasersConf1 = document.getElementById("lasers-conf1").children;
+      let slotGeneratorsConf1 = document.getElementById("generators-conf1").children;
+      let slotLasersConf2 = document.getElementById("lasers-conf2").children;
+      let slotGeneratorsConf2 = document.getElementById("generators-conf2").children;
 
       conf1Lasers.forEach((value, index, array) => {
         if (value >= MIN_ITEMS) {
@@ -176,6 +173,7 @@
             }
           }
         }
+
       });
 
       conf1Generators.forEach((value, index, array) => {
@@ -282,6 +280,7 @@
 
     }
 
+
     /*
     Website functions
     */
@@ -307,13 +306,13 @@
      API USAGE 
     */
     function changeShipAPI(userParams) {
-      var http = new XMLHttpRequest();
-      var params = userParams;
+      let http = new XMLHttpRequest();
+      let params = userParams;
       http.open("POST", URL, true);
       http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
-          var json = jQuery.parseJSON(http.responseText);
+          let json = jQuery.parseJSON(http.responseText);
           if (json.status) {
             showToast("ship succesfully changed", "green");
           } else if (json.message != "") {
@@ -325,7 +324,7 @@
     }
 
     function showToast(text, color) {
-      var alert = document.getElementById("snackbar");
+      let alert = document.getElementById("snackbar");
       alert.className = "show";
       alert.innerHTML = text;
       alert.style.backgroundColor = color;
