@@ -178,6 +178,108 @@
         }
       });
 
+      conf1Generators.forEach((value, index, array) => {
+        if (value >= MIN_ITEMS) {
+          for (let position = 0; position < value; position++) {
+            switch (index) {
+              case G3N1010:
+                slotGeneratorsConf1[position].innerHTML = "G3N1010";
+                break;
+              case G3N2010:
+                slotGeneratorsConf1[position].innerHTML = "G3N2010";
+                break;
+              case G3N3210:
+                slotGeneratorsConf1[position].innerHTML = "G3N3210";
+                break;
+              case G3N3310:
+                slotGeneratorsConf1[position].innerHTML = "G3N3310";
+                break;
+              case G3N6900:
+                slotGeneratorsConf1[position].innerHTML = "G3N6900";
+                break;
+              case G3N7900:
+                slotGeneratorsConf1[position].innerHTML = "G3N7900";
+                break;
+              case SG3NA01:
+                slotGeneratorsConf1[position].innerHTML = "SG3NA01";
+                break;
+              case SG3NA02:
+                slotGeneratorsConf1[position].innerHTML = "SG3NA02";
+                break;
+              case SG3NA03:
+                slotGeneratorsConf1[position].innerHTML = "SG3NA03";
+                break;
+              case SG3NB01:
+                slotGeneratorsConf1[position].innerHTML = "SG3NB01";
+                break;
+              case SG3NB02:
+                slotGeneratorsConf1[position].innerHTML = "SG3NB02";
+                break;
+            }
+          }
+        }
+      });
+
+      conf2Lasers.forEach((value, index, array) => {
+        if (value >= MIN_ITEMS) {
+          for (let position = 0; position < value; position++) {
+            switch (index) {
+              case LF1:
+                slotLasersConf2[position].innerHTML = "lf1";
+                break;
+              case LF2:
+                slotLasersConf2[position].innerHTML = "lf2";
+                break;
+              case LF3:
+                slotLasersConf2[position].innerHTML = "lf3";
+                break;
+            }
+          }
+        }
+      });
+
+      conf2Generators.forEach((value, index, array) => {
+        if (value >= MIN_ITEMS) {
+          for (let position = 0; position < value; position++) {
+            switch (index) {
+              case G3N1010:
+                slotGeneratorsConf2[position].innerHTML = "G3N1010";
+                break;
+              case G3N2010:
+                slotGeneratorsConf2[position].innerHTML = "G3N2010";
+                break;
+              case G3N3210:
+                slotGeneratorsConf2[position].innerHTML = "G3N3210";
+                break;
+              case G3N3310:
+                slotGeneratorsConf2[position].innerHTML = "G3N3310";
+                break;
+              case G3N6900:
+                slotGeneratorsConf2[position].innerHTML = "G3N6900";
+                break;
+              case G3N7900:
+                slotGeneratorsConf2[position].innerHTML = "G3N7900";
+                break;
+              case SG3NA01:
+                slotGeneratorsConf2[position].innerHTML = "SG3NA01";
+                break;
+              case SG3NA02:
+                slotGeneratorsConf2[position].innerHTML = "SG3NA02";
+                break;
+              case SG3NA03:
+                slotGeneratorsConf2[position].innerHTML = "SG3NA03";
+                break;
+              case SG3NB01:
+                slotGeneratorsConf2[position].innerHTML = "SG3NB01";
+                break;
+              case SG3NB02:
+                slotGeneratorsConf2[position].innerHTML = "SG3NB02";
+                break;
+            }
+          }
+        }
+      });
+
     }
 
     /*
