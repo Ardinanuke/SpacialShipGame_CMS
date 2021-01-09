@@ -459,8 +459,9 @@
                 echo "<p class='total-inventory-sg3nb01'>" . $sg3nb01Count . "</p>";
                 $sg3nb02Count = json_decode($equipment['items'])->sg3nb02Count;
                 echo "<p class='total-inventory-sg3nb02'>" . $sg3nb02Count . "</p>";
-
-
+                //Ships tats
+                echo "<p class='ship-lasers'>".$currentShip['lasers']."</p>";
+                echo "<p class='ship-generators'>".$currentShip['generators']."</p>";
                 //Isn't available by the moment.
                 $havocCount = json_decode($equipment['items'])->havocCount;
                 $herculesCount = json_decode($equipment['items'])->herculesCount;

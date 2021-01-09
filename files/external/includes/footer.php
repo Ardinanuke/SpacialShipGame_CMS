@@ -2,12 +2,30 @@
   <script>
     const URL = "http://127.0.0.1/api/";
     const MIN_ITEMS = 1;
+    
+    /* tab enums*/
+    const config = {
+      ONE: 1,
+      TWO: 2
+    };
+
+    const view = {
+      SHIP: 1,
+      VANTS: 2,
+      PET: 3
+    };
+
+    /* Equipment tabs flags */
+    let configuration = 1;
+    let tab = 1; 
+
     /* constants lasers */
     const lasers = {
       LF1: 0,
       LF2: 1,
       LF3: 2,
     };
+
     /* constants generators */
     const generators = {
       G3N1010: 0,
@@ -22,8 +40,9 @@
       SG3NB01: 9,
       SG3NB02: 10,
     };
+
     /* constants of items positions */
-    const inventoryItem = {
+    const items = {
       LF1: 0,
       LF2: 1,
       LF3: 2,
@@ -40,13 +59,21 @@
       SG3NB02: 12,
     };
 
+    /* ship stats */
+    let shipLasers = document.getElementsByClassName('ship-lasers')[0].innerHTML;
+    let shipGenerators = document.getElementsByClassName('ship-generators')[0].innerHTML;
+    /* totals */
+    let totalLasersConf1 = document.getElementsByClassName('total-config1-lasers')[0].innerHTML;
+    let totalGeneratorsConf1 = document.getElementsByClassName('total-config1-generators')[0].innerHTML;
+    let totalLasersConf2 = document.getElementsByClassName('total-config2-lasers')[0].innerHTML;
+    let totalGeneratorsConf2 = document.getElementsByClassName('total-config2-generators')[0].innerHTML;
+
     let inventoryItems = document.getElementsByClassName('inventory-item');
 
     let conf1Lasers = [];
     let conf1Generators = [];
     let conf2Lasers = [];
     let conf2Generators = [];
-
 
     /* Total lasers config 1 */
     let config1Lf1 = document.getElementsByClassName("total-config1-lf1");
@@ -87,7 +114,7 @@
     let config2Sg3na03 = document.getElementsByClassName("total-config2-sg3na03");
     let config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
     let config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
-    
+
     loadHangar();
 
     /*
@@ -99,15 +126,40 @@
 
     function selectInventoryItem(itemId) {
       let quantityItems = inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML;
+
       if (quantityItems != 0) {
-        /* 
+        /*
         Algorithm to add item to inventory 
         1. Check in the server if the player have the item
         2. Add to the grid
         */
-
+        switch (itemId) {
+          case items.LF1:
+          case items.LF2:
+          case items.LF3:
+            /* verify the quantity of lasers */
+            if(totalLasersConf1 < shipLasers){
+              console.log("bien");
+            }
+            break;
+          case items.G3N1010:
+          case items.G3N2010:
+          case items.G3N3210:
+          case items.G3N3310:
+          case items.G3N6900:
+          case items.G3N7900:
+          case items.SG3NA01:
+          case items.SG3NA02:
+          case items.SG3NA03:
+          case items.SG3NB01:
+          case items.SG3NB02:
+            /* verify the quantity of generators */
+            if(totalLasersConf1 < shipLasers){
+              console.log("bien");
+            }
+            break;
+        }
         inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML = quantityItems - 1;
-
       } else {
         showToast("you haven't this item", "red");
       }
