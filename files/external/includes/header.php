@@ -349,6 +349,10 @@
         left: -9999px;
       }
 
+      .selected-config{
+        border: solid white 1px !important;
+      }
+
 
 
 

@@ -136,7 +136,7 @@
       if (quantityItems != 0) {
         /*
         Algorithm to add item to inventory 
-        1. Check in the server if the player have the item
+        1. Check in the server if the player have the item 
         2. Add to the grid
         */
         switch (itemId) {
@@ -149,9 +149,21 @@
                 switch (tab) {
                   case view.SHIP:
                     if (totalLasersConf1 < shipLasers) {
-                      slotLasersConf1[totalLasersConf1].innerHTML = "test";
+                      switch (itemId) {
+                        case items.LF1:
+                          slotLasersConf1[totalLasersConf1].innerHTML = "lf1";
+                          break;
+                        case items.LF2:
+                          slotLasersConf1[totalLasersConf1].innerHTML = "lf2";
+                          break;
+                        case items.LF3:
+                          slotLasersConf1[totalLasersConf1].innerHTML = "lf3";
+                          break;
+                      }
+                      inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML = quantityItems - 1;
+                      totalLasersConf1++;
                     } else {
-                      console.log("lol");
+                      showToast("Config1 of lasers full", "red");
                     }
                     break;
                   case view.VANTS:
@@ -171,8 +183,6 @@
                 break;
             }
 
-
-
             break;
           case items.G3N1010:
           case items.G3N2010:
@@ -188,7 +198,6 @@
             /* verify the quantity of generators */
             break;
         }
-        inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML = quantityItems - 1;
       } else {
         showToast("you haven't this item", "red");
       }
@@ -433,6 +442,24 @@
       setTimeout(function() {
         alert.className = alert.className.replace("show", "");
       }, 3000);
+    }
+
+    function changeConfig(newConfig) {
+      let buttonConf1 = document.getElementById("config1-button");
+      let buttonConf2 = document.getElementById("config2-button");
+
+      configuration = newConfig;
+
+      switch (configuration) {
+        case config.ONE:
+          buttonConf1.classList.add("selected-config");
+          buttonConf2.classList.remove("selected-config");
+          break;
+        case config.TWO:
+          buttonConf1.classList.remove("selected-config");
+          buttonConf2.classList.add("selected-config");
+          break;
+      }
     }
   </script>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

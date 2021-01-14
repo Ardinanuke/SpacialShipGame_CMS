@@ -470,8 +470,8 @@
                 ?>
             </div>
             <p>Configuration</p>
-            <button style="background-color: black; border: none;">1</button>
-            <button style="background-color: black; border: none;">2</button>
+            <button style="background-color: black; border: none;" onclick="changeConfig(1)" id="config1-button" class="selected-config">1</button>
+            <button style="background-color: black; border: none;" onclick="changeConfig(2)" id="config2-button">2</button>
             <br><br>
             <button style="background-color: black; border: none;">SHIP</button>
             <button style="background-color: black; border: none;">VANTS</button>
