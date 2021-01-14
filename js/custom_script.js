@@ -1,4 +1,4 @@
-let url = "http://127.0.0.1/api/";
+const url = "http://127.0.0.1/api/"; /* change this in production pls */
 
 //Login form
 let username = document.getElementById("username");

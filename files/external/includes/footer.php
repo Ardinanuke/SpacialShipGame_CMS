@@ -1,8 +1,8 @@
 <?php if (Functions::IsLoggedIn()) { ?>
   <script>
-    const URL = "http://127.0.0.1/api/";
+    const URL = "http://127.0.0.1/api/"; /* change this in production pls */
     const MIN_ITEMS = 1;
-    
+
     /* tab enums*/
     const config = {
       ONE: 1,
@@ -16,8 +16,8 @@
     };
 
     /* Equipment tabs flags */
-    let configuration = 1;
-    let tab = 1; 
+    let configuration = config.ONE;
+    let tab = view.SHIP;
 
     /* constants lasers */
     const lasers = {
@@ -41,7 +41,7 @@
       SG3NB02: 10,
     };
 
-    /* constants of items positions */
+    /* constants of all items in inventory (his respective positions) */
     const items = {
       LF1: 0,
       LF2: 1,
@@ -115,6 +115,12 @@
     let config2Sg3nb01 = document.getElementsByClassName("total-config2-sg3nb01");
     let config2Sg3nb02 = document.getElementsByClassName("total-config2-sg3nb02");
 
+    /* slots */
+    let slotLasersConf1 = document.getElementById("lasers-conf1").children;
+    let slotGeneratorsConf1 = document.getElementById("generators-conf1").children;
+    let slotLasersConf2 = document.getElementById("lasers-conf2").children;
+    let slotGeneratorsConf2 = document.getElementById("generators-conf2").children;
+
     loadHangar();
 
     /*
@@ -138,9 +144,35 @@
           case items.LF2:
           case items.LF3:
             /* verify the quantity of lasers */
-            if(totalLasersConf1 < shipLasers){
-              console.log("bien");
+            switch (configuration) {
+              case config.ONE:
+                switch (tab) {
+                  case view.SHIP:
+                    if (totalLasersConf1 < shipLasers) {
+                      slotLasersConf1[totalLasersConf1].innerHTML = "test";
+                    } else {
+                      console.log("lol");
+                    }
+                    break;
+                  case view.VANTS:
+                    /* to-do */
+                    break;
+                }
+                break;
+              case config.TWO:
+                switch (tab) {
+                  case view.SHIP:
+                    /* to-do */
+                    break;
+                  case view.VANTS:
+                    /* to-do */
+                    break;
+                }
+                break;
             }
+
+
+
             break;
           case items.G3N1010:
           case items.G3N2010:
@@ -154,9 +186,6 @@
           case items.SG3NB01:
           case items.SG3NB02:
             /* verify the quantity of generators */
-            if(totalLasersConf1 < shipLasers){
-              console.log("bien");
-            }
             break;
         }
         inventoryItems[itemId].getElementsByClassName("quantity-item")[0].innerHTML = quantityItems - 1;
@@ -273,10 +302,7 @@
       /*
        * Algorith to show the equipment
        */
-      let slotLasersConf1 = document.getElementById("lasers-conf1").children;
-      let slotGeneratorsConf1 = document.getElementById("generators-conf1").children;
-      let slotLasersConf2 = document.getElementById("lasers-conf2").children;
-      let slotGeneratorsConf2 = document.getElementById("generators-conf2").children;
+
 
       conf1Lasers.forEach((value, index, array) => {
         if (value >= MIN_ITEMS) {
